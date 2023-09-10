@@ -1,5 +1,5 @@
 import { type GetServerSidePropsContext } from "next";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { SupabaseAdapter } from "@next-auth/supabase-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import {
   getServerSession,
@@ -10,7 +10,7 @@ import {
 import { randomBytes, randomUUID } from "crypto";
 
 import { env } from "@/env.mjs";
-import { prisma } from "@/server/db";
+import { signInWithEmail } from "./supabase";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -40,7 +40,10 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   secret: env.NEXTAUTH_SECRET,
-  adapter: PrismaAdapter(prisma),
+  adapter: SupabaseAdapter({
+    url: env.NEXT_PUBLIC_SUPABASE_URL,
+    secret: env.SUPABASE_SERVICE_ROLE_KEY,
+  }),
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
@@ -58,11 +61,18 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        // Add logic here to look up the user from the credentials supplied
-        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
-        if (user) {
+        const { data, error } = await signInWithEmail(
+          credentials!.email,
+          credentials!.password
+        );
+        if (error) {
+          console.log(`${error.name}: ${error.message}`);
+          return null;
+        }
+
+        if (data.user) {
           // Any object returned will be saved in `user` property of the JWT
-          return user;
+          return data.user;
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
           return null;

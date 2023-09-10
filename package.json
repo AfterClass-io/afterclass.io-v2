@@ -11,8 +11,9 @@
   },
   "dependencies": {
     "@ctrl/tinycolor": "^4.0.2",
-    "@next-auth/prisma-adapter": "^1.0.5",
+    "@next-auth/supabase-adapter": "^0.2.1",
     "@prisma/client": "5",
+    "@supabase/supabase-js": "^2.33.1",
     "@t3-oss/env-nextjs": "^0.3.1",
     "@tanstack/react-query": "^4.29.7",
     "@trpc/client": "^10.26.0",
