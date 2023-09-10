@@ -1,9 +1,7 @@
 import { type PropsWithChildren } from "react";
 
-/**
- * eslint-disable no-empty-interface
- * !To be removed when the component is implemented
- */
+// !To be removed when the component is implemented
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 interface Props extends PropsWithChildren {}
 
 export const CoreLayout = ({ children }: Props) => {
