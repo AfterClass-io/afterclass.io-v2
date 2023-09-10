@@ -6,6 +6,7 @@ import {
   type NextAuthOptions,
   type DefaultSession,
 } from "next-auth";
+import { z } from "zod";
 
 import { randomBytes, randomUUID } from "crypto";
 
@@ -61,10 +62,12 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const { data, error } = await signInWithEmail(
-          credentials!.email,
-          credentials!.password
-        );
+        const Credential = z.object({
+          email: z.string().email(),
+          password: z.string(),
+        });
+        const c = Credential.parse(credentials);
+        const { data, error } = await signInWithEmail(c.email, c.password);
         if (error) {
           console.log(`${error.name}: ${error.message}`);
           return null;
