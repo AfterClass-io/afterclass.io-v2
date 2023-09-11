@@ -59,7 +59,7 @@ function AuthShowcase() {
     <div className="flex flex-col items-center justify-center gap-4">
       {(sessionData || secretMessage) && (
         <p className="text-center text-2xl text-white">
-          {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
+          {sessionData && <span>Logged in as {sessionData.user?.email}</span>}
           {secretMessage && <span> - {secretMessage}</span>}
         </p>
       )}
