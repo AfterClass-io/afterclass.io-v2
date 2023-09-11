@@ -4,6 +4,9 @@ import { APP_THEMES } from "@/common/tools/tailwind/themes/appTheme";
 import { useTheme } from "next-themes";
 import { useState, useEffect, useCallback } from "react";
 import { PageHead } from "@/common/components/PageHead";
+import { Icon } from "@iconify-icon/react";
+import { CrossIcon } from "@/common/components/CustomIcon/CrossIcon";
+import { StarLineAltIcon } from "@/common/components/CustomIcon";
 
 export default function Home() {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -28,11 +31,13 @@ export default function Home() {
         </div>
         {isMounted && (
           <button
-            className="mx-auto rounded-md bg-primary-default p-3 text-text-on-primary"
+            className="mx-auto flex items-center gap-2 rounded-md bg-primary-default p-3 text-text-on-primary"
             // data-theme="light"
             onClick={handleToggleTheme}
           >
-            Toggle theme: Current {theme}
+            <Icon icon="uil:chart-line" width={16} />
+            <StarLineAltIcon size={16} />
+            <span>Toggle theme: Current {theme}</span>
           </button>
         )}
         <div className="mx-auto flex w-fit flex-col items-center justify-center gap-3 rounded-md bg-bg-alt p-6">

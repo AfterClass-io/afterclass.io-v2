@@ -2,6 +2,20 @@
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
+## Icons
+
+### How do I use icons from libraries like mdi or other libs?
+
+We are using a library called Iconify.
+
+On Figma, if the icon layer name is formatted like `uil:chart-line`, then it's likely using an icon from Iconify. Otherwise, see below for custom icon implementation.
+
+Please also refer to Iconify guide [here](https://github.com/iconify/iconify/tree/main/iconify-icon/react)
+
+### How do I create custom icons that are not from Iconify?
+
+Refer to the README [here](https://github.com/AfterClass-io/afterclass.io-v2/tree/main/src/common/components/CustomIcon/README.md)
+
 ## Theming System
 
 Our theming system uses the Tailwind Plugin function to generate 2 things
