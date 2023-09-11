@@ -5,7 +5,6 @@ import { useTheme } from "next-themes";
 import { useState, useEffect, useCallback } from "react";
 import { PageHead } from "@/common/components/PageHead";
 import { Icon } from "@iconify-icon/react";
-import { CrossIcon } from "@/common/components/CustomIcon/CrossIcon";
 import { StarLineAltIcon } from "@/common/components/CustomIcon";
 
 export default function Home() {
