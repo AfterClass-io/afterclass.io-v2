@@ -12,57 +12,185 @@ datasource db {
     // Further reading:
     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
     // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-    url      = env("DATABASE_URL")
+    url       = env("DATABASE_URL")
     directUrl = env("DIRECT_URL")
 }
 
-model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Reviews {
+    id                   Int            @id @default(autoincrement())
+    body                 String
+    tips                 String?
+    rating               Int
+    reviewedProfessor    Professors     @relation(fields: [reviewedProfessorId], references: [id])
+    reviewedProfessorId  Int            @map("reviewed_professor")
+    reviewedCourse       Courses        @relation(fields: [reviewedCourseId], references: [id])
+    reviewedCourseId     Int            @map("reviewed_course")
+    reviewerUniveristy   Universities   @relation(fields: [reviewerUniveristyId], references: [id])
+    reviewerUniveristyId Int            @map("reviewer_university")
+    reviewerFaculty      Faculties      @relation(fields: [reviewerFacultyId], references: [id])
+    reviewerFacultyId    Int            @map("reviewer_faculty")
+    reviewer             Users          @relation(fields: [reviewerId], references: [id])
+    reviewerId           Int            @map("reviewer")
+    createdAt            DateTime       @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt            DateTime       @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(3)
+    Votes                Votes[]
+    ReviewLabels         ReviewLabels[]
 }
 
-// Necessary for Next auth
-model Account {
-    id                String  @id @default(cuid())
-    userId            String
-    type              String
-    provider          String
-    providerAccountId String
-    refresh_token     String? @db.Text
-    access_token      String? @db.Text
-    expires_at        Int?
-    token_type        String?
-    scope             String?
-    id_token          String? @db.Text
-    session_state     String?
-    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-    @@unique([provider, providerAccountId])
+model Users {
+    id           Int          @id @default(autoincrement())
+    username     String       @unique
+    firstName    String       @map("first_name")
+    lastName     String       @map("last_name")
+    email        String       @unique
+    telegramId   String?      @unique @map("telegram_id")
+    photoUrl     String?      @map("photo_url")
+    isVerified   Boolean      @default(false) @map("is_verified")
+    university   Universities @relation(fields: [universityId], references: [id])
+    universityId Int          @map("university_id")
+    faculty      Faculties    @relation(fields: [facultyId], references: [id])
+    facultyId    Int          @map("faculty_id")
+    createdAt    DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt    DateTime     @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(3)
+    reviews      Reviews[]
+    Votes        Votes[]
 }
 
-model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Universities {
+    id         Int          @id @default(autoincrement())
+    name       Unversity
+    siteUrl    String       @unique @map("site_url")
+    createdAt  DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt  DateTime     @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(3)
+    Reviews    Reviews[]
+    Users      Users[]
+    Courses    Courses[]
+    Professors Professors[]
+    Faculties  Faculties[]
 }
 
-model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
+model Courses {
+    id                   Int               @id @default(autoincrement())
+    code                 String
+    name                 String
+    description          String
+    creditUnits          Int               @map("credit_units")
+    belongToUniversity   Universities      @relation(fields: [belongToUniversityId], references: [id])
+    belongToUniversityId Int               @map("belong_to_university")
+    belongToFaculty      Faculties         @relation(fields: [belongToFacultyId], references: [id])
+    belongToFacultyId    Int               @map("belong_to_faculty")
+    createdAt            DateTime          @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt            DateTime          @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(3)
+    Reviews              Reviews[]
+    Classes              Classes[]
+    ReviewStatistic      ReviewStatistic[]
 }
 
-model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+model Professors {
+    id                   Int               @id @default(autoincrement())
+    name                 String
+    belongToUniversity   Universities      @relation(fields: [belongToUniversityId], references: [id])
+    belongToUniversityId Int               @map("belong_to_university")
+    belongToFaculty      Faculties         @relation(fields: [belongToFacultyId], references: [id])
+    belongToFacultyId    Int               @map("belong_to_faculty")
+    Reviews              Reviews[]
+    Classes              Classes[]
+    ReviewStatistic      ReviewStatistic[]
+    createdAt            DateTime          @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt            DateTime          @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(3)
+}
 
-    @@unique([identifier, token])
+model Faculties {
+    id                   Int          @id @default(autoincrement())
+    name                 String
+    siteUrl              String       @unique @map("site_url")
+    belongToUniversity   Universities @relation(fields: [belongToUniversityId], references: [id])
+    belongToUniversityId Int          @map("belong_to_university")
+    Reviews              Reviews[]
+    Users                Users[]
+    Courses              Courses[]
+    Professors           Professors[]
+    createdAt            DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt            DateTime     @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(3)
+}
+
+model Classes {
+    id          Int        @id @default(autoincrement())
+    course      Courses    @relation(fields: [courseId], references: [id])
+    courseId    Int        @map("course_id")
+    professor   Professors @relation(fields: [professorId], references: [id])
+    professorId Int        @map("professor_id")
+}
+
+model Votes {
+    id        Int      @id @default(autoincrement())
+    review    Reviews  @relation(fields: [reviewId], references: [id])
+    reviewId  Int      @map("review_id")
+    voter     Users    @relation(fields: [voterId], references: [id])
+    voterId   Int      @map("voter_id")
+    createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(3)
+}
+
+model Labels {
+    id                   Int                    @id @default(autoincrement())
+    name                 ReviewLabelName
+    typeOf               ReviewLabelType        @map("type_of")
+    ReviewLabels         ReviewLabels[]
+    ReviewLabelStatistic ReviewLabelStatistic[]
+    createdAt            DateTime               @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt            DateTime               @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(3)
+}
+
+model ReviewLabels {
+    id        Int      @id @default(autoincrement())
+    label     Labels   @relation(fields: [labelId], references: [id])
+    labelId   Int      @map("label_id")
+    review    Reviews  @relation(fields: [reviewId], references: [id])
+    reviewId  Int      @map("review_id")
+    createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(3)
+}
+
+model ReviewLabelStatistic {
+    id                Int             @id @default(autoincrement())
+    average           Float
+    label             Labels          @relation(fields: [labelId], references: [id])
+    labelId           Int             @map("label_id")
+    reviewStatistic   ReviewStatistic @relation(fields: [reviewStatisticId], references: [id])
+    reviewStatisticId Int             @map("review_statistic_id")
+    createdAt         DateTime        @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt         DateTime        @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(3)
+}
+
+model ReviewStatistic {
+    id                   Int                    @id @default(autoincrement())
+    average              Float
+    reviewedProfessor    Professors             @relation(fields: [reviewedProfessorId], references: [id])
+    reviewedProfessorId  Int                    @map("reviewed_professor_id")
+    reviewCourse         Courses                @relation(fields: [reviewCourseId], references: [id])
+    reviewCourseId       Int                    @map("review_course_id")
+    createdAt            DateTime               @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt            DateTime               @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(3)
+    ReviewLabelStatistic ReviewLabelStatistic[]
+}
+
+enum Unversity {
+    SMU @map("Singapore Management University")
+    NUS @map("National University of Singapore")
+    NTU @map("Nanyang Technological University")
+}
+
+enum ReviewLabelName {
+    COURSE_INTERESTING
+    COURSE_PRACTICAL
+    COURSE_GAINED_NEW_SKILLS
+    PROFESSOR_ENGAGING
+    PROFESSOR_FAIR_GRADING
+    PROFESSOR_EFFECTIVE_TEACHING
+}
+
+enum ReviewLabelType {
+    COURSE
+    PROFESSOR
 }
