@@ -1,7 +1,7 @@
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
 
-export const env = createEnv({
+const e = createEnv({
   /**
    * Specify your server-side environment variables schema here. This way you can ensure the app
    * isn't built with invalid env vars.
@@ -33,6 +33,7 @@ export const env = createEnv({
     // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
     NEXT_PUBLIC_SUPABASE_URL: z.string(),
+    NEXT_PUBLIC_SUPPORTED_EMAIL_DOMAINS: z.string(),
   },
 
   /**
@@ -47,6 +48,8 @@ export const env = createEnv({
     SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    NEXT_PUBLIC_SUPPORTED_EMAIL_DOMAINS:
+      process.env.NEXT_PUBLIC_SUPPORTED_EMAIL_DOMAINS,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
@@ -54,3 +57,11 @@ export const env = createEnv({
    */
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,
 });
+
+export const env = {
+  ...e,
+  NEXT_PUBLIC_SUPPORTED_EMAIL_DOMAINS: z
+    .string()
+    .array()
+    .parse(JSON.parse(e.NEXT_PUBLIC_SUPPORTED_EMAIL_DOMAINS)),
+};
