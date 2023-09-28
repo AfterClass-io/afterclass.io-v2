@@ -3,8 +3,10 @@ import { themingSystemPlugin } from "./src/common/tools/tailwind/plugins/theming
 import { fontFamily } from "tailwindcss/defaultTheme";
 
 import { type Config } from "tailwindcss";
+import { withTV } from "tailwind-variants/dist/transformer";
 
-export default {
+// withTv is required for tailwind-variants resposnive variants to work
+export default withTV({
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
@@ -15,4 +17,4 @@ export default {
     },
   },
   plugins: [themingSystemPlugin],
-} satisfies Config;
+}) satisfies Config;
