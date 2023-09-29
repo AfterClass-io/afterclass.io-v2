@@ -3,3 +3,4 @@ export * from "./StarLineAltIcon";
 export * from "./AfterclassIcon";
 export * from "./BookLineIcon";
 export * from "./DealsIcon";
+export * from "../Logo";
