@@ -29,7 +29,7 @@ export const Sidebar = () => {
             <SidebarItem
               key={item.href}
               {...item}
-              active={router.pathname === item.href}
+              active={router.pathname.startsWith(item.href)}
             />
           ))}
         </ul>
