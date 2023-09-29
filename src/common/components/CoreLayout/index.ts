@@ -1,2 +1,2 @@
 export * from "./CoreLayout";
-export * from "./Sidebar";
+export * from "./Sidebar/Sidebar";
