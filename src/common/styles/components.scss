@@ -1,0 +1,5 @@
+@layer components {
+  .focus-ring {
+    @apply focus-within:border-primary-default focus-within:ring-2 focus-within:ring-primary-default/20;
+  }
+}
