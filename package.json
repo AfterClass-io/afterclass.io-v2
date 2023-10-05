@@ -28,6 +28,7 @@
     "react-dom": "^18.2.0",
     "sass": "^1.66.1",
     "superjson": "1.12.2",
+    "tailwind-variants": "^0.1.14",
     "zod": "^3.21.4"
   },
   "devDependencies": {

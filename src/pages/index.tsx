@@ -6,6 +6,7 @@ import { useState, useEffect, useCallback } from "react";
 import { PageHead } from "@/common/components/PageHead";
 import { Icon } from "@iconify-icon/react";
 import { StarLineAltIcon } from "@/common/components/CustomIcon";
+import { Input } from "@/common/components/Input";
 
 export default function Home() {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -45,6 +46,19 @@ export default function Home() {
             {hello.data ? hello.data.greeting : "Loading tRPC query..."}
           </span>
           <AuthShowcase />
+        </div>
+        <div className="space-y-4">
+          <Input
+            leftContent={<StarLineAltIcon />}
+            rightContent={<StarLineAltIcon />}
+            placeholder="Write here"
+          />
+          <Input
+            leftContent={<StarLineAltIcon size={16} />}
+            rightContent={<StarLineAltIcon size={16} />}
+            placeholder="Write here"
+            size={{ initial: "sm", md: "md" }}
+          />
         </div>
       </section>
     </>
