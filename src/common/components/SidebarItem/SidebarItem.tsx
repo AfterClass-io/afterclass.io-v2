@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { type SidebarListItem } from "./types";
 
 export const SidebarItem = ({
   label,
@@ -23,4 +22,12 @@ export const SidebarItem = ({
       </SidebarLink>
     </li>
   );
+};
+
+export type SidebarListItem = {
+  label: string;
+  icon: React.ReactNode;
+  href: string;
+  active?: boolean;
+  external?: boolean;
 };

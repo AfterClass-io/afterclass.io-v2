@@ -1,5 +1,5 @@
 import { type PropsWithChildren } from "react";
-import { Sidebar } from "./";
+import { Sidebar } from "../Sidebar";
 
 // !To be removed when the component is implemented
 /* eslint-disable-next-line @typescript-eslint/no-empty-interface */

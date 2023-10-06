@@ -1,15 +1,12 @@
 import React from "react";
-import {
-  AfterclassIcon,
-  BookLineIcon,
-  DealsIcon,
-  StarLineAltIcon,
-} from "../../CustomIcon";
+import { BookLineIcon, DealsIcon, StarLineAltIcon } from "../CustomIcon";
 import Link from "next/link";
 import { Icon } from "@iconify-icon/react";
-import { SidebarItem } from "./SidebarItem";
+
 import { useRouter } from "next/router";
-import { type SidebarListItem } from "./types";
+
+import { SidebarItem, type SidebarListItem } from "../SidebarItem";
+import { Logo } from "../Logo/Logo";
 
 export const Sidebar = () => {
   const router = useRouter();
@@ -17,7 +14,7 @@ export const Sidebar = () => {
   return (
     <div className="h-full w-60 space-y-6 border-r border-r-border-elevated px-4 py-5">
       <Link href="/" className="flex items-center px-3 text-primary-default">
-        <AfterclassIcon />
+        <Logo />
       </Link>
       {/* TODO: insert searchbar here */}
       <div className="rounded-md border border-border-elevated px-3 py-2">
