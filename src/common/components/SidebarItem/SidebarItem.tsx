@@ -9,11 +9,11 @@ export const SidebarItem = ({
 }: SidebarListItem) => {
   const SidebarLink = external ? "a" : Link;
   return (
-    <li>
+    <li className="rounded-md bg-gradient-to-r from-element-secondary">
       <SidebarLink
         href={href}
         className={
-          "flex items-center gap-x-3 rounded-md px-3 py-2 hover:bg-gradient-to-r hover:from-element-secondary" +
+          "flex items-center gap-x-3 rounded-md bg-bg-base px-3 py-2 transition duration-200 ease-in-out hover:bg-transparent" +
           (active ? " bg-gradient-to-r from-element-secondary" : "")
         }
       >
