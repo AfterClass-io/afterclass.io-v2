@@ -1,7 +1,7 @@
 import { PageHead } from "@/common/components/PageHead";
 import { AuthCard } from "@/common/components/Auth";
 
-export default function Home() {
+export default function Login() {
   return (
     <>
       <PageHead name="AfterClass" />

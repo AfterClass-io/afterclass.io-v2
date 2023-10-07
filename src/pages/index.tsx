@@ -1,12 +1,15 @@
 import { signIn, signOut, useSession } from "next-auth/react";
-import { api } from "@/utils/api";
-import { APP_THEMES } from "@/common/tools/tailwind/themes/appTheme";
 import { useTheme } from "next-themes";
 import { useState, useEffect, useCallback } from "react";
-import { PageHead } from "@/common/components/PageHead";
 import { Icon } from "@iconify-icon/react";
+
 import { StarLineAltIcon } from "@/common/components/CustomIcon";
+import { PageHead } from "@/common/components/PageHead";
 import { Input } from "@/common/components/Input";
+import { APP_THEMES } from "@/common/tools/tailwind/themes/appTheme";
+import { supabase } from "@/server/supabase";
+import { api } from "@/utils/api";
+import { env } from "@/env.mjs";
 
 export default function Home() {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -73,6 +76,16 @@ function AuthShowcase() {
     { enabled: sessionData?.user !== undefined }
   );
 
+  const [email, setEmail] = useState("");
+  const handleResetPassword = async () => {
+    console.log("reset password");
+    if (!sessionData?.user?.email) return;
+
+    await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${env.NEXT_PUBLIC_BASE_URL}/account/reset-password`,
+    });
+  };
+
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       {(sessionData || secretMessage) && (
@@ -87,6 +100,22 @@ function AuthShowcase() {
       >
         {sessionData ? "Sign out" : "Sign in"}
       </button>
+      Forgot password?
+      <form className="flex flex-col gap-4" onSubmit={handleResetPassword}>
+        <Input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="Email"
+          required
+        />
+        <button
+          className="rounded-full bg-element-secondary px-10 py-3 font-semibold text-text-on-secondary"
+          type="submit"
+        >
+          Reset password
+        </button>
+      </form>
     </div>
   );
 }
