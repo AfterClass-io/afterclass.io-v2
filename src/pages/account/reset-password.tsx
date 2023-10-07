@@ -1,13 +1,14 @@
 import { PageHead } from "@/common/components/PageHead";
 import { AuthCard } from "@/common/components/Auth";
 import { Input } from "@/common/components/Input";
-import { useState, useEffect, MouseEvent } from "react";
+import { useState, useEffect, type MouseEvent } from "react";
 import { supabase } from "@/server/supabase";
 
 export default function ResetPassword() {
   useEffect(() => {
-    supabase.auth.onAuthStateChange(async (event, session) => {
+    supabase.auth.onAuthStateChange((event, session) => {
       console.log("event: ", event);
+      console.log("session: ", session);
     });
   }, []);
 

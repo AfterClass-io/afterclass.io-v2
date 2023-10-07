@@ -1,6 +1,6 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
-import { useState, useEffect, useCallback, FormEvent } from "react";
+import { useState, useEffect, useCallback, type FormEvent } from "react";
 import { Icon } from "@iconify-icon/react";
 
 import { StarLineAltIcon } from "@/common/components/CustomIcon";
@@ -9,7 +9,6 @@ import { Input } from "@/common/components/Input";
 import { APP_THEMES } from "@/common/tools/tailwind/themes/appTheme";
 import { supabase } from "@/server/supabase";
 import { api } from "@/utils/api";
-import { env } from "@/env.mjs";
 
 export default function Home() {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
