@@ -28,6 +28,7 @@ export default function ResetPassword() {
     // reset form
     setPwd("");
     setFormSuccess(true);
+    window.location.href = "/";
   };
 
   return (
