@@ -1,6 +1,6 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, FormEvent } from "react";
 import { Icon } from "@iconify-icon/react";
 
 import { StarLineAltIcon } from "@/common/components/CustomIcon";
@@ -77,13 +77,17 @@ function AuthShowcase() {
   );
 
   const [email, setEmail] = useState("");
-  const handleResetPassword = async () => {
-    console.log("reset password");
-    if (!sessionData?.user?.email) return;
-
-    await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${env.NEXT_PUBLIC_BASE_URL}/account/reset-password`,
+  const handleResetPassword = async (e: FormEvent) => {
+    e.preventDefault();
+    console.log("reset password: ", email);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/account/reset-password`,
     });
+    if (error) {
+      alert(error.message);
+      return;
+    }
+    alert("Check your email for the password reset link");
   };
 
   return (
@@ -107,6 +111,8 @@ function AuthShowcase() {
           name="email"
           type="email"
           placeholder="Email"
+          value={email}
+          onChange={(ev) => setEmail(ev.target.value)}
           required
         />
         <button
