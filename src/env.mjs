@@ -15,7 +15,7 @@ export const env = createEnv({
         : z.string().min(1).optional(),
     // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
     NEXTAUTH_URL: z.preprocess(
-      // This makes Netlify deployments not fail if you don't set NEXT_PUBLIC_BASE_URL
+      // This makes Netlify deployments not fail if you don't set NEXTAUTH_URL
       // Since NextAuth.js automatically uses the DEPLOY_URL if present.
       // https://docs.netlify.com/configure-builds/environment-variables/#deploy-urls-and-metadata
       (str) => process.env.DEPLOY_URL ?? str,
