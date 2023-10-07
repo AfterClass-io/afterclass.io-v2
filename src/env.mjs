@@ -14,6 +14,13 @@ export const env = createEnv({
         ? z.string().min(1)
         : z.string().min(1).optional(),
     // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
+    NEXTAUTH_URL: z.preprocess(
+      // This makes Netlify deployments not fail if you don't set NEXT_PUBLIC_BASE_URL
+      // Since NextAuth.js automatically uses the DEPLOY_URL if present.
+      // https://docs.netlify.com/configure-builds/environment-variables/#deploy-urls-and-metadata
+      (str) => process.env.DEPLOY_URL ?? str,
+      z.string().url()
+    ),
     SUPABASE_SERVICE_ROLE_KEY: z.string(),
   },
 
@@ -26,13 +33,6 @@ export const env = createEnv({
     // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
     NEXT_PUBLIC_SUPABASE_URL: z.string(),
-    NEXT_PUBLIC_BASE_URL: z.preprocess(
-      // This makes Netlify deployments not fail if you don't set NEXT_PUBLIC_BASE_URL
-      // Since NextAuth.js automatically uses the DEPLOY_URL if present.
-      // https://docs.netlify.com/configure-builds/environment-variables/#deploy-urls-and-metadata
-      (str) => process.env.DEPLOY_URL ?? str,
-      z.string().url()
-    ),
   },
 
   /**
@@ -43,8 +43,7 @@ export const env = createEnv({
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
-    NEXT_PUBLIC_BASE_URL:
-      process.env.NEXT_PUBLIC_BASE_URL ?? process.env.DEPLOY_URL,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL ?? process.env.DEPLOY_URL,
     SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
