@@ -1,25 +1,35 @@
 import React from "react";
-import { BookLineIcon, DealsIcon, StarLineAltIcon } from "../CustomIcon";
 import Link from "next/link";
-import { Icon } from "@iconify-icon/react";
-
 import { useRouter } from "next/router";
 
-import { SidebarItem, type SidebarListItem } from "../SidebarItem";
-import { Logo } from "../Logo/Logo";
+import {
+  BookLineIcon,
+  DealsIcon,
+  StarLineAltIcon,
+} from "@/common/components/CustomIcon";
+import { Icon } from "@iconify-icon/react";
+import {
+  SidebarItem,
+  type SidebarListItem,
+} from "@/common/components/SidebarItem";
+import { Logo } from "@/common/components/Logo";
+import { Input } from "@/common/components/Input";
 
 export const Sidebar = () => {
   const router = useRouter();
 
   return (
-    <div className="h-full w-60 space-y-6 border-r border-r-border-elevated px-4 py-5">
+    <div className="h-full w-52 space-y-5 border-r border-r-border-elevated px-4 py-5">
       <Link href="/" className="flex items-center px-3 text-primary-default">
         <Logo />
       </Link>
-      {/* TODO: insert searchbar here */}
-      <div className="rounded-md border border-border-elevated px-3 py-2">
-        Search
-      </div>
+      <Input
+        leftContent={
+          <Icon icon="uil:search" size={16} className="px-1 text-text-em-low" />
+        }
+        placeholder="Search"
+        size={{ initial: "sm" }}
+      />
       <div>
         <ul className="space-y-2">
           {SidebarList.map((item) => (
