@@ -29,7 +29,7 @@ export const Sidebar = () => {
           <Icon icon="uil:search" size={16} className="px-1 text-text-em-low" />
         }
         placeholder="Search"
-        size={{ initial: "sm" }}
+        size="sm"
       />
       <div>
         <ul className="space-y-2">
