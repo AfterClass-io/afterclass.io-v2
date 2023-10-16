@@ -5,19 +5,17 @@ import { useState, useEffect, type MouseEvent } from "react";
 import { supabase } from "@/server/supabase";
 
 export default function ResetPassword() {
-  useEffect(() => {
-    supabase.auth.onAuthStateChange((event, session) => {
-      console.log("event: ", event);
-      console.log("session: ", session);
-    });
-  }, []);
+  // useEffect(() => {
+  //   supabase.auth.onAuthStateChange((event, session) => {
+  //   // handle event / session with new auth state
+  //   });
+  // }, []);
 
   const [pwd, setPwd] = useState("");
   const [formSuccess, setFormSuccess] = useState(false);
 
   const handleResetPassword = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log("new password: ", pwd);
     setFormSuccess(false);
 
     const { error } = await supabase.auth.updateUser({ password: pwd });

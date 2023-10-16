@@ -68,7 +68,7 @@ export const authOptions: NextAuthOptions = {
         });
         const c = Credential.safeParse(credentials);
         if (!c.success) {
-          console.log("🚀 ~ file: auth.ts:72 ~ authorize ~ error:", c.error);
+          console.log("auth.ts:72 ~ authorize ~ error:", c.error);
           return null;
         }
 
@@ -78,7 +78,7 @@ export const authOptions: NextAuthOptions = {
         );
         if (error) {
           console.log(
-            "🚀 ~ file: auth.ts:80 ~ authorize ~ error:",
+            "auth.ts:80 ~ authorize ~ error:",
             `${error.name}: ${error.message}`
           );
           return null;
