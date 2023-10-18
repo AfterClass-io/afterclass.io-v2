@@ -5,3 +5,4 @@ export * from "./AfterclassText";
 export * from "./BookLineIcon";
 export * from "./DealsIcon";
 export * from "../Logo";
+export * from "./WarningCircleIcon";
