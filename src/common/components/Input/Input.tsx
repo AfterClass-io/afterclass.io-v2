@@ -1,6 +1,6 @@
 import { type ReactNode, type ComponentPropsWithoutRef } from "react";
 import { type InputVariants, inputTheme } from "./Input.theme";
-import { Field, FieldProps } from "@/common/components/Field";
+import { Field, type FieldProps } from "@/common/components/Field";
 
 export type InputProps = Omit<ComponentPropsWithoutRef<"input">, "size"> &
   InputVariants &
