@@ -40,6 +40,7 @@ export const appTheme = {
       "em-mid": rgb("--app-text-em-mid"),
       "em-low": rgb("--app-text-em-low"),
       placeholder: rgb("--app-text-placeholder"),
+      error: rgb("--app-text-error"),
     },
   },
 };

@@ -24,7 +24,7 @@ export const labelTheme = tv(
       },
       error: {
         true: {
-          wrapper: ["text-red-600"],
+          wrapper: ["text-text-error"],
         },
       },
     },
