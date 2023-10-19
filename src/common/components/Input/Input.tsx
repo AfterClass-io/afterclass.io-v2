@@ -7,6 +7,7 @@ export type InputProps = Omit<ComponentPropsWithoutRef<"input">, "size"> &
   FieldProps & {
     leftContent?: ReactNode;
     rightContent?: ReactNode;
+    fieldProps?: ComponentPropsWithoutRef<"div">;
     wrapperProps?: ComponentPropsWithoutRef<"div">;
   };
 
@@ -16,6 +17,7 @@ export const Input = ({
   leftContent,
   rightContent,
   wrapperProps,
+  fieldProps,
   label,
   helperText,
   isError = false,
@@ -23,7 +25,12 @@ export const Input = ({
 }: InputProps) => {
   const { input: inputClasses, wrapper } = inputTheme({ className, size });
   return (
-    <Field label={label} isError={isError} helperText={helperText}>
+    <Field
+      {...fieldProps}
+      label={label}
+      isError={isError}
+      helperText={helperText}
+    >
       <div
         {...wrapperProps}
         className={wrapper({ className: wrapperProps?.className })}

@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import { type ComponentPropsWithoutRef, type ReactNode } from "react";
 import { WarningCircleIcon } from "@/common/components/CustomIcon";
 import { Label } from "@/common/components/Label";
 import { fieldTheme } from "./Field.theme";
@@ -10,15 +10,18 @@ export type FieldProps = {
   helperText?: string;
 };
 
+export type FieldFullProps = ComponentPropsWithoutRef<"div"> & FieldProps;
+
 export const Field = ({
   label,
   children,
   helperText,
   isError = false,
-}: FieldProps) => {
+  ...props
+}: FieldFullProps) => {
   const { wrapper } = fieldTheme();
   return (
-    <div className={wrapper()}>
+    <div {...props} className={wrapper()}>
       {label && <Label text={label} size={{ initial: "sm", md: "md" }} />}
       {children}
       {helperText && (
