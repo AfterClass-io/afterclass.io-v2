@@ -9,6 +9,7 @@ import { Input } from "@/common/components/Input";
 import { APP_THEMES } from "@/common/tools/tailwind/themes/appTheme";
 import { supabase } from "@/server/supabase";
 import { api } from "@/utils/api";
+import { Button } from "@/common/components/Button";
 
 export default function Home() {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -27,7 +28,7 @@ export default function Home() {
   return (
     <>
       <PageHead name="AfterClass" />
-      <section className="flex h-full flex-col items-center space-y-6 p-6">
+      <section className="flex min-h-full flex-col items-center space-y-6 p-6">
         <div className="font-display font-semibold text-primary-default">
           AfterClass
         </div>
@@ -66,6 +67,49 @@ export default function Home() {
             size={{ initial: "sm", md: "md" }}
             isError={true}
           />
+        </div>
+        <div className="space-y-4">
+          <Button fullWidth>Full width</Button>
+          <div className="flex gap-3">
+            <Button>Primary</Button>
+            <Button size="sm" iconLeft={<StarLineAltIcon />}>
+              Small
+            </Button>
+            <Button aria-label="star" iconLeft={<StarLineAltIcon />} />
+            <Button
+              size="sm"
+              aria-label="star"
+              iconLeft={<StarLineAltIcon />}
+            />
+          </div>
+          <div className="flex gap-3">
+            <Button variant="secondary">Secondary</Button>
+            <Button
+              variant="secondary"
+              size="sm"
+              iconRight={<StarLineAltIcon />}
+            >
+              Small
+            </Button>
+          </div>
+          <div className="flex gap-3">
+            <Button variant="tertiary">Tertiary</Button>
+            <Button variant="tertiary" size="sm">
+              Small
+            </Button>
+          </div>
+          <div className="flex gap-3">
+            <Button variant="success">Success</Button>
+            <Button variant="success" size="sm">
+              Small
+            </Button>
+          </div>
+          <div className="flex gap-3">
+            <Button variant="danger">Danger</Button>
+            <Button variant="danger" size="sm">
+              Small
+            </Button>
+          </div>
         </div>
       </section>
     </>
