@@ -1,4 +1,13 @@
-import { type ReactNode, type ComponentPropsWithoutRef } from "react";
+import {
+  type ReactNode,
+  type ComponentPropsWithoutRef,
+  useCallback,
+  Children,
+  cloneElement,
+  type ReactElement,
+  isValidElement,
+  type HTMLProps,
+} from "react";
 import { type LabelVariants, labelTheme } from "./Label.theme";
 
 export type LabelProps = ComponentPropsWithoutRef<"div"> &
@@ -18,7 +27,25 @@ export const Label = ({
   wrapperProps,
   ...props
 }: LabelProps) => {
-  const { label, wrapper } = labelTheme({ className, size });
+  const { label, wrapper, icon } = labelTheme({ className, size });
+
+  const StyledIcon = useCallback(
+    () =>
+      Children.map(leftContent, (child) => {
+        if (isValidElement(child)) {
+          // Casting type as HTMLDiv to prevent typing error
+          const originalClassName = (child.props as HTMLProps<HTMLDivElement>)
+            ?.className;
+          return cloneElement(child as ReactElement, {
+            className: icon({
+              className: originalClassName, // overriding icon classNames
+            }),
+          });
+        }
+      }),
+    [leftContent, icon]
+  );
+
   return (
     <div
       {...wrapperProps}
@@ -27,7 +54,7 @@ export const Label = ({
         error: isError,
       })}
     >
-      {leftContent}
+      <StyledIcon />
       <div {...props} className={label({ className })}>
         {text}
       </div>

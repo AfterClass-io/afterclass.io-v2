@@ -30,6 +30,7 @@ export const Input = ({
       label={label}
       isError={isError}
       helperText={helperText}
+      size={size}
     >
       <div
         {...wrapperProps}

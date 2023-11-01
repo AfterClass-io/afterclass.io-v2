@@ -2,6 +2,7 @@ import { type ComponentPropsWithoutRef, type ReactNode } from "react";
 import { WarningCircleIcon } from "@/common/components/CustomIcon";
 import { Label } from "@/common/components/Label";
 import { fieldTheme } from "./Field.theme";
+import { type LabelVariants } from "../Label/Label.theme";
 
 export type FieldProps = {
   label?: string;
@@ -10,25 +11,28 @@ export type FieldProps = {
   helperText?: string;
 };
 
-export type FieldFullProps = ComponentPropsWithoutRef<"div"> & FieldProps;
+export type FieldFullProps = ComponentPropsWithoutRef<"div"> &
+  FieldProps &
+  LabelVariants;
 
 export const Field = ({
   label,
   children,
   helperText,
   isError = false,
+  size,
   ...props
 }: FieldFullProps) => {
   const { wrapper } = fieldTheme();
   return (
     <div {...props} className={wrapper()}>
-      {label && <Label text={label} size={{ initial: "sm", md: "md" }} />}
+      {label && <Label text={label} size={size} />}
       {children}
       {helperText && (
         <Label
-          leftContent={<WarningCircleIcon size={12} />}
+          leftContent={<WarningCircleIcon size={14} />}
           text={helperText}
-          size={{ initial: "sm", md: "md" }}
+          size={size}
           isError={isError}
         />
       )}
