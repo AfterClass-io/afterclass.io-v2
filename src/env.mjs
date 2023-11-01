@@ -13,6 +13,7 @@ export const env = createEnv({
       process.env.NODE_ENV === "production"
         ? z.string().min(1)
         : z.string().min(1).optional(),
+    // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
     NEXTAUTH_URL: z.preprocess(
       // This makes Netlify deployments not fail if you don't set NEXTAUTH_URL
       // Since NextAuth.js automatically uses the DEPLOY_URL if present.
@@ -20,7 +21,6 @@ export const env = createEnv({
       (str) => process.env.DEPLOY_URL ?? str,
       z.string().url()
     ),
-    // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
     SUPABASE_SERVICE_ROLE_KEY: z.string(),
   },
 

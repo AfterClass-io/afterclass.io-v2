@@ -66,10 +66,21 @@ export const authOptions: NextAuthOptions = {
           email: z.string().email(),
           password: z.string(),
         });
-        const c = Credential.parse(credentials);
-        const { data, error } = await signInWithEmail(c.email, c.password);
+        const c = Credential.safeParse(credentials);
+        if (!c.success) {
+          console.log("auth.ts:72 ~ authorize ~ error:", c.error);
+          return null;
+        }
+
+        const { data, error } = await signInWithEmail(
+          c.data.email,
+          c.data.password
+        );
         if (error) {
-          console.log(`${error.name}: ${error.message}`);
+          console.log(
+            "auth.ts:80 ~ authorize ~ error:",
+            `${error.name}: ${error.message}`
+          );
           return null;
         }
 
