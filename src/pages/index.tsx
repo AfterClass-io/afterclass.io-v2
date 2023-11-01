@@ -54,7 +54,6 @@ export default function Home() {
             leftContent={<StarLineAltIcon size={16} />}
             rightContent={<StarLineAltIcon size={16} />}
             placeholder="Write here"
-            size={{ initial: "sm", md: "md" }}
           />
           <Input
             label={"Test Label 2"}
