@@ -110,6 +110,21 @@ export default function Home() {
               Small
             </Button>
           </div>
+          <div className="flex gap-3">
+            <Button
+              variant="link"
+              iconLeft={<Icon icon="lucide:arrow-up-right" />}
+              iconRight={<Icon icon="lucide:arrow-up-right" />}
+              as="a"
+              external
+              href="https://example.com"
+            >
+              Example.com
+            </Button>
+            <Button variant="link" size="sm" as="a" href="/login">
+              Login
+            </Button>
+          </div>
         </div>
       </section>
     </>

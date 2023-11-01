@@ -35,7 +35,6 @@ export const buttonTheme = tv(
       "duration-300",
       "after:inset-0",
       "after:absolute",
-      "focus:outline-none",
       "hover:after:bg-white/10",
       "active:after:bg-transparent",
       "border",
@@ -69,6 +68,13 @@ export const buttonTheme = tv(
           "text-text-on-tertiary",
           "disabled:bg-element-disabled",
           "data-[disabled]:bg-element-disabled",
+        ],
+        link: [
+          "text-primary-default",
+          "hover:underline",
+          "hover:after:bg-transparent",
+          "disabled:text-text-placeholder",
+          "data-[disabled]:text-text-placeholder",
         ],
         success: [
           "bg-green-600",
@@ -114,6 +120,16 @@ export const buttonTheme = tv(
         size: "sm",
         iconOnly: true,
         className: "w-8 h-8 px-0",
+      },
+      {
+        variant: "link",
+        size: "md",
+        className: "px-0",
+      },
+      {
+        variant: "link",
+        size: "sm",
+        className: "px-0",
       },
     ],
     defaultVariants: {
