@@ -51,15 +51,20 @@ export default function Home() {
         </div>
         <div className="space-y-4">
           <Input
-            leftContent={<StarLineAltIcon />}
-            rightContent={<StarLineAltIcon />}
+            label={"Test Label 1"}
+            helperText={"Test helper text"}
+            leftContent={<StarLineAltIcon size={16} />}
+            rightContent={<StarLineAltIcon size={16} />}
             placeholder="Write here"
           />
           <Input
+            label={"Test Label 2"}
+            helperText={"Test error helper text"}
             leftContent={<StarLineAltIcon size={16} />}
             rightContent={<StarLineAltIcon size={16} />}
             placeholder="Write here"
             size={{ initial: "sm", md: "md" }}
+            isError={true}
           />
         </div>
       </section>

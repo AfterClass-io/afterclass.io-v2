@@ -43,6 +43,7 @@ export const lightThemeConfig = (_twConfig: Partial<Config> = {}) => {
         "em-mid": "#56565D",
         "em-low": "#7A7A85",
         placeholder: "#AFAFB6",
+        error: "#DC2626",
       },
     },
   };
