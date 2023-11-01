@@ -1,8 +1,8 @@
 import { type ComponentPropsWithoutRef, type ReactNode } from "react";
 import { WarningCircleIcon } from "@/common/components/CustomIcon";
+import { LabelVariants } from "@/common/components/Label/Label.theme";
 import { Label } from "@/common/components/Label";
 import { fieldTheme } from "./Field.theme";
-import { type LabelVariants } from "../Label/Label.theme";
 
 export type FieldProps = {
   label?: string;
