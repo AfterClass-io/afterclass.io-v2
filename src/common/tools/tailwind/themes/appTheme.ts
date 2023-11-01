@@ -19,6 +19,7 @@ export const appTheme = {
     element: {
       secondary: rgb("--app-element-secondary"),
       tertiary: rgb("--app-element-tertiary"),
+      disabled: rgb("--app-element-disabled"),
     },
     bg: {
       base: rgb("--app-bg-base"),
@@ -29,6 +30,8 @@ export const appTheme = {
       elevated: rgb("--app-surface-elevated"),
     },
     border: {
+      primary: rgb("--app-border-primary"),
+      secondary: rgb("--app-border-secondary"),
       default: rgb("--app-border-default"),
       elevated: rgb("--app-border-elevated"),
     },
