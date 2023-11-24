@@ -1,6 +1,8 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 
 import {
   BookLineIcon,
@@ -16,7 +18,7 @@ import { Logo } from "@/common/components/Logo";
 import { Input } from "@/common/components/Input";
 
 export const Sidebar = () => {
-  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <div className="h-full w-52 space-y-5 border-r border-r-border-elevated px-4 py-5">
@@ -37,7 +39,7 @@ export const Sidebar = () => {
             <SidebarItem
               key={item.href}
               {...item}
-              active={router.pathname.startsWith(item.href)}
+              active={pathname.startsWith(item.href)}
             />
           ))}
         </ul>

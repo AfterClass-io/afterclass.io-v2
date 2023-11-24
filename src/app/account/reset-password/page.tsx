@@ -1,7 +1,6 @@
-import { PageHead } from "@/common/components/PageHead";
 import { AuthCard } from "@/common/components/Auth";
 import { Input } from "@/common/components/Input";
-import { useState, useEffect, type MouseEvent } from "react";
+import { useState, type MouseEvent } from "react";
 import { supabase } from "@/server/supabase";
 
 export default function ResetPassword() {
@@ -32,7 +31,6 @@ export default function ResetPassword() {
 
   return (
     <>
-      <PageHead name="AfterClass" />
       <section className="flex h-full flex-col items-center space-y-6 p-6">
         <AuthCard title="Reset Password">
           <div className="grid gap-4">
