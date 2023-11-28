@@ -4,12 +4,12 @@ import { useState, useEffect, useCallback } from "react";
 import { useTheme } from "next-themes";
 import { Icon } from "@iconify-icon/react";
 
-import { inter, poppins } from "@/common/fonts";
 import { APP_THEMES } from "@/common/tools/tailwind/themes/appTheme";
 import { Button } from "@/common/components/Button";
 import { AuthDemo } from "@/common/components/Auth";
 import { Input } from "@/common/components/Input";
 import { StarLineAltIcon } from "@/common/components/CustomIcon";
+import { inter, poppins } from "@/common/fonts";
 import { api } from "@/utils/api";
 
 export default function Home() {
