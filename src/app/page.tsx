@@ -1,15 +1,16 @@
 "use client";
 
-import { useTheme } from "next-themes";
 import { useState, useEffect, useCallback } from "react";
+import { useTheme } from "next-themes";
 import { Icon } from "@iconify-icon/react";
 
-import { StarLineAltIcon } from "@/common/components/CustomIcon";
-import { Input } from "@/common/components/Input";
+import { inter, poppins } from "@/common/fonts";
 import { APP_THEMES } from "@/common/tools/tailwind/themes/appTheme";
-import { api } from "@/utils/api";
 import { Button } from "@/common/components/Button";
 import { AuthDemo } from "@/common/components/Auth";
+import { Input } from "@/common/components/Input";
+import { StarLineAltIcon } from "@/common/components/CustomIcon";
+import { api } from "@/utils/api";
 
 export default function Home() {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -27,6 +28,13 @@ export default function Home() {
 
   return (
     <>
+      {/* This is required for fonts to work in Portal too */}
+      <style global jsx>{`
+        :root {
+          --font-inter: ${inter.style.fontFamily};
+          --font-poppins: ${poppins.style.fontFamily};
+        }
+      `}</style>
       <section className="flex h-full flex-col items-center space-y-6 p-6">
         <div className="font-display font-semibold text-primary-default">
           AfterClass
