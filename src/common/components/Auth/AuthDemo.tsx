@@ -1,15 +1,14 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { signIn, signOut } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 import { Input } from "@/common/components/Input";
 import { supabase } from "@/server/supabase";
-import { getServerAuthSession } from "@/server/auth";
 import { api } from "@/utils/api";
 
-export const AuthDemo = async () => {
-  const sessionData = await getServerAuthSession();
+export const AuthDemo = () => {
+  const { data: sessionData } = useSession();
 
   const { data: secretMessage } = api.example.getSecretMessage.useQuery(
     undefined, // no input
