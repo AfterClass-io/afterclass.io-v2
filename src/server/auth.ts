@@ -60,7 +60,7 @@ export const authOptions: NextAuthOptions = {
         },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         const Credential = z.object({
           email: z.string().email(),
           password: z.string(),
