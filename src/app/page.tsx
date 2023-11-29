@@ -9,7 +9,6 @@ import { Button } from "@/common/components/Button";
 import { AuthDemo } from "@/common/components/Auth";
 import { Input } from "@/common/components/Input";
 import { StarLineAltIcon } from "@/common/components/CustomIcon";
-import { inter, poppins } from "@/common/fonts";
 import { api } from "@/utils/api";
 
 export default function Home() {
@@ -28,13 +27,6 @@ export default function Home() {
 
   return (
     <>
-      {/* This is required for fonts to work in Portal too */}
-      <style global jsx>{`
-        :root {
-          --font-inter: ${inter.style.fontFamily};
-          --font-poppins: ${poppins.style.fontFamily};
-        }
-      `}</style>
       <section className="flex h-full flex-col items-center space-y-6 p-6">
         <div className="font-display font-semibold text-primary-default">
           AfterClass
