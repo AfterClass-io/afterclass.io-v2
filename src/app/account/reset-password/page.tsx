@@ -1,3 +1,5 @@
+"use client";
+
 import { AuthCard } from "@/common/components/Auth";
 import { Input } from "@/common/components/Input";
 import { useState, type MouseEvent } from "react";
