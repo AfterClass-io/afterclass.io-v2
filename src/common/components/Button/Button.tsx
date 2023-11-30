@@ -49,6 +49,7 @@ export const Button = ({
   const Component = useCallback(
     ({ children: _children, ..._props }: ButtonOrLinkProps) => {
       // Accessing .as instead of destructuring to make use of discriminated unions
+      // https://github.com/microsoft/TypeScript/issues/46318
       if (_props.as === "a") {
         // Has an unused `as` to remove it from baseLinkProps
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
