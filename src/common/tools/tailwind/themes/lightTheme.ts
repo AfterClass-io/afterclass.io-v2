@@ -22,24 +22,27 @@ export const lightThemeConfig = (_twConfig: Partial<Config> = {}) => {
       element: {
         secondary: "#E1DDF8",
         tertiary: "#E5E4EC",
+        disabled: "#DDDDDF",
       },
       bg: {
         base: "#F1F1F3",
         alt: "#ECECEF",
       },
       surface: {
-        base: "#EBEBEF",
-        elevated: "#E2E2E9",
+        base: "#ECECEF",
+        elevated: "#E6E6EA",
       },
       border: {
-        default: "#D6D6E6",
-        elevated: "#CBCBDC",
+        primary: "#432CC3",
+        secondary: "#D4CEF2",
+        default: "#D7D7DF",
+        elevated: "#D1D1DC",
       },
       text: {
         "on-primary": "#F2F2F3",
         "on-secondary": "#5039D4",
         "on-tertiary": "#56565D",
-        "em-high": "#17171C",
+        "em-high": "#070708",
         "em-mid": "#56565D",
         "em-low": "#7A7A85",
         placeholder: "#AFAFB6",

@@ -22,6 +22,7 @@ export const darkThemeConfig = (_twConfig: Partial<Config> = {}) => {
       element: {
         secondary: "#1A1344",
         tertiary: "#14131B",
+        disabled: "#1E1E1F",
       },
       bg: {
         base: "#131316",
@@ -32,6 +33,8 @@ export const darkThemeConfig = (_twConfig: Partial<Config> = {}) => {
         elevated: "#232329",
       },
       border: {
+        primary: "#5A74FC",
+        secondary: "#241A5B",
         default: "#2D2D39",
         elevated: "#373743",
       },
@@ -39,9 +42,9 @@ export const darkThemeConfig = (_twConfig: Partial<Config> = {}) => {
         "on-primary": "#F2F2F3",
         "on-secondary": "#9485E5",
         "on-tertiary": "#A2A2A9",
-        "em-high": "#D7D7DA",
-        "em-mid": "#888891",
-        "em-low": "#62626A",
+        "em-high": "#F2F2F3",
+        "em-mid": "#A2A2A9",
+        "em-low": "#7A7A85",
         placeholder: "#494950",
         error: "#DC2626",
       },
