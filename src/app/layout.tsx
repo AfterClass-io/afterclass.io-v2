@@ -28,7 +28,11 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(env.NEXTAUTH_URL),
+  metadataBase: new URL(
+    process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : env.NEXTAUTH_URL,
+  ),
   title: appName,
   description: appDesc,
   openGraph: {
