@@ -5,7 +5,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 import { Input } from "@/common/components/Input";
 import { supabase } from "@/server/supabase";
-import { api } from "@/utils/api";
+import { api } from "@/common/tools/utils/api";
 
 export const AuthDemo = () => {
   const { data: sessionData } = useSession();
