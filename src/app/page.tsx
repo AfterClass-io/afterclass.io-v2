@@ -9,7 +9,7 @@ import { Button } from "@/common/components/Button";
 import { AuthDemo } from "@/common/components/Auth";
 import { Input } from "@/common/components/Input";
 import { StarLineAltIcon } from "@/common/components/CustomIcon";
-import { api } from "@/common/tools/utils/api";
+import { api } from "@/common/tools/trpc/utils/api";
 
 export default function Home() {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
