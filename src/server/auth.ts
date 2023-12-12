@@ -1,4 +1,3 @@
-import { type GetServerSidePropsContext } from "next";
 import { SupabaseAdapter } from "@next-auth/supabase-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import {
@@ -61,7 +60,7 @@ export const authOptions: NextAuthOptions = {
         },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         const Credential = z.object({
           email: z.string().email(),
           password: z.string(),
@@ -74,12 +73,12 @@ export const authOptions: NextAuthOptions = {
 
         const { data, error } = await signInWithEmail(
           c.data.email,
-          c.data.password
+          c.data.password,
         );
         if (error) {
           console.log(
             "auth.ts:80 ~ authorize ~ error:",
-            `${error.name}: ${error.message}`
+            `${error.name}: ${error.message}`,
           );
           return null;
         }
@@ -136,9 +135,4 @@ export const authOptions: NextAuthOptions = {
  *
  * @see https://next-auth.js.org/configuration/nextjs
  */
-export const getServerAuthSession = (ctx: {
-  req: GetServerSidePropsContext["req"];
-  res: GetServerSidePropsContext["res"];
-}) => {
-  return getServerSession(ctx.req, ctx.res, authOptions);
-};
+export const getServerAuthSession = () => getServerSession(authOptions);
