@@ -4,8 +4,8 @@ export const EnvelopeIcon = (props: CustomIconProps) => {
   return (
     <CustomIcon {...props}>
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M2.25 18V5.25C2.25 4.83579 2.58579 4.5 3 4.5H21C21.4142 4.5 21.75 4.83579 21.75 5.25V18C21.75 18 21.75 18.6213 21.3107 19.0607C21.3107 19.0607 20.8713 19.5 20.25 19.5H3.75C3.75 19.5 3.12868 19.5 2.68934 19.0607C2.68934 19.0607 2.25 18.6213 2.25 18ZM3.75 18H20.25V6H3.75V18Z"
         fill="#AFAFB6"
       />

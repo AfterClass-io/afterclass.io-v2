@@ -4,8 +4,8 @@ export const LockIcon = (props: CustomIconProps) => {
   return (
     <CustomIcon {...props}>
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M3 9C3 9 3 8.37868 3.43934 7.93934C3.43934 7.93934 3.87868 7.5 4.5 7.5H19.5C19.5 7.5 20.1213 7.5 20.5607 7.93934C20.5607 7.93934 21 8.37868 21 9V19.5C21 19.5 21 20.1213 20.5607 20.5607C20.5607 20.5607 20.1213 21 19.5 21H4.5C4.5 21 3.87868 21 3.43934 20.5607C3.43934 20.5607 3 20.1213 3 19.5V9ZM4.5 9V19.5L19.5 19.5V9H4.5Z"
         fill="#AFAFB6"
       />
