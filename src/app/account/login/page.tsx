@@ -34,7 +34,7 @@ export default function Login() {
             </Button>
             <div className="flex items-center gap-1 self-stretch text-base">
               <span className="text-center font-semibold text-text-em-mid">
-                Don't have an account?
+                {"Don't have an account?"}
               </span>
               <Button
                 variant="link"
