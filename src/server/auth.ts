@@ -128,6 +128,13 @@ export const authOptions: NextAuthOptions = {
       return randomUUID?.() ?? randomBytes(32).toString("hex");
     },
   },
+  pages: {
+    signIn: "/account/login",
+    signOut: "/account/login",
+    error: "/auth/error", // Error code passed in query string as `?error=`
+    verifyRequest: "/auth/verify-request", // Used for check email message
+    newUser: "/account/create", // New users will be directed here on first sign in
+  },
 };
 
 /**
