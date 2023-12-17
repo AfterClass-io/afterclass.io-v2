@@ -8,9 +8,9 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
-     * - auth (authentication routes)
-     * - account/login (login route use by next-auth)
-     * - account/create (sign up route use by next-auth)
+     * - auth (authentication routes used by next-auth)
+     * - account/login (custom login route used by next-auth)
+     * - account/create (custom sign up route used by next-auth)
      *
      * @see https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths
      */
