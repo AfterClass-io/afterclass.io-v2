@@ -7,18 +7,30 @@ import { EnvelopeIcon } from "@/common/components/CustomIcon/EnvelopeIcon";
 import { LockIcon } from "@/common/components/CustomIcon/LockIcon";
 import { Button } from "@/common/components/Button";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [formSubmittedLoading, setFormSubmittedLoading] = useState(false);
-  const signin = () => {
+  const signin = async () => {
     setFormSubmittedLoading(true);
-    signIn("credentials", {
+    const signInRes = await signIn("credentials", {
       email: email,
       password: pwd,
       callbackUrl: "/reviews",
+      redirect: false,
     });
+    setFormSubmittedLoading(false);
+    if (signInRes?.url) {
+      router.replace(signInRes.url);
+    }
+    if (signInRes?.error) {
+      // TODO: remove when toast component is implemented
+      alert("Invalid email or password");
+      console.error(`${signInRes.status}: ${signInRes.error}`);
+    }
   };
 
   return (
@@ -39,7 +51,9 @@ export default function Login() {
             type="password"
             value={pwd}
             onChange={(ev) => setPwd(ev.target.value)}
-            onKeyDown={(ev) => ev.key === "Enter" && signin()}
+            onKeyDown={(ev) =>
+              !formSubmittedLoading && ev.key === "Enter" && signin()
+            }
           />
           <div className="flex w-full flex-col items-start gap-2 self-stretch pt-3">
             <Button fullWidth onClick={signin} disabled={formSubmittedLoading}>
