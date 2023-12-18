@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 import { AuthCard } from "@/common/components/Auth";
@@ -11,33 +11,25 @@ import { LockIcon } from "@/common/components/CustomIcon/LockIcon";
 import { Input } from "@/common/components/Input";
 
 export default function Login() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [formSubmittedLoading, setFormSubmittedLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const e = searchParams.get("error");
+    e && setError("Invalid email or password. Please try again.");
+  }, [searchParams]);
 
   const signin = async () => {
     setFormSubmittedLoading(true);
-    const signInRes = await signIn("credentials", {
+    await signIn("credentials", {
       email: email,
       password: pwd,
-      callbackUrl: searchParams.get("callbackUrl") ?? "/reviews",
-      redirect: false,
+      callbackUrl: searchParams.get("callbackUrl") || "/reviews",
     });
     setFormSubmittedLoading(false);
-
-    // TODO: remove when toast component is implemented
-    if (signInRes === undefined) {
-      console.log("undefined sign in response");
-      return;
-    }
-    if (signInRes.url) {
-      router.replace(signInRes.url);
-    } else {
-      alert("Invalid email or password");
-      console.error(`${signInRes.status}: ${signInRes.error}`);
-    }
   };
 
   return (
@@ -61,6 +53,8 @@ export default function Login() {
             onKeyDown={(ev) =>
               !formSubmittedLoading && ev.key === "Enter" && signin()
             }
+            isError={!!error}
+            helperText={error}
           />
           <div className="flex w-full flex-col items-start gap-2 self-stretch pt-3">
             <Button fullWidth onClick={signin} disabled={formSubmittedLoading}>
