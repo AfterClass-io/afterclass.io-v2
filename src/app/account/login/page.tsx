@@ -1,33 +1,40 @@
 "use client";
 
-import { AuthCard } from "@/common/components/Auth";
-import { Input } from "@/common/components/Input";
 import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { signIn } from "next-auth/react";
+
+import { AuthCard } from "@/common/components/Auth";
+import { Button } from "@/common/components/Button";
 import { EnvelopeIcon } from "@/common/components/CustomIcon/EnvelopeIcon";
 import { LockIcon } from "@/common/components/CustomIcon/LockIcon";
-import { Button } from "@/common/components/Button";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { Input } from "@/common/components/Input";
 
 export default function Login() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [formSubmittedLoading, setFormSubmittedLoading] = useState(false);
+
   const signin = async () => {
     setFormSubmittedLoading(true);
     const signInRes = await signIn("credentials", {
       email: email,
       password: pwd,
-      callbackUrl: "/reviews",
+      callbackUrl: searchParams.get("callbackUrl") ?? "/reviews",
       redirect: false,
     });
     setFormSubmittedLoading(false);
-    if (signInRes?.url) {
-      router.replace(signInRes.url);
+
+    // TODO: remove when toast component is implemented
+    if (signInRes === undefined) {
+      console.log("undefined sign in response");
+      return;
     }
-    if (signInRes?.error) {
-      // TODO: remove when toast component is implemented
+    if (signInRes.url) {
+      router.replace(signInRes.url);
+    } else {
       alert("Invalid email or password");
       console.error(`${signInRes.status}: ${signInRes.error}`);
     }
