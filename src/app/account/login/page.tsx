@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, FormEvent } from "react";
 import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 
@@ -22,26 +22,30 @@ export default function Login() {
     e && setError("Invalid email or password. Please try again.");
   }, [searchParams]);
 
-  const signin = async () => {
+  const signin = async (ev: FormEvent) => {
+    ev.preventDefault();
+    if (formSubmittedLoading) return;
     setFormSubmittedLoading(true);
     await signIn("credentials", {
       email: email,
       password: pwd,
       callbackUrl: searchParams.get("callbackUrl") || "/reviews",
     });
+    setPwd("");
     setFormSubmittedLoading(false);
   };
 
   return (
     <>
       <section className="flex h-full flex-shrink-0 items-center justify-center py-16">
-        <AuthCard>
+        <AuthCard title="Login" onSubmit={signin}>
           <Input
             label={"School Email Address"}
             leftContent={<EnvelopeIcon size={24} />}
             placeholder="john.doe.2023@smu.edu.sg"
             value={email}
             onChange={(ev) => setEmail(ev.target.value)}
+            autoComplete="on"
           />
           <Input
             label={"Password"}
@@ -50,9 +54,7 @@ export default function Login() {
             type="password"
             value={pwd}
             onChange={(ev) => setPwd(ev.target.value)}
-            onKeyDown={(ev) =>
-              !formSubmittedLoading && ev.key === "Enter" && signin()
-            }
+            autoComplete="on"
             isError={!!error}
             helperText={error}
           />
@@ -64,11 +66,7 @@ export default function Login() {
               <span className="text-center font-semibold text-text-em-mid">
                 {"Don't have an account?"}
               </span>
-              <Button
-                variant="link"
-                href="/account/create"
-                onClick={() => console.log("create account")}
-              >
+              <Button variant="link" as="a" href="/account/signup">
                 Create an account
               </Button>
             </div>

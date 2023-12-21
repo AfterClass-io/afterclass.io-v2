@@ -13,8 +13,9 @@ type TitleProps<T extends ElementType> = AuthCardProps<T> &
 
 export const AuthCard = <T extends ElementType = typeof defaultElement>({
   children,
-  title = "Login",
+  title,
   as,
+  onSubmit,
   ...rest
 }: TitleProps<T>) => {
   const Title = as || defaultElement;
@@ -23,7 +24,9 @@ export const AuthCard = <T extends ElementType = typeof defaultElement>({
       <Title className="text-3xl font-semibold text-text-em-high" {...rest}>
         {title}
       </Title>
-      {children}
+      <form className="flex w-full flex-col gap-6" onSubmit={onSubmit}>
+        {children}
+      </form>
     </div>
   );
 };
