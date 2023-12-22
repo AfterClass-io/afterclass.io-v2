@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { AuthCard } from "@/common/components/Auth";
 import { Button } from "@/common/components/Button";
 
-const emailResendBufferSeconds = 3;
+const emailResendBufferSeconds = 60;
 
 export default function Verify() {
   const searchParams = useSearchParams();
