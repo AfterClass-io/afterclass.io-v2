@@ -33,7 +33,7 @@ export default function ResetPassword() {
 
   return (
     <>
-      <section className="flex h-full flex-col items-center space-y-6 p-6">
+      <section className="flex h-full flex-shrink-0 items-center justify-center py-16">
         <AuthCard title="Reset Password">
           <div className="grid gap-4">
             <Input
