@@ -122,9 +122,9 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: "/account/login",
-    error: "/auth/error", // Error code passed in query string as `?error=`
-    verifyRequest: "/auth/verify-request", // Used for check email message
+    signIn: "/account/auth/login",
+    error: "/account/auth/error", // Error code passed in query string as `?error=`
+    verifyRequest: "/account/auth/verify", // Used for check email message
   },
 };
 

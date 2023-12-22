@@ -66,7 +66,7 @@ export default function Login() {
               <span className="text-center font-semibold text-text-em-mid">
                 {"Don't have an account?"}
               </span>
-              <Button variant="link" as="a" href="/account/signup">
+              <Button variant="link" as="a" href="/account/auth/signup">
                 Create an account
               </Button>
             </div>
