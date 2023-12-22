@@ -20,7 +20,7 @@ export const AuthDemo = () => {
     e.preventDefault();
     console.log("reset password: ", email);
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/account/reset-password`,
+      redirectTo: `${window.location.origin}/account/auth/reset-password`,
     });
     if (error) {
       alert(error.message);
@@ -32,7 +32,7 @@ export const AuthDemo = () => {
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       {(sessionData || secretMessage) && (
-        <p className="text-center text-2xl text-white">
+        <p className="text-center text-2xl">
           {sessionData && <span>Logged in as {sessionData.user?.email}</span>}
           {secretMessage && <span> - {secretMessage}</span>}
         </p>
