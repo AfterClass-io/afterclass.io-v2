@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState, FormEvent } from "react";
+import { useEffect, useState } from "react";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 
@@ -8,59 +9,89 @@ import { Button } from "@/common/components/Button";
 import { EnvelopeIcon } from "@/common/components/CustomIcon/EnvelopeIcon";
 import { LockIcon } from "@/common/components/CustomIcon/LockIcon";
 import { Input } from "@/common/components/Input";
+import { EyeSlashIcon } from "@/common/components/CustomIcon/EyeSlashIcon";
+import { EyeIcon } from "@/common/components/CustomIcon/EyeIcon";
 
-export default function LoginForm() {
+type LoginFormInputs = {
+  email: string;
+  password: string;
+};
+
+export const LoginForm = () => {
   const searchParams = useSearchParams();
-  const [email, setEmail] = useState("");
-  const [pwd, setPwd] = useState("");
-  const [formSubmittedLoading, setFormSubmittedLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [isPwdVisible, setIsPwdVisible] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormInputs>({ mode: "onTouched" });
+  const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
+    if (isSubmitting) return;
+    await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      callbackUrl: searchParams.get("callbackUrl") || "/reviews",
+    });
+    reset();
+  };
 
   useEffect(() => {
     const e = searchParams.get("error");
-    e && setError("Invalid email or password. Please try again.");
+    e &&
+      setError("password", {
+        type: "custom",
+        message: "Invalid email or password. Please try again.",
+      });
   }, [searchParams]);
 
-  const handleSignIn = async (ev: FormEvent) => {
-    ev.preventDefault();
-    if (formSubmittedLoading) return;
-    setFormSubmittedLoading(true);
-    await signIn("credentials", {
-      email: email,
-      password: pwd,
-      callbackUrl: searchParams.get("callbackUrl") || "/reviews",
-    });
-    setPwd("");
-    setFormSubmittedLoading(false);
-  };
   return (
-    <form className="flex w-full flex-col gap-6" onSubmit={handleSignIn}>
+    <form
+      className="flex w-full flex-col gap-6"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <Input
-        label={"School Email Address"}
+        label="School Email Address"
         leftContent={<EnvelopeIcon size={24} />}
         placeholder="john.doe.2023@smu.edu.sg"
-        value={email}
-        onChange={(ev) => setEmail(ev.target.value)}
+        isError={!!errors.email}
+        helperText={errors.email?.message}
         autoComplete="on"
+        registerFormProps={register("email", {
+          required: "Please enter a valid school email address",
+        })}
       />
       <Input
-        label={"Password"}
+        label="Password"
         leftContent={<LockIcon size={24} />}
+        rightContent={
+          isPwdVisible ? (
+            <EyeSlashIcon
+              size={24}
+              onClick={() => setIsPwdVisible(!isPwdVisible)}
+            />
+          ) : (
+            <EyeIcon size={24} onClick={() => setIsPwdVisible(!isPwdVisible)} />
+          )
+        }
         placeholder="Enter password"
-        type="password"
-        value={pwd}
-        onChange={(ev) => setPwd(ev.target.value)}
+        type={isPwdVisible ? "text" : "password"}
+        isError={!!errors.password}
+        helperText={errors.password?.message}
         autoComplete="on"
-        isError={!!error}
-        helperText={error}
+        registerFormProps={register("password", {
+          required: "Please enter your password",
+          minLength: {
+            value: 8,
+            message: "Password must be at least 8 characters long",
+          },
+        })}
       />
       <div className="flex w-full flex-col items-start gap-2 self-stretch pt-3">
-        <Button
-          fullWidth
-          onClick={handleSignIn}
-          disabled={formSubmittedLoading}
-        >
-          {formSubmittedLoading ? "Signing in..." : "Login"}
+        <Button fullWidth type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Signing in..." : "Login"}
         </Button>
         <div className="flex items-center gap-1 self-stretch text-base">
           <span className="text-center font-semibold text-text-em-mid">
@@ -73,4 +104,4 @@ export default function LoginForm() {
       </div>
     </form>
   );
-}
+};

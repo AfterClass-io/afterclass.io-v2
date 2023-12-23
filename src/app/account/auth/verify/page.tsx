@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { AuthCard } from "@/common/components/Auth";
@@ -34,6 +34,13 @@ export default function Verify() {
     setFormSubmittedLoading(false);
   };
 
+  const buttonText = () => {
+    if (formSubmittedLoading) return "Resending email...";
+    if (secondsToResendEmail > 0)
+      return `Resend email in ${secondsToResendEmail}s`;
+    return "Resend email";
+  };
+
   return (
     <>
       <section className="flex h-full flex-shrink-0 items-center justify-center py-16">
@@ -56,11 +63,7 @@ export default function Verify() {
             type="submit"
             disabled={formSubmittedLoading || secondsToResendEmail > 0}
           >
-            {formSubmittedLoading
-              ? "Resending email..."
-              : secondsToResendEmail > 0
-                ? `Resend email in ${secondsToResendEmail}s`
-                : "Resend email"}
+            {buttonText()}
           </Button>
         </AuthCard>
       </section>

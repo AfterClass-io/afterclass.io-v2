@@ -1,78 +1,67 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState } from "react";
+import { useForm, type SubmitHandler } from "react-hook-form";
 
-import { Button } from "@/common/components/Button";
-import { EnvelopeIcon } from "@/common/components/CustomIcon/EnvelopeIcon";
-import { LockIcon } from "@/common/components/CustomIcon/LockIcon";
 import { Input } from "@/common/components/Input";
+import { Button } from "@/common/components/Button";
+import { LockIcon } from "@/common/components/CustomIcon/LockIcon";
 import { EyeIcon } from "@/common/components/CustomIcon/EyeIcon";
 import { EyeSlashIcon } from "@/common/components/CustomIcon/EyeSlashIcon";
+import { EnvelopeIcon } from "@/common/components/CustomIcon/EnvelopeIcon";
 
-export default function SignupForm() {
-  const [email, setEmail] = useState("");
-  const [pwd, setPwd] = useState("");
-  const [cfmPwd, setCfmPwd] = useState("");
-  const [formSubmittedLoading, setFormSubmittedLoading] = useState(false);
-  const [emailErrorMsg, setEmailErrorMsg] = useState("");
-  const [pwdErrorMsg, setPwdErrorMsg] = useState("");
-  const [cfmPwdErrorMsg, setCfmPwdErrorMsg] = useState("");
+type SignupFormInputs = {
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
+
+export const SignupForm = () => {
   const [isPwdVisible, setIsPwdVisible] = useState(false);
   const [isCfmPwdVisible, setIsCfmPwdVisible] = useState(false);
-
-  const validatePassword = (pwd: string) => {
-    console.log("validatePassword", pwd, pwd.length);
-    pwd.length < 8
-      ? setPwdErrorMsg("Password must be at least 8 characters long")
-      : setPwdErrorMsg("");
-  };
-
-  const isValidEmail = (email: string) =>
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.endsWith("smu.edu.sg");
-  const validateEmail = (email: string) => {
-    isValidEmail(email)
-      ? setEmailErrorMsg("")
-      : setEmailErrorMsg("Please enter a valid school email address");
-  };
-
-  const validateConfirmPassword = (cfmPwd: string) => {
-    cfmPwd !== pwd
-      ? setCfmPwdErrorMsg("Passwords do not match")
-      : setCfmPwdErrorMsg("");
-  };
-
-  const handleCreateAccountAndSignin = async (ev: FormEvent) => {
-    ev.preventDefault();
-    if (formSubmittedLoading) return;
-    setFormSubmittedLoading(true);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<SignupFormInputs>({ mode: "onTouched" });
+  const onSubmit: SubmitHandler<SignupFormInputs> = async (data) => {
+    if (isSubmitting) return;
 
     // TODO: replace with create account logic
+    console.log(data);
     await new Promise((r) => setTimeout(r, 2000));
-    !!emailErrorMsg || !!pwdErrorMsg || !!cfmPwdErrorMsg
+    !!errors.email || !!errors.password || !!errors.confirmPassword
       ? alert("error creating account!")
       : alert("account created!");
 
-    setFormSubmittedLoading(false);
+    reset({ password: "", confirmPassword: "" });
   };
+
+  const isValidEmail = (email: string) =>
+    // TODO: replace with supported school email validation logic
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.endsWith("smu.edu.sg");
 
   return (
     <form
       className="flex w-full flex-col gap-6"
-      onSubmit={handleCreateAccountAndSignin}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <Input
-        label={"School Email Address"}
+        label="School Email Address"
         leftContent={<EnvelopeIcon size={24} />}
         placeholder="john.doe.2023@smu.edu.sg"
-        value={email}
-        onChange={(ev) => setEmail(ev.target.value)}
-        onBlur={() => validateEmail(email)}
-        isError={!!emailErrorMsg}
-        helperText={emailErrorMsg}
+        isError={!!errors.email}
+        helperText={errors.email?.message}
         autoComplete="on"
+        registerFormProps={register("email", {
+          required: "Please enter a valid school email address",
+          validate: (email) =>
+            isValidEmail(email) || "Please enter a valid school email address",
+        })}
       />
       <Input
-        label={"Password"}
+        label="Password"
         leftContent={<LockIcon size={24} />}
         rightContent={
           isPwdVisible ? (
@@ -86,18 +75,19 @@ export default function SignupForm() {
         }
         placeholder="Enter password"
         type={isPwdVisible ? "text" : "password"}
-        value={pwd}
-        onChange={(ev) => {
-          setPwd(ev.target.value);
-          !!pwdErrorMsg && validatePassword(ev.target.value);
-        }}
-        onBlur={() => validatePassword(pwd)}
-        isError={!!pwdErrorMsg}
-        helperText={pwdErrorMsg}
+        isError={!!errors.password}
+        helperText={errors.password?.message}
         autoComplete="on"
+        registerFormProps={register("password", {
+          required: "Please enter your password",
+          minLength: {
+            value: 8,
+            message: "Password must be at least 8 characters long",
+          },
+        })}
       />
       <Input
-        label={"Confirm Password"}
+        label="Confirm Password"
         leftContent={<LockIcon size={24} />}
         rightContent={
           isCfmPwdVisible ? (
@@ -114,22 +104,22 @@ export default function SignupForm() {
         }
         placeholder="Confirm password"
         type={isCfmPwdVisible ? "text" : "password"}
-        value={cfmPwd}
-        onChange={(ev) => {
-          setCfmPwd(ev.target.value);
-          validateConfirmPassword(ev.target.value);
-        }}
-        isError={!!cfmPwdErrorMsg}
-        helperText={cfmPwdErrorMsg}
+        isError={!!errors.confirmPassword}
+        helperText={errors.confirmPassword?.message}
         autoComplete="on"
+        registerFormProps={register("confirmPassword", {
+          required: "Please confirm your password",
+          validate: (cfmPwd: string, formValues: SignupFormInputs) =>
+            cfmPwd === formValues.password || "Passwords do not match",
+        })}
       />
       <div className="flex w-full flex-col items-start gap-2 self-stretch pt-3">
-        <Button fullWidth type="submit" disabled={formSubmittedLoading}>
-          {formSubmittedLoading ? "Creating an account..." : "Sign up"}
+        <Button fullWidth type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Creating an account..." : "Sign up"}
         </Button>
         <div className="flex items-center gap-1 self-stretch text-base">
           <span className="text-center font-semibold text-text-em-mid">
-            {"Already have an account?"}
+            Already have an account?
           </span>
           <Button variant="link" as="a" href="/account/auth/login">
             Login
@@ -138,4 +128,4 @@ export default function SignupForm() {
       </div>
     </form>
   );
-}
+};

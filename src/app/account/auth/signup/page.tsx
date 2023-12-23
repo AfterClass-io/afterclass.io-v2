@@ -1,5 +1,4 @@
-import { AuthCard } from "@/common/components/Auth";
-import SignupForm from "@/common/components/Auth/SignupForm";
+import { AuthCard, SignupForm } from "@/common/components/Auth";
 
 export default function SignUp() {
   return (
