@@ -64,14 +64,9 @@ export const SignupForm = () => {
         label="Password"
         leftContent={<LockIcon size={24} />}
         rightContent={
-          isPwdVisible ? (
-            <EyeSlashIcon
-              size={24}
-              onClick={() => setIsPwdVisible(!isPwdVisible)}
-            />
-          ) : (
-            <EyeIcon size={24} onClick={() => setIsPwdVisible(!isPwdVisible)} />
-          )
+          <button onClick={() => setIsPwdVisible(!isPwdVisible)}>
+            {isPwdVisible ? <EyeSlashIcon size={24} /> : <EyeIcon size={24} />}
+          </button>
         }
         placeholder="Enter password"
         type={isPwdVisible ? "text" : "password"}
@@ -90,17 +85,13 @@ export const SignupForm = () => {
         label="Confirm Password"
         leftContent={<LockIcon size={24} />}
         rightContent={
-          isCfmPwdVisible ? (
-            <EyeSlashIcon
-              size={24}
-              onClick={() => setIsCfmPwdVisible(!isCfmPwdVisible)}
-            />
-          ) : (
-            <EyeIcon
-              size={24}
-              onClick={() => setIsCfmPwdVisible(!isCfmPwdVisible)}
-            />
-          )
+          <button onClick={() => setIsCfmPwdVisible(!isCfmPwdVisible)}>
+            {isCfmPwdVisible ? (
+              <EyeSlashIcon size={24} />
+            ) : (
+              <EyeIcon size={24} />
+            )}
+          </button>
         }
         placeholder="Confirm password"
         type={isCfmPwdVisible ? "text" : "password"}

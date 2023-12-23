@@ -67,14 +67,9 @@ export const LoginForm = () => {
         label="Password"
         leftContent={<LockIcon size={24} />}
         rightContent={
-          isPwdVisible ? (
-            <EyeSlashIcon
-              size={24}
-              onClick={() => setIsPwdVisible(!isPwdVisible)}
-            />
-          ) : (
-            <EyeIcon size={24} onClick={() => setIsPwdVisible(!isPwdVisible)} />
-          )
+          <button onClick={() => setIsPwdVisible(!isPwdVisible)}>
+            {isPwdVisible ? <EyeSlashIcon size={24} /> : <EyeIcon size={24} />}
+          </button>
         }
         placeholder="Enter password"
         type={isPwdVisible ? "text" : "password"}
