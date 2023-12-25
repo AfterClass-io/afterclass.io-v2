@@ -67,7 +67,7 @@ export const LoginForm = () => {
         label="Password"
         leftContent={<LockIcon size={24} />}
         rightContent={
-          <button onClick={() => setIsPwdVisible(!isPwdVisible)}>
+          <button type="button" onClick={() => setIsPwdVisible(!isPwdVisible)}>
             {isPwdVisible ? <EyeSlashIcon size={24} /> : <EyeIcon size={24} />}
           </button>
         }

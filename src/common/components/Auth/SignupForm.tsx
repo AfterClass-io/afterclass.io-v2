@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 
 import { Input } from "@/common/components/Input";
@@ -42,6 +42,10 @@ export const SignupForm = () => {
     // TODO: replace with supported school email validation logic
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.endsWith("smu.edu.sg");
 
+  useEffect(() => {
+    console.log(isPwdVisible);
+  }, [isPwdVisible]);
+
   return (
     <form
       className="flex w-full flex-col gap-6"
@@ -64,7 +68,7 @@ export const SignupForm = () => {
         label="Password"
         leftContent={<LockIcon size={24} />}
         rightContent={
-          <button onClick={() => setIsPwdVisible(!isPwdVisible)}>
+          <button type="button" onClick={() => setIsPwdVisible(!isPwdVisible)}>
             {isPwdVisible ? <EyeSlashIcon size={24} /> : <EyeIcon size={24} />}
           </button>
         }
@@ -85,7 +89,10 @@ export const SignupForm = () => {
         label="Confirm Password"
         leftContent={<LockIcon size={24} />}
         rightContent={
-          <button onClick={() => setIsCfmPwdVisible(!isCfmPwdVisible)}>
+          <button
+            type="button"
+            onClick={() => setIsCfmPwdVisible(!isCfmPwdVisible)}
+          >
             {isCfmPwdVisible ? (
               <EyeSlashIcon size={24} />
             ) : (
