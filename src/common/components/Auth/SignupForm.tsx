@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 
 import { Input } from "@/common/components/Input";
@@ -41,10 +41,6 @@ export const SignupForm = () => {
   const isValidEmail = (email: string) =>
     // TODO: replace with supported school email validation logic
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.endsWith("smu.edu.sg");
-
-  useEffect(() => {
-    console.log(isPwdVisible);
-  }, [isPwdVisible]);
 
   return (
     <form
