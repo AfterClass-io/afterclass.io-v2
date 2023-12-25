@@ -52,14 +52,7 @@ export const authOptions: NextAuthOptions = {
       // You can specify which fields should be submitted, by adding keys to the `credentials` object.
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
-      credentials: {
-        email: {
-          label: "School Email",
-          type: "text",
-          placeholder: "jsmith@smu.edu.sg",
-        },
-        password: { label: "Password", type: "password" },
-      },
+      credentials: { email: { type: "text" }, password: { type: "password" } },
       async authorize(credentials) {
         const Credential = z.object({
           email: z.string().email(),
@@ -127,6 +120,11 @@ export const authOptions: NextAuthOptions = {
     generateSessionToken: () => {
       return randomUUID?.() ?? randomBytes(32).toString("hex");
     },
+  },
+  pages: {
+    signIn: "/account/auth/login",
+    error: "/account/auth/error", // Error code passed in query string as `?error=`
+    verifyRequest: "/account/auth/verify", // Used for check email message
   },
 };
 

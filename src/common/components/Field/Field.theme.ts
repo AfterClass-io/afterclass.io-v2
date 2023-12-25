@@ -5,9 +5,9 @@ export type FieldVariants = VariantProps<typeof fieldTheme>;
 export const fieldTheme = tv(
   {
     slots: {
-      wrapper: ["flex", "flex-col", "gap-2"],
+      wrapper: ["flex", "flex-col", "gap-2", "w-full"],
     },
     variants: {},
   },
-  { responsiveVariants: true }
+  { responsiveVariants: true },
 );

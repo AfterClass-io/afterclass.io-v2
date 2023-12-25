@@ -11,7 +11,7 @@ export const CoreLayout = ({ children }: Props) => {
       <aside>
         <Sidebar />
       </aside>
-      <main className="grow">{children}</main>
+      <main className="grow bg-bg-alt">{children}</main>
     </div>
   );
 };
