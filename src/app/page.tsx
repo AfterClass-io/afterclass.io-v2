@@ -52,7 +52,7 @@ export default function Home() {
           <span>
             {universities.data
               ? universities.data.map((university) => (
-                  <div key={university.id}>Hello from {university.name}!</div>
+                  <div key={university.id}>Hello from {university.name}! Refer {university.siteUrl}</div>
                 ))
               : "Loading tRPC query..."}
           </span>
