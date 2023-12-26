@@ -6,13 +6,18 @@ import { Icon } from "@iconify-icon/react";
 
 import { APP_THEMES } from "@/common/tools/tailwind/themes/appTheme";
 import { Button } from "@/common/components/Button";
-import { AuthDemo } from "@/common/components/Auth";
 import { Input } from "@/common/components/Input";
 import { StarLineAltIcon } from "@/common/components/CustomIcon";
 import { api } from "@/common/tools/trpc/utils/api";
 
 export default function Home() {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  // create university
+  // api.university.createUniversity.useQuery({
+  //   name: "SMU",
+  //   siteUrl: "https://www.smu.edu.sg",
+  // });
+  // Get all universities
+  const universities = api.university.getAllUniversities.useQuery();
 
   const [isMounted, setIsMounted] = useState(false);
   const { theme, setTheme } = useTheme();
@@ -45,9 +50,12 @@ export default function Home() {
         <div className="mx-auto flex w-fit flex-col items-center justify-center gap-3 rounded-md bg-bg-alt p-6">
           <span>tRPC Auth showcase</span>
           <span>
-            {hello.data ? hello.data.greeting : "Loading tRPC query..."}
+            {universities.data
+              ? universities.data.map((university) => (
+                  <div key={university.id}>Hello from {university.name}!</div>
+                ))
+              : "Loading tRPC query..."}
           </span>
-          <AuthDemo />
         </div>
         <div className="space-y-4">
           <Input
