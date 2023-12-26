@@ -1,8 +1,5 @@
 import { z } from "zod";
-import {
-  createTRPCRouter,
-  publicProcedure,
-} from "@/server/api/trpc";
+import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 
 export const universityRouter = createTRPCRouter({
   createUniversity: publicProcedure
@@ -35,24 +32,24 @@ export const universityRouter = createTRPCRouter({
       return university;
     }),
 
-  // updateUniversityById: publicProcedure
-  //   .input(
-  //     z.object({
-  //       id: z.number(),
-  //       name: z.enum(["SMU", "NTU", "NUS"]),
-  //       siteUrl: z.string(),
-  //     }),
-  //   )
-  //   .query(async ({ input, ctx }) => {
-  //     const university = await ctx.db.universities.update({
-  //       where: {
-  //         id: input.id,
-  //       },
-  //       data: {
-  //         name: input.name,
-  //         siteUrl: input.siteUrl,
-  //       },
-  //     });
-  //     return university;
-  //   }),
+  updateUniversityById: publicProcedure
+    .input(
+      z.object({
+        id: z.number(),
+        name: z.enum(["SMU", "NTU", "NUS"]),
+        siteUrl: z.string(),
+      }),
+    )
+    .query(async ({ input, ctx }) => {
+      const university = await ctx.db.universities.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          name: input.name,
+          siteUrl: input.siteUrl,
+        },
+      });
+      return university;
+    }),
 });
