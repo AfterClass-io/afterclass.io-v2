@@ -52,4 +52,15 @@ export const universityRouter = createTRPCRouter({
       });
       return university;
     }),
+
+  deleteUniversityById: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .query(async ({ input, ctx }) => {
+      const university = await ctx.db.universities.delete({
+        where: {
+          id: input.id,
+        },
+      });
+      return university;
+    }),
 });
