@@ -5,6 +5,7 @@ import { fieldTheme } from "./Field.theme";
 
 export type FieldProps = {
   label?: string;
+  labelRight?: ReactNode;
   children?: ReactNode;
   isError?: boolean;
   helperText?: string;
@@ -16,16 +17,20 @@ export type FieldFullProps = ComponentPropsWithoutRef<"div"> &
 
 export const Field = ({
   label,
+  labelRight,
   children,
   helperText,
   isError = false,
   size,
   ...props
 }: FieldFullProps) => {
-  const { wrapper } = fieldTheme();
+  const { labelContainer, wrapper } = fieldTheme();
   return (
     <div {...props} className={wrapper()}>
-      {label && <Label text={label} size={size} />}
+      <div className={labelContainer()}>
+        {label && <Label text={label} size={size} />}
+        {labelRight}
+      </div>
       {children}
       {helperText && (
         <Label

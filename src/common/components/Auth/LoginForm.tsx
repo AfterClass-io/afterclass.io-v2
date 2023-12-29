@@ -1,66 +1,108 @@
 "use client";
 
-import { useEffect, useState, FormEvent } from "react";
+import { useEffect, useState } from "react";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { z } from "zod";
 
 import { Button } from "@/common/components/Button";
 import { EnvelopeIcon } from "@/common/components/CustomIcon/EnvelopeIcon";
 import { LockIcon } from "@/common/components/CustomIcon/LockIcon";
 import { Input } from "@/common/components/Input";
+import { EyeSlashIcon } from "@/common/components/CustomIcon/EyeSlashIcon";
+import { EyeIcon } from "@/common/components/CustomIcon/EyeIcon";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-export default function LoginForm() {
+const loginFormInputsSchema = z.object({
+  email: z
+    .string()
+    .min(1, { message: "Please enter a valid school email address" })
+    .email("Please enter a valid school email address"),
+  password: z
+    .string()
+    .min(8, { message: "Passwords must be at least 8 characters long" }),
+});
+type LoginFormInputs = z.infer<typeof loginFormInputsSchema>;
+
+export const LoginForm = () => {
   const searchParams = useSearchParams();
-  const [email, setEmail] = useState("");
-  const [pwd, setPwd] = useState("");
-  const [formSubmittedLoading, setFormSubmittedLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [isPwdVisible, setIsPwdVisible] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormInputs>({
+    resolver: zodResolver(loginFormInputsSchema),
+    mode: "onTouched",
+  });
+  const onSubmit: SubmitHandler<LoginFormInputs> = async ({
+    email,
+    password,
+  }) => {
+    if (isSubmitting) return;
+    await signIn("credentials", {
+      email,
+      password,
+      callbackUrl: searchParams.get("callbackUrl") || "/reviews",
+    });
+    reset();
+  };
 
   useEffect(() => {
     const e = searchParams.get("error");
-    e && setError("Invalid email or password. Please try again.");
-  }, [searchParams]);
+    e &&
+      setError("password", {
+        type: "custom",
+        message: "Invalid email or password. Please try again.",
+      });
+  }, [searchParams, setError]);
 
-  const handleSignIn = async (ev: FormEvent) => {
-    ev.preventDefault();
-    if (formSubmittedLoading) return;
-    setFormSubmittedLoading(true);
-    await signIn("credentials", {
-      email: email,
-      password: pwd,
-      callbackUrl: searchParams.get("callbackUrl") || "/reviews",
-    });
-    setPwd("");
-    setFormSubmittedLoading(false);
-  };
   return (
-    <form className="flex w-full flex-col gap-6" onSubmit={handleSignIn}>
+    <form
+      className="flex w-full flex-col gap-6"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <Input
-        label={"School Email Address"}
-        leftContent={<EnvelopeIcon size={24} />}
+        {...register("email")}
+        label="School Email Address"
+        contentLeft={<EnvelopeIcon size={24} />}
         placeholder="john.doe.2023@smu.edu.sg"
-        value={email}
-        onChange={(ev) => setEmail(ev.target.value)}
+        isError={!!errors.email}
+        helperText={errors.email?.message}
         autoComplete="on"
       />
       <Input
-        label={"Password"}
-        leftContent={<LockIcon size={24} />}
+        {...register("password")}
+        label="Password"
+        labelRight={
+          <Button
+            variant="link"
+            as="a"
+            href="/account/auth/reset-password"
+            size="sm"
+          >
+            Forgot password?
+          </Button>
+        }
+        contentLeft={<LockIcon size={24} />}
+        contentRight={
+          <button type="button" onClick={() => setIsPwdVisible(!isPwdVisible)}>
+            {isPwdVisible ? <EyeSlashIcon size={24} /> : <EyeIcon size={24} />}
+          </button>
+        }
         placeholder="Enter password"
-        type="password"
-        value={pwd}
-        onChange={(ev) => setPwd(ev.target.value)}
+        type={isPwdVisible ? "text" : "password"}
+        isError={!!errors.password}
+        helperText={errors.password?.message}
         autoComplete="on"
-        isError={!!error}
-        helperText={error}
       />
       <div className="flex w-full flex-col items-start gap-2 self-stretch pt-3">
-        <Button
-          fullWidth
-          onClick={handleSignIn}
-          disabled={formSubmittedLoading}
-        >
-          {formSubmittedLoading ? "Signing in..." : "Login"}
+        <Button fullWidth type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Signing in..." : "Login"}
         </Button>
         <div className="flex items-center gap-1 self-stretch text-base">
           <span className="text-center font-semibold text-text-em-mid">
@@ -73,4 +115,4 @@ export default function LoginForm() {
       </div>
     </form>
   );
-}
+};

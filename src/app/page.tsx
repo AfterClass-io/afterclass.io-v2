@@ -53,15 +53,15 @@ export default function Home() {
           <Input
             label={"Test Label 1"}
             helperText={"Test helper text"}
-            leftContent={<StarLineAltIcon size={16} />}
-            rightContent={<StarLineAltIcon size={16} />}
+            contentLeft={<StarLineAltIcon size={16} />}
+            contentRight={<StarLineAltIcon size={16} />}
             placeholder="Write here"
           />
           <Input
             label={"Test Label 2"}
             helperText={"Test error helper text"}
-            leftContent={<StarLineAltIcon size={16} />}
-            rightContent={<StarLineAltIcon size={16} />}
+            contentLeft={<StarLineAltIcon size={16} />}
+            contentRight={<StarLineAltIcon size={16} />}
             placeholder="Write here"
             size={{ initial: "sm", md: "md" }}
             isError={true}

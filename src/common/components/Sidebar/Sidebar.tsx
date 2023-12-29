@@ -27,7 +27,7 @@ export const Sidebar = () => {
       </Link>
       <Input
         className="w-full"
-        leftContent={
+        contentLeft={
           <Icon icon="uil:search" size={16} className="px-1 text-text-em-low" />
         }
         placeholder="Search"

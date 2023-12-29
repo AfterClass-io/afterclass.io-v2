@@ -18,6 +18,21 @@ const config = {
   //   locales: ["en"],
   //   defaultLocale: "en",
   // },
+  async redirects() {
+    return [
+      {
+        source: "/account/auth/verify",
+        missing: [
+          {
+            type: "query",
+            key: "email",
+          },
+        ],
+        destination: "/not-found",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default config;
