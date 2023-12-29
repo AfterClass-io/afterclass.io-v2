@@ -43,6 +43,8 @@ export const Button = ({
   iconRight,
   isResponsive = false,
   fullWidth,
+  disabled,
+  loading,
   ...props
 }: ButtonOrLinkProps) => {
   // Conditionally render between <NextLink>, <a> or <button> depending on props
@@ -82,25 +84,18 @@ export const Button = ({
   );
 
   // Self invoking function to pick only props used in ButtonVariants
-  const styleProps = (({
-    variant = "primary",
-    iconOnly,
-    size = "md",
-    as,
-    fullWidth = false,
-    disabled = false,
-  }) => ({
+  const styleProps = (({ variant = "primary", iconOnly, size = "md", as }) => ({
     variant,
     iconOnly,
     size,
     as,
     fullWidth,
     disabled,
+    loading,
   }))({
     ...props,
     iconOnly: typeof children === "undefined",
     hasIcon: !!iconLeft || !!iconRight,
-    fullWidth,
   });
 
   // throw error to pass aria-label if button is icon only
@@ -129,9 +124,14 @@ export const Button = ({
     [styleProps?.size],
   );
 
+  const disableOnClickProp = {
+    ...((loading ?? disabled) && { onClick: undefined }),
+  };
+
   return (
     <Component
       {...props}
+      {...disableOnClickProp}
       className={buttonTheme({
         ...styleProps,
         ...(isResponsive && {
@@ -139,7 +139,7 @@ export const Button = ({
         }),
         className: props.className,
       })}
-      data-disabled={props?.disabled ? "" : undefined}
+      data-disabled={disabled ? "" : undefined}
     >
       <StyledIcon icon={iconLeft} />
       {children}
