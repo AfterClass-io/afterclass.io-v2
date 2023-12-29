@@ -44,6 +44,7 @@ export const ResetPasswordForm = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Input
+        {...register("password")}
         label="New Password"
         leftContent={<LockIcon size={24} />}
         rightContent={
@@ -56,7 +57,6 @@ export const ResetPasswordForm = () => {
         isError={!!errors.password}
         helperText={errors.password?.message}
         autoComplete="on"
-        registerFormProps={register("password")}
       />
       <div className="flex w-full flex-col items-start gap-2 self-stretch pt-3">
         <Button fullWidth type="submit" disabled={isSubmitting}>

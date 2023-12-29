@@ -34,7 +34,6 @@ export const LoginForm = () => {
     handleSubmit,
     reset,
     setError,
-    watch,
     formState: { errors, isSubmitting },
   } = useForm<LoginFormInputs>({
     resolver: zodResolver(loginFormInputsSchema),
@@ -68,9 +67,7 @@ export const LoginForm = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Input
-        {...register("email", {
-          required: "Please enter a valid school email address",
-        })}
+        {...register("email")}
         label="School Email Address"
         leftContent={<EnvelopeIcon size={24} />}
         placeholder="john.doe.2023@smu.edu.sg"
@@ -79,13 +76,7 @@ export const LoginForm = () => {
         autoComplete="on"
       />
       <Input
-        {...register("password", {
-          required: "Please enter your password",
-          minLength: {
-            value: 8,
-            message: "Password must be at least 8 characters long",
-          },
-        })}
+        {...register("password")}
         label="Password"
         leftContent={<LockIcon size={24} />}
         rightContent={

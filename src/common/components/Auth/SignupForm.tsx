@@ -75,15 +75,16 @@ export const SignupForm = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Input
+        {...register("email")}
         label="School Email Address"
         leftContent={<EnvelopeIcon size={24} />}
         placeholder="john.doe.2023@smu.edu.sg"
         isError={!!errors.email}
         helperText={errors.email?.message}
         autoComplete="on"
-        registerFormProps={register("email")}
       />
       <Input
+        {...register("password")}
         label="Password"
         leftContent={<LockIcon size={24} />}
         rightContent={
@@ -96,9 +97,9 @@ export const SignupForm = () => {
         isError={!!errors.password}
         helperText={errors.password?.message}
         autoComplete="on"
-        registerFormProps={register("password")}
       />
       <Input
+        {...register("confirmPassword")}
         label="Confirm Password"
         leftContent={<LockIcon size={24} />}
         rightContent={
@@ -118,7 +119,6 @@ export const SignupForm = () => {
         isError={!!errors.confirmPassword}
         helperText={errors.confirmPassword?.message}
         autoComplete="on"
-        registerFormProps={register("confirmPassword")}
       />
       <div className="flex w-full flex-col items-start gap-2 self-stretch pt-3">
         <Button fullWidth type="submit" disabled={isSubmitting}>
