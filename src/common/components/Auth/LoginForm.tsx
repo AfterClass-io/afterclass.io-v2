@@ -78,6 +78,16 @@ export const LoginForm = () => {
       <Input
         {...register("password")}
         label="Password"
+        labelRight={
+          <Button
+            variant="link"
+            as="a"
+            href="/account/auth/reset-password"
+            size="sm"
+          >
+            Forgot password?
+          </Button>
+        }
         contentLeft={<LockIcon size={24} />}
         contentRight={
           <button type="button" onClick={() => setIsPwdVisible(!isPwdVisible)}>
