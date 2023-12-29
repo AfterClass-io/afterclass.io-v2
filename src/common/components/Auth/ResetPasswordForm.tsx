@@ -46,8 +46,8 @@ export const ResetPasswordForm = () => {
       <Input
         {...register("password")}
         label="New Password"
-        leftContent={<LockIcon size={24} />}
-        rightContent={
+        contentLeft={<LockIcon size={24} />}
+        contentRight={
           <button onClick={() => setIsPwdVisible(!isPwdVisible)}>
             {isPwdVisible ? <EyeSlashIcon size={24} /> : <EyeIcon size={24} />}
           </button>

@@ -77,7 +77,7 @@ export const SignupForm = () => {
       <Input
         {...register("email")}
         label="School Email Address"
-        leftContent={<EnvelopeIcon size={24} />}
+        contentLeft={<EnvelopeIcon size={24} />}
         placeholder="john.doe.2023@smu.edu.sg"
         isError={!!errors.email}
         helperText={errors.email?.message}
@@ -86,8 +86,8 @@ export const SignupForm = () => {
       <Input
         {...register("password")}
         label="Password"
-        leftContent={<LockIcon size={24} />}
-        rightContent={
+        contentLeft={<LockIcon size={24} />}
+        contentRight={
           <button type="button" onClick={() => setIsPwdVisible(!isPwdVisible)}>
             {isPwdVisible ? <EyeSlashIcon size={24} /> : <EyeIcon size={24} />}
           </button>
@@ -101,8 +101,8 @@ export const SignupForm = () => {
       <Input
         {...register("confirmPassword")}
         label="Confirm Password"
-        leftContent={<LockIcon size={24} />}
-        rightContent={
+        contentLeft={<LockIcon size={24} />}
+        contentRight={
           <button
             type="button"
             onClick={() => setIsCfmPwdVisible(!isCfmPwdVisible)}

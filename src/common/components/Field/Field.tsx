@@ -5,6 +5,7 @@ import { fieldTheme } from "./Field.theme";
 
 export type FieldProps = {
   label?: string;
+  labelRight?: ReactNode;
   children?: ReactNode;
   isError?: boolean;
   helperText?: string;
@@ -16,6 +17,7 @@ export type FieldFullProps = ComponentPropsWithoutRef<"div"> &
 
 export const Field = ({
   label,
+  labelRight,
   children,
   helperText,
   isError = false,
@@ -25,7 +27,10 @@ export const Field = ({
   const { wrapper } = fieldTheme();
   return (
     <div {...props} className={wrapper()}>
-      {label && <Label text={label} size={size} />}
+      <div className="flex flex-wrap justify-between">
+        {label && <Label text={label} size={size} />}
+        {labelRight}
+      </div>
       {children}
       {helperText && (
         <Label

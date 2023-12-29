@@ -10,8 +10,8 @@ import { Field, type FieldProps } from "@/common/components/Field";
 export type InputProps = Omit<ComponentPropsWithRef<"input">, "size"> &
   InputVariants &
   FieldProps & {
-    leftContent?: ReactNode;
-    rightContent?: ReactNode;
+    contentLeft?: ReactNode;
+    contentRight?: ReactNode;
     fieldProps?: ComponentPropsWithoutRef<"div">;
     wrapperProps?: ComponentPropsWithoutRef<"div">;
   };
@@ -21,11 +21,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     {
       className,
       size = "md",
-      leftContent,
-      rightContent,
+      contentLeft,
+      contentRight,
       wrapperProps,
       fieldProps,
       label,
+      labelRight,
       helperText,
       isError = false,
       ...props
@@ -37,6 +38,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       <Field
         {...fieldProps}
         label={label}
+        labelRight={labelRight}
         isError={isError}
         helperText={helperText}
         size={size}
@@ -45,9 +47,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {...wrapperProps}
           className={wrapper({ className: wrapperProps?.className })}
         >
-          {leftContent}
+          {contentLeft}
           <input ref={ref} {...props} className={inputClasses({ className })} />
-          {rightContent}
+          {contentRight}
         </div>
       </Field>
     );
