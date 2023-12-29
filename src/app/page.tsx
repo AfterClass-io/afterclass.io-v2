@@ -1,13 +1,5 @@
-"use client";
+"use client"; // Remove this when we remove api calls directly in page
 
-import { useState, useEffect, useCallback } from "react";
-import { useTheme } from "next-themes";
-import { Icon } from "@iconify-icon/react";
-
-import { APP_THEMES } from "@/common/tools/tailwind/themes/appTheme";
-import { Button } from "@/common/components/Button";
-import { Input } from "@/common/components/Input";
-import { StarLineAltIcon } from "@/common/components/CustomIcon";
 import { api } from "@/common/tools/trpc/utils/api";
 
 export default function Home() {
@@ -28,7 +20,6 @@ export default function Home() {
           AfterClass
         </div>
         <div className="mx-auto flex w-fit flex-col items-center justify-center gap-3 rounded-md bg-bg-alt p-6">
-          <span>tRPC Auth showcase</span>
           <span>
             {universities.data
               ? universities.data.map((university) => (
