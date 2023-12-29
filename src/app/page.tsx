@@ -15,7 +15,7 @@ export default function Home() {
 
   return (
     <>
-      <section className="flex h-full flex-col items-center space-y-6 p-6">
+      <section className="flex h-full flex-col items-center space-y-6 overflow-y-auto overflow-x-hidden p-6">
         <div className="font-display font-semibold text-primary-default">
           AfterClass
         </div>
