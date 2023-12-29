@@ -24,10 +24,10 @@ export const Field = ({
   size,
   ...props
 }: FieldFullProps) => {
-  const { wrapper } = fieldTheme();
+  const { labelContainer, wrapper } = fieldTheme();
   return (
     <div {...props} className={wrapper()}>
-      <div className="flex flex-wrap justify-between">
+      <div className={labelContainer()}>
         {label && <Label text={label} size={size} />}
         {labelRight}
       </div>
