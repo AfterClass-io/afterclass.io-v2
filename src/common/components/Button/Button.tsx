@@ -42,6 +42,7 @@ export const Button = ({
   iconLeft,
   iconRight,
   isResponsive = false,
+  fullWidth,
   ...props
 }: ButtonOrLinkProps) => {
   // Conditionally render between <NextLink>, <a> or <button> depending on props
@@ -77,7 +78,7 @@ export const Button = ({
         return <button {...buttonProps}>{_children}</button>;
       }
     },
-    []
+    [],
   );
 
   // Self invoking function to pick only props used in ButtonVariants
@@ -99,12 +100,13 @@ export const Button = ({
     ...props,
     iconOnly: typeof children === "undefined",
     hasIcon: !!iconLeft || !!iconRight,
+    fullWidth,
   });
 
   // throw error to pass aria-label if button is icon only
   if (typeof children === "undefined" && !props["aria-label"]) {
     throw new Error(
-      "Button must have a label if it is icon only. Please add an aria-label prop."
+      "Button must have a label if it is icon only. Please add an aria-label prop.",
     );
   }
 
@@ -124,7 +126,7 @@ export const Button = ({
       }
       return <></>;
     },
-    [styleProps?.size]
+    [styleProps?.size],
   );
 
   return (
