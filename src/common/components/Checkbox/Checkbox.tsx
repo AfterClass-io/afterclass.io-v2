@@ -3,7 +3,10 @@
 import { useState, useId } from "react";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { CheckIcon, MinusIcon } from "@/common/components/CustomIcon";
-import { CheckboxVariants, checkboxTheme } from "@/common/components/Checkbox";
+import {
+  checkboxTheme,
+  type CheckboxVariants,
+} from "@/common/components/Checkbox";
 
 export type CheckboxProps = CheckboxVariants &
   CheckboxPrimitive.CheckboxProps & {
@@ -17,16 +20,13 @@ export const Checkbox = ({
   size = "md",
   disabled = false,
   indeterminate = false,
+  defaultChecked,
+  checked: initialCheckedState,
   ...props
 }: CheckboxProps) => {
-  const { checked: initialCheckedState, defaultChecked } = props;
   const initialState = () => {
-    if (initialCheckedState !== undefined) {
-      return initialCheckedState;
-    }
-    if (defaultChecked !== undefined) {
-      return defaultChecked;
-    }
+    if (initialCheckedState !== undefined) return initialCheckedState;
+    if (defaultChecked !== undefined) return defaultChecked;
     return indeterminate ? "indeterminate" : false;
   };
   const [checked, setChecked] = useState(initialState());
@@ -48,9 +48,9 @@ export const Checkbox = ({
       <CheckboxPrimitive.Root
         id={id}
         disabled={disabled}
-        className={checkboxRoot()}
         checked={checked}
         onCheckedChange={setChecked}
+        className={checkboxRoot()}
         {...props}
       >
         <CheckboxPrimitive.Indicator className={checkboxIndicator()}>
