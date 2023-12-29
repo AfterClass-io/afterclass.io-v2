@@ -10,7 +10,7 @@ export const universityRouter = createTRPCRouter({
         abbrv: z.enum(["SMU", "NTU", "NUS"]),
       }),
     )
-    .query(async ({ input, ctx }) => {
+    .mutation(async ({ input, ctx }) => {
       const university = await ctx.db.universities.create({
         data: {
           name: input.name,
@@ -46,7 +46,7 @@ export const universityRouter = createTRPCRouter({
         abbrv: z.enum(["SMU", "NTU", "NUS"]),
       }),
     )
-    .query(async ({ input, ctx }) => {
+    .mutation(async ({ input, ctx }) => {
       const university = await ctx.db.universities.update({
         where: {
           id: input.id,
@@ -62,7 +62,7 @@ export const universityRouter = createTRPCRouter({
 
   delete: publicProcedure
     .input(z.object({ id: z.number() }))
-    .query(async ({ input, ctx }) => {
+    .mutation(async ({ input, ctx }) => {
       const university = await ctx.db.universities.delete({
         where: {
           id: input.id,
