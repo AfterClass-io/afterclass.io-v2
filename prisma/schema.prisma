@@ -32,7 +32,7 @@ model Reviews {
     reviewer             Users          @relation(fields: [reviewerId], references: [id])
     reviewerId           Int            @map("reviewer_id")
     createdAt            DateTime       @default(now()) @map("created_at") @db.Timestamptz(3)
-    updatedAt            DateTime       @updatedAt @map("updated_at") @db.Timestamptz(3) 
+    updatedAt            DateTime       @updatedAt @map("updated_at") @db.Timestamptz(3)
     votes                Votes[]
     reviewLabels         ReviewLabels[]
 }
@@ -57,12 +57,13 @@ model Users {
 }
 
 model Universities {
-    id         Int          @id @default(autoincrement())
-    name       Unversity
-    siteUrl    String       @unique @map("site_url")
-    createdAt  DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
-    updatedAt  DateTime     @updatedAt @map("updated_at") @db.Timestamptz(3)
-    reviews    Reviews[]    // Refers to reviews for course & professor from this university
+    id         Int                    @id @default(autoincrement())
+    name       String
+    abbrv      UniversityAbbreviation
+    siteUrl    String                 @unique @map("site_url")
+    createdAt  DateTime               @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt  DateTime               @updatedAt @map("updated_at") @db.Timestamptz(3)
+    reviews    Reviews[] // Refers to reviews for course & professor from this university
     users      Users[]
     courses    Courses[]
     professors Professors[]
@@ -175,10 +176,10 @@ model ReviewStatistic {
     reviewLabelStatistic ReviewLabelStatistic[]
 }
 
-enum Unversity {
-    SMU @map("Singapore Management University")
-    NUS @map("National University of Singapore")
-    NTU @map("Nanyang Technological University")
+enum UniversityAbbreviation {
+    SMU
+    NUS
+    NTU
 }
 
 enum ReviewLabelName {
