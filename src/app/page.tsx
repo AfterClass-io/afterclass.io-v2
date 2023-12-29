@@ -13,8 +13,9 @@ import { api } from "@/common/tools/trpc/utils/api";
 export default function Home() {
   // create university
   // api.university.createUniversity.useQuery({
-  //   name: "SMU",
+  //   name: "Singapore Management University",
   //   siteUrl: "https://www.smu.edu.sg",
+  //   abbrv: "SMU"
   // });
   // Get all universities
   const universities = api.university.getAllUniversities.useQuery();

@@ -4,13 +4,14 @@ import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 export const universityRouter = createTRPCRouter({
   createUniversity: publicProcedure
     .input(
-      z.object({ name: z.enum(["SMU", "NTU", "NUS"]), siteUrl: z.string() }),
+      z.object({name: z.string(), siteUrl: z.string(), abbrv: z.enum(["SMU", "NTU", "NUS"]) }),
     )
     .query(async ({ input, ctx }) => {
       const university = await ctx.db.universities.create({
         data: {
           name: input.name,
           siteUrl: input.siteUrl,
+          abbrv: input.abbrv,
         },
       });
       return university;
@@ -36,8 +37,9 @@ export const universityRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.number(),
-        name: z.enum(["SMU", "NTU", "NUS"]),
+        name: z.string(),
         siteUrl: z.string(),
+        abbrv: z.enum(["SMU", "NTU", "NUS"])
       }),
     )
     .query(async ({ input, ctx }) => {
@@ -48,6 +50,7 @@ export const universityRouter = createTRPCRouter({
         data: {
           name: input.name,
           siteUrl: input.siteUrl,
+          abbrv: input.abbrv,
         },
       });
       return university;
