@@ -12,10 +12,11 @@ import { api } from "@/common/tools/trpc/utils/api";
 
 export default function Home() {
   // create university
-  // api.university.createUniversity.useQuery({
+  // const mutation = api.university.create.useMutation();
+  // mutation.mutate({
   //   name: "Singapore Management University",
   //   siteUrl: "https://www.smu.edu.sg",
-  //   abbrv: "SMU"
+  //   abbrv: "SMU",
   // });
   // Get all universities
   const universities = api.university.getAll.useQuery();
@@ -53,7 +54,9 @@ export default function Home() {
           <span>
             {universities.data
               ? universities.data.map((university) => (
-                  <div key={university.id}>Hello from {university.name}! Refer {university.siteUrl}</div>
+                  <div key={university.id}>
+                    Hello from {university.name}! Refer {university.siteUrl}
+                  </div>
                 ))
               : "Loading tRPC query..."}
           </span>
