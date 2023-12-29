@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "Unversity" AS ENUM ('Singapore Management University', 'National University of Singapore', 'Nanyang Technological University');
+CREATE TYPE "UniversityAbbreviation" AS ENUM ('SMU', 'NUS', 'NTU');
 
 -- CreateEnum
 CREATE TYPE "ReviewLabelName" AS ENUM ('COURSE_INTERESTING', 'COURSE_PRACTICAL', 'COURSE_GAINED_NEW_SKILLS', 'PROFESSOR_ENGAGING', 'PROFESSOR_FAIR_GRADING', 'PROFESSOR_EFFECTIVE_TEACHING');
@@ -45,7 +45,8 @@ CREATE TABLE "Users" (
 -- CreateTable
 CREATE TABLE "Universities" (
     "id" SERIAL NOT NULL,
-    "name" "Unversity" NOT NULL,
+    "name" TEXT NOT NULL,
+    "abbrv" "UniversityAbbreviation" NOT NULL,
     "site_url" TEXT NOT NULL,
     "created_at" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ(3) NOT NULL,
