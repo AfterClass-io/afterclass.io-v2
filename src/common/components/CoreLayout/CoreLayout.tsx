@@ -7,11 +7,13 @@ interface Props extends PropsWithChildren {}
 
 export const CoreLayout = ({ children }: Props) => {
   return (
-    <div className="relative flex min-h-full flex-auto">
+    <div className="relative flex h-screen flex-auto">
       <aside>
         <Sidebar />
       </aside>
-      <main className="grow bg-bg-alt">{children}</main>
+      <main className="grow overflow-y-auto overflow-x-hidden bg-bg-alt">
+        {children}
+      </main>
     </div>
   );
 };
