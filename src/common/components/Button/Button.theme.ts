@@ -16,7 +16,7 @@ export const buttonIconTheme = tv(
       },
     },
   },
-  { responsiveVariants: true }
+  { responsiveVariants: true },
 );
 
 export const buttonTheme = tv(
@@ -109,6 +109,11 @@ export const buttonTheme = tv(
       disabled: {
         true: ["cursor-not-allowed"],
       },
+      loading: {
+        true: {
+          base: ["hover:after:bg-transparent", "[&>*:not(.loading)]:invisible"],
+        },
+      },
     },
     compoundVariants: [
       {
@@ -139,7 +144,7 @@ export const buttonTheme = tv(
   },
   {
     responsiveVariants: true,
-  }
+  },
 );
 
 export type ButtonVariants = VariantProps<typeof buttonTheme>;
