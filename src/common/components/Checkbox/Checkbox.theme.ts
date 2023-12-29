@@ -5,7 +5,7 @@ export type CheckboxVariants = VariantProps<typeof checkboxTheme>;
 export const checkboxTheme = tv(
   {
     slots: {
-      checkIcon: [],
+      checkboxIndicatorIcon: [],
       wrapper: ["gap-3", "inline-flex", "items-center"],
       checkboxRoot: [
         "flex",
@@ -15,6 +15,7 @@ export const checkboxTheme = tv(
         "ring-border-default",
         "enabled:hover:bg-element-secondary",
         "enabled:data-[state=checked]:bg-primary-default",
+        "enabled:data-[state=indeterminate]:bg-primary-default",
       ],
       checkboxIndicator: [
         "flex",
@@ -28,12 +29,12 @@ export const checkboxTheme = tv(
     variants: {
       size: {
         md: {
-          checkIcon: ["h-5", "w-5"],
+          checkboxIndicatorIcon: ["h-5", "w-5"],
           label: ["text-sm"],
           checkboxRoot: ["h-6", "w-6", "rounded-md"],
         },
         sm: {
-          checkIcon: ["h-3", "w-3"],
+          checkboxIndicatorIcon: ["h-3", "w-3"],
           label: ["text-xs"],
           checkboxRoot: ["h-4", "w-4", "rounded-sm"],
         },

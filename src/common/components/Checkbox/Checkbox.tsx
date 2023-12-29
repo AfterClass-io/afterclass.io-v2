@@ -1,7 +1,10 @@
-import { useId } from "react";
+"use client";
+
+import { useState, useId } from "react";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { CheckIcon } from "@/common/components/CustomIcon";
 import { CheckboxVariants, checkboxTheme } from "@/common/components/Checkbox";
+import { MinusIcon } from "@/common/components/CustomIcon/MinusIcon";
 
 export type CheckboxProps = CheckboxVariants &
   CheckboxPrimitive.CheckboxProps & {
@@ -17,28 +20,47 @@ export const Checkbox = ({
   indeterminate = false,
   ...props
 }: CheckboxProps) => {
+  const { checked: initialCheckedState, defaultChecked } = props;
+  const initialState = () => {
+    if (initialCheckedState !== undefined) {
+      return initialCheckedState;
+    }
+    if (defaultChecked !== undefined) {
+      return defaultChecked;
+    }
+    return indeterminate ? "indeterminate" : false;
+  };
+  const [checked, setChecked] = useState(initialState());
   const id = useId();
   const {
     wrapper,
     checkboxRoot,
     checkboxIndicator,
-    checkIcon,
+    checkboxIndicatorIcon,
     label: labelContainer,
   } = checkboxTheme({
     className,
     size,
     disabled,
   });
+
   return (
     <div className={wrapper()}>
       <CheckboxPrimitive.Root
         id={id}
         disabled={disabled}
         className={checkboxRoot()}
+        checked={checked}
+        onCheckedChange={setChecked}
         {...props}
       >
         <CheckboxPrimitive.Indicator className={checkboxIndicator()}>
-          <CheckIcon className={checkIcon()} />
+          {checked === "indeterminate" && (
+            <MinusIcon className={checkboxIndicatorIcon()} />
+          )}
+          {checked === true && (
+            <CheckIcon className={checkboxIndicatorIcon()} />
+          )}
         </CheckboxPrimitive.Indicator>
       </CheckboxPrimitive.Root>
       {label && (
