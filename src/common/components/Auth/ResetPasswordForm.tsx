@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 import { supabase } from "@/server/supabase";
 
@@ -11,19 +13,24 @@ import { LockIcon } from "@/common/components/CustomIcon/LockIcon";
 import { EyeIcon } from "@/common/components/CustomIcon/EyeIcon";
 import { EyeSlashIcon } from "@/common/components/CustomIcon/EyeSlashIcon";
 
-type ResetPwdFormInputs = {
-  password: string;
-};
+const resetPwdFormInputsSchema = z.object({
+  password: z
+    .string()
+    .min(8, { message: "Passwords must be at least 8 characters long" }),
+});
+type ResetPwdFormInputs = z.infer<typeof resetPwdFormInputsSchema>;
 
 export const ResetPasswordForm = () => {
   const [isPwdVisible, setIsPwdVisible] = useState(false);
-
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting, isSubmitSuccessful },
-  } = useForm<ResetPwdFormInputs>({ mode: "onTouched" });
+  } = useForm<ResetPwdFormInputs>({
+    resolver: zodResolver(resetPwdFormInputsSchema),
+    mode: "onTouched",
+  });
   const onSubmit: SubmitHandler<ResetPwdFormInputs> = async ({ password }) => {
     if (isSubmitting) return;
     const { error } = await supabase.auth.updateUser({ password });
@@ -49,13 +56,7 @@ export const ResetPasswordForm = () => {
         isError={!!errors.password}
         helperText={errors.password?.message}
         autoComplete="on"
-        registerFormProps={register("password", {
-          required: "Please enter your password",
-          minLength: {
-            value: 8,
-            message: "Password must be at least 8 characters long",
-          },
-        })}
+        registerFormProps={register("password")}
       />
       <div className="flex w-full flex-col items-start gap-2 self-stretch pt-3">
         <Button fullWidth type="submit" disabled={isSubmitting}>

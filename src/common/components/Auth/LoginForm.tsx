@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { z } from "zod";
 
 import { Button } from "@/common/components/Button";
 import { EnvelopeIcon } from "@/common/components/CustomIcon/EnvelopeIcon";
@@ -11,11 +12,18 @@ import { LockIcon } from "@/common/components/CustomIcon/LockIcon";
 import { Input } from "@/common/components/Input";
 import { EyeSlashIcon } from "@/common/components/CustomIcon/EyeSlashIcon";
 import { EyeIcon } from "@/common/components/CustomIcon/EyeIcon";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-type LoginFormInputs = {
-  email: string;
-  password: string;
-};
+const loginFormInputsSchema = z.object({
+  email: z
+    .string()
+    .min(1, { message: "Please enter a valid school email address" })
+    .email("Please enter a valid school email address"),
+  password: z
+    .string()
+    .min(8, { message: "Passwords must be at least 8 characters long" }),
+});
+type LoginFormInputs = z.infer<typeof loginFormInputsSchema>;
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
@@ -27,12 +35,18 @@ export const LoginForm = () => {
     reset,
     setError,
     formState: { errors, isSubmitting },
-  } = useForm<LoginFormInputs>({ mode: "onTouched" });
-  const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
+  } = useForm<LoginFormInputs>({
+    resolver: zodResolver(loginFormInputsSchema),
+    mode: "onTouched",
+  });
+  const onSubmit: SubmitHandler<LoginFormInputs> = async ({
+    email,
+    password,
+  }) => {
     if (isSubmitting) return;
     await signIn("credentials", {
-      email: data.email,
-      password: data.password,
+      email,
+      password,
       callbackUrl: searchParams.get("callbackUrl") || "/reviews",
     });
     reset();
@@ -59,9 +73,7 @@ export const LoginForm = () => {
         isError={!!errors.email}
         helperText={errors.email?.message}
         autoComplete="on"
-        registerFormProps={register("email", {
-          required: "Please enter a valid school email address",
-        })}
+        registerFormProps={register("email")}
       />
       <Input
         label="Password"
@@ -76,13 +88,7 @@ export const LoginForm = () => {
         isError={!!errors.password}
         helperText={errors.password?.message}
         autoComplete="on"
-        registerFormProps={register("password", {
-          required: "Please enter your password",
-          minLength: {
-            value: 8,
-            message: "Password must be at least 8 characters long",
-          },
-        })}
+        registerFormProps={register("password")}
       />
       <div className="flex w-full flex-col items-start gap-2 self-stretch pt-3">
         <Button fullWidth type="submit" disabled={isSubmitting}>

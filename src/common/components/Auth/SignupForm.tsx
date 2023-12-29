@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 import { Input } from "@/common/components/Input";
 import { Button } from "@/common/components/Button";
@@ -10,11 +12,36 @@ import { EyeIcon } from "@/common/components/CustomIcon/EyeIcon";
 import { EyeSlashIcon } from "@/common/components/CustomIcon/EyeSlashIcon";
 import { EnvelopeIcon } from "@/common/components/CustomIcon/EnvelopeIcon";
 
-type SignupFormInputs = {
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
+const isValidEmail = (email: string) =>
+  // TODO: replace with supported school email validation logic
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.endsWith("smu.edu.sg");
+
+const signupFormInputsSchema = z
+  .object({
+    email: z
+      .string()
+      .min(1, { message: "Please enter a valid school email address" })
+      .email("Please enter a valid school email address")
+      .refine(
+        (e) => isValidEmail(e),
+        "Please enter a valid school email address",
+      ),
+    password: z
+      .string()
+      .min(8, { message: "Passwords must be at least 8 characters long" }),
+    confirmPassword: z
+      .string()
+      .min(8, { message: "Passwords must be at least 8 characters long" }),
+  })
+  .superRefine(({ password, confirmPassword }, ctx) => {
+    if (confirmPassword === password) return;
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["confirmPassword"],
+      message: "Passwords did not match",
+    });
+  });
+type SignupFormInputs = z.infer<typeof signupFormInputsSchema>;
 
 export const SignupForm = () => {
   const [isPwdVisible, setIsPwdVisible] = useState(false);
@@ -24,8 +51,12 @@ export const SignupForm = () => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<SignupFormInputs>({ mode: "onTouched" });
+  } = useForm<SignupFormInputs>({
+    resolver: zodResolver(signupFormInputsSchema),
+    mode: "onTouched",
+  });
   const onSubmit: SubmitHandler<SignupFormInputs> = async (data) => {
+    console.log(data);
     if (isSubmitting) return;
 
     // TODO: replace with create account logic
@@ -37,10 +68,6 @@ export const SignupForm = () => {
 
     reset({ password: "", confirmPassword: "" });
   };
-
-  const isValidEmail = (email: string) =>
-    // TODO: replace with supported school email validation logic
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.endsWith("smu.edu.sg");
 
   return (
     <form
@@ -54,11 +81,7 @@ export const SignupForm = () => {
         isError={!!errors.email}
         helperText={errors.email?.message}
         autoComplete="on"
-        registerFormProps={register("email", {
-          required: "Please enter a valid school email address",
-          validate: (email) =>
-            isValidEmail(email) || "Please enter a valid school email address",
-        })}
+        registerFormProps={register("email")}
       />
       <Input
         label="Password"
@@ -73,13 +96,7 @@ export const SignupForm = () => {
         isError={!!errors.password}
         helperText={errors.password?.message}
         autoComplete="on"
-        registerFormProps={register("password", {
-          required: "Please enter your password",
-          minLength: {
-            value: 8,
-            message: "Password must be at least 8 characters long",
-          },
-        })}
+        registerFormProps={register("password")}
       />
       <Input
         label="Confirm Password"
@@ -101,11 +118,7 @@ export const SignupForm = () => {
         isError={!!errors.confirmPassword}
         helperText={errors.confirmPassword?.message}
         autoComplete="on"
-        registerFormProps={register("confirmPassword", {
-          required: "Please confirm your password",
-          validate: (cfmPwd: string, formValues: SignupFormInputs) =>
-            cfmPwd === formValues.password || "Passwords do not match",
-        })}
+        registerFormProps={register("confirmPassword")}
       />
       <div className="flex w-full flex-col items-start gap-2 self-stretch pt-3">
         <Button fullWidth type="submit" disabled={isSubmitting}>
