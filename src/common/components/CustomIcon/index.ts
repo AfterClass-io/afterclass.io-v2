@@ -1,5 +1,6 @@
 export * from "@/common/components/Logo";
 export * from "./CustomIcon";
+export * from "./CheckIcon";
 export * from "./StarLineAltIcon";
 export * from "./AfterclassIcon";
 export * from "./AfterclassText";
