@@ -31,11 +31,11 @@ export const buttonTheme = tv(
       "items-center",
       "font-semibold",
       "focus-ring",
-      "transition-all",
-      "duration-300",
+      "after:transition-all",
+      "after:duration-100",
       "after:inset-0",
       "after:absolute",
-      "hover:after:bg-white/10",
+      "hover:after:bg-white/[0.12]",
       "active:after:bg-transparent",
       "border",
       "border-transparent",
@@ -68,6 +68,14 @@ export const buttonTheme = tv(
           "text-text-on-tertiary",
           "disabled:bg-element-disabled",
           "data-[disabled]:bg-element-disabled",
+        ],
+        ghost: [
+          "bg-transparent",
+          "border-transparent",
+          "text-text-on-tertiary",
+          "disabled:bg-element-disabled",
+          "data-[disabled]:bg-element-disabled",
+          "hover:bg-element-tertiary",
         ],
         link: [
           "text-primary-default",
@@ -110,9 +118,11 @@ export const buttonTheme = tv(
         true: ["cursor-not-allowed"],
       },
       loading: {
-        true: {
-          base: ["hover:after:bg-transparent", "[&>*:not(.loading)]:invisible"],
-        },
+        true: [
+          "loading",
+          "hover:after:bg-transparent",
+          "[&>*:not(.loading)]:invisible",
+        ],
       },
     },
     compoundVariants: [
@@ -135,6 +145,11 @@ export const buttonTheme = tv(
         variant: "link",
         size: "sm",
         className: "px-0",
+      },
+      {
+        variant: "ghost",
+        loading: true,
+        className: "hover:bg-transparent",
       },
     ],
     defaultVariants: {

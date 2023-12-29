@@ -15,6 +15,7 @@ import {
   buttonTheme,
   type ButtonVariants,
 } from "./Button.theme";
+import { Icon } from "@iconify-icon/react";
 
 interface ButtonBaseProps {
   iconLeft?: ReactNode;
@@ -142,8 +143,13 @@ export const Button = ({
       data-disabled={disabled ? "" : undefined}
     >
       <StyledIcon icon={iconLeft} />
-      {children}
+      {children && <span>{children}</span>}
       <StyledIcon icon={iconRight} />
+      {loading && (
+        <span className="loading absolute inset-0 grid place-content-center">
+          <Icon icon="gg:spinner" className="animate-spin" />
+        </span>
+      )}
     </Component>
   );
 };

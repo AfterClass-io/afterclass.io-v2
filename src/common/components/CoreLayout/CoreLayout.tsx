@@ -7,7 +7,7 @@ interface Props extends PropsWithChildren {}
 
 export const CoreLayout = ({ children }: Props) => {
   return (
-    <div className="relative flex h-full min-h-full flex-auto">
+    <div className="relative flex min-h-full flex-auto">
       <aside>
         <Sidebar />
       </aside>

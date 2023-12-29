@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/common/components/Button";
+import { Button, type ButtonVariants } from "@/common/components/Button";
 import { StarLineAltIcon } from "@/common/components/CustomIcon";
 import { Input } from "@/common/components/Input";
 import { APP_THEMES } from "@/common/tools/tailwind/themes/appTheme";
@@ -8,7 +8,17 @@ import { Icon } from "@iconify-icon/react";
 import { useTheme } from "next-themes";
 import { useCallback, useEffect, useState } from "react";
 
-export const ComponentsPage = () => {
+const buttonVariants = [
+  "primary",
+  "secondary",
+  "tertiary",
+  "ghost",
+  "success",
+  "danger",
+  "link",
+] as ButtonVariants["variant"][];
+
+export default function Components() {
   const [isMounted, setIsMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -36,67 +46,91 @@ export const ComponentsPage = () => {
       )}
       <div className="space-y-4">
         <Button fullWidth>Full width</Button>
-        <div className="flex gap-3">
-          <Button>Primary</Button>
-          <Button size="sm" iconLeft={<StarLineAltIcon />}>
-            Small
-          </Button>
-          <Button aria-label="star" iconLeft={<StarLineAltIcon />} />
-          <Button size="sm" aria-label="star" iconLeft={<StarLineAltIcon />} />
-        </div>
-        <div className="flex gap-3">
-          <Button variant="secondary">Secondary</Button>
-          <Button variant="secondary" size="sm" iconRight={<StarLineAltIcon />}>
-            Small
-          </Button>
-        </div>
-        <div className="flex gap-3">
-          <Button variant="tertiary">Tertiary</Button>
-          <Button variant="tertiary" size="sm">
-            Small
-          </Button>
-        </div>
-        <div className="flex gap-3">
-          <Button variant="success">Success</Button>
-          <Button variant="success" size="sm">
-            Small
-          </Button>
-        </div>
-        <div className="flex gap-3">
-          <Button variant="danger">Danger</Button>
-          <Button variant="danger" size="sm">
-            Small
-          </Button>
-        </div>
-        <div className="flex gap-3">
-          <Button
-            variant="link"
-            iconLeft={<Icon icon="lucide:arrow-up-right" />}
-            iconRight={<Icon icon="lucide:arrow-up-right" />}
-            as="a"
-            external
-            href="https://example.com"
+        {/* Buttons */}
+        {buttonVariants.map((variant) => (
+          <div
+            key={variant as string}
+            className="flex max-w-[320px] flex-wrap gap-3"
           >
-            Example.com
-          </Button>
-          <Button variant="link" size="sm" as="a" href="/login">
-            Login
-          </Button>
-        </div>
+            <Button variant={variant}>{variant as string}</Button>
+            <Button variant={variant} size="sm" iconLeft={<StarLineAltIcon />}>
+              Small
+            </Button>
+            <Button
+              variant={variant}
+              aria-label="star"
+              iconLeft={<StarLineAltIcon />}
+            />
+            <Button
+              variant={variant}
+              size="sm"
+              aria-label="star"
+              iconLeft={<StarLineAltIcon />}
+            />
+            <Button variant={variant} loading>
+              {variant as string}
+            </Button>
+            <Button
+              variant={variant}
+              size="sm"
+              iconLeft={<StarLineAltIcon />}
+              loading
+            >
+              Small
+            </Button>
+            <Button
+              variant={variant}
+              aria-label="star"
+              iconLeft={<StarLineAltIcon />}
+              loading
+            />
+            <Button
+              variant={variant}
+              size="sm"
+              aria-label="star"
+              iconLeft={<StarLineAltIcon />}
+              loading
+            />
+            <Button variant={variant} disabled>
+              {variant as string}
+            </Button>
+            <Button
+              variant={variant}
+              size="sm"
+              iconLeft={<StarLineAltIcon />}
+              disabled
+            >
+              Small
+            </Button>
+            <Button
+              variant={variant}
+              aria-label="star"
+              iconLeft={<StarLineAltIcon />}
+              disabled
+            />
+            <Button
+              variant={variant}
+              size="sm"
+              aria-label="star"
+              iconLeft={<StarLineAltIcon />}
+              disabled
+            />
+          </div>
+        ))}
       </div>
       <div className="space-y-4">
         <Input
           label={"Test Label 1"}
           helperText={"Test helper text"}
-          leftContent={<StarLineAltIcon size={16} />}
-          rightContent={<StarLineAltIcon size={16} />}
+          contentLeft={<StarLineAltIcon size={16} />}
+          contentRight={<StarLineAltIcon size={16} />}
           placeholder="Write here"
         />
         <Input
           label={"Test Label 2"}
           helperText={"Test error helper text"}
-          leftContent={<StarLineAltIcon size={16} />}
-          rightContent={<StarLineAltIcon size={16} />}
+          contentLeft={<StarLineAltIcon size={16} />}
+          contentRight={<StarLineAltIcon size={16} />}
           placeholder="Write here"
           size={{ initial: "sm", md: "md" }}
           isError={true}
@@ -104,6 +138,4 @@ export const ComponentsPage = () => {
       </div>
     </div>
   );
-};
-
-export default ComponentsPage;
+}
