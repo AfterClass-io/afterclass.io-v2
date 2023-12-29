@@ -34,6 +34,7 @@ export const LoginForm = () => {
     handleSubmit,
     reset,
     setError,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<LoginFormInputs>({
     resolver: zodResolver(loginFormInputsSchema),
@@ -59,7 +60,7 @@ export const LoginForm = () => {
         type: "custom",
         message: "Invalid email or password. Please try again.",
       });
-  }, [searchParams]);
+  }, [searchParams, setError]);
 
   return (
     <form
@@ -67,15 +68,24 @@ export const LoginForm = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Input
+        {...register("email", {
+          required: "Please enter a valid school email address",
+        })}
         label="School Email Address"
         leftContent={<EnvelopeIcon size={24} />}
         placeholder="john.doe.2023@smu.edu.sg"
         isError={!!errors.email}
         helperText={errors.email?.message}
         autoComplete="on"
-        registerFormProps={register("email")}
       />
       <Input
+        {...register("password", {
+          required: "Please enter your password",
+          minLength: {
+            value: 8,
+            message: "Password must be at least 8 characters long",
+          },
+        })}
         label="Password"
         leftContent={<LockIcon size={24} />}
         rightContent={
@@ -88,7 +98,6 @@ export const LoginForm = () => {
         isError={!!errors.password}
         helperText={errors.password?.message}
         autoComplete="on"
-        registerFormProps={register("password")}
       />
       <div className="flex w-full flex-col items-start gap-2 self-stretch pt-3">
         <Button fullWidth type="submit" disabled={isSubmitting}>
