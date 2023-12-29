@@ -18,7 +18,7 @@ export default function Home() {
   //   abbrv: "SMU"
   // });
   // Get all universities
-  const universities = api.university.getAllUniversities.useQuery();
+  const universities = api.university.getAll.useQuery();
 
   const [isMounted, setIsMounted] = useState(false);
   const { theme, setTheme } = useTheme();

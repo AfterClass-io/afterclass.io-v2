@@ -2,9 +2,13 @@ import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 
 export const universityRouter = createTRPCRouter({
-  createUniversity: publicProcedure
+  create: publicProcedure
     .input(
-      z.object({name: z.string(), siteUrl: z.string(), abbrv: z.enum(["SMU", "NTU", "NUS"]) }),
+      z.object({
+        name: z.string(),
+        siteUrl: z.string(),
+        abbrv: z.enum(["SMU", "NTU", "NUS"]),
+      }),
     )
     .query(async ({ input, ctx }) => {
       const university = await ctx.db.universities.create({
@@ -17,12 +21,12 @@ export const universityRouter = createTRPCRouter({
       return university;
     }),
 
-  getAllUniversities: publicProcedure.query(async ({ ctx }) => {
+  getAll: publicProcedure.query(async ({ ctx }) => {
     const universities = await ctx.db.universities.findMany();
     return universities;
   }),
 
-  getUniversityById: publicProcedure
+  getById: publicProcedure
     .input(z.object({ id: z.number() }))
     .query(async ({ input, ctx }) => {
       const university = await ctx.db.universities.findUnique({
@@ -33,13 +37,13 @@ export const universityRouter = createTRPCRouter({
       return university;
     }),
 
-  updateUniversityById: publicProcedure
+  update: publicProcedure
     .input(
       z.object({
         id: z.number(),
         name: z.string(),
         siteUrl: z.string(),
-        abbrv: z.enum(["SMU", "NTU", "NUS"])
+        abbrv: z.enum(["SMU", "NTU", "NUS"]),
       }),
     )
     .query(async ({ input, ctx }) => {
@@ -56,7 +60,7 @@ export const universityRouter = createTRPCRouter({
       return university;
     }),
 
-  deleteUniversityById: publicProcedure
+  delete: publicProcedure
     .input(z.object({ id: z.number() }))
     .query(async ({ input, ctx }) => {
       const university = await ctx.db.universities.delete({
