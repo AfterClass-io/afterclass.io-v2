@@ -2,9 +2,8 @@
 
 import { useState, useId } from "react";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import { CheckIcon } from "@/common/components/CustomIcon";
+import { CheckIcon, MinusIcon } from "@/common/components/CustomIcon";
 import { CheckboxVariants, checkboxTheme } from "@/common/components/Checkbox";
-import { MinusIcon } from "@/common/components/CustomIcon/MinusIcon";
 
 export type CheckboxProps = CheckboxVariants &
   CheckboxPrimitive.CheckboxProps & {
