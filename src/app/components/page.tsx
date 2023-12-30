@@ -1,12 +1,13 @@
 "use client";
+import { useCallback, useEffect, useState } from "react";
+import { useTheme } from "next-themes";
+import { Icon } from "@iconify-icon/react";
 
+import { APP_THEMES } from "@/common/tools/tailwind/themes/appTheme";
 import { Button, type ButtonVariants } from "@/common/components/Button";
 import { StarLineAltIcon } from "@/common/components/CustomIcon";
 import { Input } from "@/common/components/Input";
-import { APP_THEMES } from "@/common/tools/tailwind/themes/appTheme";
-import { Icon } from "@iconify-icon/react";
-import { useTheme } from "next-themes";
-import { useCallback, useEffect, useState } from "react";
+import { Checkbox, type CheckedState } from "@/common/components/Checkbox";
 
 const buttonVariants = [
   "primary",
@@ -30,6 +31,11 @@ export default function Components() {
     if (theme === APP_THEMES.light) setTheme(APP_THEMES.dark);
     if (theme === APP_THEMES.dark) setTheme(APP_THEMES.light);
   }, [setTheme, theme]);
+
+  const [checkedDefault, setCheckedDefault] =
+    useState<CheckedState>("indeterminate");
+  const [checkedDisabled, setCheckedDisabled] =
+    useState<CheckedState>("indeterminate");
 
   return (
     <div className="space-y-10 p-5 sm:p-10">
@@ -135,6 +141,35 @@ export default function Components() {
           size={{ initial: "sm", md: "md" }}
           isError={true}
         />
+      </div>
+      <div className="flex gap-4">
+        {/* 
+        to use checkbox in a form:
+        <Checkbox
+          label="test"
+          {...register("fieldName")}
+          onCheckedChange={(v: boolean) => setValue("fieldName", v)}
+        />
+        */}
+        <div className="flex flex-col gap-3">
+          <Checkbox label="default unchecked" />
+          <Checkbox label="default checked" defaultChecked />
+          <Checkbox
+            label="default indeterminate"
+            checked={checkedDefault}
+            onCheckedChange={setCheckedDefault}
+          />
+        </div>
+        <div className="flex flex-col gap-3">
+          <Checkbox label="disabled unchecked" disabled />
+          <Checkbox label="disabled checked" disabled defaultChecked />
+          <Checkbox
+            label="disabled indeterminate"
+            checked={checkedDisabled}
+            onCheckedChange={setCheckedDisabled}
+            disabled
+          />
+        </div>
       </div>
     </div>
   );
