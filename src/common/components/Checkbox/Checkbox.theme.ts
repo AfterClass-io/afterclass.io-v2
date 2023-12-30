@@ -10,6 +10,7 @@ export const checkboxTheme = tv(
       checkboxRoot: [
         "flex",
         "shrink-0",
+        "bg-surface-base",
         "border",
         "border-border-default",
         "ring-border-default",
