@@ -7,7 +7,7 @@ import { APP_THEMES } from "@/common/tools/tailwind/themes/appTheme";
 import { Button, type ButtonVariants } from "@/common/components/Button";
 import { StarLineAltIcon } from "@/common/components/CustomIcon";
 import { Input } from "@/common/components/Input";
-import { Checkbox, CheckedState } from "@/common/components/Checkbox";
+import { Checkbox, type CheckedState } from "@/common/components/Checkbox";
 
 const buttonVariants = [
   "primary",
