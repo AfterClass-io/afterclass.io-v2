@@ -7,6 +7,8 @@ import { APP_THEMES } from "@/common/tools/tailwind/themes/appTheme";
 import { Icon } from "@iconify-icon/react";
 import { useTheme } from "next-themes";
 import { useCallback, useEffect, useState } from "react";
+import { Combobox } from "@/common/components/Combobox";
+import { exampleListCountries } from "@/app/components/exampleListCountries";
 
 const buttonVariants = [
   "primary",
@@ -30,6 +32,16 @@ export default function Components() {
     if (theme === APP_THEMES.light) setTheme(APP_THEMES.dark);
     if (theme === APP_THEMES.dark) setTheme(APP_THEMES.light);
   }, [setTheme, theme]);
+
+  const comboboxOptions = exampleListCountries;
+  const [selected, setSelected] = useState(comboboxOptions[0] ?? "");
+  const [query, setQuery] = useState("");
+  const filtered =
+    query === ""
+      ? comboboxOptions
+      : comboboxOptions.filter((opt) => {
+          return opt.toLowerCase().includes(query.toLowerCase());
+        });
 
   return (
     <div className="space-y-10 p-5 sm:p-10">
@@ -135,6 +147,27 @@ export default function Components() {
           size={{ initial: "sm", md: "md" }}
           isError={true}
         />
+      </div>
+      <div className="flex gap-3">
+        <div>
+          <Combobox
+            filtered={filtered}
+            selectedValue={selected}
+            setSelected={setSelected}
+            query={query}
+            setQuery={setQuery}
+          />
+        </div>
+        <div>
+          <Combobox
+            filtered={filtered}
+            selectedValue={selected}
+            setSelected={setSelected}
+            query={query}
+            setQuery={setQuery}
+            size="sm"
+          />
+        </div>
       </div>
     </div>
   );
