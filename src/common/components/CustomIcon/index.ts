@@ -6,3 +6,5 @@ export * from "./AfterclassText";
 export * from "./BookLineIcon";
 export * from "./DealsIcon";
 export * from "./WarningCircleIcon";
+export * from "./ChevronDownIcon";
+export * from "./CheckIcon";
