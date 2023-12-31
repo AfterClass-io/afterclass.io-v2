@@ -1,9 +1,8 @@
 "use client";
 
-import * as React from "react";
+import { ComponentPropsWithoutRef } from "react";
 
 import { CheckIcon, ChevronDownIcon } from "@/common/components/CustomIcon";
-import { cn } from "@/common/tools/tailwind/functions/cn";
 import { Button } from "@/common/components/Button";
 import {
   Command,
@@ -17,14 +16,22 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/common/components/Popover";
+import { comboboxTheme, type ComboboxVariants } from "./Combobox.theme";
 
-export type ComboboxProps = {
+export type ComboboxProps = ComboboxVariants & {
   placeholder: string;
   filtered: { label: string; value: string }[];
   value: string;
   setValue: (arg0: string) => void;
   open: boolean;
   setOpen: (arg0: boolean) => void;
+  popoverTriggerButtonProps?: ComponentPropsWithoutRef<"button">;
+  popoverTriggerIconProps?: ComponentPropsWithoutRef<"svg">;
+  popoverContentProps?: ComponentPropsWithoutRef<"div">;
+  commandInputProps?: ComponentPropsWithoutRef<"input">;
+  commandEmptyProps?: ComponentPropsWithoutRef<"div">;
+  commandGroupProps?: ComponentPropsWithoutRef<"div">;
+  commandItemProps?: ComponentPropsWithoutRef<"div">;
 };
 
 export function Combobox({
@@ -34,8 +41,25 @@ export function Combobox({
   setValue,
   open,
   setOpen,
+  popoverTriggerButtonProps,
+  popoverTriggerIconProps,
+  popoverContentProps,
+  commandInputProps,
+  commandEmptyProps,
+  commandGroupProps,
+  commandItemProps,
 }: ComboboxProps) {
-  console.log(value);
+  const {
+    popoverTriggerButton,
+    popoverTriggerIcon,
+    popoverContent,
+    commandInput,
+    commandItemSelectedIcon,
+    commandEmpty,
+    commandGroup,
+    commandItem,
+  } = comboboxTheme();
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -43,9 +67,15 @@ export function Combobox({
           variant="tertiary"
           as="button"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className={popoverTriggerButton({
+            className: popoverTriggerButtonProps?.className,
+          })}
           iconRight={
-            <ChevronDownIcon className="h-6 w-6 shrink-0 opacity-50" />
+            <ChevronDownIcon
+              className={popoverTriggerIcon({
+                className: popoverTriggerIconProps?.className,
+              })}
+            />
           }
         >
           {value
@@ -55,11 +85,30 @@ export function Combobox({
             : placeholder}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="max-h-60 w-[200px] p-0">
+      <PopoverContent
+        className={popoverContent({
+          className: popoverContentProps?.className,
+        })}
+      >
         <Command>
-          <CommandInput placeholder={placeholder} />
-          <CommandEmpty>Nothing found.</CommandEmpty>
-          <CommandGroup>
+          <CommandInput
+            placeholder={placeholder}
+            className={commandInput({
+              className: commandInputProps?.className,
+            })}
+          />
+          <CommandEmpty
+            className={commandEmpty({
+              className: commandEmptyProps?.className,
+            })}
+          >
+            Nothing found.
+          </CommandEmpty>
+          <CommandGroup
+            className={commandGroup({
+              className: commandGroupProps?.className,
+            })}
+          >
             {filtered.map((el) => (
               <CommandItem
                 key={el.value}
@@ -68,12 +117,14 @@ export function Combobox({
                   setValue(currentValue === value ? "" : currentValue);
                   setOpen(false);
                 }}
+                className={commandItem({
+                  className: commandItemProps?.className,
+                })}
               >
                 <CheckIcon
-                  className={cn(
-                    "mr-2 h-4 w-4",
-                    value === el.value ? "opacity-100" : "opacity-0",
-                  )}
+                  className={commandItemSelectedIcon({
+                    selected: el.value.toLowerCase() === value.toLowerCase(),
+                  })}
                 />
                 {el.label}
               </CommandItem>
