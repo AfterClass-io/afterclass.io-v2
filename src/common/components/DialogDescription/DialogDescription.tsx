@@ -11,14 +11,11 @@ export type DialogDescriptionProps = DialogDescriptionVariants &
 export const DialogDescription = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Description>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
->(({ className, ...props }, ref) => {
-  const { dialogDescription } = dialogDescriptionTheme();
-  return (
-    <DialogPrimitive.Description
-      ref={ref}
-      className={dialogDescription({ className })}
-      {...props}
-    />
-  );
-});
+>(({ className, ...props }, ref) => (
+  <DialogPrimitive.Description
+    ref={ref}
+    className={dialogDescriptionTheme({ className })}
+    {...props}
+  />
+));
 DialogDescription.displayName = DialogPrimitive.Description.displayName;

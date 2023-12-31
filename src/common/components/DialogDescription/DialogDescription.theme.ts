@@ -6,9 +6,7 @@ export type DialogDescriptionVariants = VariantProps<
 
 export const dialogDescriptionTheme = tv(
   {
-    slots: {
-      dialogDescription: ["text-muted-foreground", "text-sm"],
-    },
+    base: ["text-muted-foreground", "text-sm"],
     variants: {
       size: {
         md: {},

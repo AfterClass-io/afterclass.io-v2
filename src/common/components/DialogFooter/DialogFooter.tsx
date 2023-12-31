@@ -9,8 +9,7 @@ export type DialogFooterProps = DialogFooterVariants &
 export const DialogFooter = ({
   className,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) => {
-  const { dialogFooter } = dialogFooterTheme();
-  return <div className={dialogFooter({ className })} {...props} />;
-};
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={dialogFooterTheme({ className })} {...props} />
+);
 DialogFooter.displayName = "DialogFooter";

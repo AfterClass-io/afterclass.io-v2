@@ -11,14 +11,11 @@ export type DialogTitleProps = DialogTitleVariants &
 export const DialogTitle = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Title>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
->(({ className, ...props }, ref) => {
-  const { dialogTitle } = dialogTitleTheme();
-  return (
-    <DialogPrimitive.Title
-      ref={ref}
-      className={dialogTitle({ className })}
-      {...props}
-    />
-  );
-});
+>(({ className, ...props }, ref) => (
+  <DialogPrimitive.Title
+    ref={ref}
+    className={dialogTitleTheme({ className })}
+    {...props}
+  />
+));
 DialogTitle.displayName = DialogPrimitive.Title.displayName;

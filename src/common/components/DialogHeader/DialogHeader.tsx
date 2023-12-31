@@ -9,8 +9,7 @@ export type DialogHeaderProps = DialogHeaderVariants &
 export const DialogHeader = ({
   className,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) => {
-  const { dialogHeader } = dialogHeaderTheme();
-  return <div className={dialogHeader({ className })} {...props} />;
-};
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={dialogHeaderTheme({ className })} {...props} />
+);
 DialogHeader.displayName = "DialogHeader";
