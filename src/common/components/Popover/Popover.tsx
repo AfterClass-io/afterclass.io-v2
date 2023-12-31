@@ -38,17 +38,12 @@ export const Popover = ({
   popoverRootProps,
   popoverTriggerProps,
   popoverContentProps,
-  ...props
 }: PopoverProps) => {
   const { popoverContent } = popoverTheme();
   return (
     <PopoveRoot {...popoverRootProps}>
       <PopoverTrigger {...popoverTriggerProps}>{trigger}</PopoverTrigger>
-      <PopoverContent
-        className={popoverContent()}
-        {...popoverContentProps}
-        {...props}
-      >
+      <PopoverContent className={popoverContent()} {...popoverContentProps}>
         {content}
       </PopoverContent>
     </PopoveRoot>
