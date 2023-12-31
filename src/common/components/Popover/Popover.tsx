@@ -26,7 +26,7 @@ PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
 export type PopoverProps = PopoverVariants & {
   trigger: React.ReactNode;
-  content: React.ReactNode;
+  children: React.ReactNode;
   popoverRootProps?: React.ComponentPropsWithoutRef<typeof PopoveRoot>;
   popoverTriggerProps?: React.ComponentPropsWithoutRef<typeof PopoverTrigger>;
   popoverContentProps?: React.ComponentPropsWithoutRef<typeof PopoverContent>;
@@ -34,7 +34,7 @@ export type PopoverProps = PopoverVariants & {
 
 export const Popover = ({
   trigger,
-  content,
+  children,
   popoverRootProps,
   popoverTriggerProps,
   popoverContentProps,
@@ -44,7 +44,7 @@ export const Popover = ({
     <PopoveRoot {...popoverRootProps}>
       <PopoverTrigger {...popoverTriggerProps}>{trigger}</PopoverTrigger>
       <PopoverContent className={popoverContent()} {...popoverContentProps}>
-        {content}
+        {children}
       </PopoverContent>
     </PopoveRoot>
   );
