@@ -2,7 +2,7 @@
 
 import {
   forwardRef,
-  ReactNode,
+  type ReactNode,
   type ElementRef,
   type ComponentPropsWithoutRef,
 } from "react";
@@ -95,3 +95,4 @@ export const Dialog = forwardRef<
     );
   },
 );
+Dialog.displayName = "Dialog";
