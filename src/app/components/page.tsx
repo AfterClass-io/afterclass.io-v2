@@ -9,6 +9,11 @@ import { StarLineAltIcon } from "@/common/components/CustomIcon";
 import { Input } from "@/common/components/Input";
 import { Checkbox, type CheckedState } from "@/common/components/Checkbox";
 import { Popover } from "@/common/components/Popover";
+import { Dialog } from "@/common/components/Dialog";
+import { DialogTitle } from "@/common/components/DialogTitle";
+import { DialogDescription } from "@/common/components/DialogDescription";
+import { DialogHeader } from "@/common/components/DialogHeader";
+import { DialogFooter } from "@/common/components/DialogFooter";
 
 const buttonVariants = [
   "primary",
@@ -224,6 +229,46 @@ export default function Components() {
             </div>
           </Popover.Content>
         </Popover>
+      </div>
+      <div className="flex gap-4">
+        <Dialog
+          dialogTriggerProps={{ asChild: true }}
+          trigger={
+            <Button variant="primary" as="button" size="sm">
+              Dialog
+            </Button>
+          }
+        >
+          <DialogHeader>
+            <DialogTitle>Edit profile</DialogTitle>
+            <DialogDescription>
+              Make changes to your profile here. Click save when you're done.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <label htmlFor="name" className="text-right">
+                Name
+              </label>
+              <div className="col-span-3">
+                <Input id="name" defaultValue="Pedro Duarte" />
+              </div>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <label htmlFor="username" className="text-right">
+                Username
+              </label>
+              <div className="col-span-3">
+                <Input id="username" defaultValue="@peduarte" />
+              </div>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="primary" as="button" size="sm" type="submit">
+              Save changes
+            </Button>
+          </DialogFooter>
+        </Dialog>
       </div>
     </div>
   );
