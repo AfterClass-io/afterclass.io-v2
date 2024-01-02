@@ -16,5 +16,5 @@ export default withTV({
       },
     },
   },
-  plugins: [themingSystemPlugin],
+  plugins: [themingSystemPlugin, require("tailwindcss-animate")],
 }) satisfies Config;

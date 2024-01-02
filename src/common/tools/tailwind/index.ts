@@ -7,5 +7,5 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [themingSystemPlugin],
+  plugins: [themingSystemPlugin, require("tailwindcss-animate")],
 } satisfies Config;
