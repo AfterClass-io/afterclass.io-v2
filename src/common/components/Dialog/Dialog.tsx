@@ -1,3 +1,8 @@
+/**
+ * ref:
+ * - https://ui.shadcn.com/docs/components/dialog
+ * - https://www.radix-ui.com/primitives/docs/components/dialog
+ */
 "use client";
 
 import {
