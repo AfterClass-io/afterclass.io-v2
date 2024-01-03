@@ -1,5 +1,6 @@
 // Note: cannot use alias like "@/" here
 import { themingSystemPlugin } from "./src/common/tools/tailwind/plugins/themingSystemPlugin";
+import tailwindCssAnimatePlugin from "tailwindcss-animate";
 import { fontFamily } from "tailwindcss/defaultTheme";
 
 import { type Config } from "tailwindcss";
@@ -16,5 +17,5 @@ export default withTV({
       },
     },
   },
-  plugins: [themingSystemPlugin],
+  plugins: [themingSystemPlugin, tailwindCssAnimatePlugin],
 }) satisfies Config;

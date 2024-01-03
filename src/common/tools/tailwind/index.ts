@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import tailwindCssAnimatePlugin from "tailwindcss-animate";
 
 import { themingSystemPlugin } from "./plugins/themingSystemPlugin";
 
@@ -7,5 +8,5 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [themingSystemPlugin],
+  plugins: [themingSystemPlugin, tailwindCssAnimatePlugin],
 } satisfies Config;
