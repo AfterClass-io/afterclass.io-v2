@@ -5,11 +5,28 @@ import { Icon } from "@iconify-icon/react";
 
 import { APP_THEMES } from "@/common/tools/tailwind/themes/appTheme";
 import { Button, type ButtonVariants } from "@/common/components/Button";
-import { StarLineAltIcon } from "@/common/components/CustomIcon";
+import {
+  BookLineIcon,
+  CheckIcon,
+  DealsIcon,
+  StarLineAltIcon,
+} from "@/common/components/CustomIcon";
 import { Input } from "@/common/components/Input";
 import { Checkbox, type CheckedState } from "@/common/components/Checkbox";
 import { Popover } from "@/common/components/Popover";
 import { Dialog } from "@/common/components/Dialog";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+  CommandShortcut,
+} from "@/common/components/Command";
+import { EnvelopeIcon } from "@/common/components/CustomIcon/EnvelopeIcon";
+import { LockIcon } from "@/common/components/CustomIcon/LockIcon";
 
 const buttonVariants = [
   "primary",
@@ -267,6 +284,46 @@ export default function Components() {
             </Dialog.Footer>
           </Dialog.Content>
         </Dialog>
+      </div>
+      <div className="flex max-w-sm gap-4">
+        <Command className="rounded-lg border shadow-md">
+          <CommandInput placeholder="Type a command or search..." />
+          <CommandList>
+            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandGroup heading="Suggestions">
+              <CommandItem>
+                <BookLineIcon className="mr-2 h-4 w-4" />
+                <span>Calendar</span>
+              </CommandItem>
+              <CommandItem>
+                <CheckIcon className="mr-2 h-4 w-4" />
+                <span>Search Emoji</span>
+              </CommandItem>
+              <CommandItem>
+                <DealsIcon className="mr-2 h-4 w-4" />
+                <span>Calculator</span>
+              </CommandItem>
+            </CommandGroup>
+            <CommandSeparator />
+            <CommandGroup heading="Settings">
+              <CommandItem>
+                <EnvelopeIcon className="mr-2 h-4 w-4" />
+                <span>Profile</span>
+                <CommandShortcut>⌘P</CommandShortcut>
+              </CommandItem>
+              <CommandItem>
+                <LockIcon className="mr-2 h-4 w-4" />
+                <span>Billing</span>
+                <CommandShortcut>⌘B</CommandShortcut>
+              </CommandItem>
+              <CommandItem>
+                <StarLineAltIcon className="mr-2 h-4 w-4" />
+                <span>Settings</span>
+                <CommandShortcut>⌘S</CommandShortcut>
+              </CommandItem>
+            </CommandGroup>
+          </CommandList>
+        </Command>
       </div>
     </div>
   );
