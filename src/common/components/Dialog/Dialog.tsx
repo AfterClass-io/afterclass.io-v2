@@ -2,14 +2,17 @@
 
 import {
   forwardRef,
-  type ReactNode,
   type ElementRef,
   type ComponentPropsWithoutRef,
 } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 
-import { dialogTheme, type DialogVariants } from "./Dialog.theme";
+import { dialogTheme } from "./Dialog.theme";
 import { XCloseIcon } from "@/common/components/CustomIcon";
+import { DialogHeader } from "@/common/components/DialogHeader";
+import { DialogTitle } from "@/common/components/DialogTitle";
+import { DialogDescription } from "@/common/components/DialogDescription";
+import { DialogFooter } from "@/common/components/DialogFooter";
 
 const DialogRoot = DialogPrimitive.Root;
 
@@ -20,79 +23,52 @@ const DialogPortal = DialogPrimitive.Portal;
 const DialogOverlay = forwardRef<
   ElementRef<typeof DialogPrimitive.Overlay>,
   ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
->(({ className, ...props }, ref) => (
-  <DialogPrimitive.Overlay ref={ref} className={className} {...props} />
-));
+>(({ className, ...props }, ref) => {
+  const { dialogOverlay } = dialogTheme();
+  return (
+    <DialogPrimitive.Overlay
+      ref={ref}
+      className={dialogOverlay({ className })}
+      {...props}
+    />
+  );
+});
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
-export const DialogClose = DialogPrimitive.Close;
+const DialogClose = DialogPrimitive.Close;
 
-export type DialogProps = DialogVariants & {
-  trigger: ReactNode;
-  children: ReactNode;
-  dialogRootProps?: ComponentPropsWithoutRef<typeof DialogRoot>;
-  dialogOverlayProps?: ComponentPropsWithoutRef<typeof DialogOverlay>;
-  dialogTriggerProps?: ComponentPropsWithoutRef<typeof DialogTrigger>;
-  dialogContentProps?: ComponentPropsWithoutRef<typeof DialogPrimitive.Content>;
-  dialogCloseProps?: ComponentPropsWithoutRef<typeof DialogClose>;
+const DialogContent = forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
+>(({ className, children, ...props }, ref) => {
+  const { dialogContent, dialogClose } = dialogTheme();
+  return (
+    <DialogPortal>
+      <DialogOverlay />
+      <DialogPrimitive.Content
+        ref={ref}
+        className={dialogContent({ className })}
+        {...props}
+      >
+        {children}
+        <DialogPrimitive.Close className={dialogClose()}>
+          <XCloseIcon className="h-4 w-4" />
+          <span className="sr-only">Close</span>
+        </DialogPrimitive.Close>
+      </DialogPrimitive.Content>
+    </DialogPortal>
+  );
+});
+DialogContent.displayName = DialogPrimitive.Content.displayName;
+
+export const Dialog = ({ children }: { children: React.ReactNode }) => {
+  return <DialogRoot>{children}</DialogRoot>;
 };
 
-export const Dialog = forwardRef<
-  ElementRef<typeof DialogPrimitive.Content>,
-  DialogProps
->(
-  (
-    {
-      trigger,
-      children,
-      dialogRootProps,
-      dialogOverlayProps,
-      dialogTriggerProps,
-      dialogContentProps,
-      dialogCloseProps,
-    },
-    ref,
-  ) => {
-    const { dialogTrigger, dialogContent, dialogOverlay, dialogClose } =
-      dialogTheme();
-    return (
-      <DialogRoot {...dialogRootProps}>
-        <DialogTrigger
-          {...dialogTriggerProps}
-          className={dialogTrigger({
-            className: dialogTriggerProps?.className,
-          })}
-        >
-          {trigger}
-        </DialogTrigger>
-        <DialogPortal>
-          <DialogOverlay
-            {...dialogOverlayProps}
-            className={dialogOverlay({
-              className: dialogOverlayProps?.className,
-            })}
-          />
-          <DialogPrimitive.Content
-            {...dialogContentProps}
-            ref={ref}
-            className={dialogContent({
-              className: dialogContentProps?.className,
-            })}
-          >
-            {children}
-            <DialogPrimitive.Close
-              {...dialogCloseProps}
-              className={dialogClose({
-                className: dialogCloseProps?.className,
-              })}
-            >
-              <XCloseIcon className="h-4 w-4" />
-              <span className="sr-only">Close</span>
-            </DialogPrimitive.Close>
-          </DialogPrimitive.Content>
-        </DialogPortal>
-      </DialogRoot>
-    );
-  },
-);
-Dialog.displayName = "Dialog";
+Dialog.Trigger = DialogTrigger;
+Dialog.Close = DialogClose;
+Dialog.Content = DialogContent;
+Dialog.Header = DialogHeader;
+Dialog.Title = DialogTitle;
+Dialog.Description = DialogDescription;
+Dialog.Footer = DialogFooter;
