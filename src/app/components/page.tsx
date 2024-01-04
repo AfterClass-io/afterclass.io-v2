@@ -9,6 +9,7 @@ import { StarLineAltIcon } from "@/common/components/CustomIcon";
 import { Input } from "@/common/components/Input";
 import { Checkbox, type CheckedState } from "@/common/components/Checkbox";
 import { Popover } from "@/common/components/Popover";
+import { Dialog } from "@/common/components/Dialog";
 
 const buttonVariants = [
   "primary",
@@ -224,6 +225,48 @@ export default function Components() {
             </div>
           </Popover.Content>
         </Popover>
+      </div>
+      <div className="flex gap-4">
+        <Dialog>
+          <Dialog.Trigger asChild>
+            <Button variant="primary" as="button">
+              Dialog
+            </Button>
+          </Dialog.Trigger>
+          <Dialog.Content>
+            <Dialog.Header>
+              <Dialog.Title>Edit profile</Dialog.Title>
+              <Dialog.Description>
+                {
+                  "Make changes to your profile here. Click save when you're done."
+                }
+              </Dialog.Description>
+            </Dialog.Header>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <label htmlFor="name" className="text-right">
+                  Name
+                </label>
+                <div className="col-span-3">
+                  <Input id="name" defaultValue="Pedro Duarte" />
+                </div>
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <label htmlFor="username" className="text-right">
+                  Username
+                </label>
+                <div className="col-span-3">
+                  <Input id="username" defaultValue="@peduarte" />
+                </div>
+              </div>
+            </div>
+            <Dialog.Footer>
+              <Button variant="primary" as="button" type="submit">
+                Save changes
+              </Button>
+            </Dialog.Footer>
+          </Dialog.Content>
+        </Dialog>
       </div>
     </div>
   );
