@@ -138,12 +138,18 @@ export const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
 };
 
 export const Command = (props: CommandProps | CommandDialogProps) => {
+  // Accessing .as instead of destructuring to make use of discriminated unions
+  // https://github.com/microsoft/TypeScript/issues/46318
   if (props.as === "dialog") {
-    // const { as, ..._props } = props;
-    return <CommandDialog {...props} />;
+    // Has an unused `as` to remove
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { as, ..._props } = props;
+    return <CommandDialog {..._props} />;
   } else {
-    // const { as, ..._props } = props as CommandProps;
-    return <CommandRoot {...props} />;
+    // Has an unused `as` to remove
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { as, ..._props } = props as CommandProps;
+    return <CommandRoot {..._props} />;
   }
 };
 
