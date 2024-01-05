@@ -66,8 +66,12 @@ const DialogContent = forwardRef<
 });
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
-export const Dialog = ({ children }: { children: React.ReactNode }) => {
-  return <DialogRoot>{children}</DialogRoot>;
+export interface DialogProps
+  extends ComponentPropsWithoutRef<typeof DialogRoot> {
+  children: React.ReactNode;
+}
+export const Dialog = ({ children, ...props }: DialogProps) => {
+  return <DialogRoot {...props}>{children}</DialogRoot>;
 };
 
 Dialog.Trigger = DialogTrigger;
