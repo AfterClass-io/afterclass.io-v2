@@ -2,9 +2,10 @@
 
 import {
   forwardRef,
-  ElementRef,
-  ComponentPropsWithoutRef,
-  HTMLAttributes,
+  type ElementRef,
+  type ComponentPropsWithoutRef,
+  type HTMLAttributes,
+  type ComponentPropsWithRef,
 } from "react";
 import { type DialogProps } from "@radix-ui/react-dialog";
 import { Command as CommandPrimitive } from "cmdk";
@@ -12,31 +13,6 @@ import { Command as CommandPrimitive } from "cmdk";
 import { SearchIcon } from "@/common/components/CustomIcon";
 import { Dialog } from "@/common/components/Dialog";
 import { commandTheme } from "./Command.theme";
-
-const Command = forwardRef<
-  ElementRef<typeof CommandPrimitive>,
-  ComponentPropsWithoutRef<typeof CommandPrimitive>
->(({ className, ...props }, ref) => (
-  <CommandPrimitive
-    ref={ref}
-    className={commandTheme().command({ className })}
-    {...props}
-  />
-));
-Command.displayName = CommandPrimitive.displayName;
-
-interface CommandDialogProps extends DialogProps {}
-
-const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
-  const { commandDialog, commandDialogContent } = commandTheme();
-  return (
-    <Dialog {...props}>
-      <Dialog.Content className={commandDialogContent()}>
-        <Command className={commandDialog()}>{children}</Command>
-      </Dialog.Content>
-    </Dialog>
-  );
-};
 
 const CommandInput = forwardRef<
   ElementRef<typeof CommandPrimitive.Input>,
@@ -130,14 +106,51 @@ const CommandShortcut = ({
 };
 CommandShortcut.displayName = "CommandShortcut";
 
-export {
-  Command,
-  CommandDialog,
-  CommandInput,
-  CommandList,
-  CommandEmpty,
-  CommandGroup,
-  CommandItem,
-  CommandShortcut,
-  CommandSeparator,
+interface CommandProps extends ComponentPropsWithRef<typeof CommandPrimitive> {
+  as?: "command";
+}
+
+const CommandRoot = forwardRef<
+  ElementRef<typeof CommandPrimitive>,
+  ComponentPropsWithoutRef<typeof CommandPrimitive>
+>(({ className, ...props }, ref) => (
+  <CommandPrimitive
+    ref={ref}
+    className={commandTheme().command({ className })}
+    {...props}
+  />
+));
+CommandRoot.displayName = CommandPrimitive.displayName;
+
+interface CommandDialogProps extends DialogProps {
+  as?: "dialog";
+}
+
+export const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
+  const { commandDialog, commandDialogContent } = commandTheme();
+  return (
+    <Dialog {...props}>
+      <Dialog.Content className={commandDialogContent()}>
+        <CommandRoot className={commandDialog()}>{children}</CommandRoot>
+      </Dialog.Content>
+    </Dialog>
+  );
 };
+
+export const Command = (props: CommandProps | CommandDialogProps) => {
+  if (props.as === "dialog") {
+    // const { as, ..._props } = props;
+    return <CommandDialog {...props} />;
+  } else {
+    // const { as, ..._props } = props as CommandProps;
+    return <CommandRoot {...props} />;
+  }
+};
+
+Command.Input = CommandInput;
+Command.List = CommandList;
+Command.Empty = CommandEmpty;
+Command.Group = CommandGroup;
+Command.Item = CommandItem;
+Command.Shortcut = CommandShortcut;
+Command.Separator = CommandSeparator;
