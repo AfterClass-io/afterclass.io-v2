@@ -35,12 +35,14 @@ export const RatingSection = ({
             label={headingRatingItem.label}
             rating={headingRatingItem.rating}
             layout="horizontal"
+            isLocked={isLocked}
           />
         </div>
       </div>
       <div className={statItemWrapper()}>
-        {ratingItems.map((item) => (
+        {ratingItems.map((item, i) => (
           <StatItem
+            key={i}
             rating={formatPercentage(item.rating)}
             label={item.label}
             isLocked={isLocked}
