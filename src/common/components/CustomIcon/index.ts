@@ -5,6 +5,7 @@ export * from "./BookLineIcon";
 export * from "./CheckIcon";
 export * from "./CustomIcon";
 export * from "./DealsIcon";
+export * from "./HeartIcon";
 export * from "./MinusIcon";
 export * from "./SearchIcon";
 export * from "./StarLineAltIcon";
