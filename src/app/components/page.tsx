@@ -10,14 +10,17 @@ import {
   CheckIcon,
   DealsIcon,
   StarLineAltIcon,
+  EnvelopeIcon,
+  LockIcon,
 } from "@/common/components/CustomIcon";
 import { Input } from "@/common/components/Input";
 import { Checkbox, type CheckedState } from "@/common/components/Checkbox";
 import { Popover } from "@/common/components/Popover";
 import { Dialog } from "@/common/components/Dialog";
 import { Command } from "@/common/components/Command";
-import { EnvelopeIcon } from "@/common/components/CustomIcon/EnvelopeIcon";
-import { LockIcon } from "@/common/components/CustomIcon/LockIcon";
+import { RatingSection } from "@/common/components/RatingSection";
+import { StatItem } from "@/common/components/StatItem";
+import formatPercentage from "@/common/functions/formatPercentage";
 
 const buttonVariants = [
   "primary",
@@ -344,6 +347,44 @@ export default function Components() {
           <Command as="dialog" open={open} onOpenChange={setOpen}>
             <CommandContent />
           </Command>
+        </div>
+      </div>
+      <div className="flex flex-col gap-4">
+        <RatingSection
+          headingRatingItem={{ label: "Average Rating", rating: 4.85 }}
+          ratingItems={[
+            { label: "Engaging", rating: formatPercentage(0.64) },
+            { label: "Fair Grading", rating: formatPercentage(0.78) },
+            { label: "Knowledgeable", rating: formatPercentage(0.717) },
+            { label: "Effective Teaching", rating: formatPercentage(0.78) },
+            { label: "Manageable Workload", rating: formatPercentage(0.78) },
+          ]}
+        />
+        <RatingSection
+          headingRatingItem={{ label: "Average Rating", rating: 4.85 }}
+          ratingItems={[
+            { label: "Engaging", rating: formatPercentage(0.64) },
+            { label: "Fair Grading", rating: formatPercentage(0.78) },
+            { label: "Knowledgeable", rating: formatPercentage(0.71) },
+            { label: "Effective Teaching", rating: formatPercentage(0.78) },
+            { label: "Manageable Workload", rating: formatPercentage(0.78) },
+          ]}
+          isLocked={true}
+        />
+      </div>
+      <div className="flex flex-col gap-6">
+        <div className="flex gap-4">
+          <StatItem label="This is Unlocked" rating="64%" />
+          <StatItem label="This is Locked" rating="64%" isLocked={true} />
+        </div>
+        <div className="flex flex-col items-start gap-4">
+          <StatItem label="This is Unlocked" rating="64%" layout="horizontal" />
+          <StatItem
+            label="This is Locked"
+            rating="64%"
+            layout="horizontal"
+            isLocked={true}
+          />
         </div>
       </div>
     </div>
