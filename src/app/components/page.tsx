@@ -5,11 +5,19 @@ import { Icon } from "@iconify-icon/react";
 
 import { APP_THEMES } from "@/common/tools/tailwind/themes/appTheme";
 import { Button, type ButtonVariants } from "@/common/components/Button";
-import { StarLineAltIcon } from "@/common/components/CustomIcon";
+import {
+  BookLineIcon,
+  CheckIcon,
+  DealsIcon,
+  StarLineAltIcon,
+} from "@/common/components/CustomIcon";
 import { Input } from "@/common/components/Input";
 import { Checkbox, type CheckedState } from "@/common/components/Checkbox";
 import { Popover } from "@/common/components/Popover";
 import { Dialog } from "@/common/components/Dialog";
+import { Command } from "@/common/components/Command";
+import { EnvelopeIcon } from "@/common/components/CustomIcon/EnvelopeIcon";
+import { LockIcon } from "@/common/components/CustomIcon/LockIcon";
 
 const buttonVariants = [
   "primary",
@@ -20,6 +28,47 @@ const buttonVariants = [
   "danger",
   "link",
 ] as ButtonVariants["variant"][];
+
+const CommandContent = () => (
+  <>
+    <Command.Input placeholder="Type a command or search..." />
+    <Command.List>
+      <Command.Empty>No results found.</Command.Empty>
+      <Command.Group heading="Suggestions">
+        <Command.Item>
+          <BookLineIcon className="mr-2 h-4 w-4" />
+          <span>Calendar</span>
+        </Command.Item>
+        <Command.Item>
+          <CheckIcon className="mr-2 h-4 w-4" />
+          <span>Search Emoji</span>
+        </Command.Item>
+        <Command.Item>
+          <DealsIcon className="mr-2 h-4 w-4" />
+          <span>Calculator</span>
+        </Command.Item>
+      </Command.Group>
+      <Command.Separator />
+      <Command.Group heading="Settings">
+        <Command.Item>
+          <EnvelopeIcon className="mr-2 h-4 w-4" />
+          <span>Profile</span>
+          <Command.Shortcut>⌘P</Command.Shortcut>
+        </Command.Item>
+        <Command.Item>
+          <LockIcon className="mr-2 h-4 w-4" />
+          <span>Billing</span>
+          <Command.Shortcut>⌘B</Command.Shortcut>
+        </Command.Item>
+        <Command.Item>
+          <StarLineAltIcon className="mr-2 h-4 w-4" />
+          <span>Settings</span>
+          <Command.Shortcut>⌘S</Command.Shortcut>
+        </Command.Item>
+      </Command.Group>
+    </Command.List>
+  </>
+);
 
 export default function Components() {
   const [isMounted, setIsMounted] = useState(false);
@@ -38,6 +87,18 @@ export default function Components() {
     useState<CheckedState>("indeterminate");
   const [checkedDisabled, setCheckedDisabled] =
     useState<CheckedState>("indeterminate");
+
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "j" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setOpen((open) => !open);
+      }
+    };
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, []);
 
   return (
     <div className="space-y-10 p-5 sm:p-10">
@@ -267,6 +328,23 @@ export default function Components() {
             </Dialog.Footer>
           </Dialog.Content>
         </Dialog>
+      </div>
+      <div className="flex max-w-sm gap-8">
+        <Command className="">
+          <CommandContent />
+        </Command>
+        <span>OR</span>
+        <div>
+          <div className="flex flex-col gap-2 text-sm">
+            <span>Press</span>
+            <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border px-1.5 font-mono text-base font-medium opacity-100">
+              <span>⌘</span>J
+            </kbd>
+          </div>
+          <Command as="dialog" open={open} onOpenChange={setOpen}>
+            <CommandContent />
+          </Command>
+        </div>
       </div>
     </div>
   );
