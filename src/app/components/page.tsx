@@ -20,6 +20,7 @@ import { Dialog } from "@/common/components/Dialog";
 import { Command } from "@/common/components/Command";
 import { RatingSection } from "@/common/components/RatingSection";
 import { StatItem } from "@/common/components/StatItem";
+import formatPercentage from "@/common/functions/formatPercentage";
 
 const buttonVariants = [
   "primary",
@@ -352,34 +353,34 @@ export default function Components() {
         <RatingSection
           headingRatingItem={{ label: "Average Rating", rating: 4.85 }}
           ratingItems={[
-            { label: "Engaging", rating: 0.64 },
-            { label: "Fair Grading", rating: 0.78 },
-            { label: "Knowledgeable", rating: 0.71 },
-            { label: "Effective Teaching", rating: 0.78 },
-            { label: "Manageable Workload", rating: 0.78 },
+            { label: "Engaging", rating: formatPercentage(0.64) },
+            { label: "Fair Grading", rating: formatPercentage(0.78) },
+            { label: "Knowledgeable", rating: formatPercentage(0.717) },
+            { label: "Effective Teaching", rating: formatPercentage(0.78) },
+            { label: "Manageable Workload", rating: formatPercentage(0.78) },
           ]}
         />
         <RatingSection
           headingRatingItem={{ label: "Average Rating", rating: 4.85 }}
           ratingItems={[
-            { label: "Engaging", rating: 0.64 },
-            { label: "Fair Grading", rating: 0.78 },
-            { label: "Knowledgeable", rating: 0.71 },
-            { label: "Effective Teaching", rating: 0.78 },
-            { label: "Manageable Workload", rating: 0.78 },
+            { label: "Engaging", rating: formatPercentage(0.64) },
+            { label: "Fair Grading", rating: formatPercentage(0.78) },
+            { label: "Knowledgeable", rating: formatPercentage(0.71) },
+            { label: "Effective Teaching", rating: formatPercentage(0.78) },
+            { label: "Manageable Workload", rating: formatPercentage(0.78) },
           ]}
           isLocked={true}
         />
       </div>
       <div className="flex flex-col gap-6">
         <div className="flex gap-4">
-          <StatItem label="This is Locked" rating="64%" />
-          <StatItem label="This is Unlocked" rating="64%" isLocked={true} />
+          <StatItem label="This is Unlocked" rating="64%" />
+          <StatItem label="This is Locked" rating="64%" isLocked={true} />
         </div>
         <div className="flex flex-col items-start gap-4">
-          <StatItem label="This is Locked" rating="64%" layout="horizontal" />
+          <StatItem label="This is Unlocked" rating="64%" layout="horizontal" />
           <StatItem
-            label="This is Unlocked"
+            label="This is Locked"
             rating="64%"
             layout="horizontal"
             isLocked={true}

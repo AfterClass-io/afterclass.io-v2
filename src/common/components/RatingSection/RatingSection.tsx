@@ -4,17 +4,11 @@ import {
 } from "./RatingSection.theme";
 import { HeartIcon } from "@/common/components/CustomIcon";
 import { LockCtaOverlay } from "@/common/components/LockCtaOverlay/LockCtaOverlay";
-import { StatItem } from "@/common/components/StatItem";
-import { formatPercentage } from "@/common/functions/format";
-
-export type RatingItem = {
-  label: string;
-  rating: number;
-};
+import { StatItem, type StatItemProps } from "@/common/components/StatItem";
 
 export type RatingSectionProps = RatingSectionVariants & {
-  headingRatingItem: RatingItem;
-  ratingItems: RatingItem[];
+  headingRatingItem: StatItemProps;
+  ratingItems: StatItemProps[];
   isLocked?: boolean;
 };
 
@@ -32,8 +26,7 @@ export const RatingSection = ({
         <div className={headingRating()}>
           <HeartIcon className={icon()} />
           <StatItem
-            label={headingRatingItem.label}
-            rating={headingRatingItem.rating}
+            {...headingRatingItem}
             layout="horizontal"
             isLocked={isLocked}
           />
@@ -41,12 +34,7 @@ export const RatingSection = ({
       </div>
       <div className={statItemWrapper()}>
         {ratingItems.map((item, i) => (
-          <StatItem
-            key={i}
-            rating={formatPercentage(item.rating)}
-            label={item.label}
-            isLocked={isLocked}
-          />
+          <StatItem {...item} key={i} isLocked={isLocked} />
         ))}
       </div>
     </div>
