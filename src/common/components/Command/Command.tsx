@@ -1,3 +1,9 @@
+/**
+ * ref:
+ * - https://ui.shadcn.com/docs/components/command
+ * - https://github.com/pacocoursey/cmdk
+ * - https://github.com/shadcn-ui/ui/issues/173
+ */
 "use client";
 
 import {
