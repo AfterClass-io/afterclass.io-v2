@@ -4,18 +4,8 @@ import { ComponentPropsWithoutRef } from "react";
 
 import { CheckIcon, ChevronDownIcon } from "@/common/components/CustomIcon";
 import { Button } from "@/common/components/Button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "@/common/components/Command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/common/components/Popover";
+import { Command } from "@/common/components/Command";
+import { Popover } from "@/common/components/Popover";
 import { comboboxTheme, type ComboboxVariants } from "./Combobox.theme";
 
 export type ComboboxProps = ComboboxVariants & {
@@ -62,7 +52,7 @@ export function Combobox({
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+      <Popover.Trigger asChild>
         <Button
           variant="tertiary"
           as="button"
@@ -84,33 +74,33 @@ export function Combobox({
               )?.label
             : placeholder}
         </Button>
-      </PopoverTrigger>
-      <PopoverContent
+      </Popover.Trigger>
+      <Popover.Content
         className={popoverContent({
           className: popoverContentProps?.className,
         })}
       >
         <Command>
-          <CommandInput
+          <Command.Input
             placeholder={placeholder}
             className={commandInput({
               className: commandInputProps?.className,
             })}
           />
-          <CommandEmpty
+          <Command.Empty
             className={commandEmpty({
               className: commandEmptyProps?.className,
             })}
           >
             Nothing found.
-          </CommandEmpty>
-          <CommandGroup
+          </Command.Empty>
+          <Command.Group
             className={commandGroup({
               className: commandGroupProps?.className,
             })}
           >
             {filtered.map((el) => (
-              <CommandItem
+              <Command.Item
                 key={el.value}
                 value={el.value}
                 onSelect={(currentValue) => {
@@ -127,11 +117,11 @@ export function Combobox({
                   })}
                 />
                 {el.label}
-              </CommandItem>
+              </Command.Item>
             ))}
-          </CommandGroup>
+          </Command.Group>
         </Command>
-      </PopoverContent>
+      </Popover.Content>
     </Popover>
   );
 }

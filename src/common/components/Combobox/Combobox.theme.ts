@@ -5,9 +5,9 @@ export type ComboboxVariants = VariantProps<typeof comboboxTheme>;
 export const comboboxTheme = tv(
   {
     slots: {
-      popoverTriggerButton: ["w-[200px]", "justify-between"],
+      popoverTriggerButton: [],
       popoverTriggerIcon: ["h-6", "w-6", "shrink-0", "opacity-50"],
-      popoverContent: ["max-h-60 w-[200px] p-0"],
+      popoverContent: [],
       commandInput: [],
       commandEmpty: [],
       commandGroup: [],

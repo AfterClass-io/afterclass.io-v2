@@ -12,6 +12,7 @@ import {
   StarLineAltIcon,
   EnvelopeIcon,
   LockIcon,
+  ChevronDownIcon,
 } from "@/common/components/CustomIcon";
 import { Input } from "@/common/components/Input";
 import { Checkbox, type CheckedState } from "@/common/components/Checkbox";
@@ -21,6 +22,7 @@ import { Command } from "@/common/components/Command";
 import { RatingSection } from "@/common/components/RatingSection";
 import { StatItem } from "@/common/components/StatItem";
 import formatPercentage from "@/common/functions/formatPercentage";
+import { exampleListCountries } from "@/app/components/exampleCountryList";
 
 const buttonVariants = [
   "primary",
@@ -102,6 +104,13 @@ export default function Components() {
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
   }, []);
+
+  const [value, setValue] = useState("");
+  const [openCombobox, setOpenCombobox] = useState(false);
+  const filtered = exampleListCountries.map((el) => ({
+    value: el,
+    label: el.toLowerCase(),
+  }));
 
   return (
     <div className="space-y-10 p-5 sm:p-10">
@@ -386,6 +395,45 @@ export default function Components() {
             isLocked={true}
           />
         </div>
+      </div>
+      <div>
+        <Popover open={openCombobox} onOpenChange={setOpenCombobox}>
+          <Popover.Trigger asChild>
+            <Button
+              variant="tertiary"
+              as="button"
+              aria-expanded={openCombobox}
+              iconRight={<ChevronDownIcon />}
+            >
+              {value
+                ? filtered.find(
+                    (el) => el.value.toLowerCase() === value.toLowerCase(),
+                  )?.label
+                : "Select a country"}
+            </Button>
+          </Popover.Trigger>
+          <Popover.Content variant="combobox">
+            <Command variant="combobox">
+              <Command.Input placeholder="test" />
+              <Command.Empty>Nothing found.</Command.Empty>
+              <Command.Group>
+                {filtered.map((el) => (
+                  <Command.Item
+                    key={el.value}
+                    value={el.value}
+                    onSelect={(currentValue) => {
+                      setValue(currentValue === value ? "" : currentValue);
+                      setOpenCombobox(false);
+                    }}
+                  >
+                    <CheckIcon />
+                    {el.label}
+                  </Command.Item>
+                ))}
+              </Command.Group>
+            </Command>
+          </Popover.Content>
+        </Popover>
       </div>
     </div>
   );
