@@ -13,7 +13,8 @@ export const popoverTheme = tv(
       "p-4",
       "shadow-md",
       "outline-none",
-      "text-popover-foreground",
+      "text-text-em-high",
+      "border-border-elevated",
       "data-[state=open]:animate-in",
       "data-[state=closed]:animate-out",
       "data-[state=closed]:fade-out-0",
@@ -26,9 +27,8 @@ export const popoverTheme = tv(
       "data-[side=top]:slide-in-from-bottom-2",
     ],
     variants: {
-      size: {
-        md: {},
-        sm: {},
+      variant: {
+        combobox: ["max-h-60 w-[200px] border-none p-0 flex"],
       },
     },
   },
