@@ -21,7 +21,7 @@ import { Command } from "@/common/components/Command";
 import { RatingSection } from "@/common/components/RatingSection";
 import { StatItem } from "@/common/components/StatItem";
 import formatPercentage from "@/common/functions/formatPercentage";
-import { ProfCombobox } from "@/modules/reviews/ProfCombobox";
+import { Combobox } from "@/modules/reviews/Combobox";
 
 // TODO: replace with real data
 import { exampleListCountries } from "./exampleCountryList";
@@ -397,10 +397,10 @@ export default function Components() {
         </div>
       </div>
       <div>
-        <ProfCombobox professors={exampleListObj} />
+        <Combobox items={exampleListObj} />
         {/* 
-        to use ProfCombobox in a form:
-        <ProfCombobox
+        to use Combobox in a form:
+        <Combobox
           professors={exampleListObj}
           onSelectChange={(v) => setValue("fieldName", v)}
           {...register("fieldName")}

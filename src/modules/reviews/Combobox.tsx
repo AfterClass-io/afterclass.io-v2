@@ -6,15 +6,12 @@ import { Button } from "@/common/components/Button";
 import { Command } from "@/common/components/Command";
 import { Popover } from "@/common/components/Popover";
 
-export type ProfComboboxProps = {
-  professors: { label: string; value: string }[];
+export type ComboboxProps = {
+  items: { label: string; value: string }[];
   onSelectChange?: (selectedValue: string) => void;
 };
 
-export const ProfCombobox = ({
-  professors,
-  onSelectChange,
-}: ProfComboboxProps) => {
+export const Combobox = ({ items, onSelectChange }: ComboboxProps) => {
   const [value, setValue] = useState("");
   const [open, setOpen] = useState(false);
 
@@ -30,7 +27,7 @@ export const ProfCombobox = ({
           iconRight={<ChevronDownIcon />}
         >
           {value
-            ? professors.find((el) => el.value === value)?.label
+            ? items.find((el) => el.value === value)?.label
             : "Select a Prof"}
         </Button>
       </Popover.Trigger>
@@ -39,7 +36,7 @@ export const ProfCombobox = ({
           <Command.Input placeholder="Search for a Prof..." />
           <Command.Empty>Nothing found.</Command.Empty>
           <Command.Group>
-            {professors.map((el) => (
+            {items.map((el) => (
               <Command.Item
                 id={el.value}
                 key={el.value}

@@ -1,1 +1,1 @@
-export * from "./ProfCombobox";
+export * from "./Combobox";
