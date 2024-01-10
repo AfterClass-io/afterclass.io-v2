@@ -93,7 +93,6 @@ export const commandTheme = tv(
       variant: {
         combobox: {
           command: ["max-h-60"],
-          // commandGroup: ["max-h-[300px] overflow-y-auto overflow-x-hidden"],
         },
       },
     },

@@ -6,18 +6,18 @@ import { Button } from "@/common/components/Button";
 import { Command } from "@/common/components/Command";
 import { Popover } from "@/common/components/Popover";
 
-// TODO: replace with real data
-import { exampleListCountries } from "./exampleCountryList";
+export type ProfComboboxProps = {
+  professors: { label: string; value: string }[];
+  onSelectChange?: (selectedValue: string) => void;
+};
 
-export function ProfCombobox() {
+export const ProfCombobox = ({
+  professors,
+  onSelectChange,
+}: ProfComboboxProps) => {
   const [value, setValue] = useState("");
   const [open, setOpen] = useState(false);
 
-  // TODO: replace with data fetching
-  const filtered = exampleListCountries.map((el) => ({
-    value: el.toLowerCase(),
-    label: el,
-  }));
   const isMatched = (v: string) => v === value;
 
   return (
@@ -30,7 +30,7 @@ export function ProfCombobox() {
           iconRight={<ChevronDownIcon />}
         >
           {value
-            ? filtered.find((el) => el.value === value)?.label
+            ? professors.find((el) => el.value === value)?.label
             : "Select a Prof"}
         </Button>
       </Popover.Trigger>
@@ -39,13 +39,15 @@ export function ProfCombobox() {
           <Command.Input placeholder="Search for a Prof..." />
           <Command.Empty>Nothing found.</Command.Empty>
           <Command.Group>
-            {filtered.map((el) => (
+            {professors.map((el) => (
               <Command.Item
+                id={el.value}
                 key={el.value}
                 value={el.value}
-                onSelect={(currentValue) => {
-                  setValue(currentValue === value ? "" : currentValue);
+                onSelect={(selectedValue) => {
+                  setValue(selectedValue === value ? "" : selectedValue);
                   setOpen(false);
+                  onSelectChange?.(selectedValue);
                 }}
               >
                 <CheckIcon
@@ -59,4 +61,4 @@ export function ProfCombobox() {
       </Popover.Content>
     </Popover>
   );
-}
+};

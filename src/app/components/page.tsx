@@ -23,6 +23,14 @@ import { StatItem } from "@/common/components/StatItem";
 import formatPercentage from "@/common/functions/formatPercentage";
 import { ProfCombobox } from "@/modules/reviews/ProfCombobox";
 
+// TODO: replace with real data
+import { exampleListCountries } from "./exampleCountryList";
+
+const exampleListObj = exampleListCountries.map((el) => ({
+  value: el.toLowerCase(),
+  label: el,
+}));
+
 const buttonVariants = [
   "primary",
   "secondary",
@@ -389,7 +397,15 @@ export default function Components() {
         </div>
       </div>
       <div>
-        <ProfCombobox />
+        <ProfCombobox professors={exampleListObj} />
+        {/* 
+        to use ProfCombobox in a form:
+        <ProfCombobox
+          professors={exampleListObj}
+          onSelectChange={(v) => setValue("fieldName", v)}
+          {...register("fieldName")}
+        />
+        */}
       </div>
     </div>
   );
