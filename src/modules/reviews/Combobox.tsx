@@ -8,10 +8,17 @@ import { Popover } from "@/common/components/Popover";
 
 export type ComboboxProps = {
   items: { label: string; value: string }[];
+  placeholder: string;
+  triggerLabel: string;
   onSelectChange?: (selectedValue: string) => void;
 };
 
-export const Combobox = ({ items, onSelectChange }: ComboboxProps) => {
+export const Combobox = ({
+  items,
+  placeholder,
+  triggerLabel,
+  onSelectChange,
+}: ComboboxProps) => {
   const [value, setValue] = useState("");
   const [open, setOpen] = useState(false);
 
@@ -26,14 +33,12 @@ export const Combobox = ({ items, onSelectChange }: ComboboxProps) => {
           aria-expanded={open}
           iconRight={<ChevronDownIcon />}
         >
-          {value
-            ? items.find((el) => el.value === value)?.label
-            : "Select a Prof"}
+          {value ? items.find((el) => el.value === value)?.label : triggerLabel}
         </Button>
       </Popover.Trigger>
       <Popover.Content variant="combobox">
         <Command variant="combobox">
-          <Command.Input placeholder="Search for a Prof..." />
+          <Command.Input placeholder={placeholder} />
           <Command.Empty>Nothing found.</Command.Empty>
           <Command.Group>
             {items.map((el) => (

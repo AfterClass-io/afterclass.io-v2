@@ -397,11 +397,17 @@ export default function Components() {
         </div>
       </div>
       <div>
-        <Combobox items={exampleListObj} />
+        <Combobox
+          placeholder="Search for a Prof..."
+          triggerLabel="Select a Prof"
+          items={exampleListObj}
+        />
         {/* 
         to use Combobox in a form:
         <Combobox
-          professors={exampleListObj}
+          placeholder="Search for a Prof..."
+          triggerLabel="Select a Prof"
+          items={exampleListObj}
           onSelectChange={(v) => setValue("fieldName", v)}
           {...register("fieldName")}
         />
