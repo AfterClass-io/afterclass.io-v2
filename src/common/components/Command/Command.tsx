@@ -18,7 +18,7 @@ import { Command as CommandPrimitive } from "cmdk";
 
 import { SearchIcon } from "@/common/components/CustomIcon";
 import { Dialog } from "@/common/components/Dialog";
-import { commandTheme } from "./Command.theme";
+import { commandTheme, type CommandVariants } from "./Command.theme";
 
 const CommandInput = forwardRef<
   ElementRef<typeof CommandPrimitive.Input>,
@@ -112,17 +112,18 @@ const CommandShortcut = ({
 };
 CommandShortcut.displayName = "CommandShortcut";
 
-interface CommandProps extends ComponentPropsWithRef<typeof CommandPrimitive> {
+interface CommandRootBaseProps
+  extends ComponentPropsWithRef<typeof CommandPrimitive> {
   as?: "command";
 }
-
+type CommandRootProps = CommandRootBaseProps & CommandVariants;
 const CommandRoot = forwardRef<
   ElementRef<typeof CommandPrimitive>,
-  ComponentPropsWithoutRef<typeof CommandPrimitive>
->(({ className, ...props }, ref) => (
+  CommandRootProps
+>(({ className, variant, ...props }, ref) => (
   <CommandPrimitive
     ref={ref}
-    className={commandTheme().command({ className })}
+    className={commandTheme().command({ className, variant })}
     {...props}
   />
 ));
@@ -143,7 +144,7 @@ export const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
   );
 };
 
-export const Command = (props: CommandProps | CommandDialogProps) => {
+export const Command = (props: CommandRootProps | CommandDialogProps) => {
   // Accessing .as instead of destructuring to make use of discriminated unions
   // https://github.com/microsoft/TypeScript/issues/46318
   if (props.as === "dialog") {
@@ -154,7 +155,7 @@ export const Command = (props: CommandProps | CommandDialogProps) => {
   } else {
     // Has an unused `as` to remove
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { as, ..._props } = props as CommandProps;
+    const { as, ..._props } = props as CommandRootProps;
     return <CommandRoot {..._props} />;
   }
 };

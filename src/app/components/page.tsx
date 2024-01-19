@@ -21,6 +21,15 @@ import { Command } from "@/common/components/Command";
 import { RatingSection } from "@/common/components/RatingSection";
 import { StatItem } from "@/common/components/StatItem";
 import formatPercentage from "@/common/functions/formatPercentage";
+import { Combobox } from "@/modules/reviews/Combobox";
+
+// TODO: replace with real data
+import { exampleListCountries } from "./exampleCountryList";
+
+const exampleListObj = exampleListCountries.map((el) => ({
+  value: el.toLowerCase(),
+  label: el,
+}));
 
 const buttonVariants = [
   "primary",
@@ -386,6 +395,23 @@ export default function Components() {
             isLocked={true}
           />
         </div>
+      </div>
+      <div>
+        <Combobox
+          placeholder="Search for a Prof..."
+          triggerLabel="Select a Prof"
+          items={exampleListObj}
+        />
+        {/* 
+        to use Combobox in a form:
+        <Combobox
+          placeholder="Search for a Prof..."
+          triggerLabel="Select a Prof"
+          items={exampleListObj}
+          onSelectChange={(v) => setValue("fieldName", v)}
+          {...register("fieldName")}
+        />
+        */}
       </div>
     </div>
   );

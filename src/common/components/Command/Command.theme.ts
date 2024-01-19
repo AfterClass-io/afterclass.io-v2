@@ -89,7 +89,13 @@ export const commandTheme = tv(
         "text-text-em-low",
       ],
     },
-    variants: {},
+    variants: {
+      variant: {
+        combobox: {
+          command: ["max-h-60"],
+        },
+      },
+    },
   },
   { responsiveVariants: true },
 );
