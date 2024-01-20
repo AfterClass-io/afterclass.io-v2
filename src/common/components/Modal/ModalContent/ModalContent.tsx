@@ -25,9 +25,9 @@ export const ModalContent = ({
   className,
   ...props
 }: PropsWithChildren<ModalContentProps>) => {
-  const { hasCloseButton, preventClickOutsideToClose } = useModal();
+  const { hasCloseButton, preventClickOutsideToClose, variant } = useModal();
 
-  const { content, close, overlay } = modalTheme();
+  const { content, close, overlay } = modalTheme({ variant });
 
   const preventClickOutsideToCloseProps = preventClickOutsideToClose && {
     onPointerDownOutside: (e: PointerDownOutsideEvent) => e.preventDefault(),

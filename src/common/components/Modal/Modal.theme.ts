@@ -51,5 +51,16 @@ export const modalTheme = tv({
     ],
     body: ["custom-scrollbar", "flex-1", "sm:px-8 px-6"],
   },
+  variants: {
+    variant: {
+      default: {},
+      command: {
+        close: ["right-2.5", "top-2", "sm:right-4", "sm:top-2.5"],
+      },
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
 });
 export type ModalVariants = VariantProps<typeof modalTheme>;

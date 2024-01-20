@@ -15,7 +15,6 @@ import {
 import { Input } from "@/common/components/Input";
 import { Checkbox, type CheckedState } from "@/common/components/Checkbox";
 import { Popover } from "@/common/components/Popover";
-import { Dialog } from "@/common/components/Dialog";
 import { Command } from "@/common/components/Command";
 import { RatingSection } from "@/common/components/RatingSection";
 import { StatItem } from "@/common/components/StatItem";
@@ -319,7 +318,7 @@ export default function Components() {
         </Popover>
       </div>
       <div className="flex gap-4">
-        <Dialog>
+        {/* <Dialog>
           <Dialog.Trigger asChild>
             <Button variant="primary" as="button">
               Dialog
@@ -358,7 +357,7 @@ export default function Components() {
               </Button>
             </Dialog.Footer>
           </Dialog.Content>
-        </Dialog>
+        </Dialog> */}
       </div>
       <div className="flex max-w-sm gap-8">
         <Command className="">
