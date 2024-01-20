@@ -20,7 +20,7 @@ type PopoverContentProps = React.ComponentPropsWithoutRef<
 const PopoverContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Content>,
   PopoverContentProps
->(({ className, variant, align = "center", sideOffset = 4, ...props }, ref) => (
+>(({ className, variant, align = "start", sideOffset = 12, ...props }, ref) => (
   <PopoverPrimitive.Portal>
     <PopoverPrimitive.Content
       ref={ref}

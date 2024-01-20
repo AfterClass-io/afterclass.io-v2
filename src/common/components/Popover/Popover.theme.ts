@@ -5,16 +5,19 @@ export type PopoverVariants = VariantProps<typeof popoverTheme>;
 export const popoverTheme = tv(
   {
     base: [
-      "bg-bg-base",
-      "z-50",
-      "w-72",
-      "rounded-md",
+      "bg-surface-base",
+      "z-popover",
+      "w-screen", // Required to make popover full width on mobile
+      "max-w-[320px]",
+      "min-w-0",
+      "rounded-xl",
+      "py-5",
+      "px-5",
       "border",
-      "p-4",
-      "shadow-md",
+      "border-border-base",
+      "shadow-sm",
       "outline-none",
       "text-text-em-high",
-      "border-border-elevated",
       "data-[state=open]:animate-in",
       "data-[state=closed]:animate-out",
       "data-[state=closed]:fade-out-0",
@@ -28,7 +31,7 @@ export const popoverTheme = tv(
     ],
     variants: {
       variant: {
-        combobox: ["max-h-60 w-[200px] border-none p-0 flex"],
+        combobox: ["max-h-60", "max-w-[400px]", "px-0", "py-0", "flex"],
       },
     },
   },

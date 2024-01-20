@@ -5,6 +5,7 @@ import { CheckIcon, ChevronDownIcon } from "@/common/components/CustomIcon";
 import { Button } from "@/common/components/Button";
 import { Command } from "@/common/components/Command";
 import { Popover } from "@/common/components/Popover";
+import { cn } from "@/common/functions/cn";
 
 export type ComboboxProps = {
   items: { label: string; value: string }[];
@@ -39,6 +40,7 @@ export const Combobox = ({
       <Popover.Content variant="combobox">
         <Command variant="combobox">
           <Command.Input placeholder={placeholder} />
+          <Command.Separator />
           <Command.Empty>Nothing found.</Command.Empty>
           <Command.Group>
             {items.map((el) => (
@@ -51,9 +53,14 @@ export const Combobox = ({
                   setOpen(false);
                   onSelectChange?.(selectedValue);
                 }}
+                aria-selected={isMatched(el.value)}
+                data-selected={isMatched(el.value) ? "" : undefined}
               >
                 <CheckIcon
-                  className={isMatched(el.value) ? "opacity-100" : "opacity-0"}
+                  className={cn(
+                    "text-primary-default",
+                    isMatched(el.value) ? "visible" : "invisible",
+                  )}
                 />
                 {el.label}
               </Command.Item>

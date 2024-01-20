@@ -54,7 +54,7 @@ export const modalTheme = tv({
       "border-border-default",
       "bg-surface-base",
       "text-text-em-mid",
-      "shadow-modal",
+      "shadow-lg",
       // Not needed since overlay wraps content
       // "data-[state=closed]:animate-[dialog-content-hide_200ms]",
       // "data-[state=open]:animate-[dialog-content-show_200ms]",
