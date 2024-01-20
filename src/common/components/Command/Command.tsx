@@ -13,11 +13,10 @@ import {
   type HTMLAttributes,
   type ComponentPropsWithRef,
 } from "react";
-import { type DialogProps } from "@radix-ui/react-dialog";
 import { Command as CommandPrimitive } from "cmdk";
 
 import { SearchIcon } from "@/common/components/CustomIcon";
-import { Dialog } from "@/common/components/Dialog";
+import { Modal, type ModalProps } from "@/common/components/Modal";
 import { commandTheme, type CommandVariants } from "./Command.theme";
 
 const CommandInput = forwardRef<
@@ -129,18 +128,18 @@ const CommandRoot = forwardRef<
 ));
 CommandRoot.displayName = CommandPrimitive.displayName;
 
-interface CommandDialogProps extends DialogProps {
+interface CommandDialogProps extends ModalProps {
   as?: "dialog";
 }
 
 export const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
   const { commandDialog, commandDialogContent } = commandTheme();
   return (
-    <Dialog {...props}>
-      <Dialog.Content className={commandDialogContent()}>
+    <Modal variant="command" {...props}>
+      <Modal.Content className={commandDialogContent()}>
         <CommandRoot className={commandDialog()}>{children}</CommandRoot>
-      </Dialog.Content>
-    </Dialog>
+      </Modal.Content>
+    </Modal>
   );
 };
 

@@ -7,17 +7,15 @@ export const commandTheme = tv(
     slots: {
       command: [
         "bg-bg-base",
-        "border-text-em-low",
         "flex",
         "h-full",
         "w-full",
         "flex-col",
         "overflow-hidden",
         "rounded-lg",
-        "border",
         "shadow-md",
       ],
-      commandDialogContent: ["overflow-hidden", "p-0", "shadow-lg", "border-0"],
+      commandDialogContent: ["overflow-hidden", "py-0", "sm:py-0"],
       commandDialog: [
         "[&_[cmdk-group-heading]]:text-text-em-low",
         "[&_[cmdk-group-heading]]:px-2",

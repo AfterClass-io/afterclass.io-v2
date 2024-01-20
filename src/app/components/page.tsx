@@ -1,7 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { useTheme } from "next-themes";
-import { Icon } from "@iconify-icon/react";
 
 import { APP_THEMES } from "@/common/tools/tailwind/themes/appTheme";
 import { Button, type ButtonVariants } from "@/common/components/Button";
@@ -16,7 +15,6 @@ import {
 import { Input } from "@/common/components/Input";
 import { Checkbox, type CheckedState } from "@/common/components/Checkbox";
 import { Popover } from "@/common/components/Popover";
-import { Dialog } from "@/common/components/Dialog";
 import { Command } from "@/common/components/Command";
 import { RatingSection } from "@/common/components/RatingSection";
 import { StatItem } from "@/common/components/StatItem";
@@ -25,6 +23,8 @@ import { Combobox } from "@/modules/reviews/Combobox";
 
 // TODO: replace with real data
 import { exampleListCountries } from "./exampleCountryList";
+import { Modal } from "@/common/components/Modal";
+import Heading from "@/common/components/Heading";
 
 const exampleListObj = exampleListCountries.map((el) => ({
   value: el.toLowerCase(),
@@ -115,90 +115,139 @@ export default function Components() {
   return (
     <div className="space-y-10 p-5 sm:p-10">
       {isMounted && (
-        <button
-          className="mx-auto flex items-center gap-2 rounded-md bg-primary-default p-3 text-text-on-primary"
-          // data-theme="light"
-          onClick={handleToggleTheme}
-        >
-          <Icon icon="uil:chart-line" width={16} />
-          <StarLineAltIcon size={16} />
-          <span>Toggle theme: Current {theme}</span>
-        </button>
+        <Button onClick={handleToggleTheme}>
+          Toggle theme: Current {theme}
+        </Button>
       )}
-      <div className="space-y-4">
-        <Button fullWidth>Full width</Button>
-        {/* Buttons */}
-        {buttonVariants.map((variant) => (
-          <div
-            key={variant as string}
-            className="flex max-w-[320px] flex-wrap gap-3"
-          >
-            <Button variant={variant}>{variant as string}</Button>
-            <Button variant={variant} size="sm" iconLeft={<StarLineAltIcon />}>
-              Small
-            </Button>
-            <Button
-              variant={variant}
-              aria-label="star"
-              iconLeft={<StarLineAltIcon />}
-            />
-            <Button
-              variant={variant}
-              size="sm"
-              aria-label="star"
-              iconLeft={<StarLineAltIcon />}
-            />
-            <Button variant={variant} loading>
-              {variant as string}
-            </Button>
-            <Button
-              variant={variant}
-              size="sm"
-              iconLeft={<StarLineAltIcon />}
-              loading
-            >
-              Small
-            </Button>
-            <Button
-              variant={variant}
-              aria-label="star"
-              iconLeft={<StarLineAltIcon />}
-              loading
-            />
-            <Button
-              variant={variant}
-              size="sm"
-              aria-label="star"
-              iconLeft={<StarLineAltIcon />}
-              loading
-            />
-            <Button variant={variant} disabled>
-              {variant as string}
-            </Button>
-            <Button
-              variant={variant}
-              size="sm"
-              iconLeft={<StarLineAltIcon />}
-              disabled
-            >
-              Small
-            </Button>
-            <Button
-              variant={variant}
-              aria-label="star"
-              iconLeft={<StarLineAltIcon />}
-              disabled
-            />
-            <Button
-              variant={variant}
-              size="sm"
-              aria-label="star"
-              iconLeft={<StarLineAltIcon />}
-              disabled
-            />
-          </div>
-        ))}
+      <div className="flex flex-wrap gap-4">
+        <Modal overflow="inside">
+          <Modal.Trigger asChild>
+            <Button variant="primary">Modal (inside) Headings</Button>
+          </Modal.Trigger>
+          <Modal.Content>
+            <Modal.Header description="Modal overflows inside">
+              Headers
+            </Modal.Header>
+            <Modal.Body>
+              <div className="space-y-4">
+                <Heading className="text-7xl" as="h1">
+                  Heading 1
+                </Heading>
+                <Heading className="text-6xl" as="h2">
+                  Heading 2
+                </Heading>
+                <Heading className="text-5xl" as="h3">
+                  Heading 3
+                </Heading>
+                <Heading className="text-4xl" as="h4">
+                  Heading 4
+                </Heading>
+                <Heading className="text-3xl" as="h5">
+                  Heading 5
+                </Heading>
+                <Heading className="text-2xl" as="h6">
+                  Heading 6
+                </Heading>
+                <Heading className="text-xl" as="h6">
+                  Heading 7
+                </Heading>
+              </div>
+            </Modal.Body>
+          </Modal.Content>
+        </Modal>
+        <Modal>
+          <Modal.Trigger asChild>
+            <Button variant="primary">Modal (outside) Buttons</Button>
+          </Modal.Trigger>
+          <Modal.Content>
+            <Modal.Header description="Modal overflows outside">
+              All button variants
+            </Modal.Header>
+            <Modal.Body>
+              <div className="space-y-4">
+                <Button fullWidth>Full width</Button>
+                {/* Buttons */}
+                {buttonVariants.map((variant) => (
+                  <div
+                    key={variant as string}
+                    className="flex max-w-[320px] flex-wrap gap-3"
+                  >
+                    <Button variant={variant}>{variant as string}</Button>
+                    <Button
+                      variant={variant}
+                      size="sm"
+                      iconLeft={<StarLineAltIcon />}
+                    >
+                      Small
+                    </Button>
+                    <Button
+                      variant={variant}
+                      aria-label="star"
+                      iconLeft={<StarLineAltIcon />}
+                    />
+                    <Button
+                      variant={variant}
+                      size="sm"
+                      aria-label="star"
+                      iconLeft={<StarLineAltIcon />}
+                    />
+                    <Button variant={variant} loading>
+                      {variant as string}
+                    </Button>
+                    <Button
+                      variant={variant}
+                      size="sm"
+                      iconLeft={<StarLineAltIcon />}
+                      loading
+                    >
+                      Small
+                    </Button>
+                    <Button
+                      variant={variant}
+                      aria-label="star"
+                      iconLeft={<StarLineAltIcon />}
+                      loading
+                    />
+                    <Button
+                      variant={variant}
+                      size="sm"
+                      aria-label="star"
+                      iconLeft={<StarLineAltIcon />}
+                      loading
+                    />
+                    <Button variant={variant} disabled>
+                      {variant as string}
+                    </Button>
+                    <Button
+                      variant={variant}
+                      size="sm"
+                      iconLeft={<StarLineAltIcon />}
+                      disabled
+                    >
+                      Small
+                    </Button>
+                    <Button
+                      variant={variant}
+                      aria-label="star"
+                      iconLeft={<StarLineAltIcon />}
+                      disabled
+                    />
+                    <Button
+                      variant={variant}
+                      size="sm"
+                      aria-label="star"
+                      iconLeft={<StarLineAltIcon />}
+                      disabled
+                    />
+                  </div>
+                ))}
+              </div>
+            </Modal.Body>
+            <Modal.Footer>Footer</Modal.Footer>
+          </Modal.Content>
+        </Modal>
       </div>
+
       <div className="space-y-4">
         <Input
           label={"Test Label 1"}
@@ -300,7 +349,7 @@ export default function Components() {
         </Popover>
       </div>
       <div className="flex gap-4">
-        <Dialog>
+        {/* <Dialog>
           <Dialog.Trigger asChild>
             <Button variant="primary" as="button">
               Dialog
@@ -339,7 +388,7 @@ export default function Components() {
               </Button>
             </Dialog.Footer>
           </Dialog.Content>
-        </Dialog>
+        </Dialog> */}
       </div>
       <div className="flex max-w-sm gap-8">
         <Command className="">
