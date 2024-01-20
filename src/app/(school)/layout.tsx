@@ -8,7 +8,7 @@ export default function SchoolLayout({ children }: PropsWithChildren) {
         className={cn(
           "z-header sticky top-0",
           "h-16 w-full border-b border-border-default bg-bg-base",
-          "flex items-center justify-between",
+          "hidden items-center justify-between sm:flex",
           "px-6",
         )}
       >
