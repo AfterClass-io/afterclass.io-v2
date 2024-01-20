@@ -25,6 +25,7 @@ import { Combobox } from "@/modules/reviews/Combobox";
 
 // TODO: replace with real data
 import { exampleListCountries } from "./exampleCountryList";
+import Heading from "@/common/components/Heading";
 
 const exampleListObj = exampleListCountries.map((el) => ({
   value: el.toLowerCase(),
@@ -115,16 +116,14 @@ export default function Components() {
   return (
     <div className="space-y-10 p-5 sm:p-10">
       {isMounted && (
-        <button
-          className="mx-auto flex items-center gap-2 rounded-md bg-primary-default p-3 text-text-on-primary"
-          // data-theme="light"
-          onClick={handleToggleTheme}
-        >
-          <Icon icon="uil:chart-line" width={16} />
-          <StarLineAltIcon size={16} />
-          <span>Toggle theme: Current {theme}</span>
-        </button>
-      )}
+      <div className="space-y-4">
+        <Heading className="text-5xl" as="h1">
+          Heading 1
+        </Heading>
+        <Heading className="text-4xl" as="h2">
+          Heading 2
+        </Heading>
+      </div>
       <div className="space-y-4">
         <Button fullWidth>Full width</Button>
         {/* Buttons */}
