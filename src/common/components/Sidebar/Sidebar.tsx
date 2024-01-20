@@ -66,10 +66,7 @@ export const Sidebar = ({
   return (
     <div
       {...props}
-      className={cn(
-        "w-52 space-y-5 border-r border-r-border-default px-4 py-5",
-        props?.className,
-      )}
+      className={cn("w-52 space-y-5 px-4 py-5", props?.className)}
     >
       {!hideLogo && (
         <Link href="/" className="flex items-center px-3 text-primary-default">
