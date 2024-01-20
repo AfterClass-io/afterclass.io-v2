@@ -31,7 +31,7 @@ export const MobileHeader = ({ ...props }: MobileHeaderProps) => {
             aria-label="menu"
             onClick={() => setIsSidebarOpen((prev) => !prev)}
           />
-          <Link href="/">
+          <Link href="/" className="text-primary-default">
             <AfterclassIcon size={20} />
           </Link>
         </div>
