@@ -1,19 +1,21 @@
 import { type PropsWithChildren } from "react";
 import { Sidebar } from "../Sidebar";
+import { MobileHeader } from "@/common/components/MobileHeader";
 
-// !To be removed when the component is implemented
-/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
-interface Props extends PropsWithChildren {}
+interface CoreLayoutProps extends PropsWithChildren {}
 
-export const CoreLayout = ({ children }: Props) => {
+export const CoreLayout = ({ children }: CoreLayoutProps) => {
   return (
-    <div className="relative flex h-screen flex-auto">
-      <aside>
-        <Sidebar />
-      </aside>
-      <main className="grow overflow-y-auto overflow-x-hidden bg-bg-alt">
-        {children}
-      </main>
+    <div className="relative flex h-full flex-col">
+      <MobileHeader className="flex-shrink-0 sm:hidden" />
+      <div className="relative flex h-full flex-col overflow-hidden sm:flex-row">
+        <aside className="relative hidden overflow-y-auto bg-surface-base sm:block">
+          <Sidebar />
+        </aside>
+        <main className="relative flex-1 overflow-y-auto bg-bg-base">
+          {children}
+        </main>
+      </div>
     </div>
   );
 };

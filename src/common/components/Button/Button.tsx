@@ -130,6 +130,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
             return cloneElement(child as ReactElement, {
               className: buttonIconTheme({
                 size: styleProps?.size,
+                iconOnly: typeof children === "undefined",
                 className: originalClassName, // overriding icon classNames
               }),
             });
@@ -137,7 +138,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
         }
         return <></>;
       },
-      [styleProps?.size],
+      [children, styleProps?.size],
     );
 
     const disableOnClickProp = {
