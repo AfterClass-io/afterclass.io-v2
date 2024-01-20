@@ -23,6 +23,10 @@ export default withTV({
         sans: ["var(--font-inter)", "Inter", ...fontFamily.sans],
         display: ["var(--font-poppins)", "Poppins", ...fontFamily.sans],
       },
+      boxShadow: {
+        modal:
+          "0px 0px 0px 0px rgba(7, 7, 8, 0.05), 0px 2px 5px 0px rgba(7, 7, 8, 0.05), 0px 9px 9px 0px rgba(7, 7, 8, 0.04), 0px 21px 13px 0px rgba(7, 7, 8, 0.03), 0px 38px 15px 0px rgba(7, 7, 8, 0.01), 0px 59px 16px 0px rgba(7, 7, 8, 0.00)",
+      },
     },
   },
   plugins: [themingSystemPlugin, tailwindCssAnimatePlugin],
