@@ -52,8 +52,7 @@ export const ModalContent = ({
                   <Icon
                     icon="ph:x-bold"
                     className="stroke-current"
-                    width="100%"
-                    height="100%"
+                    height="none"
                   />
                 }
                 aria-label="close"
