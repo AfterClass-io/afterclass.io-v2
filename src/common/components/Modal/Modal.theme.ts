@@ -25,16 +25,25 @@ export const modalTheme = tv({
       "text-text-placeholder",
       "z-[1]",
     ],
-    header: ["flex", "flex-col", "gap-2", "items-start", "px-6 ", "sm:px-8"],
+    header: [
+      "flex",
+      "flex-col",
+      "sm:gap-2",
+      "items-start",
+      "px-5",
+      "text-lg",
+      "sm:px-8",
+      "sm:text-xl",
+    ],
     headerDescription: ["text-sm", "text-text-em-low"],
-    footer: ["flex", "flex-col", "gap-4", "px-6 md:px-8"],
+    footer: ["flex", "flex-col", "gap-4", "px-5 md:px-8"],
     content: [
       "m-auto",
       "relative",
       "flex",
       "flex-col",
       "gap-y-6",
-      "py-6",
+      "py-5",
       "sm:py-8",
       "overflow-hidden",
       "h-fit",
@@ -50,7 +59,7 @@ export const modalTheme = tv({
       // "data-[state=closed]:animate-[dialog-content-hide_200ms]",
       // "data-[state=open]:animate-[dialog-content-show_200ms]",
     ],
-    body: ["custom-scrollbar", "flex-1", "sm:px-8 px-6"],
+    body: ["custom-scrollbar", "flex-1", "sm:px-8 px-5"],
   },
   variants: {
     variant: {
@@ -59,9 +68,20 @@ export const modalTheme = tv({
         close: ["right-2.5", "top-2", "sm:right-4", "sm:top-2.5"],
       },
     },
+    overflow: {
+      outside: {},
+      inside: {
+        content: ["max-h-full"],
+        body: [
+          "overflow-auto",
+          "py-0.5", // To avoid scrollbar when content is not overflowing
+        ],
+      },
+    },
   },
   defaultVariants: {
     variant: "default",
+    overflow: "outside",
   },
 });
 export type ModalVariants = VariantProps<typeof modalTheme>;

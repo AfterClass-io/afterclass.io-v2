@@ -37,9 +37,7 @@ export const ModalHeader = ({
       {...props}
     >
       <Title asChild className={cn(headingProps?.className)} {...headingProps}>
-        <Heading as="h2" className="text-xl">
-          {children}
-        </Heading>
+        <Heading as="h2">{children}</Heading>
       </Title>
       {description && (
         <Description
