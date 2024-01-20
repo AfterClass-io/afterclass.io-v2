@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import "./components.scss";
+@import "./radix-dialog.scss";
 
 @layer base {
   html {
