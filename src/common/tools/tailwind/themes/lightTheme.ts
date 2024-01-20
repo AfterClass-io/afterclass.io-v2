@@ -29,14 +29,14 @@ export const lightThemeConfig = (_twConfig: Partial<Config> = {}) => {
         alt: "#ECECEF",
       },
       surface: {
-        base: "#ECECEF",
-        elevated: "#E6E6EA",
+        base: "#F7F7F8",
+        elevated: "#FCFCFD",
       },
       border: {
         primary: "#432CC3",
         secondary: "#D4CEF2",
-        default: "#D7D7DF",
-        elevated: "#D1D1DC",
+        default: "#E2E2E9",
+        elevated: "#EBEBEF",
       },
       text: {
         "on-primary": "#F2F2F3",
@@ -46,7 +46,6 @@ export const lightThemeConfig = (_twConfig: Partial<Config> = {}) => {
         "em-mid": "#56565D",
         "em-low": "#7A7A85",
         placeholder: "#AFAFB6",
-        error: "#DC2626",
       },
     },
   };
@@ -75,5 +74,5 @@ export const lightTailwindConfig = generateThemeTailwindConfig(
       // Add non-standard colors here
       // yellow: '#FFFF77',
     },
-  }
+  },
 );

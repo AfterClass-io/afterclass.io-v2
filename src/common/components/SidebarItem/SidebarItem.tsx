@@ -1,4 +1,11 @@
+import { type SidebarItemType } from "@/common/components/Sidebar/Sidebar";
+import { cn } from "@/common/functions/cn";
 import Link from "next/link";
+
+export type SidebarListItem = SidebarItemType & {
+  active?: boolean;
+  external?: boolean;
+};
 
 export const SidebarItem = ({
   label,
@@ -9,25 +16,22 @@ export const SidebarItem = ({
 }: SidebarListItem) => {
   const SidebarLink = external ? "a" : Link;
   return (
-    <li className="rounded-md bg-gradient-to-r from-element-secondary">
+    <li>
       <SidebarLink
         href={href}
-        className={
-          "flex items-center gap-x-3 rounded-md bg-bg-base px-3 py-2 transition duration-200 ease-in-out hover:bg-transparent" +
-          (active ? " bg-gradient-to-r from-element-secondary" : "")
-        }
+        className={cn(
+          "flex items-center gap-x-3 rounded-lg px-3 py-2 transition duration-200 ease-in-out",
+          "hover:bg-surface-elevated",
+          "border border-transparent",
+          "text-sm font-semibold",
+          "text-text-em-mid hover:text-text-em-high",
+          active &&
+            "border-border-default bg-surface-elevated text-text-em-high",
+        )}
       >
         {icon}
-        <span className="text-sm font-medium">{label}</span>
+        <span>{label}</span>
       </SidebarLink>
     </li>
   );
-};
-
-export type SidebarListItem = {
-  label: string;
-  icon: React.ReactNode;
-  href: string;
-  active?: boolean;
-  external?: boolean;
 };

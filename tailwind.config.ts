@@ -11,6 +11,14 @@ export default withTV({
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      zIndex: {
+        elevated: "1",
+        header: "10",
+        "header-sidebar": "11",
+        modal: "50",
+        popover: "51",
+        tooltip: "52",
+      },
       fontFamily: {
         sans: ["var(--font-inter)", "Inter", ...fontFamily.sans],
         display: ["var(--font-poppins)", "Poppins", ...fontFamily.sans],
