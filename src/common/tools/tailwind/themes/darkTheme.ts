@@ -13,7 +13,7 @@ export const darkThemeConfig = (_twConfig: Partial<Config> = {}) => {
   return {
     colors: {
       primary: {
-        default: "#4361FC",
+        default: "#6E84F7",
         dark: "#2E1E8A",
       },
       secondary: {
@@ -46,7 +46,6 @@ export const darkThemeConfig = (_twConfig: Partial<Config> = {}) => {
         "em-mid": "#A2A2A9",
         "em-low": "#7A7A85",
         placeholder: "#494950",
-        error: "#DC2626",
       },
     },
   };
