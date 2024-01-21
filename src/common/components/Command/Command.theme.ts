@@ -13,7 +13,7 @@ export const commandTheme = tv(
         "flex-col",
         "overflow-hidden",
         "rounded-lg",
-        "shadow-md",
+        "shadow-lg",
       ],
       commandDialogContent: ["overflow-hidden", "py-0", "sm:py-0"],
       commandDialog: [

@@ -15,7 +15,7 @@ export const popoverTheme = tv(
       "px-5",
       "border",
       "border-border-default",
-      "shadow-sm",
+      "shadow-md",
       "outline-none",
       "text-text-em-high",
       "data-[state=open]:animate-in",
