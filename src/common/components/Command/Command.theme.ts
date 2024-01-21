@@ -6,7 +6,7 @@ export const commandTheme = tv(
   {
     slots: {
       command: [
-        "bg-bg-base",
+        "bg-surface-base",
         "flex",
         "h-full",
         "w-full",
