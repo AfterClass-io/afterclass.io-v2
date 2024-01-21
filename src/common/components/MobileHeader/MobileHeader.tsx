@@ -3,7 +3,7 @@
 import { Button } from "@/common/components/Button";
 import { AfterclassIcon } from "@/common/components/CustomIcon";
 import { Sidebar } from "@/common/components/Sidebar";
-import { cn } from "@/common/functions/cn";
+import { cn } from "@/common/functions";
 import { Icon } from "@iconify-icon/react";
 import Link from "next/link";
 import { useState, type ComponentPropsWithoutRef } from "react";
@@ -56,7 +56,7 @@ export const MobileHeader = ({ ...props }: MobileHeaderProps) => {
       {/* Overlay */}
       <div
         className={cn(
-          "z-header-sidebar absolute inset-x-0 bottom-0 top-14 bg-bg-base/90",
+          "absolute inset-x-0 bottom-0 top-14 z-header-sidebar bg-bg-base/90",
           "opacity-0 transition-opacity duration-500 ease-in-out",
           isSidebarOpen && "opacity-100",
           !isSidebarOpen && "pointer-events-none",
@@ -67,7 +67,7 @@ export const MobileHeader = ({ ...props }: MobileHeaderProps) => {
       {/* Sidebar */}
       <div
         className={cn(
-          "z-header-sidebar absolute bottom-0 left-0 top-14",
+          "absolute bottom-0 left-0 top-14 z-header-sidebar",
           "-translate-x-full transition-transform duration-500 ease-in-out",
           "border-r border-border-default bg-surface-base",
           isSidebarOpen && "translate-x-0",
