@@ -20,15 +20,11 @@ export const Tag = ({
   contentLeft,
   contentRight,
   children,
-  variant,
   active = false,
-  hoverable = false,
   size = "md",
 }: TagProps) => {
   const { tag, icon: iconTheme } = tagTheme({
     active,
-    hoverable,
-    variant,
     size,
   });
   const StyledIcon = useCallback(

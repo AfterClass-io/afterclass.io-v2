@@ -474,43 +474,9 @@ export default function Components() {
           <Tag
             contentLeft={<StarLineAltIcon />}
             contentRight={<StarLineAltIcon />}
-            hoverable
-          >
-            Default Hoverable
-          </Tag>
-        </div>
-        <div className="flex flex-none gap-4">
-          <Tag
-            contentLeft={<StarLineAltIcon />}
-            contentRight={<StarLineAltIcon />}
             active
           >
             Active
-          </Tag>
-          <Tag
-            contentLeft={<StarLineAltIcon />}
-            contentRight={<StarLineAltIcon />}
-            active
-            hoverable
-          >
-            Active Hoverable
-          </Tag>
-        </div>
-        <div className="flex flex-none gap-4">
-          <Tag
-            contentLeft={<StarLineAltIcon />}
-            contentRight={<StarLineAltIcon />}
-            variant="secondary"
-          >
-            Secondary
-          </Tag>
-          <Tag
-            contentLeft={<StarLineAltIcon />}
-            contentRight={<StarLineAltIcon />}
-            variant="secondary"
-            hoverable
-          >
-            Secondary Hoverable
           </Tag>
         </div>
       </div>

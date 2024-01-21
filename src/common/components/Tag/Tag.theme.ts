@@ -17,19 +17,16 @@ export const tagTheme = tv(
         "border",
         "border-solid",
         "border-border-default",
+        "transition-color",
+        "duration-300",
+        "ease-in-out",
+        "bg-transparent",
+        "hover:border-border-secondary",
+        "hover:bg-border-secondary",
       ],
       icon: [],
     },
     variants: {
-      variant: {
-        secondary: {
-          tag: [
-            "border-border-secondary",
-            "bg-border-secondary",
-            "text-text-on-secondary",
-          ],
-        },
-      },
       active: {
         true: {
           tag: [
@@ -37,11 +34,6 @@ export const tagTheme = tv(
             "bg-border-primary",
             "text-text-on-primary",
           ],
-        },
-      },
-      hoverable: {
-        true: {
-          tag: ["hover:border-border-secondary", "hover:bg-border-secondary"],
         },
       },
       size: {
@@ -53,14 +45,6 @@ export const tagTheme = tv(
         },
       },
     },
-    compoundSlots: [
-      {
-        slots: ["tag"],
-        variant: "secondary",
-        hoverable: true,
-        className: ["hover:border-border-elevated", "hover:bg-border-elevated"],
-      },
-    ],
   },
   { responsiveVariants: true },
 );
