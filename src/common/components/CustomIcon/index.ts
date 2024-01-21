@@ -9,3 +9,4 @@ export * from "./MinusIcon";
 export * from "./StarLineAltIcon";
 export * from "./WarningCircleIcon";
 export * from "./XCloseIcon";
+export * from "./SchoolIcon";
