@@ -14,7 +14,7 @@ export const popoverTheme = tv(
       "py-5",
       "px-5",
       "border",
-      "border-border-base",
+      "border-border-default",
       "shadow-sm",
       "outline-none",
       "text-text-em-high",
