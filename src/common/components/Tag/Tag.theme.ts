@@ -21,8 +21,6 @@ export const tagTheme = tv(
         "duration-300",
         "ease-in-out",
         "bg-transparent",
-        "hover:border-border-secondary",
-        "hover:bg-border-secondary",
       ],
       icon: [],
     },
