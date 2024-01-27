@@ -25,6 +25,7 @@ import { Combobox } from "@/modules/reviews/Combobox";
 import { exampleListCountries } from "./exampleCountryList";
 import { Modal } from "@/common/components/Modal";
 import Heading from "@/common/components/Heading";
+import { Tag } from "@/common/components/Tag";
 
 const exampleListObj = exampleListCountries.map((el) => ({
   value: el.toLowerCase(),
@@ -461,6 +462,23 @@ export default function Components() {
           {...register("fieldName")}
         />
         */}
+      </div>
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-none gap-4">
+          <Tag
+            contentLeft={<StarLineAltIcon />}
+            contentRight={<StarLineAltIcon />}
+          >
+            Default
+          </Tag>
+          <Tag
+            contentLeft={<StarLineAltIcon />}
+            contentRight={<StarLineAltIcon />}
+            active
+          >
+            Active
+          </Tag>
+        </div>
       </div>
     </div>
   );
