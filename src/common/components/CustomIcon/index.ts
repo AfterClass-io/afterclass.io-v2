@@ -10,6 +10,3 @@ export * from "./StarLineAltIcon";
 export * from "./WarningCircleIcon";
 export * from "./XCloseIcon";
 export * from "./SchoolIcon";
-export * from "./NTUIcon";
-export * from "./NUSIcon";
-export * from "./SMUIcon";

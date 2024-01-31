@@ -1,5 +1,7 @@
 import { CustomIcon, type CustomIconProps } from "./CustomIcon";
-import { NTUIcon, NUSIcon, SMUIcon } from "@/common/components/CustomIcon";
+import { NTUIcon } from "@/common/components/CustomIcon/NTUIcon";
+import { NUSIcon } from "@/common/components/CustomIcon/NUSIcon";
+import { SMUIcon } from "@/common/components/CustomIcon/SMUIcon";
 
 export interface SchoolIconProps extends CustomIconProps {
   school: "NTU" | "SMU" | "NUS";
