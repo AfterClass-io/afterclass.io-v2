@@ -1,12 +1,14 @@
-import { Button } from "@/common/components/Button";
 import { reviewItemTheme, type ReviewItemVariants } from "./ReviewItem.theme";
+import { ReviewBody } from "./ReviewBody";
+import { ProfileSchool } from "./ProfileSchool";
+import { ProfileReviewer } from "./ProfileReviewer";
+import { getHumanReadableTimestampDelta } from "@/common/functions";
 import { ThumbUpFilledIcon } from "@/common/components/CustomIcon";
 import { LockCtaOverlay } from "@/common/components/LockCtaOverlay";
-import { Tag } from "@/common/components/Tag";
-import { getHumanReadableTimestampDelta } from "@/common/functions";
+import { Button } from "@/common/components/Button";
 
 // TODO: to replace with prisma generated types
-export type Label = {
+export type ReviewLabel = {
   name: string;
   typeof: "professor" | "course";
 };
@@ -16,14 +18,14 @@ export type Review = {
   courseCode: string;
   username: string;
   likeCount: number;
-  labels: Label[];
+  labels: ReviewLabel[];
   createdAt: number;
 };
 
 export type ReviewItemProps = ReviewItemVariants & {
   review: Review;
   isLocked?: boolean;
-  variant?: "home" | "subpage";
+  variant?: "home" | "professor" | "course";
 };
 
 export const ReviewItem = ({
@@ -34,80 +36,35 @@ export const ReviewItem = ({
   const {
     wrapper,
     headingContainer,
-    schoolContainer,
-    schoolIcon,
-    schoolCourseCode,
     metadataContainer,
-    profileContainer,
-    profileName,
-    profileIcon,
     likeIcon,
     timedelta,
     body,
-    labels,
-  } = reviewItemTheme({ variant });
-
-  const HeaderCourse = () => (
-    <div className={schoolContainer()}>
-      <div className={schoolIcon()}>
-        <div className="h-4 w-4 rounded-full bg-red-800"></div>
-      </div>
-      <div className={schoolCourseCode()}>{review.courseCode}</div>
-    </div>
-  );
-
-  const HeaderReviewer = () => (
-    <div className={profileContainer()}>
-      <div className={profileIcon()}>
-        <div className="h-4 w-4 rounded-full bg-cyan-800"></div>
-      </div>
-      <div className={profileName()}>{review.username}</div>
-    </div>
-  );
-
-  const ReviewContent = ({ isDetailed }: { isDetailed: boolean }) => {
-    return (
-      <div className="flex flex-col gap-1">
-        {isDetailed && (
-          <div className={labels()}>
-            {review.labels
-              .filter((label) => label.typeof === "professor")
-              .map((label) => (
-                <span key={label.name}>{label.name}</span>
-              ))}
-          </div>
-        )}
-        {isDetailed && (
-          <div className={labels()}>
-            {review.labels
-              .filter((label) => label.typeof === "course")
-              .map((label) => (
-                <span key={label.name}>{label.name}</span>
-              ))}
-          </div>
-        )}
-        <div className={body()}>{review.body}</div>
-        {isDetailed && (
-          <Button variant="link" as="button">
-            Show more
-          </Button>
-        )}
-      </div>
-    );
-  };
+  } = reviewItemTheme();
 
   return (
     <div className={wrapper()}>
       <div className={headingContainer()}>
-        {variant === "home" ? <HeaderCourse /> : <HeaderReviewer />}
+        {variant === "home" ? (
+          <ProfileSchool courseCode={review.courseCode} />
+        ) : (
+          <ProfileReviewer name={review.username} />
+        )}
         <div className={metadataContainer()}>
-          {variant === "home" ? <HeaderReviewer /> : <HeaderCourse />}
-          <Tag
+          {variant === "home" ? (
+            <ProfileReviewer name={review.username} />
+          ) : (
+            variant === "professor" && (
+              <ProfileSchool courseCode={review.courseCode} />
+            )
+          )}
+          <Button
+            rounded
             variant="secondary"
-            contentRight={<ThumbUpFilledIcon className={likeIcon()} />}
+            iconRight={<ThumbUpFilledIcon className={likeIcon()} />}
           >
             {review.likeCount}
-          </Tag>
+          </Button>
           <div className={timedelta()}>
             {getHumanReadableTimestampDelta(review.createdAt)}
           </div>
@@ -118,7 +75,7 @@ export const ReviewItem = ({
           <LockCtaOverlay size="sm" ctaType="review" variant="border" />
         </div>
       ) : (
-        <ReviewContent isDetailed={variant === "subpage"} />
+        <ReviewBody isDetailed={variant !== "home"} review={review} />
       )}
     </div>
   );

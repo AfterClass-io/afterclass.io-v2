@@ -25,7 +25,7 @@ import { Combobox } from "@/modules/reviews/Combobox";
 import { exampleListCountries } from "./exampleCountryList";
 import { Modal } from "@/common/components/Modal";
 import Heading from "@/common/components/Heading";
-import { type Label, ReviewItem } from "@/common/components/ReviewItem";
+import { type ReviewLabel, ReviewItem } from "@/common/components/ReviewItem";
 import { Tag } from "@/common/components/Tag";
 
 const exampleListObj = exampleListCountries.map((el) => ({
@@ -115,7 +115,7 @@ const review = {
       name: "Gained New Skills",
       typeof: "course",
     },
-  ] as Label[],
+  ] as ReviewLabel[],
 };
 
 export default function Components() {
@@ -516,10 +516,21 @@ export default function Components() {
         </div>
       </div>
       <div className="flex flex-col gap-4">
+        <Heading className="mt-6 text-2xl" as="h6">
+          Home Page
+        </Heading>
         <ReviewItem review={review} />
         <ReviewItem review={review} isLocked />
-        <ReviewItem review={review} variant="subpage" />
-        <ReviewItem review={review} variant="subpage" isLocked />
+        <Heading className="mt-6 text-2xl" as="h6">
+          Professor Page
+        </Heading>
+        <ReviewItem review={review} variant="professor" />
+        <ReviewItem review={review} variant="professor" isLocked />
+        <Heading className="mt-6 text-2xl" as="h6">
+          Course Page
+        </Heading>
+        <ReviewItem review={review} variant="course" />
+        <ReviewItem review={review} variant="course" isLocked />
       </div>
     </div>
   );
