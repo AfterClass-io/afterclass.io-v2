@@ -51,12 +51,9 @@ export const ReviewItem = ({
           <ProfileReviewer name={review.username} />
         )}
         <div className={metadataContainer()}>
-          {variant === "home" ? (
-            <ProfileReviewer name={review.username} />
-          ) : (
-            variant === "professor" && (
-              <ProfileSchool courseCode={review.courseCode} />
-            )
+          {variant === "home" && <ProfileReviewer name={review.username} />}
+          {variant === "professor" && (
+            <ProfileSchool courseCode={review.courseCode} />
           )}
           <Button
             rounded
