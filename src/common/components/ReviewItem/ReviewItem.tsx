@@ -33,14 +33,8 @@ export const ReviewItem = ({
   isLocked,
   variant = "home",
 }: ReviewItemProps) => {
-  const {
-    wrapper,
-    headingContainer,
-    metadataContainer,
-    likeIcon,
-    timedelta,
-    body,
-  } = reviewItemTheme();
+  const { wrapper, headingContainer, metadataContainer, timedelta, body } =
+    reviewItemTheme();
 
   return (
     <div className={wrapper()}>
@@ -58,7 +52,8 @@ export const ReviewItem = ({
           <Button
             rounded
             variant="secondary"
-            iconRight={<ThumbUpFilledIcon className={likeIcon()} />}
+            size="sm"
+            iconRight={<ThumbUpFilledIcon />}
           >
             {review.likeCount}
           </Button>

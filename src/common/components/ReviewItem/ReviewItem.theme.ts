@@ -40,7 +40,6 @@ export const reviewItemTheme = tv(
         "text-text-em-mid",
       ],
       profileIcon: [],
-      likeIcon: [],
       timedelta: [
         "overflow-hidden",
         "text-sm",
