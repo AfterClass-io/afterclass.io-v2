@@ -6,18 +6,17 @@ import { SMUIcon } from "@/common/components/CustomIcon/SchoolIcon/SMUIcon";
 export interface SchoolIconProps extends CustomIconProps {
   school: "NTU" | "SMU" | "NUS";
 }
+const svgs = {
+  SMU: SMUIcon,
+  NUS: NUSIcon,
+  NTU: NTUIcon,
+};
 
-export const SchoolIcon = (props: SchoolIconProps) => {
-  const { school, ...CustomIconProps } = props;
-  const svgs = {
-    SMU: SMUIcon,
-    NUS: NUSIcon,
-    NTU: NTUIcon,
-  };
+export const SchoolIcon = ({ school, ...props }: SchoolIconProps) => {
   const schoolSVG = svgs[school] || SMUIcon;
 
   return (
-    <CustomIcon viewBox="0 0 63 63" fill="none" {...CustomIconProps}>
+    <CustomIcon viewBox="0 0 63 63" fill="none" {...props}>
       {schoolSVG}
     </CustomIcon>
   );
