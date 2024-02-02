@@ -135,6 +135,7 @@ export const buttonTheme = tv(
           "px-3",
           "gap-2",
           "rounded-[6.1875rem]",
+          "after:rounded-[6.1875rem]",
           "border-solid",
           "border-border-default",
         ],
