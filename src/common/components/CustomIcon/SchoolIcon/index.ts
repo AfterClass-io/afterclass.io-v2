@@ -1,1 +1,1 @@
-export * from "./BaseIcon";
+export * from "./SchoolIcon";
