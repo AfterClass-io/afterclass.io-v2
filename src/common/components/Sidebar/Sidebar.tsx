@@ -13,7 +13,7 @@ import { Icon } from "@iconify-icon/react";
 import { SidebarItem } from "@/common/components/SidebarItem";
 import { Logo } from "@/common/components/Logo";
 import { Input } from "@/common/components/Input";
-import { cn } from "@/common/functions/cn";
+import { cn } from "@/common/functions";
 
 const SIDEBAR_ITEMS = [
   {

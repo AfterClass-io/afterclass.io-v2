@@ -1,4 +1,4 @@
-import { cn } from "@/common/functions/cn";
+import { cn } from "@/common/functions";
 import { type PropsWithChildren } from "react";
 
 export default function SchoolLayout({ children }: PropsWithChildren) {
@@ -6,7 +6,7 @@ export default function SchoolLayout({ children }: PropsWithChildren) {
     <div className="">
       <header
         className={cn(
-          "z-header sticky top-0",
+          "sticky top-0 z-header",
           "h-16 w-full border-b border-border-default bg-bg-base",
           "hidden items-center justify-between sm:flex",
           "px-6",

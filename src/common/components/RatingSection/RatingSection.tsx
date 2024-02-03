@@ -3,7 +3,7 @@ import {
   type RatingSectionVariants,
 } from "./RatingSection.theme";
 import { HeartIcon } from "@/common/components/CustomIcon";
-import { LockCtaOverlay } from "@/common/components/LockCtaOverlay/LockCtaOverlay";
+import { LockCtaOverlay } from "@/common/components/LockCtaOverlay";
 import { StatItem, type StatItemProps } from "@/common/components/StatItem";
 
 export type RatingSectionProps = RatingSectionVariants & {

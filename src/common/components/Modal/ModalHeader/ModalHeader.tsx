@@ -10,7 +10,7 @@ import {
   type HeadingProps,
 } from "@/common/components/Heading/Heading";
 import { modalTheme } from "@/common/components/Modal/Modal.theme";
-import { cn } from "@/common/functions/cn";
+import { cn } from "@/common/functions";
 
 export interface ModalHeaderProps extends ComponentPropsWithoutRef<"div"> {
   className?: string;

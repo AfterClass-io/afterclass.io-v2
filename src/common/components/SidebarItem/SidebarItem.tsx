@@ -1,5 +1,5 @@
 import { type SidebarItemType } from "@/common/components/Sidebar/Sidebar";
-import { cn } from "@/common/functions/cn";
+import { cn } from "@/common/functions";
 import Link from "next/link";
 
 export type SidebarListItem = SidebarItemType & {

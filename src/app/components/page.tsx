@@ -25,6 +25,7 @@ import { Combobox } from "@/modules/reviews/Combobox";
 import { exampleListCountries } from "./exampleCountryList";
 import { Modal } from "@/common/components/Modal";
 import Heading from "@/common/components/Heading";
+import { type ReviewLabel, ReviewItem } from "@/common/components/ReviewItem";
 import { Tag } from "@/common/components/Tag";
 
 const exampleListObj = exampleListCountries.map((el) => ({
@@ -82,6 +83,40 @@ const CommandContent = () => (
     </Command.List>
   </>
 );
+
+const review = {
+  body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor nunc a velit congue, et faucibus sapien iaculis. Quisque id felis non sapien egestas ultricies vulputate posuere quam. Vestibulum scelerisque arcu leo, sit amet interdum enim suscipit ut. Sed dolor turpis, tincidunt sed elementum at, posuere ac justo. Curabitur sem turpis, porttitor at ante sed, laoreet condimentum magna. Suspendisse ex orci, laoreet in cursus nec, rhoncus quis eros. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam lacinia varius quam, ut blandit quam suscipit nec. Morbi facilisis mauris erat, quis porttitor purus consequat id. Maecenas.",
+  courseCode: "COR-MGMT1302",
+  username: "Anonymous",
+  likeCount: 10,
+  createdAt: 1705745162,
+  labels: [
+    {
+      name: "Engaging",
+      typeof: "professor",
+    },
+    {
+      name: "Fair Grading",
+      typeof: "professor",
+    },
+    {
+      name: "Effective Teaching",
+      typeof: "professor",
+    },
+    {
+      name: "Interesting",
+      typeof: "course",
+    },
+    {
+      name: "Practical",
+      typeof: "course",
+    },
+    {
+      name: "Gained New Skills",
+      typeof: "course",
+    },
+  ] as ReviewLabel[],
+};
 
 export default function Components() {
   const [isMounted, setIsMounted] = useState(false);
@@ -479,6 +514,23 @@ export default function Components() {
             Active
           </Tag>
         </div>
+      </div>
+      <div className="flex flex-col gap-4">
+        <Heading className="mt-6 text-2xl" as="h6">
+          Home Page
+        </Heading>
+        <ReviewItem review={review} />
+        <ReviewItem review={review} isLocked />
+        <Heading className="mt-6 text-2xl" as="h6">
+          Professor Page
+        </Heading>
+        <ReviewItem review={review} variant="professor" />
+        <ReviewItem review={review} variant="professor" isLocked />
+        <Heading className="mt-6 text-2xl" as="h6">
+          Course Page
+        </Heading>
+        <ReviewItem review={review} variant="course" />
+        <ReviewItem review={review} variant="course" isLocked />
       </div>
     </div>
   );

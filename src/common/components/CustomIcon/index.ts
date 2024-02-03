@@ -12,6 +12,7 @@ export * from "./LockIcon";
 export * from "./MinusIcon";
 export * from "./SearchIcon";
 export * from "./StarLineAltIcon";
+export * from "./ThumbUpFilledIcon";
 export * from "./WarningCircleIcon";
 export * from "./XCloseIcon";
 export * from "./SchoolIcon";
