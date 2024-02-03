@@ -14,3 +14,4 @@ export * from "./SearchIcon";
 export * from "./StarLineAltIcon";
 export * from "./WarningCircleIcon";
 export * from "./XCloseIcon";
+export * from "./SchoolIcon";
