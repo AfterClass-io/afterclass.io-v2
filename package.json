@@ -7,7 +7,9 @@
     "dev": "next dev",
     "postinstall": "prisma generate",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "storybook": "storybook dev -p 6006 --no-open",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@ctrl/tinycolor": "^4.0.2",
@@ -33,7 +35,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.49.2",
-    "sass": "^1.66.1",
+    "sass": "^1.71.0",
     "server-only": "^0.0.1",
     "superjson": "^2.2.1",
     "tailwind-variants": "^0.1.14",
@@ -42,6 +44,16 @@
   "devDependencies": {
     "@iconify-icon/react": "^1.0.8",
     "@next/eslint-plugin-next": "^14.0.3",
+    "@storybook/addon-essentials": "^7.6.16",
+    "@storybook/addon-interactions": "^7.6.16",
+    "@storybook/addon-links": "^7.6.16",
+    "@storybook/addon-onboarding": "^1.0.11",
+    "@storybook/addon-themes": "^7.6.16",
+    "@storybook/blocks": "^7.6.16",
+    "@storybook/nextjs": "^7.6.16",
+    "@storybook/preset-scss": "^1.0.3",
+    "@storybook/react": "^7.6.16",
+    "@storybook/test": "^7.6.16",
     "@types/eslint": "^8.44.7",
     "@types/node": "^18.17.0",
     "@types/prettier": "^2.7.2",
@@ -50,15 +62,21 @@
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@typescript-eslint/parser": "^6.11.0",
     "autoprefixer": "^10.4.14",
+    "css-loader": "^6.10.0",
     "eslint": "^8.54.0",
     "eslint-config-next": "^14.0.3",
+    "eslint-plugin-storybook": "^0.8.0",
     "postcss": "^8.4.31",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.7",
     "prisma": "^5.6.0",
+    "sass-loader": "^14.1.1",
+    "storybook": "^7.6.16",
+    "style-loader": "^3.3.4",
     "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.2",
+    "webpack": "^5.0.0"
   },
   "ct3aMetadata": {
     "initVersion": "7.15.0"
