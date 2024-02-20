@@ -13,7 +13,6 @@ export type CheckedState = CheckboxPrimitive.CheckedState;
 export type CheckboxProps = CheckboxVariants &
   CheckboxPrimitive.CheckboxProps & {
     label?: string;
-    indeterminate?: boolean;
   };
 
 export const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
