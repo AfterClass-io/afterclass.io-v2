@@ -46,6 +46,7 @@ export const darkThemeConfig = (_twConfig: Partial<Config> = {}) => {
         "em-mid": "#A2A2A9",
         "em-low": "#7A7A85",
         placeholder: "#494950",
+        error: "#D0021B",
       },
     },
   };
