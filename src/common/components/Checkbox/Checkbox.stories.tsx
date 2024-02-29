@@ -40,42 +40,38 @@ export const Default: Story = {};
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const VariantsOfDefaultCheckbox: Story = {
-  decorators: [
-    () => {
-      const [checkedDisabled, setCheckedDisabled] =
-        useState<CheckedState>("indeterminate");
-      return (
-        <div className="flex flex-col gap-3">
-          <Checkbox label="default unchecked" />
-          <Checkbox label="default checked" defaultChecked />
-          <Checkbox
-            label="default indeterminate"
-            checked={checkedDisabled}
-            onCheckedChange={setCheckedDisabled}
-          />
-        </div>
-      );
-    },
-  ],
+  render: () => {
+    const [checkedDisabled, setCheckedDisabled] =
+      useState<CheckedState>("indeterminate");
+    return (
+      <div className="flex flex-col gap-3">
+        <Checkbox label="default unchecked" />
+        <Checkbox label="default checked" defaultChecked />
+        <Checkbox
+          label="default indeterminate"
+          checked={checkedDisabled}
+          onCheckedChange={setCheckedDisabled}
+        />
+      </div>
+    );
+  },
 };
 
 export const VariantsOfDisabledCheckbox: Story = {
-  decorators: [
-    () => {
-      const [checkedDisabled, setCheckedDisabled] =
-        useState<CheckedState>("indeterminate");
-      return (
-        <div className="flex flex-col gap-3">
-          <Checkbox label="disabled unchecked" disabled={true} />
-          <Checkbox label="disabled checked" defaultChecked disabled={true} />
-          <Checkbox
-            label="disabled indeterminate"
-            checked={checkedDisabled}
-            onCheckedChange={setCheckedDisabled}
-            disabled={true}
-          />
-        </div>
-      );
-    },
-  ],
+  render: () => {
+    const [checkedDisabled, setCheckedDisabled] =
+      useState<CheckedState>("indeterminate");
+    return (
+      <div className="flex flex-col gap-3">
+        <Checkbox label="disabled unchecked" disabled={true} />
+        <Checkbox label="disabled checked" defaultChecked disabled={true} />
+        <Checkbox
+          label="disabled indeterminate"
+          checked={checkedDisabled}
+          onCheckedChange={setCheckedDisabled}
+          disabled={true}
+        />
+      </div>
+    );
+  },
 };
