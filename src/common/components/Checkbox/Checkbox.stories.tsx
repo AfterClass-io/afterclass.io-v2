@@ -4,7 +4,7 @@ import { Checkbox, type CheckedState } from "./Checkbox";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "Common/Components/Checkbox",
+  title: "Common/Checkbox",
   component: Checkbox,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],

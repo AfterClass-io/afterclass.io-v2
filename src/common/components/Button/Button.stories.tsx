@@ -17,7 +17,7 @@ const buttonSizes = ["sm", "md"];
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "Common/Components/Button",
+  title: "Common/Button",
   component: Button,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],

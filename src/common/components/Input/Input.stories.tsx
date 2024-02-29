@@ -4,7 +4,7 @@ import { StarLineAltIcon } from "@/common/components/CustomIcon";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "Common/Components/Input",
+  title: "Common/Input",
   component: Input,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],
