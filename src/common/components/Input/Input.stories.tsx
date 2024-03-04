@@ -12,15 +12,18 @@ const meta = {
   argTypes: {},
   args: {
     label: "default",
+    helperText: "helper text",
+    contentLeft: <StarLineAltIcon />,
+    contentRight: <StarLineAltIcon />,
+    placeholder: "placeholder",
+    isError: false,
   },
 } satisfies Meta<typeof Input>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
-
-const InputTemplate: Story = {
+export const Default: Story = {
   args: {
     label: "default",
     helperText: "helper text",
@@ -29,16 +32,10 @@ const InputTemplate: Story = {
     placeholder: "placeholder",
   },
 };
-
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const InputWithContent: Story = {
-  ...InputTemplate,
-};
-
-export const ErrorInputWithContent: Story = {
-  ...InputTemplate,
+export const DefaultWithError: Story = {
+  ...Default,
   args: {
-    ...InputTemplate.args,
+    ...Default.args,
     helperText: "error helper text",
     isError: true,
   },
