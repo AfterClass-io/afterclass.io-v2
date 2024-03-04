@@ -1,11 +1,11 @@
 import type { Preview, StoryFn } from "@storybook/react";
 import { withThemeByClassName } from "@storybook/addon-themes";
 import "../src/common/styles/globals.scss";
-import { inter, poppins } from "@/common/fonts"; // <-- make sure the path is correct
+import { inter, poppins } from "../src/common/fonts";
 
 const preview: Preview = {
   parameters: {
-    actions: { argTypesRegex: "^on[A-Z].*" },
+    // actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -13,6 +13,11 @@ const preview: Preview = {
       },
     },
     layout: "fullscreen",
+    options: {
+      storySort: {
+        method: "alphabetical",
+      },
+    },
   },
   decorators: [
     (Story: StoryFn) => (
