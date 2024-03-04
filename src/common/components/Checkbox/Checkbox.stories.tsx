@@ -30,6 +30,8 @@ const meta = {
   },
   args: {
     label: "default",
+    asChild: false,
+    disabled: false,
   },
 } satisfies Meta<typeof Checkbox>;
 
@@ -42,6 +44,7 @@ export const Default: Story = {};
 export const VariantsOfDefaultCheckbox: Story = {
   render: () => {
     const [checkedDisabled, setCheckedDisabled] =
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       useState<CheckedState>("indeterminate");
     return (
       <div className="flex flex-col gap-3">
@@ -60,6 +63,7 @@ export const VariantsOfDefaultCheckbox: Story = {
 export const VariantsOfDisabledCheckbox: Story = {
   render: () => {
     const [checkedDisabled, setCheckedDisabled] =
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       useState<CheckedState>("indeterminate");
     return (
       <div className="flex flex-col gap-3">
