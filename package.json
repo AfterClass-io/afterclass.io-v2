@@ -44,16 +44,17 @@
   "devDependencies": {
     "@iconify-icon/react": "^1.0.8",
     "@next/eslint-plugin-next": "^14.0.3",
-    "@storybook/addon-essentials": "^7.6.16",
-    "@storybook/addon-interactions": "^7.6.16",
-    "@storybook/addon-links": "^7.6.16",
+    "@storybook/addon-actions": "^7.6.17",
+    "@storybook/addon-essentials": "^7.6.17",
+    "@storybook/addon-interactions": "^7.6.17",
+    "@storybook/addon-links": "^7.6.17",
     "@storybook/addon-onboarding": "^1.0.11",
-    "@storybook/addon-themes": "^7.6.16",
-    "@storybook/blocks": "^7.6.16",
-    "@storybook/nextjs": "^7.6.16",
+    "@storybook/addon-themes": "^7.6.17",
+    "@storybook/blocks": "^7.6.17",
+    "@storybook/nextjs": "^7.6.17",
     "@storybook/preset-scss": "^1.0.3",
-    "@storybook/react": "^7.6.16",
-    "@storybook/test": "^7.6.16",
+    "@storybook/react": "^7.6.17",
+    "@storybook/test": "^7.6.17",
     "@types/eslint": "^8.44.7",
     "@types/node": "^18.17.0",
     "@types/prettier": "^2.7.2",
@@ -71,7 +72,7 @@
     "prettier-plugin-tailwindcss": "^0.5.7",
     "prisma": "^5.6.0",
     "sass-loader": "^14.1.1",
-    "storybook": "^7.6.16",
+    "storybook": "^7.6.17",
     "style-loader": "^3.3.4",
     "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
@@ -80,5 +81,8 @@
   },
   "ct3aMetadata": {
     "initVersion": "7.15.0"
+  },
+  "resolutions": {
+    "jackspeak": "2.1.1"
   }
 }
