@@ -96,7 +96,7 @@ export const Sidebar = ({
               active={
                 item.exact
                   ? pathname === item.href
-                  : pathname.startsWith(item.href)
+                  : pathname?.startsWith(item.href) // pathname is null in storybook context
               }
             />
           ))}
