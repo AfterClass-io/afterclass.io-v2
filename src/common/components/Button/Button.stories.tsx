@@ -3,18 +3,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./Button";
 import { StarLineAltIcon } from "@/common/components/CustomIcon";
 
-const buttonVariants = [
-  "primary",
-  "secondary",
-  "tertiary",
-  "ghost",
-  "success",
-  "danger",
-  "link",
-];
-
-const buttonSizes = ["sm", "md"];
-
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
   title: "Common/Button",
@@ -23,29 +11,12 @@ const meta = {
   tags: ["autodocs"],
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {
-    variant: {
-      options: buttonVariants,
-      control: {
-        type: "select",
-      },
-    },
-    size: {
-      options: buttonSizes,
-      control: {
-        type: "select",
-      },
-    },
     fullWidth: {
       control: {
         type: "boolean",
       },
     },
     loading: {
-      control: {
-        type: "boolean",
-      },
-    },
-    isResponsive: {
       control: {
         type: "boolean",
       },
