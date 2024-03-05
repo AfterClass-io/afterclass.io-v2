@@ -11,6 +11,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: copy .env file
+        run: cp .env.example .env
+
       - name: Install dependencies
         run: yarn install --immutable --immutable-cache --check-cache
 
