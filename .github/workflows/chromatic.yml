@@ -1,6 +1,11 @@
 name: "Chromatic"
 
-on: push
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    types: [opened, reopened, synchronize]
 
 jobs:
   chromatic:
@@ -21,3 +26,9 @@ jobs:
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          onlyChanged: true
+          exitOnceUploaded: true
+          autoAcceptChanges: main
+          fromCI: true
+          # Skip running Chromatic on dependabot PRs
+          skip: dependabot/**
