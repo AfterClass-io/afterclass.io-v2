@@ -44,7 +44,6 @@ const preview: Preview = {
     ),
     withThemeByClassName({
       themes: {
-        // nameOfTheme: 'classNameForTheme',
         light: "light",
         dark: "dark",
       },
