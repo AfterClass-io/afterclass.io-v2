@@ -1,6 +1,6 @@
 import { Button } from "@/common/components/Button";
 import { reviewItemTheme, type ReviewItemVariants } from "./ReviewItem.theme";
-import { Review } from "./ReviewItem";
+import { type Review } from "./ReviewItem";
 
 export type ReviewBodyProps = ReviewItemVariants & {
   review: Review;
