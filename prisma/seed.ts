@@ -39,10 +39,7 @@ async function main() {
 
   const labels = require("./data/8_labels.json");
   await prisma.labels.createMany({
-    data: labels.map((l: Labels) => {
-      l.name = l.name.toUpperCase().replace(/ /g, "_") as ReviewLabelName;
-      return l;
-    }),
+    data: labels,
   });
 
   const reviews = require("./data/9_reviews.json");
