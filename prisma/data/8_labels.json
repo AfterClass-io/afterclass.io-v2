@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "interesting",
+    "typeOf": "COURSE",
+    "createdAt": "2024-03-17T22:45:28.424Z",
+    "updatedAt": "2024-03-17T22:45:28.424Z"
+  },
+  {
+    "id": 2,
+    "name": "practical",
+    "typeOf": "COURSE",
+    "createdAt": "2024-03-17T22:45:28.424Z",
+    "updatedAt": "2024-03-17T22:45:28.424Z"
+  },
+  {
+    "id": 3,
+    "name": "gained new skills",
+    "typeOf": "COURSE",
+    "createdAt": "2024-03-17T22:45:28.424Z",
+    "updatedAt": "2024-03-17T22:45:28.424Z"
+  },
+  {
+    "id": 4,
+    "name": "engaging",
+    "typeOf": "PROFESSOR",
+    "createdAt": "2024-03-17T22:45:28.424Z",
+    "updatedAt": "2024-03-17T22:45:28.424Z"
+  },
+  {
+    "id": 5,
+    "name": "fair grading",
+    "typeOf": "PROFESSOR",
+    "createdAt": "2024-03-17T22:45:28.424Z",
+    "updatedAt": "2024-03-17T22:45:28.424Z"
+  },
+  {
+    "id": 6,
+    "name": "effective teaching",
+    "typeOf": "PROFESSOR",
+    "createdAt": "2024-03-17T22:45:28.424Z",
+    "updatedAt": "2024-03-17T22:45:28.424Z"
+  }
+]
