@@ -11,11 +11,14 @@
     "storybook": "storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build"
   },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
   "dependencies": {
     "@ctrl/tinycolor": "^4.0.2",
     "@hookform/resolvers": "^3.3.3",
     "@next-auth/supabase-adapter": "^0.2.1",
-    "@prisma/client": "^5.6.0",
+    "@prisma/client": "^5.11.0",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-popover": "^1.0.7",
@@ -71,12 +74,13 @@
     "postcss": "^8.4.31",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.7",
-    "prisma": "^5.6.0",
+    "prisma": "^5.11.0",
     "sass-loader": "^14.1.1",
     "storybook": "^7.6.17",
     "style-loader": "^3.3.4",
     "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.2",
     "webpack": "^5.0.0"
   },
