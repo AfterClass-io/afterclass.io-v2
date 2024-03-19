@@ -1,6 +1,6 @@
 "use client"; // Remove this when we remove api calls directly in page
 
-import { api } from "@/common/tools/trpc/utils/api";
+import { api } from "@/common/tools/trpc/react";
 
 export default function Home() {
   // create university
