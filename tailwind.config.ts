@@ -4,7 +4,7 @@ import tailwindCssAnimatePlugin from "tailwindcss-animate";
 import { fontFamily } from "tailwindcss/defaultTheme";
 
 import { type Config } from "tailwindcss";
-import { withTV } from "tailwind-variants/dist/transformer";
+import { withTV } from "tailwind-variants/transformer";
 
 // withTv is required for tailwind-variants resposnive variants to work
 export default withTV({

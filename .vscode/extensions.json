@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "DavidAnson.vscode-markdownlint",
+    "bradlc.vscode-tailwindcss",
+    "mhutchie.git-graph",
+    "mikestead.dotenv",
+    "Prisma.prisma"
+  ]
+}
