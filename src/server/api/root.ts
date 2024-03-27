@@ -1,4 +1,4 @@
-import { universityRouter } from "@/server/api/routers/university";
+import { reviewsRouter, universityRouter } from "@/server/api/routers";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 
 /**
@@ -8,6 +8,7 @@ import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
   university: universityRouter,
+  reviews: reviewsRouter,
 });
 
 // export type definition of API

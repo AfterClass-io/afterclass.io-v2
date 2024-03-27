@@ -12,6 +12,10 @@ export default function Home() {
   // });
   // Get all universities
   const universities = api.university.getAll.useQuery();
+  const reviews = api.reviews.getAll.useQuery({
+    universityId: 1,
+    courseId: "2a45bab1-5ec4-4d2e-b245-27a142a78890",
+  });
 
   return (
     <>
@@ -29,6 +33,19 @@ export default function Home() {
                 ))
               : "Loading tRPC query..."}
           </span>
+        </div>
+        <div className="flex flex-col gap-6">
+          <div className="flex gap-2">
+            <span>Total:</span>
+            <span>
+              {reviews.data ? reviews.data.length + " reviews" : "loading..."}
+            </span>
+          </div>
+          {reviews.data
+            ? reviews.data.map((review) => (
+                <div key={review.id}>{JSON.stringify(review)}</div>
+              ))
+            : "Loading tRPC query..."}
         </div>
       </section>
     </>
