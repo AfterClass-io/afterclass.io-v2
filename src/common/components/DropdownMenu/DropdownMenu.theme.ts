@@ -6,8 +6,8 @@ export const dropdownMenuTheme = tv(
   {
     slots: {
       subtrigger: [
-        "focus:bg-accent",
-        "data-[state=open]:bg-accent",
+        "focus:bg-bg-alt",
+        "data-[state=open]:bg-bg-alt",
         "flex",
         "cursor-default",
         "select-none",
@@ -20,9 +20,9 @@ export const dropdownMenuTheme = tv(
       ],
       subtriggerIcon: ["ml-auto h-4 w-4"],
       subcontent: [
-        "bg-popover",
-        "text-popover-foreground",
-        "z-50",
+        "bg-surface-elevated",
+        "text-text-em-mid",
+        "z-dropdown",
         "min-w-[8rem]",
         "overflow-hidden",
         "rounded-md",
@@ -41,9 +41,9 @@ export const dropdownMenuTheme = tv(
         "data-[side=top]:slide-in-from-bottom-2",
       ],
       content: [
-        "bg-popover",
-        "text-popover-foreground",
-        "z-50",
+        "bg-surface-elevated",
+        "text-text-em-mid",
+        "z-dropdown",
         "min-w-[8rem]",
         "overflow-hidden",
         "rounded-md",
@@ -62,8 +62,8 @@ export const dropdownMenuTheme = tv(
         "data-[side=top]:slide-in-from-bottom-2",
       ],
       item: [
-        "focus:bg-accent",
-        "focus:text-accent-foreground",
+        "focus:bg-bg-alt",
+        "focus:text-text-on-secondary",
         "relative",
         "flex",
         "cursor-default",
@@ -79,8 +79,8 @@ export const dropdownMenuTheme = tv(
         "data-[disabled]:opacity-50",
       ],
       checkboxItem: [
-        "focus:bg-accent",
-        "focus:text-accent-foreground",
+        "focus:bg-bg-alt",
+        "focus:text-text-on-secondary",
         "relative",
         "flex",
         "cursor-default",
@@ -107,8 +107,8 @@ export const dropdownMenuTheme = tv(
       ],
       checkboxItemCheckIcon: ["h-4", "w-4"],
       radioItem: [
-        "focus:bg-accent",
-        "focus:text-accent-foreground",
+        "focus:bg-bg-alt",
+        "focus:text-text-on-secondary",
         "relative",
         "flex",
         "cursor-default",
@@ -135,7 +135,7 @@ export const dropdownMenuTheme = tv(
       ],
       radioItemCheckIcon: ["h-4", "w-4", "fill-current"],
       label: ["px-2", "py-1.5", "text-sm", "font-semibold"],
-      separator: ["bg-muted", "-mx-1", "my-1", "h-px"],
+      separator: ["bg-bg-alt", "-mx-1", "my-1", "h-px"],
       shortcut: ["ml-auto", "text-xs", "tracking-widest", "opacity-60"],
     },
     variants: {
