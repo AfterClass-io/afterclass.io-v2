@@ -1,10 +1,66 @@
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
+import { TRPCError } from "@trpc/server";
+import { Prisma } from "@prisma/client";
 
 const DEFAULT_PAGE_SIZE = 10;
 
 export const reviewsRouter = createTRPCRouter({
-  getAll: publicProcedure
+  create: protectedProcedure
+    .input(
+      z.object({
+        body: z.string(),
+        tips: z.string().optional(),
+        rating: z.number(),
+        reviewedUniversityId: z.number(),
+        reviewedCourseId: z.string(),
+        reviewedProfessorId: z.string().optional(),
+        reviewerId: z.string(),
+        reviewLabelIds: z.array(z.number()).optional(),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      const course = await ctx.db.courses.findFirst({
+        where: {
+          id: input.reviewedCourseId,
+        },
+      });
+      if (!course) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Course not found",
+        });
+      }
+      try {
+        const review = await ctx.db.reviews.create({
+          data: {
+            body: input.body,
+            tips: input.tips,
+            rating: input.rating,
+            reviewedUniversityId: input.reviewedUniversityId,
+            reviewedCourseId: course.id,
+            reviewedProfessorId: input.reviewedProfessorId,
+            reviewerId: input.reviewerId,
+            reviewedFacultyId: course.belongToFacultyId,
+          },
+        });
+        return review;
+      } catch (error) {
+        console.error(error);
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "Invalid input data",
+            cause: error,
+          });
+        }
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to create review",
+        });
+      }
+    }),
+  getAll: protectedProcedure
     .input(
       z.object({
         page: z.number().default(1),
