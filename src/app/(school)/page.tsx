@@ -16,6 +16,13 @@ export default function Home() {
     universityId: 1,
     courseId: "2a45bab1-5ec4-4d2e-b245-27a142a78890",
   });
+  const publicCourses = api.courses.listByUni.useQuery({
+    universityId: 1,
+  });
+
+  const protectedCourses = api.courses.listByUniProtected.useQuery({
+    universityId: 1,
+  });
 
   return (
     <>
@@ -44,6 +51,36 @@ export default function Home() {
           {reviews.data
             ? reviews.data.map((review) => (
                 <div key={review.id}>{JSON.stringify(review)}</div>
+              ))
+            : "Loading tRPC query..."}
+        </div>
+        <div className="flex flex-col gap-6">
+          <div className="flex gap-2">
+            <span>Total:</span>
+            <span>
+              {publicCourses.data
+                ? publicCourses.data.length + " public courses"
+                : "loading..."}
+            </span>
+          </div>
+          {publicCourses.data
+            ? publicCourses.data.map((course) => (
+                <div key={course.id}>{JSON.stringify(course)}</div>
+              ))
+            : "Loading tRPC query..."}
+        </div>
+        <div className="flex flex-col gap-6">
+          <div className="flex gap-2">
+            <span>Total:</span>
+            <span>
+              {protectedCourses.data
+                ? protectedCourses.data.length + " protected courses"
+                : "loading..."}
+            </span>
+          </div>
+          {protectedCourses.data
+            ? protectedCourses.data.map((course) => (
+                <div key={course.id}>{JSON.stringify(course)}</div>
               ))
             : "Loading tRPC query..."}
         </div>
