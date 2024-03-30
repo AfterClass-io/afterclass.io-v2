@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
-import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
+import { type DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
 
 import { DropdownMenu } from "./DropdownMenu";
 import { Button } from "../Button";
