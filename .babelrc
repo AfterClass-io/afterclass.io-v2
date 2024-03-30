@@ -1,0 +1,4 @@
+{
+  // https://github.com/storybookjs/storybook/discussions/26462
+  "presets": ["next/babel"]
+}
