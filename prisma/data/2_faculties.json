@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "name": "Lee Kong Chian School of Business",
+    "siteUrl": "https://business.smu.edu.sg",
+    "belongToUniversityId": 1,
+    "createdAt": "2024-03-02T08:00:29.883Z",
+    "updatedAt": "2024-03-02T08:00:29.883Z",
+    "acronym": "LKCSB"
+  },
+  {
+    "id": 2,
+    "name": "Yong Pung How School of Law",
+    "siteUrl": "https://law.smu.edu.sg",
+    "belongToUniversityId": 1,
+    "createdAt": "2024-03-02T08:00:29.883Z",
+    "updatedAt": "2024-03-02T08:00:29.883Z",
+    "acronym": "YPHSL"
+  },
+  {
+    "id": 3,
+    "name": "School of Economics",
+    "siteUrl": "https://economics.smu.edu.sg",
+    "belongToUniversityId": 1,
+    "createdAt": "2024-03-02T08:00:29.883Z",
+    "updatedAt": "2024-03-02T08:00:29.883Z",
+    "acronym": "SOE"
+  },
+  {
+    "id": 4,
+    "name": "School of Computing and Information Systems",
+    "siteUrl": "https://computing.smu.edu.sg",
+    "belongToUniversityId": 1,
+    "createdAt": "2024-03-02T08:00:29.883Z",
+    "updatedAt": "2024-03-02T08:00:29.883Z",
+    "acronym": "SCIS"
+  },
+  {
+    "id": 5,
+    "name": "School of Social Sciences",
+    "siteUrl": "https://socsc.smu.edu.sg",
+    "belongToUniversityId": 1,
+    "createdAt": "2024-03-02T08:00:29.883Z",
+    "updatedAt": "2024-03-02T08:00:29.883Z",
+    "acronym": "SOSS"
+  },
+  {
+    "id": 6,
+    "name": "School of Accountancy",
+    "siteUrl": "https://accountancy.smu.edu.sg",
+    "belongToUniversityId": 1,
+    "createdAt": "2024-03-02T08:00:29.883Z",
+    "updatedAt": "2024-03-02T08:00:29.883Z",
+    "acronym": "SOA"
+  },
+  {
+    "id": 7,
+    "name": "College of Integrative Studies",
+    "siteUrl": "https://cis.smu.edu.sg",
+    "belongToUniversityId": 1,
+    "createdAt": "2024-03-02T08:00:29.883Z",
+    "updatedAt": "2024-03-02T08:00:29.883Z",
+    "acronym": "CIS"
+  },
+  {
+    "id": 8,
+    "name": "Yong Pung How School of Law",
+    "siteUrl": "https://law.smu.edu.sg",
+    "belongToUniversityId": 1,
+    "createdAt": "2024-03-02T08:00:29.883Z",
+    "updatedAt": "2024-03-02T08:00:29.883Z",
+    "acronym": "SOL"
+  },
+  {
+    "id": 9,
+    "name": "Center for English Communication",
+    "siteUrl": "https://cec.smu.edu.sg",
+    "belongToUniversityId": 1,
+    "createdAt": "2024-03-02T08:00:29.883Z",
+    "updatedAt": "2024-03-02T08:00:29.883Z",
+    "acronym": "CEC"
+  }
+]

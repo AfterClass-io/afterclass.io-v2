@@ -1,7 +1,6 @@
 import "@/common/styles/globals.scss";
 
 import type { Metadata, Viewport } from "next";
-import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "@/common/tools/trpc/react";
 import { CoreLayout } from "@/common/components/CoreLayout";
@@ -67,7 +66,7 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <AuthProvider>
-            <TRPCReactProvider cookies={cookies().toString()}>
+            <TRPCReactProvider>
               <CoreLayout>{children}</CoreLayout>
             </TRPCReactProvider>
           </AuthProvider>

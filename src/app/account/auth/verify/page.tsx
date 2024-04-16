@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { AuthCard } from "@/common/components/Auth";
@@ -8,9 +8,28 @@ import { Button } from "@/common/components/Button";
 
 const emailResendBufferSeconds = 60;
 
-export default function Verify() {
+function VerifyConfirmationNote() {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
+  return (
+    <>
+      <div className="flex flex-col gap-6 text-text-em-high">
+        <p>
+          You’re almost there! We’ve sent a verification email to
+          <br />
+          <b>{email}</b>.
+        </p>
+        <p>
+          Please click on the link in that email to verify your account within
+          <br />
+          20 minutes.
+        </p>
+      </div>
+    </>
+  );
+}
+
+export default function Verify() {
   const [secondsToResendEmail, setSecondsToResendEmail] = useState(
     emailResendBufferSeconds,
   );
@@ -45,26 +64,16 @@ export default function Verify() {
     <>
       <section className="flex h-full flex-shrink-0 items-center justify-center py-16">
         <AuthCard title="We emailed you a link" onSubmit={handleResendEmailOtp}>
-          <div className="flex flex-col gap-6 text-text-em-high">
-            <p>
-              You’re almost there! We’ve sent a verification email to
-              <br />
-              <b>{email}</b>.
-            </p>
-            <p>
-              Please click on the link in that email to verify your account
-              within
-              <br />
-              20 minutes.
-            </p>
-          </div>
-          <Button
-            variant="tertiary"
-            type="submit"
-            disabled={formSubmittedLoading || secondsToResendEmail > 0}
-          >
-            {buttonText()}
-          </Button>
+          <Suspense fallback={<div>Loading...</div>}>
+            <VerifyConfirmationNote />
+            <Button
+              variant="tertiary"
+              type="submit"
+              disabled={formSubmittedLoading || secondsToResendEmail > 0}
+            >
+              {buttonText()}
+            </Button>
+          </Suspense>
         </AuthCard>
       </section>
     </>

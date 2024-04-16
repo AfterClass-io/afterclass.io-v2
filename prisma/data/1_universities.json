@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Singapore Management University",
+    "abbrv": "SMU",
+    "siteUrl": "https://www.smu.edu.sg/",
+    "createdAt": "2024-02-29T23:34:02.532Z",
+    "updatedAt": "2024-02-29T23:33:49.000Z"
+  },
+  {
+    "id": 2,
+    "name": "National University of Singapore",
+    "abbrv": "NUS",
+    "siteUrl": "https://nus.edu.sg/",
+    "createdAt": "2024-02-29T23:34:48.164Z",
+    "updatedAt": "2024-02-29T23:33:49.000Z"
+  },
+  {
+    "id": 3,
+    "name": "Nanyang Technological University",
+    "abbrv": "NTU",
+    "siteUrl": "https://ntu.edu.sg/",
+    "createdAt": "2024-02-29T23:35:17.902Z",
+    "updatedAt": "2024-02-29T23:33:49.000Z"
+  }
+]
