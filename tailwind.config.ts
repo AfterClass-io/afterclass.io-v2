@@ -16,8 +16,9 @@ export default withTV({
         header: "10",
         "header-sidebar": "11",
         modal: "50",
-        popover: "51",
-        tooltip: "52",
+        dropdown: "51",
+        popover: "52",
+        tooltip: "53",
       },
       // Exported from Figma
       boxShadow: {
