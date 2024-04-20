@@ -11,7 +11,7 @@ export const textareaTheme = tv(
         "items-start",
         "p-2",
         "w-80",
-        "max-w-[30rem]",
+        "max-w-[480px]",
         "min-h-32",
         "gap-2",
         "rounded-lg",
