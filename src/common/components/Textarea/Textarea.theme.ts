@@ -25,11 +25,11 @@ export const textareaTheme = tv(
       size: {
         md: {
           wrapper: [],
-          textarea: ["text-sm"],
+          textarea: ["text-base"],
         },
         sm: {
           wrapper: [],
-          textarea: ["text-xs"],
+          textarea: ["text-sm"],
         },
       },
     },
