@@ -16,7 +16,6 @@ export const textareaTheme = tv(
         "gap-2",
         "rounded-lg",
         "border",
-        "border-solid",
         "bg-surface-base",
         "border-border-default",
         "text-text-em-mid",
