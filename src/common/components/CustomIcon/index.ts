@@ -3,6 +3,7 @@ export * from "./AfterclassIcon";
 export * from "./AfterclassText";
 export * from "./BookLineIcon";
 export * from "./BooksIcon";
+export * from "./BooksColoredIcon";
 export * from "./CheckIcon";
 export * from "./ChevronDownIcon";
 export * from "./ChevronRightIcon";
