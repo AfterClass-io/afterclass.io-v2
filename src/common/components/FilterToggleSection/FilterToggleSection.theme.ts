@@ -35,6 +35,7 @@ export const filterToggleSectionTheme = tv(
         "flex-wrap",
       ],
       item: [
+        "group",
         "flex",
         "w-64",
         "p-3",
