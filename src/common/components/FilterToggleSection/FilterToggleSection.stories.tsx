@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { FilterToggleSection } from "./FilterToggleSection";
+import { type FilterItem } from "./FilterToggleSectionItem";
 import {
   BooksIcon,
   GraduationCapIcon,
-  GraduationCapColoredIcon,
   PencilIcon,
 } from "@/common/components/CustomIcon";
-import { BooksColoredIcon } from "@/common/components/CustomIcon/BooksColoredIcon";
+import { useState } from "react";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -23,73 +23,91 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    header: (
-      <>
-        <GraduationCapColoredIcon />
-        <p>Professors</p>
-      </>
-    ),
-    filterItems: [
-      {
-        header: "Alexander the Great",
-        filterStats: [
-          { icon: <PencilIcon />, value: 10 },
-          { icon: <BooksIcon />, value: 20 },
-        ],
-      },
-      {
-        header: "John Doe",
-        filterStats: [
-          { icon: <PencilIcon />, value: 10 },
-          { icon: <BooksIcon />, value: 20 },
-        ],
-      },
-      {
-        header: "Julius Caesar",
-        filterStats: [
-          { icon: <PencilIcon />, value: 10 },
-          { icon: <BooksIcon />, value: 20 },
-        ],
-      },
-    ],
+  render: () => {
+    const [selectedItems, setSelectedItems] = useState<FilterItem["value"][]>(
+      [],
+    );
+    return (
+      <FilterToggleSection>
+        <FilterToggleSection.Header type="professor" />
+        <FilterToggleSection.Items
+          data={[
+            {
+              label: "Alexander the Great",
+              value: "alexander-the-great",
+              filterStats: [
+                { icon: <PencilIcon />, stat: 10 },
+                { icon: <BooksIcon />, stat: 20 },
+              ],
+            },
+            {
+              label: "John Doe",
+              value: "john-doe",
+              filterStats: [
+                { icon: <PencilIcon />, stat: 10 },
+                { icon: <BooksIcon />, stat: 20 },
+              ],
+            },
+            {
+              label: "Julius Caesar",
+              value: "julius-caesar",
+              filterStats: [
+                { icon: <PencilIcon />, stat: 10 },
+                { icon: <BooksIcon />, stat: 20 },
+              ],
+            },
+          ]}
+          selectedItems={selectedItems}
+          setSelectedItems={setSelectedItems}
+        />
+      </FilterToggleSection>
+    );
   },
 };
 
 export const WithSubHeader: Story = {
-  args: {
-    header: (
-      <>
-        <BooksColoredIcon />
-        <p>Courses</p>
-      </>
-    ),
-    filterItems: [
-      {
-        header: "AI: Past, Present, and Future",
-        subheader: "COR2224",
-        filterStats: [
-          { icon: <PencilIcon />, value: 10 },
-          { icon: <GraduationCapIcon />, value: 20 },
-        ],
-      },
-      {
-        header: "Business, Government and Society",
-        subheader: "COR2224",
-        filterStats: [
-          { icon: <PencilIcon />, value: 10 },
-          { icon: <GraduationCapIcon />, value: 20 },
-        ],
-      },
-      {
-        header: "Web Application Development II",
-        subheader: "IS216",
-        filterStats: [
-          { icon: <PencilIcon />, value: 10 },
-          { icon: <GraduationCapIcon />, value: 20 },
-        ],
-      },
-    ],
+  render: () => {
+    const [selectedItems, setSelectedItems] = useState<FilterItem["value"][]>(
+      [],
+    );
+    return (
+      <FilterToggleSection>
+        <FilterToggleSection.Header type="course" />
+        <FilterToggleSection.Items
+          data={[
+            {
+              label: "AI: Past, Present, and Future",
+              sublabel: "COR1234",
+              value: "COR1234",
+              filterStats: [
+                { icon: <PencilIcon />, stat: 10 },
+                { icon: <GraduationCapIcon />, stat: 20 },
+              ],
+            },
+            {
+              label: "Business, Government and Society",
+              sublabel: "COR2224",
+              value: "COR2224",
+              filterStats: [
+                { icon: <PencilIcon />, stat: 10 },
+                { icon: <GraduationCapIcon />, stat: 20 },
+              ],
+            },
+            {
+              label: "Web Application Development II",
+              sublabel: "IS216",
+              value: "COR2224",
+              filterStats: [
+                { icon: <PencilIcon />, stat: 10 },
+                { icon: <GraduationCapIcon />, stat: 20 },
+              ],
+            },
+          ]}
+          selectedItems={selectedItems}
+          setSelectedItems={setSelectedItems}
+        />
+      </FilterToggleSection>
+    );
   },
 };
 

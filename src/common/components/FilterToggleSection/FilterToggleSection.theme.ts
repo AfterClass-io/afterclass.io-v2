@@ -17,6 +17,7 @@ export const filterToggleSectionTheme = tv(
         "rounded-2xl",
         "bg-surface-base",
         "relative",
+        "select-none",
       ],
       sectionHeader: [
         "flex",

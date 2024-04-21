@@ -3,16 +3,17 @@ import {
   type FilterToggleSectionVariants,
   filterToggleSectionTheme,
 } from "../FilterToggleSection.theme";
-import { Checkbox } from "@/common/components/Checkbox";
+import { Checkbox, CheckedState } from "@/common/components/Checkbox";
 
 export type FilterStat = {
   icon: ReactNode;
-  value: number;
+  stat: number;
 };
 
 export type FilterItem = {
-  header: string;
-  subheader?: string;
+  value: string; // form value
+  label: string; // label shown to user
+  sublabel?: string; // additional label shown to user
   filterStats: FilterStat[];
 };
 
@@ -20,67 +21,39 @@ export type FilterToggleSectionItemProps = ComponentPropsWithoutRef<"div"> &
   FilterToggleSectionVariants &
   FilterItem;
 
-const FilterItemStats = ({ icon, value }: FilterStat) => {
-  const { stat } = filterToggleSectionTheme();
-  return (
-    <div className={stat()}>
-      {icon}
-      <p>{value}</p>
-    </div>
-  );
-};
-
-const ContentWithoutSubheader = ({
-  filterStats,
-}: {
-  filterStats: FilterStat[];
-}) => {
-  const { statWrapper } = filterToggleSectionTheme();
+const FilterItemStats = ({ icon, stat }: FilterStat) => {
+  const { stat: statWrapper } = filterToggleSectionTheme();
   return (
     <div className={statWrapper()}>
-      {filterStats?.map((stat, index) => (
-        <FilterItemStats key={index} {...stat} />
-      ))}
-    </div>
-  );
-};
-
-const ContentWithSubheader = ({
-  filterStats,
-  subheader,
-}: {
-  filterStats: FilterStat[];
-  subheader: string;
-}) => {
-  const { contentSubheaderWrapper } = filterToggleSectionTheme();
-  return (
-    <div className={contentSubheaderWrapper()}>
-      <p>{subheader}</p>
-      <ContentWithoutSubheader filterStats={filterStats} />
+      {icon}
+      <p>{stat}</p>
     </div>
   );
 };
 
 export const FilterToggleSectionItem = ({
-  header,
-  subheader,
+  value,
+  label,
+  sublabel,
   filterStats,
+  selected,
   ...props
 }: FilterToggleSectionItemProps) => {
-  const { item, content, itemHeader } = filterToggleSectionTheme();
+  const { item, content, itemHeader, contentSubheaderWrapper, statWrapper } =
+    filterToggleSectionTheme({ selected });
   return (
     <div className={item()} {...props}>
-      <Checkbox />
+      <Checkbox checked={selected as CheckedState} />
       <div className={content()}>
-        <p className={itemHeader()}>{header}</p>
-        {subheader ? (
-          <ContentWithSubheader
-            subheader={subheader}
-            filterStats={filterStats}
-          />
-        ) : (
-          <ContentWithoutSubheader filterStats={filterStats} />
-        )}
+        <p className={itemHeader()}>{label}</p>
+        <div className={contentSubheaderWrapper()}>
+          {sublabel && <p>{sublabel}</p>}
+          <div className={statWrapper()}>
+            {filterStats?.map((stat, index) => (
+              <FilterItemStats key={index} {...stat} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
