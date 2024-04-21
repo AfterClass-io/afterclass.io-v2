@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef } from "react";
+import type { ReactNode, ComponentPropsWithoutRef } from "react";
 import {
   type FilterToggleSectionVariants,
   filterToggleSectionTheme,
@@ -10,20 +10,21 @@ import {
 import { LockCtaOverlay } from "@/common/components/LockCtaOverlay";
 
 export type FilterToggleSectionProps = ComponentPropsWithoutRef<"div"> &
-  FilterToggleSectionVariants & {
-    title: string;
-    filterItems: FilterItem[];
-    isLocked?: boolean;
-  };
+  FilterToggleSectionVariants &
+  (
+    | {
+        isLocked: true;
+      }
+    | {
+        isLocked?: false;
+        header: ReactNode;
+        filterItems: FilterItem[];
+      }
+  );
 
-export const FilterToggleSection = ({
-  title,
-  filterItems,
-  isLocked,
-  ...props
-}: FilterToggleSectionProps) => {
-  const { section, sectionTitle, container } = filterToggleSectionTheme();
-  if (isLocked) {
+export const FilterToggleSection = (props: FilterToggleSectionProps) => {
+  const { section, sectionHeader, container } = filterToggleSectionTheme();
+  if (props.isLocked) {
     return (
       <div className={section()} {...props}>
         <LockCtaOverlay />
@@ -32,9 +33,11 @@ export const FilterToggleSection = ({
     );
   }
 
+  const { header, filterItems, ...rest } = props;
+
   return (
-    <div className={section()} {...props}>
-      <p className={sectionTitle()}>{title}</p>
+    <div className={section()} {...rest}>
+      <div className={sectionHeader()}>{header}</div>
       <div className={container()}>
         {filterItems.map((item, index) => (
           <FilterToggleSectionItem key={index} {...item} />

@@ -18,7 +18,14 @@ export const filterToggleSectionTheme = tv(
         "bg-surface-base",
         "relative",
       ],
-      sectionTitle: ["text-text-em-high", "font-semibold", "text-2xl"],
+      sectionHeader: [
+        "flex",
+        "items-center",
+        "gap-4",
+        "text-text-em-high",
+        "font-semibold",
+        "text-2xl",
+      ],
       container: [
         "flex",
         "items-start",
@@ -57,10 +64,6 @@ export const filterToggleSectionTheme = tv(
       stat: ["flex", "items-center", "gap-1", "text-sm", "text-text-em-low"],
     },
     variants: {
-      size: {
-        md: {},
-        sm: {},
-      },
       selected: {
         true: {
           item: ["bg-surface-elevated"],

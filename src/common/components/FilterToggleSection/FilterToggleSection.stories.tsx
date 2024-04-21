@@ -3,8 +3,10 @@ import { FilterToggleSection } from "./FilterToggleSection";
 import {
   BooksIcon,
   GraduationCapIcon,
+  GraduationCapColoredIcon,
   PencilIcon,
 } from "@/common/components/CustomIcon";
+import { BooksColoredIcon } from "@/common/components/CustomIcon/BooksColoredIcon";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -14,8 +16,20 @@ const meta = {
   tags: ["autodocs"],
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {},
+  args: {},
+} satisfies Meta<typeof FilterToggleSection>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
   args: {
-    title: "Professors",
+    header: (
+      <>
+        <GraduationCapColoredIcon />
+        <p>Professors</p>
+      </>
+    ),
     filterItems: [
       {
         header: "Alexander the Great",
@@ -40,18 +54,16 @@ const meta = {
       },
     ],
   },
-} satisfies Meta<typeof FilterToggleSection>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {
-  args: {},
 };
 
 export const WithSubHeader: Story = {
   args: {
-    title: "Courses",
+    header: (
+      <>
+        <BooksColoredIcon />
+        <p>Courses</p>
+      </>
+    ),
     filterItems: [
       {
         header: "AI: Past, Present, and Future",
@@ -84,32 +96,5 @@ export const WithSubHeader: Story = {
 export const Locked: Story = {
   args: {
     isLocked: true,
-    title: "Courses",
-    filterItems: [
-      {
-        header: "AI: Past, Present, and Future",
-        subheader: "COR2224",
-        filterStats: [
-          { icon: <PencilIcon />, value: 10 },
-          { icon: <GraduationCapIcon />, value: 20 },
-        ],
-      },
-      {
-        header: "Business, Government and Society",
-        subheader: "COR2224",
-        filterStats: [
-          { icon: <PencilIcon />, value: 10 },
-          { icon: <GraduationCapIcon />, value: 20 },
-        ],
-      },
-      {
-        header: "Web Application Development II",
-        subheader: "IS216",
-        filterStats: [
-          { icon: <PencilIcon />, value: 10 },
-          { icon: <GraduationCapIcon />, value: 20 },
-        ],
-      },
-    ],
   },
 };
