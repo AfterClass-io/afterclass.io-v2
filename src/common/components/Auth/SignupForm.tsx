@@ -4,17 +4,15 @@ import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-
 import { Input } from "@/common/components/Input";
 import { Button } from "@/common/components/Button";
 import { LockIcon } from "@/common/components/CustomIcon/LockIcon";
 import { EyeIcon } from "@/common/components/CustomIcon/EyeIcon";
 import { EyeSlashIcon } from "@/common/components/CustomIcon/EyeSlashIcon";
 import { EnvelopeIcon } from "@/common/components/CustomIcon/EnvelopeIcon";
-
-const isValidEmail = (email: string) =>
-  // TODO: replace with supported school email validation logic
-  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.endsWith("smu.edu.sg");
+import { signUpWithEmail } from "@/server/supabase";
+import { useRouter } from "next/navigation";
+import { isValidEmail } from "@/common/functions/emailValidation";
 
 const signupFormInputsSchema = z
   .object({
@@ -44,6 +42,7 @@ const signupFormInputsSchema = z
 type SignupFormInputs = z.infer<typeof signupFormInputsSchema>;
 
 export const SignupForm = () => {
+  const router = useRouter();
   const [isPwdVisible, setIsPwdVisible] = useState(false);
   const [isCfmPwdVisible, setIsCfmPwdVisible] = useState(false);
   const {
@@ -58,15 +57,17 @@ export const SignupForm = () => {
   const onSubmit: SubmitHandler<SignupFormInputs> = async (data) => {
     console.log(data);
     if (isSubmitting) return;
-
-    // TODO: replace with create account logic
-    console.log(data);
-    await new Promise((r) => setTimeout(r, 2000));
-    !!errors.email || !!errors.password || !!errors.confirmPassword
-      ? alert("error creating account!")
-      : alert("account created!");
-
-    reset({ password: "", confirmPassword: "" });
+    try {
+      const res = await signUpWithEmail(data.email, data.password);
+      console.log(res);
+      if (res.error) throw new Error(res.error.message);
+      if (!res.data.user?.user_metadata?.email_verified) {
+        router.push("/account/auth/verify");
+      }
+      reset({ email: "", password: "", confirmPassword: "" });
+    } catch (err) {
+      alert(err);
+    }
   };
 
   return (
