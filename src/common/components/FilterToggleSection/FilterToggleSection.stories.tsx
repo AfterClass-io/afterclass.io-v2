@@ -1,0 +1,118 @@
+import type { Meta, StoryObj } from "@storybook/react";
+import { FilterToggleSection } from "./FilterToggleSection";
+import { type FilterItem } from "./FilterToggleSectionItem";
+import {
+  BooksIcon,
+  GraduationCapIcon,
+  PencilIcon,
+} from "@/common/components/CustomIcon";
+import { useState } from "react";
+
+// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
+const meta = {
+  title: "Common/FilterToggleSection",
+  component: FilterToggleSection,
+  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
+  tags: ["autodocs"],
+  // More on argTypes: https://storybook.js.org/docs/api/argtypes
+  argTypes: {},
+  args: {},
+} satisfies Meta<typeof FilterToggleSection>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  render: () => {
+    const [selectedItems, setSelectedItems] = useState<FilterItem["value"][]>(
+      [],
+    );
+    return (
+      <FilterToggleSection>
+        <FilterToggleSection.Header type="professor" />
+        <FilterToggleSection.Items
+          data={[
+            {
+              label: "Alexander the Great",
+              value: "alexander-the-great",
+              filterStats: [
+                { icon: <PencilIcon />, stat: 10 },
+                { icon: <BooksIcon />, stat: 20 },
+              ],
+            },
+            {
+              label: "John Doe",
+              value: "john-doe",
+              filterStats: [
+                { icon: <PencilIcon />, stat: 10 },
+                { icon: <BooksIcon />, stat: 20 },
+              ],
+            },
+            {
+              label: "Julius Caesar",
+              value: "julius-caesar",
+              filterStats: [
+                { icon: <PencilIcon />, stat: 10 },
+                { icon: <BooksIcon />, stat: 20 },
+              ],
+            },
+          ]}
+          selectedItems={selectedItems}
+          setSelectedItems={setSelectedItems}
+        />
+      </FilterToggleSection>
+    );
+  },
+};
+
+export const WithSubHeader: Story = {
+  render: () => {
+    const [selectedItems, setSelectedItems] = useState<FilterItem["value"][]>(
+      [],
+    );
+    return (
+      <FilterToggleSection>
+        <FilterToggleSection.Header type="course" />
+        <FilterToggleSection.Items
+          data={[
+            {
+              label: "AI: Past, Present, and Future",
+              sublabel: "COR1234",
+              value: "COR1234",
+              filterStats: [
+                { icon: <PencilIcon />, stat: 10 },
+                { icon: <GraduationCapIcon />, stat: 20 },
+              ],
+            },
+            {
+              label: "Business, Government and Society",
+              sublabel: "COR2224",
+              value: "COR2224",
+              filterStats: [
+                { icon: <PencilIcon />, stat: 10 },
+                { icon: <GraduationCapIcon />, stat: 20 },
+              ],
+            },
+            {
+              label: "Web Application Development II",
+              sublabel: "IS216",
+              value: "COR2224",
+              filterStats: [
+                { icon: <PencilIcon />, stat: 10 },
+                { icon: <GraduationCapIcon />, stat: 20 },
+              ],
+            },
+          ]}
+          selectedItems={selectedItems}
+          setSelectedItems={setSelectedItems}
+        />
+      </FilterToggleSection>
+    );
+  },
+};
+
+export const Locked: Story = {
+  args: {
+    isLocked: true,
+  },
+};
