@@ -62,7 +62,7 @@ export const SignupForm = () => {
       console.log(res);
       if (res.error) throw new Error(res.error.message);
       if (!res.data.user?.user_metadata?.email_verified) {
-        router.push("/account/auth/verify");
+        router.push(`/account/auth/verify?email=${res.data.user?.email}`);
       }
       reset({ email: "", password: "", confirmPassword: "" });
     } catch (err) {
