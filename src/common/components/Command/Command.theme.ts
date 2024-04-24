@@ -84,8 +84,8 @@ export const commandTheme = tv(
         "py-1.5",
         "text-sm",
         "outline-none",
-        "data-[disabled]:pointer-events-none",
-        "data-[disabled]:opacity-50",
+        "data-[disabled='true']:pointer-events-none",
+        "data-[disabled='true']:opacity-50",
       ],
       commandShortcut: [
         "ml-auto",
