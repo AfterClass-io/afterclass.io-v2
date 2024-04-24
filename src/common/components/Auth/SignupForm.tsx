@@ -61,6 +61,10 @@ export const SignupForm = () => {
       if (res.error) throw new Error(res.error.message);
       if (!res.data.user?.user_metadata?.email_verified) {
         router.push(`/account/auth/verify?email=${res.data.user?.email}`);
+      } else {
+        throw new Error(
+          "trying to create user that already has email verified",
+        );
       }
       reset({ email: "", password: "", confirmPassword: "" });
     } catch (err) {
