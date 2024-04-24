@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  ComponentPropsWithoutRef,
+  type ComponentPropsWithoutRef,
   Fragment,
   forwardRef,
   useState,
@@ -26,6 +26,7 @@ export const RatingGroup = forwardRef<HTMLInputElement, RatingGroupProps>(
 
     return (
       <div className={wrapper()}>
+        {/* eslint-disable @typescript-eslint/no-unsafe-assignment */}
         {[...Array(maxRating)].map((_, i) => {
           const key = `${randomHash}_rating-${i + 1}`;
           return (
@@ -56,3 +57,4 @@ export const RatingGroup = forwardRef<HTMLInputElement, RatingGroupProps>(
     );
   },
 );
+RatingGroup.displayName = "RatingGroup";
