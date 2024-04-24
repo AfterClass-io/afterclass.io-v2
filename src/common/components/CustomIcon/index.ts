@@ -15,6 +15,7 @@ export * from "./EnvelopeIcon";
 export * from "./GraduationCapIcon";
 export * from "./GraduationCapColoredIcon";
 export * from "./HeartIcon";
+export * from "./HeartUnfilledIcon";
 export * from "./LockIcon";
 export * from "./MinusIcon";
 export * from "./PencilIcon";
