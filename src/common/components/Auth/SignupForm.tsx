@@ -55,11 +55,9 @@ export const SignupForm = () => {
     mode: "onTouched",
   });
   const onSubmit: SubmitHandler<SignupFormInputs> = async (data) => {
-    console.log(data);
     if (isSubmitting) return;
     try {
       const res = await signUpWithEmail(data.email, data.password);
-      console.log(res);
       if (res.error) throw new Error(res.error.message);
       if (!res.data.user?.user_metadata?.email_verified) {
         router.push(`/account/auth/verify?email=${res.data.user?.email}`);
