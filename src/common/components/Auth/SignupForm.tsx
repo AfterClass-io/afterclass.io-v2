@@ -12,18 +12,11 @@ import { EyeSlashIcon } from "@/common/components/CustomIcon/EyeSlashIcon";
 import { EnvelopeIcon } from "@/common/components/CustomIcon/EnvelopeIcon";
 import { signUpWithEmail } from "@/server/supabase";
 import { useRouter } from "next/navigation";
-import { isValidEmail } from "@/common/functions/emailValidation";
+import { emailValidationSchema } from "@/common/tools/zod/schemas";
 
 const signupFormInputsSchema = z
   .object({
-    email: z
-      .string()
-      .min(1, { message: "Please enter a valid school email address" })
-      .email("Please enter a valid school email address")
-      .refine(
-        (e) => isValidEmail(e),
-        "Please enter a valid school email address",
-      ),
+    email: emailValidationSchema,
     password: z
       .string()
       .min(8, { message: "Passwords must be at least 8 characters long" }),
