@@ -4,7 +4,7 @@ import { z } from "zod";
 /**
  * Zod schemas for custom validation
  */
-const supportedDomains = env.NEXT_PUBLIC_SUPPORTED_SCH_DOMAINS.split(",");
+
 export const emailValidationSchema = z
   .string()
   .min(1, {
@@ -12,6 +12,9 @@ export const emailValidationSchema = z
   })
   .email("Please enter a valid email address")
   .refine(
-    (email) => supportedDomains.some((domain) => email.endsWith(domain)),
-    `Unsupported email domain, please choose from: ${supportedDomains.join(", ")}`,
+    (email) =>
+      env.NEXT_PUBLIC_SUPPORTED_SCH_DOMAINS.some((domain) =>
+        email.endsWith(domain),
+      ),
+    `Unsupported email domain, please choose from: ${env.NEXT_PUBLIC_SUPPORTED_SCH_DOMAINS.join(", ")}`,
   );
