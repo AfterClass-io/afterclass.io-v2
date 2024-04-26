@@ -1,10 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import {
-  BooksIcon,
-  SchoolIcon,
-  StarLineAltIcon,
-} from "@/common/components/CustomIcon";
+import { BooksIcon, SchoolIcon } from "@/common/components/CustomIcon";
 
 import { PageTitle } from "./PageTitle";
 import { Tag } from "@/common/components/Tag";
