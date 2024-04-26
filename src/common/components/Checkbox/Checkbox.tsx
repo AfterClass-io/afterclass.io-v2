@@ -3,10 +3,7 @@
 import { forwardRef, useId } from "react";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { CheckIcon, MinusIcon } from "@/common/components/CustomIcon";
-import {
-  checkboxTheme,
-  type CheckboxVariants,
-} from "@/common/components/Checkbox";
+import { checkboxTheme, type CheckboxVariants } from "./Checkbox.theme";
 
 export type CheckedState = CheckboxPrimitive.CheckedState;
 
