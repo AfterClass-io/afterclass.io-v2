@@ -42,30 +42,32 @@ export const Combobox = ({
           <Command.Input placeholder={placeholder} />
           <Command.Separator />
           <Command.Empty>Nothing found.</Command.Empty>
-          <Command.Group>
-            {items.map((el) => (
-              <Command.Item
-                id={el.value}
-                key={el.value}
-                value={el.value}
-                onSelect={(selectedValue) => {
-                  setValue(selectedValue === value ? "" : selectedValue);
-                  setOpen(false);
-                  onSelectChange?.(selectedValue);
-                }}
-                aria-selected={isMatched(el.value)}
-                data-selected={isMatched(el.value) ? "" : undefined}
-              >
-                <CheckIcon
-                  className={cn(
-                    "text-primary-default",
-                    isMatched(el.value) ? "visible" : "invisible",
-                  )}
-                />
-                {el.label}
-              </Command.Item>
-            ))}
-          </Command.Group>
+          <Command.List>
+            <Command.Group>
+              {items.map((el) => (
+                <Command.Item
+                  id={el.value}
+                  key={el.value}
+                  value={el.value}
+                  onSelect={(selectedValue) => {
+                    setValue(selectedValue === value ? "" : selectedValue);
+                    setOpen(false);
+                    onSelectChange?.(selectedValue);
+                  }}
+                  aria-selected={isMatched(el.value)}
+                  data-selected={isMatched(el.value) ? "" : undefined}
+                >
+                  <CheckIcon
+                    className={cn(
+                      "text-primary-default",
+                      isMatched(el.value) ? "visible" : "invisible",
+                    )}
+                  />
+                  {el.label}
+                </Command.Item>
+              ))}
+            </Command.Group>
+          </Command.List>
         </Command>
       </Popover.Content>
     </Popover>
