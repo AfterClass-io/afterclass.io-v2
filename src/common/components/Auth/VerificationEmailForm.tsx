@@ -3,6 +3,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { Button } from "@/common/components/Button";
 import { resendEmail, ResendType } from "@/server/supabase";
+import { useSearchParams, useRouter } from "next/navigation";
 
 const emailResendBufferSeconds = 60;
 
@@ -25,7 +26,8 @@ function EmailConfirmationNote({ email }: { email: string }) {
   );
 }
 
-export const VerificationEmailForm = ({ email }: { email: string }) => {
+export const VerificationEmailForm = () => {
+  const router = useRouter();
   const [secondsToResendEmail, setSecondsToResendEmail] = useState(
     emailResendBufferSeconds,
   );
@@ -36,7 +38,12 @@ export const VerificationEmailForm = ({ email }: { email: string }) => {
         setSecondsToResendEmail(secondsToResendEmail - 1);
     }, 1000);
   }, [secondsToResendEmail]);
-
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email");
+  if (!email) {
+    router.push("/account/auth/signup");
+    return;
+  }
   const handleResendEmailOtp = async (e: FormEvent) => {
     e.preventDefault();
     setFormSubmittedLoading(true);
