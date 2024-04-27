@@ -1,15 +1,24 @@
 "use client";
 
+import { useState, useEffect, Suspense } from "react";
 import { AuthCard, ConfirmSignUpNote } from "@/common/components/Auth";
-import { Suspense } from "react";
 import { useRouter } from "next/navigation";
 
 export default function ConfirmSignUp() {
   const router = useRouter();
-  const currentURL = new URL(window.location.href);
-  const confirmationUrl = currentURL.searchParams.get("confirmation_url");
+  const [confirmationUrl, setConfirmationUrl] = useState("");
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const currentURL = new URL(window.location.href);
+      const urlParam = currentURL.searchParams.get("confirmation_url");
+      if (urlParam) {
+        setConfirmationUrl(urlParam);
+      } else {
+        router.push("/account/auth/signup");
+      }
+    }
+  }, [router, confirmationUrl]);
   if (!confirmationUrl) {
-    router.push("/account/auth/signup");
     return;
   }
   return (
