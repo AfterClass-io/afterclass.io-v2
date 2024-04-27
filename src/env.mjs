@@ -1,5 +1,6 @@
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
+import validator from "validator";
 
 export const env = createEnv({
   /**
@@ -33,6 +34,26 @@ export const env = createEnv({
     // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
     NEXT_PUBLIC_SUPABASE_URL: z.string(),
+    NEXT_PUBLIC_SUPPORTED_SCH_DOMAINS: z
+      .string()
+      .transform((value) => value.split(","))
+      .pipe(
+        z
+          .string()
+          .array()
+          .superRefine((val, ctx) => {
+            val.map((v) => {
+              if (!validator.isFQDN(v)) {
+                ctx.addIssue({
+                  code: z.ZodIssueCode.custom,
+                  message: `Invalid FQDN: ${v}`,
+                  fatal: true,
+                });
+                return z.NEVER;
+              }
+            });
+          }),
+      ),
   },
 
   /**
@@ -47,6 +68,8 @@ export const env = createEnv({
     SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    NEXT_PUBLIC_SUPPORTED_SCH_DOMAINS:
+      process.env.NEXT_PUBLIC_SUPPORTED_SCH_DOMAINS,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
