@@ -14,20 +14,9 @@ export const ReviewBody = ({ review, isDetailed }: ReviewBodyProps) => {
     <div className="flex flex-col gap-1">
       {isDetailed && (
         <div className={labels()}>
-          {review.labels
-            .filter((label) => label.typeof === "professor")
-            .map((label) => (
-              <span key={label.name}>{label.name}</span>
-            ))}
-        </div>
-      )}
-      {isDetailed && (
-        <div className={labels()}>
-          {review.labels
-            .filter((label) => label.typeof === "course")
-            .map((label) => (
-              <span key={label.name}>{label.name}</span>
-            ))}
+          {review.labels.map((label) => (
+            <span key={label.name}>{label.name}</span>
+          ))}
         </div>
       )}
       <div className={body()}>{review.body}</div>

@@ -63,6 +63,7 @@ export const reviewItemTheme = tv(
         "flex",
         "gap-4",
         "items-start",
+        "capitalize",
       ],
     },
   },

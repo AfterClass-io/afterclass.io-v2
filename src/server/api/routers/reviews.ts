@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
-import { Prisma } from "@prisma/client";
+import { Prisma, type ReviewLabelName } from "@prisma/client";
 
 const DEFAULT_PAGE_SIZE = 10;
 
@@ -78,7 +78,50 @@ export const reviewsRouter = createTRPCRouter({
           reviewedCourseId: input.courseId,
           reviewedProfessorId: input.profId,
         },
+        select: {
+          id: true,
+          body: true,
+          rating: true,
+          createdAt: true,
+          reviewedCourse: {
+            select: {
+              code: true,
+            },
+          },
+          reviewer: {
+            select: {
+              username: true,
+            },
+          },
+          reviewLabels: {
+            include: {
+              label: {
+                select: {
+                  name: true,
+                },
+              },
+            },
+          },
+          _count: {
+            select: {
+              votes: true,
+            },
+          },
+        },
       });
-      return reviews;
+      return reviews.map((review) => ({
+        id: review.id,
+        body: review.body,
+        createdAt: review.createdAt.getTime(),
+        courseCode: review.reviewedCourse.code,
+        username: review.reviewer.username ?? "Anonymous",
+        labels: review.reviewLabels.map((rl) => {
+          const labelName = rl.label.name.split("_").join(" ").toLowerCase();
+          return {
+            name: labelName as ReviewLabelName,
+          };
+        }),
+        likeCount: review._count.votes,
+      }));
     }),
 });

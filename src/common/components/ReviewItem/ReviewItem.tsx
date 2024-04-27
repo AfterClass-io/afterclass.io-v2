@@ -6,11 +6,9 @@ import { getHumanReadableTimestampDelta } from "@/common/functions";
 import { ThumbUpFilledIcon } from "@/common/components/CustomIcon";
 import { LockCtaOverlay } from "@/common/components/LockCtaOverlay";
 import { Button } from "@/common/components/Button";
-
 // TODO: to replace with prisma generated types
 export type ReviewLabel = {
   name: string;
-  typeof: "professor" | "course";
 };
 
 export type Review = {
@@ -58,7 +56,7 @@ export const ReviewItem = ({
             {review.likeCount}
           </Button>
           <div className={timedelta()}>
-            {getHumanReadableTimestampDelta(review.createdAt)}
+            {getHumanReadableTimestampDelta(review.createdAt / 1000)}
           </div>
         </div>
       </div>

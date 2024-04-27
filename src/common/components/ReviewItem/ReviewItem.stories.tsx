@@ -9,29 +9,19 @@ const review = {
   likeCount: 10,
   createdAt: 1705745162,
   labels: [
-    {
-      name: "Engaging",
-      typeof: "professor",
-    },
-    {
-      name: "Fair Grading",
-      typeof: "professor",
-    },
+    { name: "Engaging" },
+    { name: "Fair Grading" },
     {
       name: "Effective Teaching",
-      typeof: "professor",
     },
     {
       name: "Interesting",
-      typeof: "course",
     },
     {
       name: "Practical",
-      typeof: "course",
     },
     {
       name: "Gained New Skills",
-      typeof: "course",
     },
   ] as ReviewLabel[],
 };

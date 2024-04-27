@@ -1,6 +1,9 @@
 "use client"; // Remove this when we remove api calls directly in page
 
+import { ReviewItem } from "@/common/components/ReviewItem";
 import { api } from "@/common/tools/trpc/react";
+import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
   // create university
@@ -11,6 +14,7 @@ export default function Home() {
   //   abbrv: "SMU",
   // });
   // Get all universities
+  const { status } = useSession();
   const universities = api.university.getAll.useQuery();
   const reviews = api.reviews.getAll.useQuery({
     universityId: 1,
@@ -35,15 +39,20 @@ export default function Home() {
           </span>
         </div>
         <div className="flex flex-col gap-6">
-          <div className="flex gap-2">
-            <span>Total:</span>
-            <span>
-              {reviews.data ? reviews.data.length + " reviews" : "loading..."}
-            </span>
+          <div className="flex items-center gap-2">
+            <Icon
+              icon="twemoji:pencil"
+              className="flex h-6 w-6 rotate-90 items-center justify-center"
+            />
+            <span className="text-2xl font-semibold">Reviews</span>
           </div>
           {reviews.data
             ? reviews.data.map((review) => (
-                <div key={review.id}>{JSON.stringify(review)}</div>
+                <ReviewItem
+                  review={review}
+                  key={review.id}
+                  isLocked={status !== "authenticated"}
+                />
               ))
             : "Loading tRPC query..."}
         </div>

@@ -93,27 +93,21 @@ const review = {
   labels: [
     {
       name: "Engaging",
-      typeof: "professor",
     },
     {
       name: "Fair Grading",
-      typeof: "professor",
     },
     {
       name: "Effective Teaching",
-      typeof: "professor",
     },
     {
       name: "Interesting",
-      typeof: "course",
     },
     {
       name: "Practical",
-      typeof: "course",
     },
     {
       name: "Gained New Skills",
-      typeof: "course",
     },
   ] as ReviewLabel[],
 };
@@ -303,7 +297,7 @@ export default function Components() {
         />
       </div>
       <div className="flex gap-4">
-        {/* 
+        {/*
         to use checkbox in a form:
         <Checkbox
           label="test"
@@ -487,7 +481,7 @@ export default function Components() {
           triggerLabel="Select a Prof"
           items={exampleListObj}
         />
-        {/* 
+        {/*
         to use Combobox in a form:
         <Combobox
           placeholder="Search for a Prof..."
