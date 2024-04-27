@@ -58,17 +58,15 @@ export const VerificationEmailForm = ({ email }: { email: string }) => {
   };
 
   return (
-    <>
-      <form onSubmit={handleResendEmailOtp}>
-        <EmailConfirmationNote email={email} />
-        <Button
-          variant="tertiary"
-          type="submit"
-          disabled={formSubmittedLoading || secondsToResendEmail > 0}
-        >
-          {buttonText()}
-        </Button>
-      </form>
-    </>
+    <form onSubmit={handleResendEmailOtp}>
+      <EmailConfirmationNote email={email} />
+      <Button
+        variant="tertiary"
+        type="submit"
+        disabled={formSubmittedLoading || secondsToResendEmail > 0}
+      >
+        {buttonText()}
+      </Button>
+    </form>
   );
 };
