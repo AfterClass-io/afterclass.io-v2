@@ -45,6 +45,7 @@
     "server-only": "^0.0.1",
     "superjson": "^2.2.1",
     "tailwind-variants": "^0.2.1",
+    "validator": "^13.11.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
@@ -66,6 +67,7 @@
     "@types/prettier": "^2.7.3",
     "@types/react": "^18.2.67",
     "@types/react-dom": "^18.2.22",
+    "@types/validator": "^13.11.9",
     "@typescript-eslint/eslint-plugin": "^7.3.1",
     "@typescript-eslint/parser": "^7.3.1",
     "autoprefixer": "^10.4.18",

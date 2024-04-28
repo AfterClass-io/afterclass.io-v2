@@ -4,28 +4,19 @@ import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-
 import { Input } from "@/common/components/Input";
 import { Button } from "@/common/components/Button";
 import { LockIcon } from "@/common/components/CustomIcon/LockIcon";
 import { EyeIcon } from "@/common/components/CustomIcon/EyeIcon";
 import { EyeSlashIcon } from "@/common/components/CustomIcon/EyeSlashIcon";
 import { EnvelopeIcon } from "@/common/components/CustomIcon/EnvelopeIcon";
-
-const isValidEmail = (email: string) =>
-  // TODO: replace with supported school email validation logic
-  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.endsWith("smu.edu.sg");
+import { signUpWithEmail } from "@/server/supabase";
+import { useRouter } from "next/navigation";
+import { emailValidationSchema } from "@/common/tools/zod/schemas";
 
 const signupFormInputsSchema = z
   .object({
-    email: z
-      .string()
-      .min(1, { message: "Please enter a valid school email address" })
-      .email("Please enter a valid school email address")
-      .refine(
-        (e) => isValidEmail(e),
-        "Please enter a valid school email address",
-      ),
+    email: emailValidationSchema,
     password: z
       .string()
       .min(8, { message: "Passwords must be at least 8 characters long" }),
@@ -44,6 +35,7 @@ const signupFormInputsSchema = z
 type SignupFormInputs = z.infer<typeof signupFormInputsSchema>;
 
 export const SignupForm = () => {
+  const router = useRouter();
   const [isPwdVisible, setIsPwdVisible] = useState(false);
   const [isCfmPwdVisible, setIsCfmPwdVisible] = useState(false);
   const {
@@ -56,17 +48,21 @@ export const SignupForm = () => {
     mode: "onTouched",
   });
   const onSubmit: SubmitHandler<SignupFormInputs> = async (data) => {
-    console.log(data);
     if (isSubmitting) return;
-
-    // TODO: replace with create account logic
-    console.log(data);
-    await new Promise((r) => setTimeout(r, 2000));
-    !!errors.email || !!errors.password || !!errors.confirmPassword
-      ? alert("error creating account!")
-      : alert("account created!");
-
-    reset({ password: "", confirmPassword: "" });
+    try {
+      const res = await signUpWithEmail(data.email, data.password);
+      if (res.error) throw new Error(res.error.message);
+      if (!res.data.user?.user_metadata?.email_verified) {
+        router.push(`/account/auth/verify?email=${res.data.user?.email}`);
+      } else {
+        throw new Error(
+          "trying to create user that already has email verified",
+        );
+      }
+      reset({ email: "", password: "", confirmPassword: "" });
+    } catch (err) {
+      alert(err);
+    }
   };
 
   return (
