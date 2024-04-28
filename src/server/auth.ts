@@ -6,11 +6,10 @@ import {
   type DefaultSession,
 } from "next-auth";
 import { z } from "zod";
-
 import { randomBytes, randomUUID } from "crypto";
-
 import { env } from "@/env.mjs";
 import { signInWithEmail } from "./supabase";
+import { emailValidationSchema } from "@/common/tools/zod/schemas";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -55,7 +54,7 @@ export const authOptions: NextAuthOptions = {
       credentials: { email: { type: "text" }, password: { type: "password" } },
       async authorize(credentials) {
         const Credential = z.object({
-          email: z.string().email(),
+          email: emailValidationSchema,
           password: z.string(),
         });
         const c = Credential.safeParse(credentials);
