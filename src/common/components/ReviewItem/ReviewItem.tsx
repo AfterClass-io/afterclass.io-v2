@@ -1,23 +1,23 @@
 import { reviewItemTheme, type ReviewItemVariants } from "./ReviewItem.theme";
-import { ReviewBody } from "./ReviewBody";
-import { ProfileSchool } from "./ProfileSchool";
-import { ProfileReviewer } from "./ProfileReviewer";
-import { getHumanReadableTimestampDelta } from "@/common/functions";
-import { ThumbUpFilledIcon } from "@/common/components/CustomIcon";
 import { LockCtaOverlay } from "@/common/components/LockCtaOverlay";
-import { Button } from "@/common/components/Button";
+import ReviewHeader from "@/common/components/ReviewItem/ReviewHeader";
+import ReviewModal from "@/common/components/ReviewModal/ReviewModal";
 // TODO: to replace with prisma generated types
 export type ReviewLabel = {
   name: string;
 };
 
 export type Review = {
+  id: string;
   body: string;
   courseCode: string;
   username: string;
   likeCount: number;
   labels: ReviewLabel[];
   createdAt: number;
+  reviewedUniversityId: number;
+  reviewFor: "professor" | "course";
+  professorName?: string;
 };
 
 export type ReviewItemProps = ReviewItemVariants & {
@@ -31,41 +31,19 @@ export const ReviewItem = ({
   isLocked,
   variant = "home",
 }: ReviewItemProps) => {
-  const { wrapper, headingContainer, metadataContainer, timedelta, body } =
-    reviewItemTheme();
+  const { wrapper, body } = reviewItemTheme();
 
   return (
-    <div className={wrapper()}>
-      <div className={headingContainer()}>
-        {variant === "home" ? (
-          <ProfileSchool courseCode={review.courseCode} />
-        ) : (
-          <ProfileReviewer name={review.username} />
-        )}
-        <div className={metadataContainer()}>
-          {variant === "home" && <ProfileReviewer name={review.username} />}
-          {variant === "professor" && (
-            <ProfileSchool courseCode={review.courseCode} />
-          )}
-          <Button
-            rounded
-            variant="secondary"
-            size="sm"
-            iconRight={<ThumbUpFilledIcon />}
-          >
-            {review.likeCount}
-          </Button>
-          <div className={timedelta()}>
-            {getHumanReadableTimestampDelta(review.createdAt / 1000)}
+    <div>
+      {isLocked ? (
+        <div className={wrapper()}>
+          <ReviewHeader review={review} variant={variant} />
+          <div className={body()}>
+            <LockCtaOverlay size="sm" ctaType="review" variant="border" />
           </div>
         </div>
-      </div>
-      {isLocked ? (
-        <div className={body()}>
-          <LockCtaOverlay size="sm" ctaType="review" variant="border" />
-        </div>
       ) : (
-        <ReviewBody isDetailed={variant !== "home"} review={review} />
+        <ReviewModal review={review} variant={variant} seeMore={true} />
       )}
     </div>
   );

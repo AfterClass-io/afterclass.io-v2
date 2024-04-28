@@ -3,11 +3,15 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ReviewItem, type ReviewLabel } from "./ReviewItem";
 
 const review = {
+  id: "1",
   body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor nunc a velit congue, et faucibus sapien iaculis. Quisque id felis non sapien egestas ultricies vulputate posuere quam. Vestibulum scelerisque arcu leo, sit amet interdum enim suscipit ut. Sed dolor turpis, tincidunt sed elementum at, posuere ac justo. Curabitur sem turpis, porttitor at ante sed, laoreet condimentum magna. Suspendisse ex orci, laoreet in cursus nec, rhoncus quis eros. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam lacinia varius quam, ut blandit quam suscipit nec. Morbi facilisis mauris erat, quis porttitor purus consequat id. Maecenas.",
   courseCode: "COR-MGMT1302",
   username: "Anonymous",
   likeCount: 10,
   createdAt: 1705745162,
+  reviewedUniversityId: 1,
+  reviewFor: "professor" as "professor" | "course",
+  professorName: "John Doe",
   labels: [
     { name: "Engaging" },
     { name: "Fair Grading" },
