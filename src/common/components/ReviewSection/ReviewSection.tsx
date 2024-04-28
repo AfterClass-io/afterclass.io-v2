@@ -1,14 +1,14 @@
-import { ReviewItem } from "@/common/components/ReviewItem";
+import { type Review, ReviewItem } from "@/common/components/ReviewItem";
 import { reviewSectionTheme } from "@/common/components/ReviewSection/ReviewSection.theme";
-import { api } from "@/common/tools/trpc/react";
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 
-const ReviewSection = ({ isLocked }: { isLocked: boolean }) => {
-  const { data: reviews } = api.reviews.getAll.useQuery({
-    // NOTE: inputs here are optional, depending on the type of reviews we want to show
-    // universityId: 1,
-    // courseId: "2a45bab1-5ec4-4d2e-b245-27a142a78890",
-  });
+const ReviewSection = ({
+  isLocked,
+  reviews,
+}: {
+  isLocked: boolean;
+  reviews: Review[];
+}) => {
   const { wrapper, header, title, icon, reviewsHeader } = reviewSectionTheme();
   return (
     reviews && (

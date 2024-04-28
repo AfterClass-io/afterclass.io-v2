@@ -14,7 +14,11 @@ export default function Home() {
   // Get all universities
   const { status } = useSession();
   const universities = api.university.getAll.useQuery();
-
+  const { data: reviews } = api.reviews.getAll.useQuery({
+    // NOTE: inputs here are optional, depending on the type of reviews we want to show
+    // universityId: 1,
+    // courseId: "2a45bab1-5ec4-4d2e-b245-27a142a78890",
+  });
   return (
     <>
       <section className="flex h-full flex-col items-center space-y-6 overflow-y-auto overflow-x-hidden p-6">
@@ -32,7 +36,12 @@ export default function Home() {
               : "Loading tRPC query..."}
           </span>
         </div>
-        <ReviewSection isLocked={status !== "authenticated"} />
+        {reviews && (
+          <ReviewSection
+            reviews={reviews}
+            isLocked={status !== "authenticated"}
+          />
+        )}
       </section>
     </>
   );
