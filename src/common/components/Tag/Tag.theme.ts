@@ -8,7 +8,7 @@ export const tagTheme = tv(
       tag: [
         "inline-flex",
         "min-w-14",
-        "py-[0.125rem]",
+        "py-[0.38rem]",
         "px-3",
         "gap-2",
         "justify-center",
