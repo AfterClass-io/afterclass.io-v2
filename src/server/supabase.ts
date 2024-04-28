@@ -2,8 +2,8 @@ import { createClient } from "@supabase/supabase-js";
 import { env } from "@/env.mjs";
 
 export enum ResendType {
-  Signup = "signup",
-  EmailChange = "email_change",
+  SIGNUP = "signup",
+  EMAIL_CHANGE = "email_change",
 }
 
 export const supabase = createClient(

@@ -45,7 +45,7 @@ export const VerificationEmailForm = () => {
   const handleResendEmailOtp = async (e: FormEvent) => {
     e.preventDefault();
     setFormSubmittedLoading(true);
-    const res = await resendEmail(email, ResendType.Signup);
+    const res = await resendEmail(email, ResendType.SIGNUP);
     if (res.error) {
       alert(res.error.message);
     } else {
