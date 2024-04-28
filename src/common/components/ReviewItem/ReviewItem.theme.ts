@@ -15,7 +15,6 @@ export const reviewItemTheme = tv(
         "rounded-md",
         "cursor-pointer",
         "rounded-md",
-        "hover:bg-bg-alt",
       ],
       headingContainer: [
         "flex",
