@@ -64,9 +64,10 @@ export const reviewsRouter = createTRPCRouter({
     .input(
       z.object({
         page: z.number().default(1),
-        universityId: z.number(),
-        courseId: z.string(),
+        universityId: z.number().optional(),
+        courseId: z.string().optional(),
         profId: z.string().optional(),
+        latest: z.boolean().optional().default(true),
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -78,11 +79,15 @@ export const reviewsRouter = createTRPCRouter({
           reviewedCourseId: input.courseId,
           reviewedProfessorId: input.profId,
         },
+        orderBy: input.latest ? { createdAt: "desc" } : undefined,
         select: {
           id: true,
           body: true,
           rating: true,
           createdAt: true,
+          reviewedUniversityId: true,
+          reviewedProfessorId: true,
+          reviewedCourseId: true,
           reviewedCourse: {
             select: {
               code: true,
@@ -107,6 +112,11 @@ export const reviewsRouter = createTRPCRouter({
               votes: true,
             },
           },
+          reviewedProfessor: {
+            select: {
+              name: true,
+            },
+          },
         },
       });
       return reviews.map((review) => ({
@@ -122,6 +132,12 @@ export const reviewsRouter = createTRPCRouter({
           };
         }),
         likeCount: review._count.votes,
+        reviewedUniversityId: review.reviewedUniversityId,
+        reviewFor:
+          review.reviewedCourseId && review.reviewedProfessorId
+            ? ("professor" as "professor" | "course")
+            : ("course" as "professor" | "course"),
+        professorName: review.reviewedProfessor?.name,
       }));
     }),
 });
