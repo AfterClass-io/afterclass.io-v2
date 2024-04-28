@@ -49,17 +49,7 @@ export const reviewItemTheme = tv(
         "text-ellipsis",
         "text-text-em-low",
       ],
-      body: [
-        "relative",
-        "flex",
-        "h-16",
-        "w-full",
-        "self-stretch",
-        "overflow-hidden",
-        "text-sm",
-        "text-ellipsis",
-        "text-text-em-high",
-      ],
+      body: ["h-16", "text-sm", "text-text-em-high", "line-clamp-3"],
       labels: [
         "text-sm",
         "text-text-on-secondary",

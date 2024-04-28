@@ -60,5 +60,9 @@ export default withTV({
       },
     },
   },
-  plugins: [themingSystemPlugin, tailwindCssAnimatePlugin],
+  plugins: [
+    themingSystemPlugin,
+    tailwindCssAnimatePlugin,
+    require("@tailwindcss/line-clamp"),
+  ],
 }) satisfies Config;
