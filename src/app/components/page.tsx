@@ -92,6 +92,8 @@ const review = {
   likeCount: 10,
   createdAt: 1705745162,
   reviewedUniversityId: 1,
+  reviewFor: "professor" as "professor" | "course",
+  professorName: "John Doe",
   labels: [
     {
       name: "Engaging",
