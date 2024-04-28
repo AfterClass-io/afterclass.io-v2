@@ -1,4 +1,5 @@
 import { ReviewItem } from "@/common/components/ReviewItem";
+import { reviewSectionTheme } from "@/common/components/ReviewSection/ReviewSection.theme";
 import { api } from "@/common/tools/trpc/react";
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 
@@ -8,16 +9,14 @@ const ReviewSection = ({ isLocked }: { isLocked: boolean }) => {
     // universityId: 1,
     // courseId: "2a45bab1-5ec4-4d2e-b245-27a142a78890",
   });
+  const { wrapper, header, title, icon, reviewsHeader } = reviewSectionTheme();
   return (
     reviews && (
-      <div className="flex flex-col gap-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Icon
-              icon="twemoji:pencil"
-              className="flex h-6 w-6 rotate-90 items-center justify-center"
-            />
-            <span className="text-2xl font-semibold">Reviews</span>
+      <div className={wrapper()}>
+        <div className={header()}>
+          <div className={title()}>
+            <Icon icon="twemoji:pencil" className={icon()} />
+            <span className={reviewsHeader()}>Reviews</span>
           </div>
           {/* TODO: implement filtering */}
           {/* <div className="flex gap-x-8">
