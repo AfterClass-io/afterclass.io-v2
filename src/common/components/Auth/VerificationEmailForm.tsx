@@ -5,7 +5,7 @@ import { Button } from "@/common/components/Button";
 import { resendEmail, ResendType } from "@/server/supabase";
 import { useSearchParams, notFound } from "next/navigation";
 
-const emailResendBufferSeconds = 60;
+const EMAIL_RESEND_BUFFER_SECONDS = 60;
 
 function EmailConfirmationNote({ email }: { email: string }) {
   return (
@@ -28,7 +28,7 @@ function EmailConfirmationNote({ email }: { email: string }) {
 
 export const VerificationEmailForm = () => {
   const [secondsToResendEmail, setSecondsToResendEmail] = useState(
-    emailResendBufferSeconds,
+    EMAIL_RESEND_BUFFER_SECONDS,
   );
   const [formSubmittedLoading, setFormSubmittedLoading] = useState(false);
   useEffect(() => {
@@ -51,7 +51,7 @@ export const VerificationEmailForm = () => {
     } else {
       alert("Email sent! Please check your inbox");
     }
-    setSecondsToResendEmail(emailResendBufferSeconds);
+    setSecondsToResendEmail(EMAIL_RESEND_BUFFER_SECONDS);
     setFormSubmittedLoading(false);
   };
 
