@@ -1,23 +1,14 @@
-import { reviewItemTheme, type ReviewItemVariants } from "./ReviewItem.theme";
+import {
+  ReviewHeader,
+  reviewItemTheme,
+  type ReviewItemVariants,
+} from "./index";
 import { LockCtaOverlay } from "@/common/components/LockCtaOverlay";
-import ReviewHeader from "@/common/components/ReviewItem/ReviewHeader";
 import ReviewModal from "@/common/components/ReviewModal/ReviewModal";
+import { type Review } from "@/common/types";
 // TODO: to replace with prisma generated types
 export type ReviewLabel = {
   name: string;
-};
-
-export type Review = {
-  id: string;
-  body: string;
-  courseCode: string;
-  username: string;
-  likeCount: number;
-  labels: ReviewLabel[];
-  createdAt: number;
-  reviewedUniversityId: number;
-  reviewFor: "professor" | "course";
-  professorName?: string;
 };
 
 export type ReviewItemProps = ReviewItemVariants & {

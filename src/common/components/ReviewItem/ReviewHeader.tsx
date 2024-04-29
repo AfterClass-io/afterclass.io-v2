@@ -1,12 +1,10 @@
-import { type Review } from "@/common/components/ReviewItem/ReviewItem";
+import { reviewItemTheme, ProfileSchool, ProfileReviewer } from "./index";
 import { Button } from "@/common/components/Button";
 import { ThumbUpFilledIcon } from "@/common/components/CustomIcon";
-import { ProfileReviewer } from "@/common/components/ReviewItem/ProfileReviewer";
-import { ProfileSchool } from "@/common/components/ReviewItem/ProfileSchool";
 import { getHumanReadableTimestampDelta } from "@/common/functions";
-import { reviewItemTheme } from "@/common/components/ReviewItem";
+import { type Review } from "@/common/types";
 
-const ReviewHeader = ({
+export const ReviewHeader = ({
   review,
   variant,
 }: {
@@ -47,5 +45,3 @@ const ReviewHeader = ({
     </div>
   );
 };
-
-export default ReviewHeader;

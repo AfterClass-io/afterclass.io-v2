@@ -48,7 +48,7 @@ export const modalTheme = tv({
       "overflow-hidden",
       "h-fit",
       "w-full",
-      "max-w-[420px]",
+      "max-w-[720px]",
       "rounded-[20px]",
       "border",
       "border-border-default",

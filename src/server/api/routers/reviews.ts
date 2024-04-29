@@ -132,7 +132,6 @@ export const reviewsRouter = createTRPCRouter({
           };
         }),
         likeCount: review._count.votes,
-        reviewedUniversityId: review.reviewedUniversityId,
         reviewFor:
           review.reviewedCourseId && review.reviewedProfessorId
             ? ("professor" as "professor" | "course")

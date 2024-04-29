@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
     provider  = "postgresql"
-    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations 
+    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations
     //       in model Account below
     // Further reading:
     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
@@ -25,7 +25,7 @@ model Reviews {
     reviewedProfessorId  String?        @map("reviewed_professor_id")
     reviewedCourse       Courses        @relation(fields: [reviewedCourseId], references: [id])
     reviewedCourseId     String         @map("reviewed_course_id")
-    reviewedUniveristy   Universities   @relation(fields: [reviewedUniversityId], references: [id])
+    reviewedUniversity   Universities   @relation(fields: [reviewedUniversityId], references: [id])
     reviewedUniversityId Int            @map("reviewed_university_id")
     reviewedFaculty      Faculties      @relation(fields: [reviewedFacultyId], references: [id])
     reviewedFacultyId    Int            @map("reviewed_faculty_id")

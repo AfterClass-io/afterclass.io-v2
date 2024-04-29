@@ -1,5 +1,6 @@
-import { type Review, ReviewItem } from "@/common/components/ReviewItem";
+import { ReviewItem } from "@/common/components/ReviewItem";
 import { reviewSectionTheme } from "@/common/components/ReviewSection/ReviewSection.theme";
+import { type Review } from "@/common/types";
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 
 const ReviewSection = ({
@@ -10,6 +11,7 @@ const ReviewSection = ({
   reviews: Review[];
 }) => {
   const { wrapper, header, title, icon, reviewsHeader } = reviewSectionTheme();
+
   return (
     reviews && (
       <div className={wrapper()}>

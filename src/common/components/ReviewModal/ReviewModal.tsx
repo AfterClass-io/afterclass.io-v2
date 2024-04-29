@@ -1,11 +1,10 @@
 import { Modal } from "@/common/components/Modal";
-import { type Review } from "@/common/components/ReviewItem";
+import { ReviewHeader, ReviewBody } from "@/common/components/ReviewItem";
 import { ProfileSchool } from "@/common/components/ReviewItem/ProfileSchool";
-import { ReviewBody } from "@/common/components/ReviewItem/ReviewBody";
-import ReviewHeader from "@/common/components/ReviewItem/ReviewHeader";
-import { reviewModalTheme } from "@/common/components/ReviewModal/ReviewModal.theme";
+import { reviewModalTheme } from "./ReviewModal.theme";
 import { getHumanReadableTimestampDelta } from "@/common/functions";
-import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
+import { ShareIcon, ThumbUpFilledIcon } from "@/common/components/CustomIcon";
+import { type Review } from "@/common/types";
 
 const ReviewModal = ({
   review,
@@ -26,9 +25,7 @@ const ReviewModal = ({
     body,
     likeAndShareWrapper,
     likeWrapper,
-    likeIcon,
     shareWrapper,
-    shareIcon,
     seeMoreWrapper,
     seeMoreLink,
   } = reviewModalTheme();
@@ -60,11 +57,11 @@ const ReviewModal = ({
             <p className={body()}>{review.body}</p>
             <div className={likeAndShareWrapper()}>
               <div className={likeWrapper()}>
-                <Icon className={likeIcon()} icon="mingcute:thumb-up-2-fill" />
+                <ThumbUpFilledIcon size={18} />
                 <span>{review.likeCount}</span>
               </div>
               <div className={shareWrapper()}>
-                <Icon className={shareIcon()} icon="majesticons:share" />
+                <ShareIcon size={18} />
               </div>
             </div>
           </div>
