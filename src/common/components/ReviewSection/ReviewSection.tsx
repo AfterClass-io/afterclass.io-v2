@@ -1,9 +1,9 @@
+import { PenIcon } from "@/common/components/CustomIcon";
 import { ReviewItem } from "@/common/components/ReviewItem";
 import { reviewSectionTheme } from "@/common/components/ReviewSection/ReviewSection.theme";
 import { type Review } from "@/common/types";
-import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 
-const ReviewSection = ({
+export const ReviewSection = ({
   isLocked,
   reviews,
 }: {
@@ -17,15 +17,9 @@ const ReviewSection = ({
       <div className={wrapper()}>
         <div className={header()}>
           <div className={title()}>
-            <Icon icon="twemoji:pencil" className={icon()} />
-            <span className={reviewsHeader()}>Reviews</span>
+            <PenIcon className={icon()} size={24} />
+            <div className={reviewsHeader()}>Reviews</div>
           </div>
-          {/* TODO: implement filtering */}
-          {/* <div className="flex gap-x-8">
-            <div>Top</div>
-            <div>Trending</div>
-            <div>Latest</div>
-          </div> */}
         </div>
 
         {reviews.map((review) => (
@@ -35,5 +29,3 @@ const ReviewSection = ({
     )
   );
 };
-
-export default ReviewSection;
