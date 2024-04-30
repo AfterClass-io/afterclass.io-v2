@@ -1,6 +1,6 @@
-import { type ComponentPropsWithoutRef } from 'react';
+import { type ComponentPropsWithoutRef } from "react";
 
-export interface CustomIconProps extends ComponentPropsWithoutRef<'svg'> {
+export interface CustomIconProps extends ComponentPropsWithoutRef<"svg"> {
   size?: number | string; // width and height will both be set as the same value
   name?: string;
 }
@@ -10,7 +10,7 @@ export const CustomIcon = ({
   width = 24,
   height = 24,
   size,
-  viewBox = '0 0 24 24',
+  viewBox = "0 0 24 24",
   name,
   ...rest
 }: CustomIconProps) => {

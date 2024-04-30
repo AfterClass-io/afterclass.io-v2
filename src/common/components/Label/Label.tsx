@@ -43,7 +43,7 @@ export const Label = ({
           });
         }
       }),
-    [leftContent, icon]
+    [leftContent, icon],
   );
 
   return (

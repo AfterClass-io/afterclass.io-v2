@@ -34,5 +34,5 @@ export const inputTheme = tv(
       },
     },
   },
-  { responsiveVariants: true }
+  { responsiveVariants: true },
 );
