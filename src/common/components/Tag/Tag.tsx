@@ -4,6 +4,7 @@ import {
   cloneElement,
   isValidElement,
   useCallback,
+  useState,
   type ComponentPropsWithoutRef,
   type HTMLProps,
   type ReactElement,
@@ -21,10 +22,16 @@ export const Tag = ({
   contentRight,
   children,
   active = false,
+  clickable = false,
   size = "md",
+  className,
+  ...props
 }: TagProps) => {
+  const [isActive, setIsActive] = useState(active);
+
   const { tag, icon: iconTheme } = tagTheme({
-    active,
+    active: isActive,
+    clickable,
     size,
   });
   const StyledIcon = useCallback(
@@ -46,7 +53,11 @@ export const Tag = ({
     [size, iconTheme],
   );
   return (
-    <div className={tag()}>
+    <div
+      className={tag({ className })}
+      onClick={clickable ? () => setIsActive(!isActive) : undefined}
+      {...props}
+    >
       <StyledIcon icon={contentLeft} />
       {children && <span>{children}</span>}
       <StyledIcon icon={contentRight} />

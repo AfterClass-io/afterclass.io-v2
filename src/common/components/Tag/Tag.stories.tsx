@@ -30,3 +30,11 @@ export const Active: Story = {
     active: true,
   },
 };
+
+export const Clickable: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    clickable: true,
+  },
+};
