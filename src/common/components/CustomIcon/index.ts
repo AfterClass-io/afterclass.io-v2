@@ -26,3 +26,6 @@ export * from "./ThumbUpFilledIcon";
 export * from "./WarningCircleIcon";
 export * from "./XCloseIcon";
 export * from "./SchoolIcon";
+export * from "./ShareIcon";
+export * from "./ChartLineIcon";
+export * from "./PenIcon";

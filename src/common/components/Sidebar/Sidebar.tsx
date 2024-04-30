@@ -6,7 +6,9 @@ import { usePathname } from "next/navigation";
 
 import {
   BookLineIcon,
+  ChartLineIcon,
   DealsIcon,
+  SearchIcon,
   StarLineAltIcon,
 } from "@/common/components/CustomIcon";
 import { Icon } from "@iconify-icon/react";
@@ -24,7 +26,7 @@ const SIDEBAR_ITEMS = [
   },
   {
     label: "Bid History",
-    icon: <Icon icon="uil:chart-line" width={16} />,
+    icon: <ChartLineIcon />,
     href: "/bidding",
   },
   {
@@ -77,11 +79,7 @@ export const Sidebar = ({
         <Input
           className="w-full"
           contentLeft={
-            <Icon
-              icon="uil:search"
-              size={16}
-              className="px-1 text-text-em-low"
-            />
+            <SearchIcon size={16} className="ml-1 mr-2 text-text-em-low" />
           }
           placeholder="Search"
           size="sm"

@@ -60,5 +60,8 @@ export default withTV({
       },
     },
   },
-  plugins: [themingSystemPlugin, tailwindCssAnimatePlugin],
+  plugins: [
+    themingSystemPlugin,
+    tailwindCssAnimatePlugin,
+  ],
 }) satisfies Config;
