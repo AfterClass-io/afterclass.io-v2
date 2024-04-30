@@ -117,6 +117,11 @@ export const reviewsRouter = createTRPCRouter({
               name: true,
             },
           },
+          reviewedUniversity: {
+            select: {
+              abbrv: true,
+            },
+          },
         },
       });
       return reviews.map((review) => ({
@@ -137,6 +142,7 @@ export const reviewsRouter = createTRPCRouter({
             ? ("professor" as "professor" | "course")
             : ("course" as "professor" | "course"),
         professorName: review.reviewedProfessor?.name,
+        university: review.reviewedUniversity.abbrv,
       }));
     }),
 });

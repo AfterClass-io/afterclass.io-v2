@@ -17,7 +17,7 @@ export const ReviewHeader = ({
       {variant === "home" ? (
         <ProfileSchool
           courseCode={review.courseCode}
-          reviewedUniversityId={review.reviewedUniversityId}
+          university={review.university}
         />
       ) : (
         <ProfileReviewer name={review.username} />
@@ -27,7 +27,7 @@ export const ReviewHeader = ({
         {variant === "professor" && (
           <ProfileSchool
             courseCode={review.courseCode}
-            reviewedUniversityId={review.reviewedUniversityId}
+            university={review.university}
           />
         )}
         <Button

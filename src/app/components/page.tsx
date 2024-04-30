@@ -27,6 +27,7 @@ import { Modal } from "@/common/components/Modal";
 import Heading from "@/common/components/Heading";
 import { type ReviewLabel, ReviewItem } from "@/common/components/ReviewItem";
 import { Tag } from "@/common/components/Tag";
+import { UniversityAbbreviation } from "@prisma/client";
 
 const exampleListObj = exampleListCountries.map((el) => ({
   value: el.toLowerCase(),
@@ -91,7 +92,7 @@ const review = {
   username: "Anonymous",
   likeCount: 10,
   createdAt: 1705745162,
-  reviewedUniversityId: 1,
+  university: UniversityAbbreviation.SMU,
   reviewFor: "professor" as "professor" | "course",
   professorName: "John Doe",
   labels: [

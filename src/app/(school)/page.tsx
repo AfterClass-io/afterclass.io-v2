@@ -1,5 +1,5 @@
 "use client"; // Remove this when we remove api calls directly in page
-import ReviewSection from "@/common/components/ReviewSection/ReviewSection";
+import { ReviewSection } from "@/common/components/ReviewSection/ReviewSection";
 import { api } from "@/common/tools/trpc/react";
 import { useSession } from "next-auth/react";
 

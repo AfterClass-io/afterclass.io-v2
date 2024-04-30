@@ -13,7 +13,7 @@ export const reviewSectionTheme = tv(
         "p-8",
       ],
       header: ["flex", "items-center", "justify-between"],
-      title: ["flex", "items-center", "gap-2"],
+      title: ["flex", "items-center", "gap-4"],
       icon: [
         "flex",
         "h-6",

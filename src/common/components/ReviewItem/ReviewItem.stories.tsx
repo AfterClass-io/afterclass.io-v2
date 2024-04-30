@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { ReviewItem, type ReviewLabel } from "./ReviewItem";
+import { UniversityAbbreviation } from "@prisma/client";
 
 const review = {
   id: "1",
@@ -9,7 +10,7 @@ const review = {
   username: "Anonymous",
   likeCount: 10,
   createdAt: 1705745162,
-  reviewedUniversityId: 1,
+  university: UniversityAbbreviation.SMU,
   reviewFor: "professor" as "professor" | "course",
   professorName: "John Doe",
   labels: [

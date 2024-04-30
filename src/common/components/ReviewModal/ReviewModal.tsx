@@ -42,7 +42,7 @@ const ReviewModal = ({
         <Modal.Header>
           <ProfileSchool
             courseCode={review.courseCode}
-            reviewedUniversityId={review.reviewedUniversityId}
+            university={review.university}
           />
         </Modal.Header>
         <Modal.Body className={modalBody()}>

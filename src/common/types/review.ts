@@ -1,3 +1,5 @@
+import { type UniversityAbbreviation } from "@prisma/client";
+
 export type Review = {
   id: string;
   body: string;
@@ -6,7 +8,7 @@ export type Review = {
   likeCount: number;
   labels: { name: string }[];
   createdAt: number;
-  reviewedUniversityId: number;
+  university: UniversityAbbreviation;
   reviewFor: "professor" | "course";
   professorName?: string;
 };
