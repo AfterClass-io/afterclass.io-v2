@@ -1,6 +1,6 @@
 import { PenIcon } from "@/common/components/CustomIcon";
 import { ReviewItem } from "@/common/components/ReviewItem";
-import { reviewSectionTheme } from "@/common/components/ReviewSection/ReviewSection.theme";
+import { reviewSectionTheme } from "./index";
 import { type Review } from "@/common/types";
 
 export const ReviewSection = ({
