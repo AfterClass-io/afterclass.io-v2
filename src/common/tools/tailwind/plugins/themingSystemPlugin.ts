@@ -23,5 +23,5 @@ export const themingSystemPlugin = plugin(
         ...deepmerge.all([appTheme, lightTailwindConfig, darkTailwindConfig]),
       },
     },
-  }
+  },
 );

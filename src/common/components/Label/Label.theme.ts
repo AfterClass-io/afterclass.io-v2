@@ -32,5 +32,5 @@ export const labelTheme = tv(
       },
     },
   },
-  { responsiveVariants: true }
+  { responsiveVariants: true },
 );

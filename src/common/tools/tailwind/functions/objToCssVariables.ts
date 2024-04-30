@@ -20,7 +20,7 @@ interface ObjToCssVariablesConfig {
  */
 export const objToCssVariables = (
   obj: RecursiveKeyValuePair<string, string>,
-  { prefix = undefined, convertHexToRgb = true }: ObjToCssVariablesConfig
+  { prefix = undefined, convertHexToRgb = true }: ObjToCssVariablesConfig,
 ) => {
   const colors = flattenObject(obj, { convertHexToRgb });
   return Object.keys(colors).reduce((acc, key) => {

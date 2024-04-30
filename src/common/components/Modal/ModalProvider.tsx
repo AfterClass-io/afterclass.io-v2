@@ -1,8 +1,8 @@
-import { createContext, useContext, type PropsWithChildren } from 'react';
+import { createContext, useContext, type PropsWithChildren } from "react";
 
-import { type ModalVariants } from './Modal.theme';
+import { type ModalVariants } from "./Modal.theme";
 
-import { type ModalProps } from './Modal';
+import { type ModalProps } from "./Modal";
 
 export interface ModalProviderProps
   extends Partial<ModalVariants>,
@@ -32,7 +32,7 @@ export const ModalProvider = ({
 export const useModal = () => {
   const context = useContext(ModalContext);
   if (context === undefined) {
-    throw new Error('useModal was used outside of its Provider');
+    throw new Error("useModal was used outside of its Provider");
   }
   return context;
 };

@@ -18,7 +18,7 @@ type FlattenedObject = Record<string, string>;
  */
 export const flattenObject = (
   obj: RecursiveKeyValuePair<string, string>,
-  { parentKey = "", separator = "-", convertHexToRgb = true }
+  { parentKey = "", separator = "-", convertHexToRgb = true },
 ): Record<string, string> => {
   return Object.keys(obj).reduce((acc, key) => {
     const fullKey = parentKey ? `${parentKey}${separator}${key}` : key;
