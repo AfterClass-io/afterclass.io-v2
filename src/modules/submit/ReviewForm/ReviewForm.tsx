@@ -1,8 +1,8 @@
 "use client";
 
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { useSession } from "next-auth/react";
 
 import {
@@ -28,7 +28,7 @@ export const ReviewForm = ({ children }: { children: ReactNode }) => {
 
   const reviewsMutation = api.reviews.create.useMutation();
 
-  const onSubmit: SubmitHandler<ReviewFormInputsSchema> = async (data) => {
+  const onSubmit: SubmitHandler<ReviewFormInputsSchema> = (data) => {
     console.log(data);
     let userId;
     // TODO: populate user values from supabase when user is authenticated
@@ -47,10 +47,12 @@ export const ReviewForm = ({ children }: { children: ReactNode }) => {
     router.push("/");
   };
 
+  const { form: formTheme } = reviewFormTheme();
+
   return (
     <FormProvider {...formMethods}>
       <form
-        className={reviewFormTheme()}
+        className={formTheme()}
         onSubmit={formMethods.handleSubmit(onSubmit)}
       >
         {children}

@@ -16,7 +16,7 @@ import {
 } from "@/modules/submit/types";
 import { texts } from "@/modules/submit/constants";
 
-import { reviewFormSectionTheme } from "./ReviewFormSection.theme";
+import { reviewFormTheme } from "./ReviewForm.theme";
 
 export type ReviewFormSectionProps = {
   type: ReviewableType;
@@ -39,8 +39,7 @@ export const ReviewFormSection = ({
     getValues,
     formState: { errors },
   } = useFormContext<ReviewFormInputsSchema>();
-  const { wrapper, header, divider, lower, textarea } =
-    reviewFormSectionTheme();
+  const { wrapper, header, divider, lower, textarea } = reviewFormTheme();
   const [isSkipped, setIsSkipped] = useState(false);
   const [selectedReviewable, setSelectedReviewable] = useState(
     (getValues(`${type}.value`) || "") as string,
