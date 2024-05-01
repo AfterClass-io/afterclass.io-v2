@@ -3,12 +3,12 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { ReviewForm } from "./ReviewForm";
+import { ReviewFormSection } from "./ReviewFormSection";
 import {
   type ReviewFormInputsSchema,
   reviewFormSchema,
   ReviewableEnum,
-} from "./types";
+} from "@/modules/submit/types";
 
 const comboboxItems = [
   {
@@ -59,8 +59,8 @@ const comboboxItems = [
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "Common/ReviewForm",
-  component: ReviewForm,
+  title: "Common/ReviewFormSection",
+  component: ReviewFormSection,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],
   args: {
@@ -91,7 +91,7 @@ const meta = {
     type: "course",
   },
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
-} satisfies Meta<typeof ReviewForm>;
+} satisfies Meta<typeof ReviewFormSection>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -117,7 +117,7 @@ export const Default: Story = {
           className="inline-flex flex-col items-start gap-[3.125rem]"
           onSubmit={formMethods.handleSubmit(onSubmit)}
         >
-          <ReviewForm {...args} />
+          <ReviewFormSection {...args} />
         </form>
       </FormProvider>
     );

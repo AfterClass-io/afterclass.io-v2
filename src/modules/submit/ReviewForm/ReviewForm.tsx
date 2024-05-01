@@ -1,140 +1,60 @@
 "use client";
-import { useState } from "react";
-import { useFormContext } from "react-hook-form";
 
-import { Combobox } from "@/modules/submit/Combobox";
-import { Button } from "@/common/components/Button";
-import { Field } from "@/common/components/Field";
-import { RatingGroup } from "@/common/components/RatingGroup";
-import { TagGroup } from "@/common/components/TagGroup";
-import { Textarea } from "@/common/components/Textarea";
+import { ReactNode } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { useSession } from "next-auth/react";
 
-import type { ReviewableType, ReviewFormInputsSchema } from "./types";
-import { ReviewableEnum } from "./types";
+import {
+  type ReviewFormInputsSchema,
+  reviewFormSchema,
+  ReviewableEnum,
+} from "@/modules/submit/types";
 import { reviewFormTheme } from "./ReviewForm.theme";
-import { texts } from "./constants";
+import { api } from "@/common/tools/trpc/react";
+import { useRouter } from "next/navigation";
 
-export type ReviewFormProps = {
-  type: ReviewableType;
-  comboboxItems: { value: string; label: string }[];
-  maxRating: number;
-  reviewLabels: { value: string; label: string }[];
-  isOptional?: boolean;
-};
+export const ReviewForm = ({ children }: { children: ReactNode }) => {
+  const formMethods = useForm<ReviewFormInputsSchema>({
+    resolver: zodResolver(reviewFormSchema),
+    mode: "onTouched",
+    defaultValues: {
+      type: ReviewableEnum.COURSE,
+    },
+  });
 
-export const ReviewForm = ({
-  type,
-  comboboxItems,
-  maxRating,
-  reviewLabels,
-  isOptional = false,
-}: ReviewFormProps) => {
-  const {
-    register,
-    setValue,
-    watch,
-    getValues,
-    formState: { errors },
-  } = useFormContext<ReviewFormInputsSchema>();
-  const { wrapper, divider, lower, textarea } = reviewFormTheme();
-  const [isSkipped, setIsSkipped] = useState(false);
-  const [selectedReviewable, setSelectedReviewable] = useState(
-    (getValues(`${type}.value`) || "") as string,
-  );
+  const { data: session } = useSession();
+  const router = useRouter();
 
-  // type cast required as `getValues()` returns never
-  // https://github.com/react-hook-form/react-hook-form/issues/4694
-  const bodyValue = (getValues(`${type}.body`) || "") as string;
-  const bodyHelperText =
-    errors[type]?.body?.message +
-    ` ${200 - bodyValue.length} more characters to go`;
+  const reviewsMutation = api.reviews.create.useMutation();
 
-  if (isSkipped) {
-    return null;
-  }
+  const onSubmit: SubmitHandler<ReviewFormInputsSchema> = async (data) => {
+    console.log(data);
+    let userId;
+    // TODO: populate user values from supabase when user is authenticated
+    if (!session?.user?.id) {
+      userId = "85498973-b416-45d4-a3d1-fe8d7d2d5821";
+    } else {
+      userId = session.user.id;
+    }
+
+    const reviews = reviewsMutation.mutate({
+      ...data,
+      user: { id: userId },
+    });
+    // TODO: create and highlight reviews after navigating to the review page
+    console.log(reviews);
+    router.push("/");
+  };
 
   return (
-    <div className={wrapper()}>
-      <div className="flex items-end justify-between self-stretch">
-        <Field
-          label={texts.COMBOBOX.FIELD_LABEL[type]}
-          isError={!!errors[type]?.value}
-          helperText={errors[type]?.value?.message}
-          className="max-w-96"
-        >
-          <Combobox
-            items={comboboxItems}
-            placeholder={texts.COMBOBOX.PLACEHOLDER[type]}
-            triggerLabel={texts.COMBOBOX.TRIGGER_LABEL[type]}
-            onSelectChange={(v) => {
-              /* @ts-expect-error: https://github.com/react-hook-form/react-hook-form/issues/4694 */
-              setValue(`${type}.value`, v);
-              setSelectedReviewable(
-                (getValues(`${type}.value`) || "") as string,
-              );
-            }}
-            {...register(`${type}.value`)}
-          />
-        </Field>
-        {isOptional && (
-          <Button
-            variant="tertiary"
-            onClick={() => {
-              setIsSkipped(true);
-              setValue("type", ReviewableEnum.COURSE);
-              setValue(ReviewableEnum.PROFESSOR, {});
-            }}
-          >
-            Skip review
-          </Button>
-        )}
-      </div>
-      {selectedReviewable && (
-        <>
-          <hr className={divider()} />
-          <div className={lower()}>
-            <Field
-              label={texts.RATING.FIELD_LABEL[type]}
-              isError={!!errors[type]?.rating}
-              helperText={errors[type]?.rating?.message}
-            >
-              <RatingGroup
-                maxRating={maxRating}
-                {...register(`${type}.rating`)}
-              />
-            </Field>
-            <Field
-              label={texts.TAGS.FIELD_LABEL[type]}
-              isError={!!errors[type]?.labels}
-              helperText={errors[type]?.labels?.message}
-            >
-              <TagGroup items={reviewLabels} {...register(`${type}.labels`)} />
-            </Field>
-            <Field
-              label={texts.BODY.FIELD_LABEL[type]}
-              isError={!!errors[type]?.body}
-              helperText={errors[type]?.body && bodyHelperText}
-            >
-              <Textarea
-                className={textarea()}
-                placeholder={texts.BODY.PLACEHOLDER[type]}
-                {...register(`${type}.body`)}
-              />
-            </Field>
-            <Field
-              label={texts.TIPS.FIELD_LABEL[type]}
-              isError={!!errors[type]?.tips}
-              helperText={errors[type]?.tips?.message}
-            >
-              <Textarea
-                className={textarea()}
-                placeholder={texts.TIPS.PLACEHOLDER[type]}
-                {...register(`${type}.tips`)}
-              />
-            </Field>
-          </div>
-        </>
-      )}
-    </div>
+    <FormProvider {...formMethods}>
+      <form
+        className={reviewFormTheme()}
+        onSubmit={formMethods.handleSubmit(onSubmit)}
+      >
+        {children}
+      </form>
+    </FormProvider>
   );
 };

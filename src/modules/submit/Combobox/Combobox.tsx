@@ -15,6 +15,7 @@ export type ComboboxProps = {
   onSelectChange?: (selectedValue: string) => void;
 };
 
+// TODO: find a better way for searching
 export const Combobox = forwardRef<
   ElementRef<typeof Command.Item>,
   ComboboxProps
