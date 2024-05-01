@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Prisma, UniversityAbbreviation } from "@prisma/client";
+import { type Prisma, UniversityAbbreviation } from "@prisma/client";
 import {
   createTRPCRouter,
   protectedProcedure,

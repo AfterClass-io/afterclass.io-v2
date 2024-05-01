@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { reviewFormSchema } from "@/common/tools/zod/schemas";
+import { type z } from "zod";
+import { type reviewFormSchema } from "@/common/tools/zod/schemas";
 export {
   ReviewableEnum,
   type ReviewableType,

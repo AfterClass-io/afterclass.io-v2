@@ -1,5 +1,5 @@
 "use client";
-import { ElementRef, forwardRef, useState } from "react";
+import { type ElementRef, forwardRef, useState } from "react";
 
 import { CheckIcon, ChevronDownIcon } from "@/common/components/CustomIcon";
 import { Button } from "@/common/components/Button";

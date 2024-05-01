@@ -1,11 +1,11 @@
+import { ReviewLabelType, type UniversityAbbreviation } from "@prisma/client";
+
 import { SchoolTag } from "@/common/components/SchoolTag";
 import { PageTitle } from "@/common/components/PageTitle";
-import { ReviewForm } from "@/modules/submit/ReviewForm";
-import { ReviewLabelType, type UniversityAbbreviation } from "@prisma/client";
 import { api } from "@/common/tools/trpc/server";
-import { ReviewFormSection } from "@/modules/submit/ReviewFormSection";
 import { Button } from "@/common/components/Button";
 import { toTitleCase } from "@/common/functions/toTitleCase";
+import { ReviewForm, ReviewFormSection } from "@/modules/submit/ReviewForm";
 
 export default async function SubmitReviewPage() {
   // TODO: get school from user field, to be populated automatically on successful signup based on user's email domain
