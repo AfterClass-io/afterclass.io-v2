@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { type Prisma, UniversityAbbreviation } from "@prisma/client";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 
 export const professorsRouter = createTRPCRouter({
@@ -43,4 +44,26 @@ export const professorsRouter = createTRPCRouter({
           },
         }),
     ),
+
+  getAllByUniAbbrv: publicProcedure
+    .input(
+      z.object({
+        universityAbbrv: z.nativeEnum(UniversityAbbreviation),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const professors = await ctx.db.professors.findMany({
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+        } satisfies Prisma.ProfessorsSelect,
+        where: {
+          belongToUniversity: {
+            abbrv: input.universityAbbrv,
+          },
+        },
+      });
+      return professors;
+    }),
 });

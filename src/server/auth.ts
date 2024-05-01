@@ -95,6 +95,8 @@ export const authOptions: NextAuthOptions = {
 
         if (data.user) {
           // Any object returned will be saved in `user` property of the JWT
+
+          // TODO: populate user values from supabase when user is authenticated
           return data.user;
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
