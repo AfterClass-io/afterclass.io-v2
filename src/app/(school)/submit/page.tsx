@@ -11,13 +11,11 @@ export default async function SubmitReviewPage() {
   // TODO: get school from user field, to be populated automatically on successful signup based on user's email domain
   const school = "SMU" satisfies UniversityAbbreviation;
 
-  const courses = await api.courses.getAllByUniAbbrv({
-    universityAbbrv: school,
-  });
-  const professors = await api.professors.getAllByUniAbbrv({
-    universityAbbrv: school,
-  });
-  const labels = await api.labels.getAll();
+  const [courses, professors, labels] = await Promise.all([
+    api.courses.getAllByUniAbbrv({ universityAbbrv: school }),
+    api.professors.getAllByUniAbbrv({ universityAbbrv: school }),
+    api.labels.getAll(),
+  ]);
 
   return (
     <div className="flex w-full flex-col gap-8">
