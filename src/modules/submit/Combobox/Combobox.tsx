@@ -75,3 +75,4 @@ export const Combobox = forwardRef<
     </Popover>
   );
 });
+Combobox.displayName = "Combobox";
