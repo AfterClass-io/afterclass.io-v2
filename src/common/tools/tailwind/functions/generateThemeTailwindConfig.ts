@@ -21,7 +21,7 @@ export const generateThemeTailwindConfig = (
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore – AppTheme only refers to a type, but is being used as a value here.
   themeName: keyof typeof AppTheme,
-  { colors, borderRadius, boxShadow }: TwThemeConfig
+  { colors, borderRadius, boxShadow }: TwThemeConfig,
 ) => {
   return {
     colors: {

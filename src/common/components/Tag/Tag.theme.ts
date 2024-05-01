@@ -18,8 +18,6 @@ export const tagTheme = tv(
         "border-solid",
         "border-border-default",
         "transition-color",
-        "duration-300",
-        "ease-in-out",
         "bg-transparent",
       ],
       icon: [],
@@ -34,6 +32,11 @@ export const tagTheme = tv(
           ],
         },
       },
+      clickable: {
+        true: {
+          tag: ["cursor-pointer", "hover:bg-element-secondary"],
+        },
+      },
       size: {
         sm: {
           icon: ["h-3", "w-3"],
@@ -43,6 +46,15 @@ export const tagTheme = tv(
         },
       },
     },
+    compoundVariants: [
+      {
+        active: true,
+        clickable: true,
+        class: {
+          tag: ["hover:text-text-on-secondary"],
+        },
+      },
+    ],
   },
   { responsiveVariants: true },
 );

@@ -28,6 +28,7 @@ import { Modal } from "@/common/components/Modal";
 import Heading from "@/common/components/Heading";
 import { type ReviewLabel, ReviewItem } from "@/common/components/ReviewItem";
 import { Tag } from "@/common/components/Tag";
+import { UniversityAbbreviation } from "@prisma/client";
 
 const exampleListObj = exampleListCountries.map((el) => ({
   value: el.toLowerCase(),
@@ -86,35 +87,33 @@ const CommandContent = () => (
 );
 
 const review = {
+  id: "1",
   body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor nunc a velit congue, et faucibus sapien iaculis. Quisque id felis non sapien egestas ultricies vulputate posuere quam. Vestibulum scelerisque arcu leo, sit amet interdum enim suscipit ut. Sed dolor turpis, tincidunt sed elementum at, posuere ac justo. Curabitur sem turpis, porttitor at ante sed, laoreet condimentum magna. Suspendisse ex orci, laoreet in cursus nec, rhoncus quis eros. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam lacinia varius quam, ut blandit quam suscipit nec. Morbi facilisis mauris erat, quis porttitor purus consequat id. Maecenas.",
   courseCode: "COR-MGMT1302",
   username: "Anonymous",
   likeCount: 10,
   createdAt: 1705745162,
+  university: UniversityAbbreviation.SMU,
+  reviewFor: "professor" as "professor" | "course",
+  professorName: "John Doe",
   labels: [
     {
       name: "Engaging",
-      typeof: "professor",
     },
     {
       name: "Fair Grading",
-      typeof: "professor",
     },
     {
       name: "Effective Teaching",
-      typeof: "professor",
     },
     {
       name: "Interesting",
-      typeof: "course",
     },
     {
       name: "Practical",
-      typeof: "course",
     },
     {
       name: "Gained New Skills",
-      typeof: "course",
     },
   ] as ReviewLabel[],
 };
@@ -308,7 +307,7 @@ export default function Components() {
         <Textarea size="sm"></Textarea>
       </div>
       <div className="flex gap-4">
-        {/* 
+        {/*
         to use checkbox in a form:
         <Checkbox
           label="test"
@@ -492,7 +491,7 @@ export default function Components() {
           triggerLabel="Select a Prof"
           items={exampleListObj}
         />
-        {/* 
+        {/*
         to use Combobox in a form:
         <Combobox
           placeholder="Search for a Prof..."

@@ -1,10 +1,11 @@
 import { CustomIcon, type CustomIconProps } from "../CustomIcon";
-import { NTUIcon } from "@/common/components/CustomIcon/SchoolIcon/NTUIcon";
-import { NUSIcon } from "@/common/components/CustomIcon/SchoolIcon/NUSIcon";
-import { SMUIcon } from "@/common/components/CustomIcon/SchoolIcon/SMUIcon";
+import { NTUIcon } from "./NTUIcon";
+import { NUSIcon } from "./NUSIcon";
+import { SMUIcon } from "./SMUIcon";
+import { type UniversityAbbreviation } from "@prisma/client";
 
 export interface SchoolIconProps extends CustomIconProps {
-  school: "NTU" | "SMU" | "NUS";
+  school: UniversityAbbreviation;
 }
 const svgs = {
   SMU: SMUIcon,

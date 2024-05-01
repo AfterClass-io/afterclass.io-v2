@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
-import { Prisma } from "@prisma/client";
+import { Prisma, type ReviewLabelName } from "@prisma/client";
 
 const DEFAULT_PAGE_SIZE = 10;
 
@@ -64,9 +64,10 @@ export const reviewsRouter = createTRPCRouter({
     .input(
       z.object({
         page: z.number().default(1),
-        universityId: z.number(),
-        courseId: z.string(),
+        universityId: z.number().optional(),
+        courseId: z.string().optional(),
         profId: z.string().optional(),
+        latest: z.boolean().optional().default(true),
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -78,7 +79,70 @@ export const reviewsRouter = createTRPCRouter({
           reviewedCourseId: input.courseId,
           reviewedProfessorId: input.profId,
         },
+        orderBy: input.latest ? { createdAt: "desc" } : undefined,
+        select: {
+          id: true,
+          body: true,
+          rating: true,
+          createdAt: true,
+          reviewedUniversityId: true,
+          reviewedProfessorId: true,
+          reviewedCourseId: true,
+          reviewedCourse: {
+            select: {
+              code: true,
+            },
+          },
+          reviewer: {
+            select: {
+              username: true,
+            },
+          },
+          reviewLabels: {
+            include: {
+              label: {
+                select: {
+                  name: true,
+                },
+              },
+            },
+          },
+          _count: {
+            select: {
+              votes: true,
+            },
+          },
+          reviewedProfessor: {
+            select: {
+              name: true,
+            },
+          },
+          reviewedUniversity: {
+            select: {
+              abbrv: true,
+            },
+          },
+        },
       });
-      return reviews;
+      return reviews.map((review) => ({
+        id: review.id,
+        body: review.body,
+        createdAt: review.createdAt.getTime(),
+        courseCode: review.reviewedCourse.code,
+        username: review.reviewer.username ?? "Anonymous",
+        labels: review.reviewLabels.map((rl) => {
+          const labelName = rl.label.name.split("_").join(" ").toLowerCase();
+          return {
+            name: labelName as ReviewLabelName,
+          };
+        }),
+        likeCount: review._count.votes,
+        reviewFor:
+          review.reviewedCourseId && review.reviewedProfessorId
+            ? ("professor" as "professor" | "course")
+            : ("course" as "professor" | "course"),
+        professorName: review.reviewedProfessor?.name,
+        university: review.reviewedUniversity.abbrv,
+      }));
     }),
 });

@@ -29,4 +29,3 @@ export const DefaultSmall: Story = {
     size: "sm",
   },
 };
-
