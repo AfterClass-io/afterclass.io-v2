@@ -20,6 +20,7 @@ import { RatingSection } from "@/common/components/RatingSection";
 import { StatItem } from "@/common/components/StatItem";
 import formatPercentage from "@/common/functions/formatPercentage";
 import { Combobox } from "@/modules/reviews/Combobox";
+import { Textarea } from "@/common/components/Textarea";
 
 // TODO: replace with real data
 import { exampleListCountries } from "./exampleCountryList";
@@ -301,6 +302,10 @@ export default function Components() {
           size={{ initial: "sm", md: "md" }}
           isError={true}
         />
+
+        <p className="text-muted-foreground text-sm">Test Text area</p>
+        <Textarea></Textarea>
+        <Textarea size="sm"></Textarea>
       </div>
       <div className="flex gap-4">
         {/* 
