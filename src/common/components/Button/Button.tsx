@@ -9,7 +9,6 @@ import {
   cloneElement,
   type ReactElement,
   forwardRef,
-  type ComponentProps,
 } from "react";
 
 import {
