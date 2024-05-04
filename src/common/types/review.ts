@@ -3,6 +3,7 @@ import { type UniversityAbbreviation } from "@prisma/client";
 export type Review = {
   id: string;
   body: string;
+  tips: string;
   courseCode: string;
   username: string;
   likeCount: number;
