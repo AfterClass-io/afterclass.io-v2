@@ -161,7 +161,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
         data-disabled={disabled ? "" : undefined}
       >
         <StyledIcon icon={iconLeft} />
-        {children && <span>{children}</span>}
+        {children}
         <StyledIcon icon={iconRight} />
         {loading && (
           <span className="loading absolute inset-0 grid place-content-center">
