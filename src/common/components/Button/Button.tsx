@@ -9,6 +9,7 @@ import {
   cloneElement,
   type ReactElement,
   forwardRef,
+  Fragment,
 } from "react";
 
 import {
@@ -152,11 +153,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
       return (
         <>
           <StyledIcon icon={iconLeft} />
-          <span>{children}</span>
+          {children && <span>{children}</span>}
           <StyledIcon icon={iconRight} />
         </>
       );
-    }, [children, iconLeft, iconRight]);
+    }, [iconLeft, iconRight, children, asChild]);
 
     const disableOnClickProp = {
       ...((loading ?? disabled) && { onClick: undefined }),
