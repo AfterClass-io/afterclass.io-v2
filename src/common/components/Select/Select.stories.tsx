@@ -50,14 +50,7 @@ const formSchema = z.object({
 type FormInputsSchema = z.infer<typeof formSchema>;
 
 export const AsFormInput: Story = {
-  // parameters: {
-  //   docs: {
-  //     source: {
-  //       type: "code",
-  //     },
-  //   },
-  // },
-  render: (args) => {
+  render: () => {
     const { setValue, watch } = useForm<FormInputsSchema>({
       resolver: zodResolver(formSchema),
     });
