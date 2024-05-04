@@ -22,6 +22,7 @@ interface ButtonBaseProps {
   iconLeft?: ReactNode;
   iconRight?: ReactNode;
   isResponsive?: boolean;
+  asChild?: boolean;
 }
 
 export interface ButtonLinkProps extends ComponentPropsWithoutRef<"a"> {
@@ -50,6 +51,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
       fullWidth,
       disabled,
       loading,
+      asChild = false,
       ...props
     },
     ref,
@@ -143,6 +145,19 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
       [children, styleProps?.size],
     );
 
+    const Child = useCallback(() => {
+      if (asChild) {
+        return children;
+      }
+      return (
+        <>
+          <StyledIcon icon={iconLeft} />
+          <span>{children}</span>
+          <StyledIcon icon={iconRight} />
+        </>
+      );
+    }, [children, iconLeft, iconRight]);
+
     const disableOnClickProp = {
       ...((loading ?? disabled) && { onClick: undefined }),
     };
@@ -160,9 +175,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
         })}
         data-disabled={disabled ? "" : undefined}
       >
-        <StyledIcon icon={iconLeft} />
-        {children}
-        <StyledIcon icon={iconRight} />
+        <Child />
         {loading && (
           <span className="loading absolute inset-0 grid place-content-center">
             <Icon icon="gg:spinner" className="animate-spin" />

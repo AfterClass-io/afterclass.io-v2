@@ -31,6 +31,7 @@ export const LockCtaOverlay = ({
         as="a"
         href="/account/auth/login"
         variant="ghost"
+        asChild
       >
         <LockIcon className={icon()} />
         <div className={ctaTextContainer()}>
