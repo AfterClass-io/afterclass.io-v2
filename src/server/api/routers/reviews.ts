@@ -6,7 +6,6 @@ import {
 } from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
 import { Prisma, type ReviewLabelName } from "@prisma/client";
-import { Review } from "@/common/types";
 
 const DEFAULT_PAGE_SIZE = 10;
 

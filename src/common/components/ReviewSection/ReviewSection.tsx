@@ -1,14 +1,14 @@
 "use client";
+import { type ComponentPropsWithoutRef } from "react";
 
 import { PenIcon } from "@/common/components/CustomIcon";
 import { ReviewItem } from "@/common/components/ReviewItem";
 import { api } from "@/common/tools/trpc/react";
 import { reviewSectionTheme } from "./ReviewSection.theme";
 import { useSession } from "next-auth/react";
-import { ComponentPropsWithoutRef, useEffect } from "react";
 import { ReviewItemSkeleton } from "@/common/components/ReviewItem/ReviewItemSkeleton";
 
-export type ReviewSectionProps = ComponentPropsWithoutRef<"div"> & {};
+export type ReviewSectionProps = ComponentPropsWithoutRef<"div">;
 
 export const ReviewSection = ({ className, ...props }: ReviewSectionProps) => {
   const { wrapper, header, title, icon, reviewsHeader } = reviewSectionTheme();
@@ -17,10 +17,6 @@ export const ReviewSection = ({ className, ...props }: ReviewSectionProps) => {
   const { data: reviews, isLoading } = isUserAuthenticated
     ? api.reviews.getAll.useQuery({})
     : api.reviews.getAllPublic.useQuery({});
-
-  useEffect(() => {
-    console.log(isLoading || !reviews);
-  }, [isLoading]);
 
   return (
     <div className={wrapper({ className })} {...props}>
@@ -32,7 +28,8 @@ export const ReviewSection = ({ className, ...props }: ReviewSectionProps) => {
       </div>
       <>
         {isLoading || !reviews
-          ? [...Array(10)].map(() => <ReviewItemSkeleton />)
+          ? // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            [...Array(10)].map((_, i) => <ReviewItemSkeleton key={i} />)
           : reviews.map((review) => (
               <ReviewItem
                 review={review}
