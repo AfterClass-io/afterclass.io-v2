@@ -9,6 +9,7 @@ import {
   cloneElement,
   type ReactElement,
   forwardRef,
+  type ComponentProps,
 } from "react";
 
 import {
@@ -25,9 +26,14 @@ interface ButtonBaseProps {
   asChild?: boolean;
 }
 
-export interface ButtonLinkProps extends ComponentPropsWithoutRef<"a"> {
+export interface ButtonLinkProps extends ComponentPropsWithoutRef<typeof Link> {
   as?: "a";
-  external?: boolean;
+  external?: false;
+}
+
+export interface ButtonAnchorProps extends ComponentPropsWithoutRef<"a"> {
+  as?: "a";
+  external: true;
   href: string;
 }
 
@@ -35,8 +41,10 @@ export interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
   as?: "button";
 }
 
+export type ButtonLinkOrAnchorProps = ButtonLinkProps | ButtonAnchorProps;
+
 // Discriminated union based on "as" prop
-export type ButtonOrLinkProps = (ButtonLinkProps | ButtonProps) &
+export type ButtonOrLinkProps = (ButtonLinkOrAnchorProps | ButtonProps) &
   ButtonBaseProps &
   Omit<ButtonVariants, "hasIcon" | "iconOnly">;
 
@@ -63,20 +71,24 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
         // Accessing .as instead of destructuring to make use of discriminated unions
         // https://github.com/microsoft/TypeScript/issues/46318
         if (_props.as === "a") {
-          // Has an unused `as` to remove it from baseLinkProps
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const { external, href, as, ...baseLinkProps } = _props;
-
           // External link
-          if (external) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { as, ...baseLinkOrAnchorProps } = _props;
+
+          if (baseLinkOrAnchorProps.external) {
+            // baseLinkOrAnchorProps is discriminated based on external prop
+            const { href, ...baseAnchorProps } = baseLinkOrAnchorProps;
             const externalLinkProps = {
               target: "_blank",
               rel: "noopener",
               href,
-              ...baseLinkProps,
+              ...baseAnchorProps,
             };
             return <a {...externalLinkProps}>{_children}</a>;
           }
+
+          // baseLinkOrAnchorProps is discriminated based on external prop
+          const { href, ...baseLinkProps } = baseLinkOrAnchorProps;
 
           // Internal link
           return (
@@ -156,7 +168,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
           <StyledIcon icon={iconRight} />
         </>
       );
-    }, [iconLeft, iconRight, children, asChild]);
+    }, [StyledIcon, iconLeft, iconRight, children, asChild]);
 
     const disableOnClickProp = {
       ...((loading ?? disabled) && { onClick: undefined }),

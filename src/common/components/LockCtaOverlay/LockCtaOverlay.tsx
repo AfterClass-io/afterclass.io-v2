@@ -1,3 +1,7 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+
 import { Button } from "@/common/components/Button";
 import { LockIcon } from "@/common/components/CustomIcon/LockIcon";
 import {
@@ -19,6 +23,7 @@ export const LockCtaOverlay = ({
   size = "md",
   ctaType = "rating",
 }: LockCtaOverlayProps) => {
+  const pathname = usePathname();
   const { wrapper, overlay, ctaTextContainer, icon } = lockCtaOverlayTheme({
     variant,
     size,
@@ -29,7 +34,10 @@ export const LockCtaOverlay = ({
       <Button
         className={wrapper()}
         as="a"
-        href="/account/auth/login"
+        href={{
+          pathname: "/account/auth/login",
+          query: { callbackUrl: pathname },
+        }}
         variant="ghost"
         asChild
       >

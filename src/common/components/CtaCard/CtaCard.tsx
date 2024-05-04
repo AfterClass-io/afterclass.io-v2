@@ -1,10 +1,13 @@
-import { Button, type ButtonLinkProps } from "@/common/components/Button";
+import {
+  Button,
+  type ButtonLinkOrAnchorProps,
+} from "@/common/components/Button";
 import { EditIcon, PlusIcon } from "@/common/components/CustomIcon";
 
 import { type CtaCardVariants, ctaCardTheme } from "./CtaCard.theme";
 
 export type CtaCardProps = CtaCardVariants &
-  ButtonLinkProps & {
+  ButtonLinkOrAnchorProps & {
     ctaText: string;
   };
 
