@@ -47,7 +47,7 @@ export const LoginForm = () => {
     await signIn("credentials", {
       email,
       password,
-      callbackUrl: searchParams.get("callbackUrl") || "/reviews",
+      callbackUrl: searchParams.get("callbackUrl") || "/",
     });
     reset();
   };
