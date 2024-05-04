@@ -8,13 +8,13 @@ export const reviewItemTheme = tv(
       wrapper: [
         "flex",
         "flex-col",
-        "p-2",
+        "p-4",
         "items-start",
-        "w-[45rem]",
-        "gap-[0.375rem]",
+        "w-full",
+        "gap-4",
         "rounded-md",
         "cursor-pointer",
-        "rounded-md",
+        "max-w-[45rem]",
       ],
       headingContainer: [
         "flex",
@@ -58,6 +58,24 @@ export const reviewItemTheme = tv(
         "items-start",
         "capitalize",
       ],
+      skeleton: ["bg-surface-elevated animate-pulse rounded-md"],
+    },
+    variants: {
+      isLocked: {
+        true: {
+          body: [
+            "relative",
+            "flex",
+            "h-16",
+            "w-full",
+            "self-stretch",
+            "overflow-hidden",
+            "text-sm",
+            "text-ellipsis",
+            "text-text-em-high",
+          ],
+        },
+      },
     },
   },
   { responsiveVariants: true },

@@ -1,4 +1,6 @@
-import { reviewItemTheme, ProfileSchool, ProfileReviewer } from "./index";
+import { ProfileSchool } from "./ProfileSchool";
+import { ProfileReviewer } from "./ProfileReviewer";
+import { reviewItemTheme } from "./ReviewItem.theme";
 import { Button } from "@/common/components/Button";
 import { ThumbUpFilledIcon } from "@/common/components/CustomIcon";
 import { getHumanReadableTimestampDelta } from "@/common/functions";
