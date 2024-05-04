@@ -16,6 +16,7 @@ export default withTV({
         header: "10",
         "header-sidebar": "11",
         modal: "50",
+        select: "51",
         dropdown: "51",
         popover: "52",
         tooltip: "53",
