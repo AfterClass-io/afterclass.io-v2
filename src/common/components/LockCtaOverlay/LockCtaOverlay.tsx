@@ -26,15 +26,18 @@ export const LockCtaOverlay = ({
   return (
     <>
       <div className={overlay()}></div>
-      <div className={wrapper()}>
+      <Button
+        className={wrapper()}
+        as="a"
+        href="/account/auth/login"
+        variant="ghost"
+      >
         <LockIcon className={icon()} />
         <div className={ctaTextContainer()}>
-          <Button variant="link" as="a" href="/account/auth/login">
-            Login
-          </Button>
+          <Button variant="link">Login</Button>
           <span>{ctaTextMap[ctaType]}</span>
         </div>
-      </div>
+      </Button>
     </>
   );
 };
