@@ -1,12 +1,15 @@
+"use client";
+
 import { Modal } from "@/common/components/Modal";
-import { ReviewHeader, ReviewBody } from "@/common/components/ReviewItem";
+import { ReviewHeader } from "@/common/components/ReviewItem/ReviewHeader";
+import { ReviewBody } from "@/common/components/ReviewItem/ReviewBody";
 import { ProfileSchool } from "@/common/components/ReviewItem/ProfileSchool";
 import { reviewModalTheme } from "./ReviewModal.theme";
 import { getHumanReadableTimestampDelta } from "@/common/functions";
 import { ShareIcon, ThumbUpFilledIcon } from "@/common/components/CustomIcon";
 import { type Review } from "@/common/types";
 
-const ReviewModal = ({
+export const ReviewModal = ({
   review,
   variant,
   seeMore = false,
@@ -80,5 +83,3 @@ const ReviewModal = ({
     </Modal>
   );
 };
-
-export default ReviewModal;

@@ -1,3 +1,4 @@
+import { ThemeToggle } from "@/common/components/ThemeToggle";
 import { cn } from "@/common/functions";
 import { type PropsWithChildren } from "react";
 
@@ -16,7 +17,10 @@ export default function SchoolLayout({ children }: PropsWithChildren) {
         <span>School header</span>
 
         {/* TODO: Add user profile component */}
-        <span>User</span>
+        <div className="flex items-center gap-4">
+          <span>User</span>
+          <ThemeToggle />
+        </div>
       </header>
 
       <div className="px-6 py-6 md:px-12 md:py-12">

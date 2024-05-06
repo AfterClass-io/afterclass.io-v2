@@ -12,6 +12,6 @@ export const config = {
      *
      * @see https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|account/auth|not-found).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|account/auth|not-found|submit|$).*)",
   ],
 };
