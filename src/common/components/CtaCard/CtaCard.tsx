@@ -1,5 +1,6 @@
 import {
   Button,
+  type ButtonVariants,
   type ButtonLinkOrAnchorProps,
 } from "@/common/components/Button";
 import { EditIcon, PlusIcon } from "@/common/components/CustomIcon";
@@ -7,6 +8,7 @@ import { EditIcon, PlusIcon } from "@/common/components/CustomIcon";
 import { type CtaCardVariants, ctaCardTheme } from "./CtaCard.theme";
 
 export type CtaCardProps = CtaCardVariants &
+  ButtonVariants &
   ButtonLinkOrAnchorProps & {
     ctaText: string;
   };

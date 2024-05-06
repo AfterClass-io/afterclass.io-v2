@@ -17,7 +17,7 @@ export default function Home() {
               href="/submit"
             />
             <CtaCard
-              variant="ghost"
+              variant="tertiary"
               ctaText="Contribute to AfterClass OSS"
               href="https://github.com/AfterClass-io/afterclass.io-v2"
               external

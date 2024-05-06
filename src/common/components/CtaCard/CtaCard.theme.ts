@@ -12,14 +12,6 @@ export const ctaCardTheme = tv(
       icon: ["h-6 w-6"],
       cta: ["text-lg font-semibold"],
     },
-    variants: {
-      variant: {
-        secondary: {},
-        ghost: {
-          button: ["border-border-default bg-element-tertiary"],
-        },
-      },
-    },
   },
   { responsiveVariants: true },
 );
