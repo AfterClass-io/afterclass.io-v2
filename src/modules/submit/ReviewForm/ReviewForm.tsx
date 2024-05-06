@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { useSession } from "next-auth/react";
@@ -11,8 +11,9 @@ import {
   reviewFormSchema,
 } from "@/common/tools/zod/schemas";
 import { api } from "@/common/tools/trpc/react";
-import { ReviewableEnum } from "@/modules/submit/types";
 import { reviewFormTheme } from "./ReviewForm.theme";
+import { ReviewableEnum } from "../types";
+import { SubmitButtonGroup } from "../SubmitButtonGroup";
 
 export const ReviewForm = ({ children }: { children: ReactNode }) => {
   const formMethods = useForm<ReviewFormInputsSchema>({
@@ -25,8 +26,20 @@ export const ReviewForm = ({ children }: { children: ReactNode }) => {
 
   const { data: session } = useSession();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const reviewsMutation = api.reviews.create.useMutation();
+
+  useEffect(() => {
+    setIsLoading(reviewsMutation.isPending);
+  }, [reviewsMutation.isPending]);
+
+  useEffect(() => {
+    if (reviewsMutation.isSuccess) {
+      // TODO: create and highlight reviews after navigating to the review page
+      router.push("/");
+    }
+  }, [reviewsMutation.isSuccess]);
 
   const onSubmit: SubmitHandler<ReviewFormInputsSchema> = (data) => {
     console.log(data);
@@ -38,13 +51,10 @@ export const ReviewForm = ({ children }: { children: ReactNode }) => {
       userId = session.user.id;
     }
 
-    const reviews = reviewsMutation.mutate({
+    reviewsMutation.mutate({
       ...data,
       user: { id: userId },
     });
-    // TODO: create and highlight reviews after navigating to the review page
-    console.log(reviews);
-    router.push("/");
   };
 
   const { form: formTheme } = reviewFormTheme();
@@ -56,6 +66,7 @@ export const ReviewForm = ({ children }: { children: ReactNode }) => {
         onSubmit={formMethods.handleSubmit(onSubmit)}
       >
         {children}
+        <SubmitButtonGroup isLoading={isLoading} />
       </form>
     </FormProvider>
   );

@@ -52,7 +52,6 @@ export default async function SubmitReviewPage() {
           type="professor"
           isOptional
         />
-        <SubmitButtonGroup />
       </ReviewForm>
     </div>
   );

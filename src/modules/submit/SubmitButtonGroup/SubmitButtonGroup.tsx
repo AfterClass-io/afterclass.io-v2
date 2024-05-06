@@ -13,7 +13,7 @@ import { SubmitAsEnum } from "@/modules/submit/types";
 
 import { submitButtonGroupTheme } from "./SubmitButtonGroup.theme";
 
-export const SubmitButtonGroup = () => {
+export const SubmitButtonGroup = ({ isLoading }: { isLoading: boolean }) => {
   const [submitAs, setSubmitAs] = useState<SubmitAsEnum>(SubmitAsEnum.USER);
   const { setValue } = useFormContext<ReviewFormInputsSchema>();
   const { data: session } = useSession();
@@ -32,7 +32,12 @@ export const SubmitButtonGroup = () => {
 
   return (
     <div className={wrapper()}>
-      <Button variant="primary" type="submit" className={submitButton()}>
+      <Button
+        variant="primary"
+        type="submit"
+        className={submitButton()}
+        loading={isLoading}
+      >
         Submit {session && submitAsBtnText}
       </Button>
       <Select
