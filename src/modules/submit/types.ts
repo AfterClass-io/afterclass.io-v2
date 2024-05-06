@@ -1,9 +1,10 @@
-import { type z } from "zod";
-import { type reviewFormSchema } from "@/common/tools/zod/schemas";
-export {
-  ReviewableEnum,
-  type ReviewableType,
-  reviewFormSchema,
-} from "@/common/tools/zod/schemas";
+export enum ReviewableEnum {
+  COURSE = "course",
+  PROFESSOR = "professor",
+}
+export type ReviewableType = `${ReviewableEnum}`;
 
-export type ReviewFormInputsSchema = z.infer<typeof reviewFormSchema>;
+export enum SubmitAsEnum {
+  ANONYMOUS = "anonymous",
+  USER = "user",
+}

@@ -4,6 +4,8 @@
 import { env } from "@/env.mjs";
 import { z } from "zod";
 
+import { ReviewableEnum, SubmitAsEnum } from "@/modules/submit/types";
+
 /**
  * Schema for the authentication form inputs
  */
@@ -24,12 +26,6 @@ export const emailValidationSchema = z
 /**
  * Schema for the review submission form inputs
  */
-export enum ReviewableEnum {
-  COURSE = "course",
-  PROFESSOR = "professor",
-}
-export type ReviewableType = `${ReviewableEnum}`;
-
 const courseReviewFormSchema = z.object({
   value: z.string().min(1, "This field is required"),
   rating: z.coerce.number().positive().min(1).max(5),
@@ -51,10 +47,13 @@ export const reviewFormSchema = z.discriminatedUnion("type", [
     [ReviewableEnum.COURSE]: courseReviewFormSchema,
     [ReviewableEnum.PROFESSOR]: professorReviewFormSchema,
     type: z.literal(ReviewableEnum.PROFESSOR),
+    submitAs: z.nativeEnum(SubmitAsEnum),
   }),
   z.object({
     [ReviewableEnum.COURSE]: courseReviewFormSchema,
     [ReviewableEnum.PROFESSOR]: professorReviewFormSchema.partial(),
     type: z.literal(ReviewableEnum.COURSE),
+    submitAs: z.nativeEnum(SubmitAsEnum),
   }),
 ]);
+export type ReviewFormInputsSchema = z.infer<typeof reviewFormSchema>;

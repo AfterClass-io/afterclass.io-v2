@@ -9,11 +9,8 @@ import { Field } from "@/common/components/Field";
 import { RatingGroup } from "@/common/components/RatingGroup";
 import { TagGroup } from "@/common/components/TagGroup";
 import { Textarea } from "@/common/components/Textarea";
-import {
-  ReviewableEnum,
-  type ReviewableType,
-  type ReviewFormInputsSchema,
-} from "@/modules/submit/types";
+import { type ReviewFormInputsSchema } from "@/common/tools/zod/schemas";
+import { ReviewableEnum, type ReviewableType } from "@/modules/submit/types";
 import { texts } from "@/modules/submit/constants";
 
 import { reviewFormTheme } from "./ReviewForm.theme";

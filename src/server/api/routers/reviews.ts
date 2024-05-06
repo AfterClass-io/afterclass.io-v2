@@ -7,7 +7,8 @@ import {
 import { TRPCError } from "@trpc/server";
 import { Prisma } from "@prisma/client";
 import { type Review } from "@/common/types";
-import { ReviewableEnum, reviewFormSchema } from "@/common/tools/zod/schemas";
+import { reviewFormSchema } from "@/common/tools/zod/schemas";
+import { ReviewableEnum } from "@/modules/submit/types";
 
 const DEFAULT_PAGE_SIZE = 10;
 

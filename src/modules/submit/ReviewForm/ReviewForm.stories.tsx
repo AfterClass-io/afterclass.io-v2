@@ -4,11 +4,12 @@ import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { ReviewFormSection } from "./ReviewFormSection";
+
 import {
   type ReviewFormInputsSchema,
   reviewFormSchema,
-  ReviewableEnum,
-} from "@/modules/submit/types";
+} from "@/common/tools/zod/schemas";
+import { ReviewableEnum } from "@/modules/submit/types";
 
 const comboboxItems = [
   {

@@ -4,15 +4,15 @@ import { type ReactNode } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 import {
   type ReviewFormInputsSchema,
   reviewFormSchema,
-  ReviewableEnum,
-} from "@/modules/submit/types";
-import { reviewFormTheme } from "./ReviewForm.theme";
+} from "@/common/tools/zod/schemas";
 import { api } from "@/common/tools/trpc/react";
-import { useRouter } from "next/navigation";
+import { ReviewableEnum } from "@/modules/submit/types";
+import { reviewFormTheme } from "./ReviewForm.theme";
 
 export const ReviewForm = ({ children }: { children: ReactNode }) => {
   const formMethods = useForm<ReviewFormInputsSchema>({
