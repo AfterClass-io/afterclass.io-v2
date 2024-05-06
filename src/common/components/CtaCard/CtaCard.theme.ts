@@ -14,12 +14,8 @@ export const ctaCardTheme = tv(
     },
     variants: {
       variant: {
-        primary: {
-          button: [
-            "border-border-secondary bg-element-secondary text-text-on-secondary",
-          ],
-        },
-        secondary: {
+        secondary: {},
+        ghost: {
           button: ["border-border-default bg-element-tertiary"],
         },
       },

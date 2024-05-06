@@ -11,9 +11,13 @@ export default function Home() {
         <div className="flex w-full gap-10">
           <ReviewSection className="w-full" />
           <div className="flex w-96 flex-none flex-col items-start gap-6">
-            <CtaCard ctaText="Write a review" href="/submit" />
             <CtaCard
               variant="secondary"
+              ctaText="Write a review"
+              href="/submit"
+            />
+            <CtaCard
+              variant="ghost"
               ctaText="Contribute to AfterClass OSS"
               href="https://github.com/AfterClass-io/afterclass.io-v2"
               external

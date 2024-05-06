@@ -11,14 +11,10 @@ export type CtaCardProps = CtaCardVariants &
     ctaText: string;
   };
 
-export const CtaCard = ({
-  ctaText,
-  variant = "primary",
-  ...props
-}: CtaCardProps) => {
+export const CtaCard = ({ ctaText, variant, ...props }: CtaCardProps) => {
   const { button, ctaWrapper, cta, icon } = ctaCardTheme({ variant });
   return (
-    <Button variant="ghost" as="a" className={button()} asChild {...props}>
+    <Button variant={variant} as="a" className={button()} asChild {...props}>
       <div className={ctaWrapper()}>
         <PlusIcon className={icon()} />
         <span className={cta()}>{ctaText}</span>
