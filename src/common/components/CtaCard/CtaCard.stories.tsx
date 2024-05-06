@@ -10,6 +10,7 @@ const meta = {
   tags: ["autodocs"],
   args: {
     ctaText: "Write a review",
+    variant: "secondary",
     href: "",
   },
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
@@ -20,11 +21,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
-export const Secondary: Story = {
+export const SecondaryCTA: Story = {
   ...Default,
   args: {
     ...Default.args,
-    variant: "secondary",
+    variant: "tertiary",
     ctaText: "Contribute to AfterClass OSS",
   },
 };
