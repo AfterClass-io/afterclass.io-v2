@@ -22,8 +22,6 @@ export const textareaTheme = tv(
         "text-text-em-mid",
         "hover:border-surface-elevated",
         "hover:bg-surface-elevated",
-        "focus-visible:bg-bg-base",
-        "focus-visible:outline-none",
       ],
     },
     variants: {

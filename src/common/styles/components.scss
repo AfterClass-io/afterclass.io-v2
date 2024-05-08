@@ -1,5 +1,5 @@
 @layer components {
   .focus-ring {
-    @apply focus-visible:border-primary-default focus-visible:ring-2 focus-visible:ring-primary-default/20;
+    @apply focus-visible:border-primary-default focus-visible:ring-2 focus-visible:ring-primary-default/20 focus-visible:bg-bg-base focus-visible:outline-none;
   }
 }
