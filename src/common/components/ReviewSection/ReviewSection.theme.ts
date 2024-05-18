@@ -11,6 +11,7 @@ export const reviewSectionTheme = tv(
         "bg-surface-base",
         "rounded-3xl",
         "p-8",
+        "w-full",
       ],
       header: ["flex", "items-center", "justify-between"],
       title: ["flex", "items-center", "gap-4"],
