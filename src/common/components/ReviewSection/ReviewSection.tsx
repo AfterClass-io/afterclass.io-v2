@@ -18,7 +18,7 @@ export const ReviewSection = ({
     <div className={wrapper({ className })} {...props}>
       <div className={header()}>
         <div className={title()}>
-          <PenIcon className={icon()} size={24} />
+          <PenIcon className={icon()} />
           <div className={reviewsHeader()}>Reviews</div>
         </div>
       </div>
