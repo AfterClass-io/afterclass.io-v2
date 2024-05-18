@@ -1298,5 +1298,18 @@
     "updatedAt": "2024-02-15T12:55:42.794Z",
     "reviewedFacultyId": 6,
     "reviewedUniversityId": 1
+  },
+  {
+    "id": "f0b1ee9e-6164-4565-890d-45d844593e63",
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin faucibus mauris id dignissim pretium. Curabitur non lectus id dolor euismod mattis. Nunc cursus vulputate orci sed ullamcorper. Sed aliquam, lectus vitae hendrerit euismod, ante nunc auctor orci, at sagittis leo libero vitae velit.\n\nSuspendisse vel nibh eget felis commodo congue finibus eu justo. Sed sodales ornare consectetur. Nunc fermentum dui vitae augue malesuada pellentesque. Nulla facilisi. Donec placerat tellus vitae magna pulvinar interdum. Integer turpis ligula, ullamcorper quis augue id, ultrices varius dui.\n\nMorbi eget aliquet odio. Integer lorem neque, ultricies ac gravida in, bibendum et risus. Donec bibendum dictum sapien, sit amet sodales purus semper at. In ac consectetur urna. Ut nec erat quis erat accumsan condimentum ac eu felis. Donec risus libero, scelerisque nec pretium ac, tincidunt sit amet lacus. Sed urna sapien, scelerisque a justo ut, faucibus tincidunt urna. Praesent nec nisi orci.",
+    "tips": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ex turpis, finibus eget quam sed, ornare ultrices ipsum. Aliquam massa ipsum, faucibus at imperdiet sit amet, lobortis id ipsum. Suspendisse.\n\nSed nec mauris eu sem finibus posuere at non ligula. Vestibulum ut elementum ante, eget bibendum ipsum. Donec tempus, dolor non tincidunt fringilla, ipsum purus aliquet arcu, id sollicitudin erat nisi a dolor.",
+    "rating": 5,
+    "reviewedProfessorId": "e0d1c563-93d3-48aa-a096-f7ac93b9d57b",
+    "reviewedCourseId": "c229563a-4361-4b4a-8c89-346d0c6c6553",
+    "reviewerId": "62a8ccfd-8fc3-4e61-aa0c-ec7c03967f48",
+    "createdAt": "2024-02-15T12:55:42.794Z",
+    "updatedAt": "2024-02-15T12:55:42.794Z",
+    "reviewedFacultyId": 6,
+    "reviewedUniversityId": 1
   }
 ]
