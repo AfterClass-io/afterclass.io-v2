@@ -83,7 +83,7 @@ export const WithSubHeader: Story = {
     );
     return (
       <FilterToggleSection>
-        <FilterToggleSection.Header type="professor" />
+        <FilterToggleSection.Header type="course" />
         <FilterToggleSection.Items>
           {[
             {
