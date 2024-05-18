@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 
 import { FilterToggleSection as Filter } from "@/common/components/FilterToggleSection";
@@ -21,7 +20,7 @@ export type FilterToggleSectionProps =
     };
 
 export const FilterToggleSection = (props: FilterToggleSectionProps) => {
-  const { replace } = useRouter();
+  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -47,7 +46,7 @@ export const FilterToggleSection = (props: FilterToggleSectionProps) => {
   const updateSearchParams = (newSelectedItems: string[]) => {
     params.delete(searchParamsName);
     newSelectedItems.forEach((v) => params.append(searchParamsName, v));
-    replace(`${pathname}?${params.toString()}`);
+    router.replace(`${pathname}?${params.toString()}`);
   };
 
   return (
