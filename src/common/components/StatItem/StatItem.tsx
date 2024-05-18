@@ -35,7 +35,7 @@ export const StatItem = ({
   );
 };
 
-StatItem.Skeleton = ({
+const StatItemSkeleton = ({
   layout,
   label,
 }: StatItemVariants & { label?: string }) => {
@@ -55,3 +55,4 @@ StatItem.Skeleton = ({
     </div>
   );
 };
+StatItem.Skeleton = StatItemSkeleton;

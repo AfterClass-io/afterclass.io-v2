@@ -4,7 +4,6 @@ import {
 } from "./RatingSection.theme";
 import { HeartIcon } from "@/common/components/CustomIcon";
 import { LockCtaOverlay } from "@/common/components/LockCtaOverlay";
-import { Skeleton } from "@/common/components/Skeleton";
 import { StatItem, type StatItemProps } from "@/common/components/StatItem";
 
 export type RatingSectionProps = RatingSectionVariants & {
@@ -42,7 +41,7 @@ export const RatingSection = ({
   );
 };
 
-RatingSection.Skeleton = () => {
+const RatingSectionSkeleton = () => {
   const { wrapper, headingContainer, headingRating, statItemWrapper, icon } =
     ratingSectionTheme();
   return (
@@ -61,3 +60,4 @@ RatingSection.Skeleton = () => {
     </div>
   );
 };
+RatingSection.Skeleton = RatingSectionSkeleton;
