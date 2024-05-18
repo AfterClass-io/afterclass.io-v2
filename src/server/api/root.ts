@@ -1,6 +1,9 @@
 import {
   coursesRouter,
+  labelsRouter,
+  professorsRouter,
   reviewsRouter,
+  reviewLabelsRouter,
   universityRouter,
 } from "@/server/api/routers";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
@@ -11,9 +14,12 @@ import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-  university: universityRouter,
-  reviews: reviewsRouter,
   courses: coursesRouter,
+  labels: labelsRouter,
+  professors: professorsRouter,
+  reviews: reviewsRouter,
+  reviewLabels: reviewLabelsRouter,
+  university: universityRouter,
 });
 
 // export type definition of API
