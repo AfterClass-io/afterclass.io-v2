@@ -5,7 +5,8 @@ import {
   publicProcedure,
 } from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
-import { Prisma, type ReviewLabelName } from "@prisma/client";
+import { Prisma } from "@prisma/client";
+import { type Review } from "@/common/types";
 
 const DEFAULT_PAGE_SIZE = 10;
 
@@ -56,7 +57,8 @@ const PRIVATE_REVIEW_FIELDS = {
   ...PUBLIC_REVIEW_FIELDS,
   body: true,
   tips: true,
-};
+  rating: true,
+} satisfies Prisma.ReviewsSelect;
 
 export const reviewsRouter = createTRPCRouter({
   create: protectedProcedure
@@ -113,7 +115,7 @@ export const reviewsRouter = createTRPCRouter({
         });
       }
     }),
-  getAll: protectedProcedure
+  getAllProtected: protectedProcedure
     .input(
       z.object({
         page: z.number().default(1),
@@ -135,29 +137,28 @@ export const reviewsRouter = createTRPCRouter({
         orderBy: input.latest ? { createdAt: "desc" } : undefined,
         select: PRIVATE_REVIEW_FIELDS,
       });
-      return reviews.map((review) => ({
-        id: review.id,
-        body: review.body,
-        tips: review.tips ?? "",
-        createdAt: review.createdAt.getTime(),
-        courseCode: review.reviewedCourse.code,
-        username: review.reviewer.username ?? "Anonymous",
-        labels: review.reviewLabels.map((rl) => {
-          const labelName = rl.label.name.split("_").join(" ").toLowerCase();
-          return {
-            name: labelName as ReviewLabelName,
-          };
-        }),
-        likeCount: review._count.votes,
-        reviewFor:
-          review.reviewedCourseId && review.reviewedProfessorId
-            ? ("professor" as "professor" | "course")
-            : ("course" as "professor" | "course"),
-        professorName: review.reviewedProfessor?.name,
-        university: review.reviewedUniversity.abbrv,
-      }));
+      return reviews.map(
+        (review) =>
+          ({
+            ...review,
+            tips: review.tips ?? "",
+            createdAt: review.createdAt.getTime(),
+            courseCode: review.reviewedCourse.code,
+            username: review.reviewer.username ?? "Anonymous",
+            reviewLabels: review.reviewLabels.map((rl) => ({
+              name: rl.label.name,
+            })),
+            likeCount: review._count.votes,
+            reviewFor:
+              review.reviewedCourseId && review.reviewedProfessorId
+                ? ("professor" as "professor" | "course")
+                : ("course" as "professor" | "course"),
+            professorName: review.reviewedProfessor?.name,
+            university: review.reviewedUniversity.abbrv,
+          }) satisfies Review,
+      );
     }),
-  getAllPublic: publicProcedure
+  getAll: publicProcedure
     .input(
       z.object({
         page: z.number().default(1),
@@ -179,26 +180,131 @@ export const reviewsRouter = createTRPCRouter({
         orderBy: input.latest ? { createdAt: "desc" } : undefined,
         select: PUBLIC_REVIEW_FIELDS,
       });
-      return reviews.map((review) => ({
-        id: review.id,
-        body: "",
-        tips: "",
-        createdAt: review.createdAt.getTime(),
-        courseCode: review.reviewedCourse.code,
-        username: review.reviewer.username ?? "Anonymous",
-        labels: review.reviewLabels.map((rl) => {
-          const labelName = rl.label.name.split("_").join(" ").toLowerCase();
-          return {
-            name: labelName as ReviewLabelName,
-          };
-        }),
-        likeCount: review._count.votes,
-        reviewFor:
-          review.reviewedCourseId && review.reviewedProfessorId
-            ? ("professor" as "professor" | "course")
-            : ("course" as "professor" | "course"),
-        professorName: review.reviewedProfessor?.name,
-        university: review.reviewedUniversity.abbrv,
-      }));
+      return reviews.map(
+        (review) =>
+          ({
+            ...review,
+            body: "",
+            tips: "",
+            rating: 0,
+            createdAt: review.createdAt.getTime(),
+            courseCode: review.reviewedCourse.code,
+            username: review.reviewer.username ?? "Anonymous",
+            reviewLabels: review.reviewLabels.map((rl) => ({
+              name: rl.label.name,
+            })),
+            likeCount: review._count.votes,
+            reviewFor:
+              review.reviewedCourseId && review.reviewedProfessorId
+                ? ("professor" as "professor" | "course")
+                : ("course" as "professor" | "course"),
+            professorName: review.reviewedProfessor?.name,
+            university: review.reviewedUniversity.abbrv,
+          }) satisfies Review,
+      );
     }),
+  getByProfSlugProtected: protectedProcedure
+    .input(
+      z.object({
+        slug: z.string(),
+        page: z.number().default(1),
+        universityId: z.number().optional(),
+        courseId: z.string().optional(),
+        latest: z.boolean().optional().default(true),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const reviews = await ctx.db.reviews.findMany({
+        skip: DEFAULT_PAGE_SIZE * (input.page - 1),
+        take: DEFAULT_PAGE_SIZE,
+        where: {
+          reviewedUniversityId: input.universityId,
+          reviewedCourseId: input.courseId,
+          reviewedProfessor: {
+            slug: input.slug,
+          },
+        },
+        orderBy: input.latest ? { createdAt: "desc" } : undefined,
+        select: PRIVATE_REVIEW_FIELDS,
+      });
+      return reviews.map(
+        (review) =>
+          ({
+            ...review,
+            tips: review.tips ?? "",
+            createdAt: review.createdAt.getTime(),
+            courseCode: review.reviewedCourse.code,
+            username: review.reviewer.username ?? "Anonymous",
+            reviewLabels: review.reviewLabels.map((rl) => ({
+              name: rl.label.name,
+            })),
+            likeCount: review._count.votes,
+            reviewFor:
+              review.reviewedCourseId && review.reviewedProfessorId
+                ? ("professor" as "professor" | "course")
+                : ("course" as "professor" | "course"),
+            professorName: review.reviewedProfessor?.name,
+            university: review.reviewedUniversity.abbrv,
+          }) satisfies Review,
+      );
+    }),
+  getByProfSlug: publicProcedure
+    .input(
+      z.object({
+        slug: z.string(),
+        page: z.number().default(1),
+        universityId: z.number().optional(),
+        courseId: z.string().optional(),
+        latest: z.boolean().optional().default(true),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const reviews = await ctx.db.reviews.findMany({
+        skip: DEFAULT_PAGE_SIZE * (input.page - 1),
+        take: DEFAULT_PAGE_SIZE,
+        where: {
+          reviewedUniversityId: input.universityId,
+          reviewedCourseId: input.courseId,
+          reviewedProfessor: {
+            slug: input.slug,
+          },
+        },
+        orderBy: input.latest ? { createdAt: "desc" } : undefined,
+        select: PUBLIC_REVIEW_FIELDS,
+      });
+      return reviews.map(
+        (review) =>
+          ({
+            ...review,
+            body: "",
+            tips: "",
+            rating: 0,
+            createdAt: review.createdAt.getTime(),
+            courseCode: review.reviewedCourse.code,
+            username: review.reviewer.username ?? "Anonymous",
+            likeCount: review._count.votes,
+            reviewLabels: review.reviewLabels.map((rl) => ({
+              name: rl.label.name,
+            })),
+            reviewFor:
+              review.reviewedCourseId && review.reviewedProfessorId
+                ? ("professor" as "professor" | "course")
+                : ("course" as "professor" | "course"),
+            professorName: review.reviewedProfessor?.name,
+            university: review.reviewedUniversity.abbrv,
+          }) satisfies Review,
+      );
+    }),
+  countByCourseCode: publicProcedure
+    .input(z.object({ courseCode: z.string() }))
+    .query(
+      async ({ input, ctx }) =>
+        await ctx.db.reviews.count({
+          where: {
+            reviewedCourse: {
+              code: input.courseCode,
+            },
+          },
+        }),
+    ),
 });
