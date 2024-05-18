@@ -15,7 +15,9 @@ export const ReviewBody = ({ review, isDetailed }: ReviewBodyProps) => {
       {isDetailed && (
         <div className={labels()}>
           {review.reviewLabels.map((label) => (
-            <span key={label.name}>{label.name}</span>
+            <span key={label.name}>
+              {label.name.replaceAll("_", " ").toLowerCase()}
+            </span>
           ))}
         </div>
       )}
