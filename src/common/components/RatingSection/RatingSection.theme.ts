@@ -32,6 +32,7 @@ export const ratingSectionTheme = tv(
         "gap-14",
         "py-0",
         "px-1",
+        "capitalize",
       ],
       icon: ["h-6", "w-6"],
     },
