@@ -14,7 +14,7 @@ export const ReviewBody = ({ review, isDetailed }: ReviewBodyProps) => {
     <div className="flex flex-col gap-1">
       {isDetailed && (
         <div className={labels()}>
-          {review.labels.map((label) => (
+          {review.reviewLabels.map((label) => (
             <span key={label.name}>{label.name}</span>
           ))}
         </div>

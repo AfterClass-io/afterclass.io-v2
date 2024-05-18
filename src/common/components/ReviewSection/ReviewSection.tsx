@@ -15,8 +15,8 @@ export const ReviewSection = ({ className, ...props }: ReviewSectionProps) => {
   const { status } = useSession();
   const isUserAuthenticated = status === "authenticated";
   const { data: reviews, isLoading } = isUserAuthenticated
-    ? api.reviews.getAll.useQuery({})
-    : api.reviews.getAllPublic.useQuery({});
+    ? api.reviews.getAllProtected.useQuery({})
+    : api.reviews.getAll.useQuery({});
 
   return (
     <div className={wrapper({ className })} {...props}>
