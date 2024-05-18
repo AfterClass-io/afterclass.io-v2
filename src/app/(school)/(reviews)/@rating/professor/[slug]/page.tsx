@@ -5,10 +5,20 @@ import { getServerAuthSession } from "@/server/auth";
 
 export default async function ProfessorRating({
   params,
+  searchParams,
 }: {
   params: { slug: string };
+  searchParams?: {
+    course?: string | string[];
+  };
 }) {
   const session = await getServerAuthSession();
+  let courseCodes: string[] = [];
+  if (searchParams?.course) {
+    courseCodes = Array.isArray(searchParams.course)
+      ? searchParams.course
+      : [searchParams.course];
+  }
 
   const getProfReviewsBySlugApi = session
     ? api.reviews.getByProfSlugProtected
@@ -17,6 +27,7 @@ export default async function ProfessorRating({
   const [reviewsOfThisProf, validProfessorReviewLabels] = await Promise.all([
     getProfReviewsBySlugApi({
       slug: params.slug,
+      courseCodes: courseCodes.length > 0 ? courseCodes : undefined,
     }),
     api.labels.getAllByType({
       typeOf: "PROFESSOR",

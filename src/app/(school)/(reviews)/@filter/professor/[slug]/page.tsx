@@ -1,5 +1,5 @@
 import { GraduationCapIcon, PencilIcon } from "@/common/components/CustomIcon";
-import { FilterToggleSection } from "@/modules/professor/FilterToggleSection";
+import { FilterToggleSection } from "@/modules/reviews/FilterToggleSection";
 import { api } from "@/common/tools/trpc/server";
 import { getServerAuthSession } from "@/server/auth";
 
@@ -10,16 +10,12 @@ export default async function ProfessorFilter({
 }) {
   const session = await getServerAuthSession();
   if (!session) {
-    return <FilterToggleSection isLocked />;
+    return <FilterToggleSection filterType="course" isLocked />;
   }
 
   const coursesTaughtByThisProf = await api.courses.getByProfSlug({
     slug: params.slug,
   });
-
-  if (coursesTaughtByThisProf.length === 0) {
-    return <FilterToggleSection dataToFilter={[]} />;
-  }
 
   const coursesWithMetadata = await Promise.all(
     coursesTaughtByThisProf.map(async (course) => {
@@ -41,6 +37,8 @@ export default async function ProfessorFilter({
 
   return (
     <FilterToggleSection
+      filterType="course"
+      searchParamsName="course"
       dataToFilter={coursesWithMetadata.map((course) => ({
         label: course.name,
         sublabel: course.code,
