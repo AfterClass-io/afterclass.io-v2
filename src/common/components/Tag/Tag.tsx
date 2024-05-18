@@ -1,3 +1,5 @@
+"use client";
+
 import { tagTheme, type TagVariants } from "./Tag.theme";
 import {
   Children,
