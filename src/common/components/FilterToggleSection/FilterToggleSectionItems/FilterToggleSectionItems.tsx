@@ -1,3 +1,4 @@
+import { FilterToggleSectionItemsSkeleton } from "@/common/components/FilterToggleSection/FilterToggleSectionSkeleton";
 import { filterToggleSectionTheme } from "../FilterToggleSection.theme";
 import {
   FilterToggleSectionItem,
@@ -31,3 +32,5 @@ export const FilterToggleSectionItems = ({
     </div>
   );
 };
+
+FilterToggleSectionItems.Skeleton = FilterToggleSectionItemsSkeleton;
