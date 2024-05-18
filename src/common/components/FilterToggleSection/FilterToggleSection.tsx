@@ -6,6 +6,7 @@ import {
 import { LockCtaOverlay } from "@/common/components/LockCtaOverlay";
 import { FilterToggleSectionHeader } from "./FilterToggleSectionHeader";
 import { FilterToggleSectionItems } from "./FilterToggleSectionItems";
+import { FilterToggleSectionItem } from "./FilterToggleSectionItem";
 
 export type FilterToggleSectionProps = ComponentPropsWithoutRef<"div"> &
   FilterToggleSectionVariants & {
@@ -35,3 +36,4 @@ export const FilterToggleSection = ({
 
 FilterToggleSection.Header = FilterToggleSectionHeader;
 FilterToggleSection.Items = FilterToggleSectionItems;
+FilterToggleSection.Item = FilterToggleSectionItem;

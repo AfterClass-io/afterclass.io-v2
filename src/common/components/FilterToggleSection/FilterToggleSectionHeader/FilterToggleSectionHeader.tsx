@@ -9,17 +9,17 @@ export const FilterToggleSectionHeader = ({
 }: {
   type: "course" | "professor";
 }) => {
-  const { sectionHeader } = filterToggleSectionTheme();
+  const { sectionHeader, headerIcon } = filterToggleSectionTheme();
   return (
     <div className={sectionHeader()}>
       {type === "course" ? (
         <>
-          <BooksColoredIcon />
+          <BooksColoredIcon className={headerIcon()} />
           <p>Courses</p>
         </>
       ) : (
         <>
-          <GraduationCapColoredIcon />
+          <GraduationCapColoredIcon className={headerIcon()} />
           <p>Professors</p>
         </>
       )}
