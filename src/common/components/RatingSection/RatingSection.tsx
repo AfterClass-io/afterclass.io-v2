@@ -4,6 +4,7 @@ import {
 } from "./RatingSection.theme";
 import { HeartIcon } from "@/common/components/CustomIcon";
 import { LockCtaOverlay } from "@/common/components/LockCtaOverlay";
+import { Skeleton } from "@/common/components/Skeleton";
 import { StatItem, type StatItemProps } from "@/common/components/StatItem";
 
 export type RatingSectionProps = RatingSectionVariants & {
@@ -36,6 +37,26 @@ export const RatingSection = ({
         {ratingItems.map((item, i) => (
           <StatItem {...item} key={i} isLocked={isLocked} />
         ))}
+      </div>
+    </div>
+  );
+};
+
+RatingSection.Skeleton = () => {
+  const { wrapper, headingContainer, headingRating, statItemWrapper, icon } =
+    ratingSectionTheme();
+  return (
+    <div className={wrapper()}>
+      <div className={headingContainer()}>
+        <div className={headingRating()}>
+          <HeartIcon className={icon()} />
+          <StatItem.Skeleton layout="horizontal" label="Average Rating" />
+        </div>
+      </div>
+      <div className={statItemWrapper()}>
+        <StatItem.Skeleton />
+        <StatItem.Skeleton />
+        <StatItem.Skeleton />
       </div>
     </div>
   );

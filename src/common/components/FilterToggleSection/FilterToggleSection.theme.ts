@@ -9,7 +9,7 @@ export const filterToggleSectionTheme = tv(
     slots: {
       section: [
         "flex",
-        "w-[1200px]",
+        "w-full",
         "p-6",
         "flex-col",
         "items-start",
