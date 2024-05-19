@@ -13,6 +13,27 @@ export default async function ProfessorRating({
   };
 }) {
   const session = await getServerAuthSession();
+
+  const validProfessorReviewLabels = await api.labels.getAllByType({
+    typeOf: "PROFESSOR",
+  });
+
+  if (!session) {
+    return (
+      <RatingSection
+        headingRatingItem={{
+          label: "Average Rating",
+          rating: "-",
+        }}
+        ratingItems={validProfessorReviewLabels.map((label) => ({
+          label: label.name.replaceAll("_", " ").toLowerCase(),
+          rating: "-",
+        }))}
+        isLocked={!session}
+      />
+    );
+  }
+
   let courseCodes: string[] = [];
   if (searchParams?.course) {
     courseCodes = Array.isArray(searchParams.course)
@@ -20,19 +41,10 @@ export default async function ProfessorRating({
       : [searchParams.course];
   }
 
-  const getProfReviewsBySlugApi = session
-    ? api.reviews.getByProfSlugProtected
-    : api.reviews.getByProfSlug;
-
-  const [reviewsOfThisProf, validProfessorReviewLabels] = await Promise.all([
-    getProfReviewsBySlugApi({
-      slug: params.slug,
-      courseCodes: courseCodes.length > 0 ? courseCodes : undefined,
-    }),
-    api.labels.getAllByType({
-      typeOf: "PROFESSOR",
-    }),
-  ]);
+  const reviewsOfThisProf = await api.reviews.getByProfSlugProtected({
+    slug: params.slug,
+    courseCodes: courseCodes.length > 0 ? courseCodes : undefined,
+  });
 
   if (reviewsOfThisProf.length === 0) {
     return (
@@ -42,7 +54,6 @@ export default async function ProfessorRating({
           rating: "-",
         }}
         ratingItems={[]}
-        isLocked={!session}
       />
     );
   }
@@ -71,7 +82,6 @@ export default async function ProfessorRating({
         rating: averageRating.toFixed(2),
       }}
       ratingItems={ratingItems}
-      isLocked={!session}
     />
   );
 }
