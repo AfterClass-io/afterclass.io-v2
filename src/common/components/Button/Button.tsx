@@ -76,7 +76,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
 
           if (baseLinkOrAnchorProps.external) {
             // baseLinkOrAnchorProps is discriminated based on external prop
-            const { href, ...baseAnchorProps } = baseLinkOrAnchorProps;
+            const { href, external, ...baseAnchorProps } =
+              baseLinkOrAnchorProps;
             const externalLinkProps = {
               target: "_blank",
               rel: "noopener",
