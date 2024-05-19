@@ -14,7 +14,7 @@ export default async function CourseHeader({
     return notFound();
   }
   return (
-    <div>
+    <div className="w-full">
       <PageTitle
         contentLeft={<BooksIcon className="h-9 w-9" />}
         contentRight={
