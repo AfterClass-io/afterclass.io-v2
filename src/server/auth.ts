@@ -7,9 +7,11 @@ import {
 } from "next-auth";
 import { z } from "zod";
 import { randomBytes, randomUUID } from "crypto";
+import bcrypt from "bcrypt";
 import { env } from "@/env.mjs";
 import { signInWithEmail } from "./supabase";
 import { emailValidationSchema } from "@/common/tools/zod/schemas";
+import { db } from "@/server/db";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -61,6 +63,22 @@ export const authOptions: NextAuthOptions = {
         if (!c.success) {
           console.log("auth.ts:72 ~ authorize ~ error:", c.error);
           return null;
+        }
+
+        const user = await db.users.findUnique({
+          where: { email: c.data.email },
+        });
+
+        if (
+          user &&
+          user.deprecatedPasswordDigest &&
+          bcrypt.compareSync(
+            c.data.password,
+            user.deprecatedPasswordDigest ?? "",
+          )
+        ) {
+          console.log("auth.ts:76 ~ authorize ~ error:", "Invalid password");
+          return user;
         }
 
         const { data, error } = await signInWithEmail(
