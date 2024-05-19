@@ -76,6 +76,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
 
           if (baseLinkOrAnchorProps.external) {
             // baseLinkOrAnchorProps is discriminated based on external prop
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { href, external, ...baseAnchorProps } =
               baseLinkOrAnchorProps;
             const externalLinkProps = {
