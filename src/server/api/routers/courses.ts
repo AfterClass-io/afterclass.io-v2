@@ -146,4 +146,25 @@ export const coursesRouter = createTRPCRouter({
           },
         }),
     ),
+
+  countByProfSlug: protectedProcedure
+    .input(
+      z.object({
+        slug: z.string(),
+      }),
+    )
+    .query(
+      async ({ ctx, input }) =>
+        await ctx.db.courses.count({
+          where: {
+            classes: {
+              some: {
+                professor: {
+                  slug: input.slug,
+                },
+              },
+            },
+          },
+        }),
+    ),
 });

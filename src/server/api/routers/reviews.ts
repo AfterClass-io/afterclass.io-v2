@@ -333,11 +333,28 @@ export const reviewsRouter = createTRPCRouter({
   countByCourseCode: publicProcedure
     .input(z.object({ courseCode: z.string() }))
     .query(
-      async ({ input, ctx }) =>
+      async ({ ctx, input }) =>
         await ctx.db.reviews.count({
           where: {
             reviewedCourse: {
               code: input.courseCode,
+            },
+          },
+        }),
+    ),
+
+  countByProfessorSlug: publicProcedure
+    .input(
+      z.object({
+        slug: z.string(),
+      }),
+    )
+    .query(
+      async ({ ctx, input }) =>
+        await ctx.db.reviews.count({
+          where: {
+            reviewedProfessor: {
+              slug: input.slug,
             },
           },
         }),
