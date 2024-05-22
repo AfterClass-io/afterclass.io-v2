@@ -77,7 +77,7 @@ export const authOptions: NextAuthOptions = {
             user.deprecatedPasswordDigest ?? "",
           )
         ) {
-          console.log("auth.ts:76 ~ authorize ~ error:", "Invalid password");
+          console.log(`User ${user.id} logged in with v1 credentials.`);
           return user;
         }
 
