@@ -7,8 +7,10 @@ import { getServerAuthSession } from "@/server/auth";
 
 export default async function CourseRating({
   params,
+  searchParams,
 }: {
   params: { code: string };
+  searchParams?: { professor?: string | string[] };
 }) {
   const session = await getServerAuthSession();
   const validCourseReviewLabels = await api.labels.getAllByType({
@@ -29,9 +31,16 @@ export default async function CourseRating({
       />
     );
   }
-  const reviewsOfCourse = await api.reviews.getByCourseCodeProtected({
+  const professorSlugs: string[] = searchParams?.professor
+    ? Array.isArray(searchParams.professor)
+      ? searchParams.professor
+      : [searchParams.professor]
+    : [];
+  const apiParams = {
     code: params.code,
-  });
+    ...(professorSlugs.length > 0 && { slugs: professorSlugs }),
+  };
+  const reviewsOfCourse = await api.reviews.getByCourseCodeProtected(apiParams);
   if (reviewsOfCourse.length === 0) {
     return (
       <RatingSection
