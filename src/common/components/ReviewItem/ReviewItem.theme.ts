@@ -58,7 +58,6 @@ export const reviewItemTheme = tv(
         "items-start",
         "capitalize",
       ],
-      skeleton: ["bg-surface-elevated animate-pulse rounded-md"],
     },
     variants: {
       isLocked: {

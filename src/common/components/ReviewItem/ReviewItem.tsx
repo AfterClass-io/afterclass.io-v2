@@ -3,10 +3,6 @@ import { reviewItemTheme, type ReviewItemVariants } from "./ReviewItem.theme";
 import { LockCtaOverlay } from "@/common/components/LockCtaOverlay";
 import { ReviewModal } from "@/common/components/ReviewModal";
 import { type Review } from "@/common/types";
-// TODO: to replace with prisma generated types
-export type ReviewLabel = {
-  name: string;
-};
 
 export type ReviewItemProps = ReviewItemVariants & {
   review: Review;

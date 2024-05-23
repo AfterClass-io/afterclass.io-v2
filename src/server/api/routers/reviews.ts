@@ -209,7 +209,7 @@ export const reviewsRouter = createTRPCRouter({
         slug: z.string(),
         page: z.number().default(1),
         universityId: z.number().optional(),
-        courseId: z.string().optional(),
+        courseCodes: z.string().array().optional(),
         latest: z.boolean().optional().default(true),
       }),
     )
@@ -219,10 +219,8 @@ export const reviewsRouter = createTRPCRouter({
         take: DEFAULT_PAGE_SIZE,
         where: {
           reviewedUniversityId: input.universityId,
-          reviewedCourseId: input.courseId,
-          reviewedProfessor: {
-            slug: input.slug,
-          },
+          reviewedCourse: { code: { in: input.courseCodes } },
+          reviewedProfessor: { slug: input.slug },
         },
         orderBy: input.latest ? { createdAt: "desc" } : undefined,
         select: PRIVATE_REVIEW_FIELDS,
@@ -254,7 +252,7 @@ export const reviewsRouter = createTRPCRouter({
         slug: z.string(),
         page: z.number().default(1),
         universityId: z.number().optional(),
-        courseId: z.string().optional(),
+        courseCodes: z.string().array().optional(),
         latest: z.boolean().optional().default(true),
       }),
     )
@@ -264,10 +262,8 @@ export const reviewsRouter = createTRPCRouter({
         take: DEFAULT_PAGE_SIZE,
         where: {
           reviewedUniversityId: input.universityId,
-          reviewedCourseId: input.courseId,
-          reviewedProfessor: {
-            slug: input.slug,
-          },
+          reviewedCourse: { code: { in: input.courseCodes } },
+          reviewedProfessor: { slug: input.slug },
         },
         orderBy: input.latest ? { createdAt: "desc" } : undefined,
         select: PUBLIC_REVIEW_FIELDS,

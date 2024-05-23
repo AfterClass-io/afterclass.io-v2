@@ -1,12 +1,5 @@
 import { reviewItemTheme } from "./ReviewItem.theme";
-
-const Skeleton = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => {
-  const { skeleton } = reviewItemTheme();
-  return <div className={skeleton({ className })} {...props} />;
-};
+import { Skeleton } from "@/common/components/Skeleton";
 
 export const ReviewItemSkeleton = () => {
   const { wrapper, headingContainer, metadataContainer } = reviewItemTheme();
