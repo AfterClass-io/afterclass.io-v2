@@ -166,6 +166,9 @@ CREATE UNIQUE INDEX "users_telegram_id_key" ON "users"("telegram_id");
 CREATE UNIQUE INDEX "universities_site_url_key" ON "universities"("site_url");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "courses_code_key" ON "courses"("code");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "professors_slug_key" ON "professors"("slug");
 
 -- CreateIndex
