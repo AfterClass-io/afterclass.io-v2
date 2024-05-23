@@ -32,6 +32,20 @@ export const env = createEnv({
    */
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
+    NEXT_PUBLIC_SITE_URL: z
+      .optional(z.string())
+      .transform((str) => {
+        let url =
+          str ??
+          process.env.NEXT_PUBLIC_VERCEL_URL ?? // Automatically set by Vercel.
+          "http://localhost:3000/";
+        // Make sure to include `https://` when not localhost.
+        url = url.includes("http") ? url : `https://${url}`;
+        // Make sure to include a trailing `/`.
+        url = url.charAt(url.length - 1) === "/" ? url : `${url}/`;
+        return url;
+      })
+      .pipe(z.string().url()),
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
     NEXT_PUBLIC_SUPABASE_URL: z.string(),
     NEXT_PUBLIC_SUPPORTED_SCH_DOMAINS: z
@@ -66,6 +80,7 @@ export const env = createEnv({
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL ?? process.env.VERCEL_URL,
     SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     NEXT_PUBLIC_SUPPORTED_SCH_DOMAINS:

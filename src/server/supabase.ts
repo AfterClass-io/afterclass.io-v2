@@ -23,6 +23,9 @@ export const signUpWithEmail = async (email: string, password: string) => {
   const { data, error } = await supabase.auth.signUp({
     email: email,
     password: password,
+    options: {
+      emailRedirectTo: `${env.NEXT_PUBLIC_SITE_URL}/account/auth/login`,
+    },
   });
   return { data, error };
 };
