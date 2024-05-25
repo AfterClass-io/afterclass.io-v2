@@ -126,7 +126,7 @@ export const authOptions: NextAuthOptions = {
                 id: data.user.id,
                 email: data.user.email ?? c.data.email,
                 username: "",
-                isVerified: data.user.user_metadata?.isVerified ?? false,
+                isVerified: !!data.user.confirmed_at || false,
                 universityId: uniOfThisEmail.id,
               },
             });
