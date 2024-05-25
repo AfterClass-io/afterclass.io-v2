@@ -10,11 +10,10 @@ export const config = {
      * - favicon.ico (favicon file)
      * - account/auth (routes used for auth)
      * - not-found (404 page)
-     * - submit (form submission)
      * - professor (professor page)
      *
      * @see https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|account/auth|not-found|submit|professor|$).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|account/auth|not-found|professor|$).*)",
   ],
 };
