@@ -24,11 +24,15 @@ export const ReviewForm = ({ children }: { children: ReactNode }) => {
     },
   });
 
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(status === "loading");
 
   const reviewsMutation = api.reviews.create.useMutation();
+
+  useEffect(() => {
+    setIsLoading(status === "loading");
+  }, [status]);
 
   useEffect(() => {
     setIsLoading(reviewsMutation.isPending);
