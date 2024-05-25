@@ -1,6 +1,9 @@
 import { AuthCard } from "@/common/components/Auth";
+import { Button } from "@/common/components/Button";
 import Heading from "@/common/components/Heading";
 import { notFound } from "next/navigation";
+import { env } from "@/env.mjs";
+import { Fragment } from "react";
 
 export default function Verify({
   searchParams,
@@ -40,8 +43,21 @@ export default function Verify({
             <li className="">
               <b className="text-text-em-high">
                 Ensure the correct email address was used to register with
-                AfterClass.
+                AfterClass.{" "}
               </b>
+              <span>We currently only support emails from these domains: </span>
+              <span className="flex gap-1">
+                {env.NEXT_PUBLIC_SUPPORTED_SCH_DOMAINS.map((domain, i) => (
+                  <Fragment key={i}>
+                    {i > 0 && <span className="mr-1">,</span>}
+                    <span className="relative inline-block before:absolute before:-inset-[2px] before:my-[5px] before:bg-border-primary/15">
+                      <pre className="inline text-text-on-secondary">
+                        {domain}
+                      </pre>
+                    </span>
+                  </Fragment>
+                ))}
+              </span>
             </li>
             <li>
               <b className="text-text-em-high">
@@ -53,21 +69,44 @@ export default function Verify({
             </li>
             <li>
               <b className="text-text-em-high">
-                Add the{" "}
-                <span className="text-text-on-secondary underline">
+                <span>Add the </span>
+                <Button
+                  as="a"
+                  href="mailto:noreply@afterclass.io"
+                  variant="link"
+                  className="inline"
+                >
                   noreply@afterclass.io
-                </span>{" "}
-                email and the{" "}
-                <span className="text-text-on-secondary underline">
+                </Button>
+                <span> email and the </span>
+                <Button
+                  as="a"
+                  href="https://afterclass.io"
+                  variant="link"
+                  className="inline"
+                >
                   afterclass.io
-                </span>{" "}
-                domain to your email service's safe senders list.{" "}
+                </Button>
+                <span> domain to your email service’s safe senders list. </span>
               </b>
-              As an additional measure, adding AfterClass's email and domain
+              As an additional measure, adding AfterClass’s email and domain
               will further help reduce the likelihood of emails being flagged as
               spam.
             </li>
           </ol>
+          <p>
+            <span>Still having trouble? </span>
+            <b className="text-text-em-high">Reach out to us via Telegram </b>
+            <Button
+              as="a"
+              href="https://t.me/AfterClass"
+              variant="link"
+              className="inline"
+              external
+            >
+              @afterclass
+            </Button>
+          </p>
         </div>
       </AuthCard>
     </section>
