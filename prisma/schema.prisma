@@ -40,22 +40,23 @@ model Reviews {
 }
 
 model Users {
-    id           String        @id @default(uuid())
-    username     String?       @unique
-    firstName    String?       @map("first_name")
-    lastName     String?       @map("last_name")
-    email        String        @unique
-    telegramId   String?       @unique @map("telegram_id")
-    photoUrl     String?       @map("photo_url")
-    isVerified   Boolean       @default(false) @map("is_verified")
-    university   Universities  @relation(fields: [universityId], references: [id])
-    universityId Int           @map("university_id")
-    faculty      Faculties?    @relation(fields: [facultyId], references: [id])
-    facultyId    Int?          @map("faculty_id")
-    createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamptz(3)
-    updatedAt    DateTime      @updatedAt @map("updated_at") @db.Timestamptz(3)
-    reviews      Reviews[]
-    votes        ReviewVotes[]
+    id                       String        @id @default(uuid())
+    deprecatedPasswordDigest String?       @map("deprecated_password_digest")
+    username                 String?       @unique
+    firstName                String?       @map("first_name")
+    lastName                 String?       @map("last_name")
+    email                    String        @unique
+    telegramId               String?       @unique @map("telegram_id")
+    photoUrl                 String?       @map("photo_url")
+    isVerified               Boolean       @default(false) @map("is_verified")
+    university               Universities  @relation(fields: [universityId], references: [id])
+    universityId             Int           @map("university_id")
+    faculty                  Faculties?    @relation(fields: [facultyId], references: [id])
+    facultyId                Int?          @map("faculty_id")
+    createdAt                DateTime      @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt                DateTime      @updatedAt @map("updated_at") @db.Timestamptz(3)
+    reviews                  Reviews[]
+    votes                    ReviewVotes[]
 
     @@map("users")
 }
