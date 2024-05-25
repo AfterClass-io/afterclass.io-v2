@@ -27,15 +27,15 @@ CREATE TABLE "reviews" (
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
-    "deprecated_password_digest" TEXT,
-    "username" TEXT,
-    "first_name" TEXT,
-    "last_name" TEXT,
     "email" TEXT NOT NULL,
-    "telegram_id" TEXT,
-    "photo_url" TEXT,
+    "username" TEXT NOT NULL,
     "is_verified" BOOLEAN NOT NULL DEFAULT false,
     "university_id" INTEGER NOT NULL,
+    "deprecated_password_digest" TEXT,
+    "first_name" TEXT,
+    "last_name" TEXT,
+    "telegram_id" TEXT,
+    "photo_url" TEXT,
     "faculty_id" INTEGER,
     "created_at" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ(3) NOT NULL,
@@ -53,6 +53,17 @@ CREATE TABLE "universities" (
     "updated_at" TIMESTAMPTZ(3) NOT NULL,
 
     CONSTRAINT "universities_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "university_domains" (
+    "id" SERIAL NOT NULL,
+    "domain" TEXT NOT NULL,
+    "belong_to_university" INTEGER NOT NULL,
+    "created_at" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMPTZ(3) NOT NULL,
+
+    CONSTRAINT "university_domains_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -155,16 +166,25 @@ CREATE TABLE "review_labels" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "users_username_key" ON "users"("username");
+CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
+CREATE UNIQUE INDEX "users_username_key" ON "users"("username");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_telegram_id_key" ON "users"("telegram_id");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "universities_abbrv_key" ON "universities"("abbrv");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "universities_site_url_key" ON "universities"("site_url");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "university_domains_domain_key" ON "university_domains"("domain");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "university_domains_domain_belong_to_university_key" ON "university_domains"("domain", "belong_to_university");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "professors_slug_key" ON "professors"("slug");
@@ -192,6 +212,9 @@ ALTER TABLE "users" ADD CONSTRAINT "users_university_id_fkey" FOREIGN KEY ("univ
 
 -- AddForeignKey
 ALTER TABLE "users" ADD CONSTRAINT "users_faculty_id_fkey" FOREIGN KEY ("faculty_id") REFERENCES "faculties"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "university_domains" ADD CONSTRAINT "university_domains_belong_to_university_fkey" FOREIGN KEY ("belong_to_university") REFERENCES "universities"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "courses" ADD CONSTRAINT "courses_belong_to_university_fkey" FOREIGN KEY ("belong_to_university") REFERENCES "universities"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

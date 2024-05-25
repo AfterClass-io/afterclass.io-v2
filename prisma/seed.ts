@@ -56,6 +56,11 @@ async function main() {
   await prisma.reviewVotes.createMany({
     data: reviewVotes,
   });
+
+  const universityDomain = require("./data/12_university_domains.json");
+  await prisma.universityDomains.createMany({
+    data: universityDomain,
+  });
 }
 
 main()
