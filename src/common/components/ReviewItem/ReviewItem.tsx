@@ -8,7 +8,6 @@ export type ReviewItemProps = ReviewItemVariants & {
   review: Review;
   isLocked?: boolean;
   variant?: "home" | "professor" | "course";
-  isLoading?: boolean;
 };
 
 export const ReviewItem = ({
