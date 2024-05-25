@@ -28,16 +28,14 @@ export default async function Course({
 
   return (
     <ReviewSection>
-      {reviews.map((review) => {
-        return (
-          <ReviewItem
-            review={review}
-            key={review.id}
-            isLocked={!session}
-            variant="course"
-          />
-        );
-      })}
+      {reviews.map((review) => (
+        <ReviewItem
+          review={review}
+          key={review.id}
+          isLocked={!session}
+          variant="course"
+        />
+      ))}
     </ReviewSection>
   );
 }
