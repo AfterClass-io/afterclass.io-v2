@@ -64,6 +64,7 @@ export const authOptions: NextAuthOptions = {
           console.log("auth.ts:72 ~ authorize ~ error:", c.error);
           return null;
         }
+        const emailDomain = c.data.email.split("@")[1];
 
         const user = await db.users.findUnique({
           where: { email: c.data.email },
@@ -94,8 +95,44 @@ export const authOptions: NextAuthOptions = {
         }
 
         if (data.user) {
+          if (!user) {
+            // user signed into supabase successfully, but user doesn't exist in our database
+            const uniOfThisEmail = await db.universities.findFirst({
+              include: {
+                domains: true,
+              },
+              where: {
+                domains: {
+                  some: {
+                    domain: {
+                      equals: emailDomain,
+                    },
+                  },
+                },
+              },
+            });
+
+            if (!uniOfThisEmail) {
+              console.error(
+                `Unexpected email domain '${emailDomain}'.\n` +
+                  "\tUser has signed up with this email but the domain is not associated with any university. " +
+                  "\tPlease check the database for the domain and add it to the universities table if necessary",
+              );
+              return null;
+            }
+
+            return await db.users.create({
+              data: {
+                id: data.user.id,
+                email: data.user.email ?? c.data.email,
+                username: "",
+                isVerified: data.user.user_metadata?.isVerified ?? false,
+                universityId: uniOfThisEmail.id,
+              },
+            });
+          }
           // Any object returned will be saved in `user` property of the JWT
-          return data.user;
+          return user;
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
           return null;
