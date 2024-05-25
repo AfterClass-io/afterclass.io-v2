@@ -31,7 +31,7 @@ export default async function CourseRating({
       />
     );
   }
-  const professorSlugs: string[] = searchParams?.professor
+  const professorSlugs = searchParams?.professor
     ? Array.isArray(searchParams.professor)
       ? searchParams.professor
       : [searchParams.professor]

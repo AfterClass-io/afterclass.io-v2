@@ -11,7 +11,7 @@ export default async function Course({
   searchParams?: { professor?: string | string[] };
 }) {
   const session = await getServerAuthSession();
-  const professorSlugs: string[] = searchParams?.professor
+  const professorSlugs = searchParams?.professor
     ? Array.isArray(searchParams.professor)
       ? searchParams.professor
       : [searchParams.professor]
