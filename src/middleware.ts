@@ -12,6 +12,7 @@ export const config = {
      * - not-found (404 page)
      * - submit (form submission)
      * - professor (professor page)
+     * - course (course page)
      *
      * @see https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths
      */
