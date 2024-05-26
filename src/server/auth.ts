@@ -12,6 +12,7 @@ import { env } from "@/env.mjs";
 import { signInWithEmail } from "./supabase";
 import { emailValidationSchema } from "@/common/tools/zod/schemas";
 import { db } from "@/server/db";
+import randomId from "@/common/functions/randomId";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -125,7 +126,7 @@ export const authOptions: NextAuthOptions = {
               data: {
                 id: data.user.id,
                 email: data.user.email ?? c.data.email,
-                username: "",
+                username: `user_${randomId()}`,
                 isVerified: !!data.user.confirmed_at || false,
                 universityId: uniOfThisEmail.id,
               },
