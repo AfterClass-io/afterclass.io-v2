@@ -2,7 +2,7 @@ import { CustomIcon, type CustomIconProps } from "./CustomIcon";
 
 export const Spinner = (props: CustomIconProps) => {
   return (
-    <CustomIcon {...props}>
+    <CustomIcon width={16} height={16} {...props}>
       <g fill="currentColor">
         <path
           fillRule="evenodd"
