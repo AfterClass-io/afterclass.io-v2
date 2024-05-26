@@ -98,20 +98,12 @@ export const authOptions: NextAuthOptions = {
         if (data.user) {
           if (!user) {
             // user signed into supabase successfully, but user doesn't exist in our database
-            const uniOfThisEmail = await db.universities.findFirst({
-              include: {
-                domains: true,
-              },
-              where: {
-                domains: {
-                  some: {
-                    domain: {
-                      equals: emailDomain,
-                    },
-                  },
-                },
-              },
+            const universities = await db.universities.findMany({
+              include: { domains: true },
             });
+            const uniOfThisEmail = universities.find((u) =>
+              u.domains.some((d) => emailDomain!.endsWith(d.domain)),
+            );
 
             if (!uniOfThisEmail) {
               console.error(
