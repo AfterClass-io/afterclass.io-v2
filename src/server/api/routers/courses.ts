@@ -70,6 +70,19 @@ export const coursesRouter = createTRPCRouter({
           },
         }),
     ),
+
+  getByCourseCode: publicProcedure.input(z.object({ code: z.string() })).query(
+    async ({ ctx, input }) =>
+      await ctx.db.courses.findUnique({
+        include: {
+          belongToUniversity: true,
+        },
+        where: {
+          code: input.code,
+        },
+      }),
+  ),
+
   getByProfSlug: publicProcedure
     .input(
       z.object({
@@ -133,6 +146,7 @@ export const coursesRouter = createTRPCRouter({
           },
         }),
     ),
+
   getAllByUniAbbrv: publicProcedure
     .input(
       z.object({
@@ -154,4 +168,25 @@ export const coursesRouter = createTRPCRouter({
       });
       return courses;
     }),
+
+  countByProfSlug: protectedProcedure
+    .input(
+      z.object({
+        slug: z.string(),
+      }),
+    )
+    .query(
+      async ({ ctx, input }) =>
+        await ctx.db.courses.count({
+          where: {
+            classes: {
+              some: {
+                professor: {
+                  slug: input.slug,
+                },
+              },
+            },
+          },
+        }),
+    ),
 });

@@ -11,6 +11,7 @@ export const config = {
      * - account/auth (routes used for auth)
      * - not-found (404 page)
      * - professor (professor page)
+     * - course (course page)
      *
      * @see https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths
      */
