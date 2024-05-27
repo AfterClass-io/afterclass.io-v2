@@ -44,6 +44,7 @@ const PUBLIC_REVIEW_FIELDS = {
   reviewedProfessor: {
     select: {
       name: true,
+      slug: true,
     },
   },
   reviewedUniversity: {
@@ -291,14 +292,126 @@ export const reviewsRouter = createTRPCRouter({
           }) satisfies Review,
       );
     }),
+
+  getByCourseCodeProtected: protectedProcedure
+    .input(
+      z.object({
+        code: z.string(),
+        slugs: z.string().array().optional(),
+        page: z.number().default(1),
+        latest: z.boolean().optional().default(true),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const reviews = await ctx.db.reviews.findMany({
+        skip: DEFAULT_PAGE_SIZE * (input.page - 1),
+        take: DEFAULT_PAGE_SIZE,
+        where: {
+          reviewedCourse: { code: input.code },
+          // reviewedProfessor is in slugs or reviewedProfessorId is null
+          OR: [
+            { reviewedProfessor: { slug: { in: input.slugs } } },
+            { reviewedProfessorId: null },
+          ],
+        },
+        orderBy: input.latest ? { createdAt: "desc" } : undefined,
+        select: PRIVATE_REVIEW_FIELDS,
+      });
+      return reviews.map(
+        (review) =>
+          ({
+            ...review,
+            tips: review.tips ?? "",
+            createdAt: review.createdAt.getTime(),
+            courseCode: review.reviewedCourse.code,
+            username: review.reviewer.username ?? "Anonymous",
+            reviewLabels: review.reviewLabels.map((rl) => ({
+              name: rl.label.name,
+            })),
+            likeCount: review._count.votes,
+            reviewFor:
+              review.reviewedCourseId && review.reviewedProfessorId
+                ? ("professor" as "professor" | "course")
+                : ("course" as "professor" | "course"),
+            professorName: review.reviewedProfessor?.name,
+            university: review.reviewedUniversity.abbrv,
+          }) satisfies Review,
+      );
+    }),
+
+  getByCourseCode: publicProcedure
+    .input(
+      z.object({
+        code: z.string(),
+        slugs: z.string().array().optional(),
+        page: z.number().default(1),
+        latest: z.boolean().optional().default(true),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const reviews = await ctx.db.reviews.findMany({
+        skip: DEFAULT_PAGE_SIZE * (input.page - 1),
+        take: DEFAULT_PAGE_SIZE,
+        where: {
+          reviewedCourse: { code: input.code },
+          // reviewedProfessor is in slugs or reviewedProfessorId is null
+          OR: [
+            { reviewedProfessor: { slug: { in: input.slugs } } },
+            { reviewedProfessorId: null },
+          ],
+        },
+        orderBy: input.latest ? { createdAt: "desc" } : undefined,
+        select: PRIVATE_REVIEW_FIELDS,
+      });
+      return reviews.map(
+        (review) =>
+          ({
+            ...review,
+            body: "",
+            tips: "",
+            rating: 0,
+            createdAt: review.createdAt.getTime(),
+            courseCode: review.reviewedCourse.code,
+            username: review.reviewer.username ?? "Anonymous",
+            likeCount: review._count.votes,
+            reviewLabels: review.reviewLabels.map((rl) => ({
+              name: rl.label.name,
+            })),
+            reviewFor:
+              review.reviewedCourseId && review.reviewedProfessorId
+                ? ("professor" as "professor" | "course")
+                : ("course" as "professor" | "course"),
+            professorName: review.reviewedProfessor?.name,
+            university: review.reviewedUniversity.abbrv,
+          }) satisfies Review,
+      );
+    }),
+
   countByCourseCode: publicProcedure
     .input(z.object({ courseCode: z.string() }))
     .query(
-      async ({ input, ctx }) =>
+      async ({ ctx, input }) =>
         await ctx.db.reviews.count({
           where: {
             reviewedCourse: {
               code: input.courseCode,
+            },
+          },
+        }),
+    ),
+
+  countByProfessorSlug: publicProcedure
+    .input(
+      z.object({
+        slug: z.string(),
+      }),
+    )
+    .query(
+      async ({ ctx, input }) =>
+        await ctx.db.reviews.count({
+          where: {
+            reviewedProfessor: {
+              slug: input.slug,
             },
           },
         }),

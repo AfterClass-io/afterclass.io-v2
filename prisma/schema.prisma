@@ -79,7 +79,7 @@ model Universities {
 
 model Courses {
     id                   String       @id @default(uuid())
-    code                 String
+    code                 String       @unique
     name                 String
     description          String
     creditUnits          Float        @map("credit_units")
