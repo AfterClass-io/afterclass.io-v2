@@ -8,6 +8,7 @@ import ThemeProvider from "@/common/providers/ThemeProvider";
 import AuthProvider from "@/common/providers/AuthProvider";
 import { inter, poppins } from "@/common/fonts";
 import { env } from "@/env.mjs";
+import { CSPostHogProvider } from "@/analytics/providers";
 
 const appName = "AfterClass";
 const appDesc = [
@@ -63,6 +64,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
+      <CSPostHogProvider>
       <body>
         <ThemeProvider>
           <AuthProvider>
@@ -72,6 +74,7 @@ export default function RootLayout({
           </AuthProvider>
         </ThemeProvider>
       </body>
+      </CSPostHogProvider>
     </html>
   );
 }
