@@ -1,4 +1,4 @@
-export default function calculateAverage(array: number[]) : string {
+export default function calculateAverage(array: number[]): number {
   const total = array.reduce((total: number, item: number) => total + item, 0);
-  return (total / array.length).toFixed(2);
+  return total / array.length;
 }

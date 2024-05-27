@@ -58,7 +58,7 @@ export default async function CourseRating({
         label: "Average Rating",
         rating: calculateAverage(
           reviewsOfCourse.map((review) => review.rating),
-        ),
+        ).toFixed(2),
       }}
       ratingItems={calculateRatingItems(
         reviewsOfCourse,
