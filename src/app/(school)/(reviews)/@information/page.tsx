@@ -1,5 +1,4 @@
-import { AnnouncementBanner } from "@/modules/home/AnnouncementBanner";
-
-export default function HomeHeader() {
-  return <AnnouncementBanner />;
+// no "information and detail" section in the home page
+export default function NotImplemented() {
+  return null;
 }
