@@ -1,6 +1,7 @@
 import { api } from "@/common/tools/trpc/server";
 import { notFound } from "next/navigation";
 import { InformationCard } from "@/modules/reviews/InformationSection/InformationCard";
+import { DetailCard } from "@/modules/reviews/InformationSection/DetailCard";
 import { getServerAuthSession } from "@/server/auth";
 
 export default async function CourseInfo({
@@ -29,7 +30,9 @@ export default async function CourseInfo({
           )}
         </InformationCard>
       </div>
-      <div className="w-1/3">TODO: course detail</div>
+      <div className="w-full md:w-1/3">
+        <DetailCard course={course} />
+      </div>
     </div>
   );
 }
