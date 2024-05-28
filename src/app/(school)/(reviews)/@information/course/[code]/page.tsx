@@ -14,6 +14,13 @@ export default async function CourseInfo({
     return notFound();
   }
   return (
-    <InformationCard isLocked={!session}>{course.description}</InformationCard>
+    <div className="flex gap-6">
+      <div className="w-2/3">
+        <InformationCard isLocked={!session}>
+          {course.description}
+        </InformationCard>
+      </div>
+      <div className="w-1/3">TODO: course detail</div>
+    </div>
   );
 }
