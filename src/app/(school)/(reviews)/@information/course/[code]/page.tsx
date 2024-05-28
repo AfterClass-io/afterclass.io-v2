@@ -9,7 +9,7 @@ export default async function CourseInfo({
   params: { code: string };
 }) {
   const session = await getServerAuthSession();
-  const course = await api.courses.getByCourseCode({ code: params.code });
+  const course = await api.courses.getByCourseCode({ code: params.code.toUpperCase() });
   if (!course) {
     return notFound();
   }
