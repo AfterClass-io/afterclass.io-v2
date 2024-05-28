@@ -9,14 +9,16 @@ export default async function CourseInfo({
   params: { code: string };
 }) {
   const session = await getServerAuthSession();
-  const course = await api.courses.getByCourseCode({ code: params.code.toUpperCase() });
+  const course = await api.courses.getByCourseCode({
+    code: params.code.toUpperCase(),
+  });
   if (!course) {
     return notFound();
   }
   return (
-    <div className="flex gap-6">
+    <div className="flex w-full gap-6">
       <div className="w-2/3">
-        <InformationCard isLocked={!session}>
+        <InformationCard course={course} isLocked={!session}>
           {course.description}
         </InformationCard>
       </div>
