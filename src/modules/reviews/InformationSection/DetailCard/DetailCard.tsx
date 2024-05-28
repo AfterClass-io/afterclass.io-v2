@@ -11,11 +11,11 @@ export const DetailCard = ({ course }: { course: Courses }) => {
       </div>
       <div className={body()}>
         <div className={content()}>
-          <p className={field()}>Course Code</p>
+          <p className={field()}>Course code</p>
           <p className={value()}>{course.code}</p>
         </div>
         <div className={content()}>
-          <p className={field()}>Credit Unit</p>
+          <p className={field()}>Credit unit</p>
           <p className={value()}>{course.creditUnits}</p>
         </div>
       </div>
