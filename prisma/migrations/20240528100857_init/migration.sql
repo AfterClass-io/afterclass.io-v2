@@ -27,6 +27,7 @@ CREATE TABLE "reviews" (
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
+    "deprecated_password_digest" TEXT,
     "username" TEXT,
     "first_name" TEXT,
     "last_name" TEXT,
