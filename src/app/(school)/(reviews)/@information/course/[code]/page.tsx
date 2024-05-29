@@ -17,8 +17,8 @@ export default async function CourseInfo({
     return notFound();
   }
   return (
-    <div className="flex w-full gap-6">
-      <div className="w-2/3">
+    <div className="flex w-full flex-wrap gap-6 md:flex-nowrap">
+      <div className="w-full md:w-2/3">
         <InformationCard courseDesc={course.description}>
           {!session ? (
             <InformationCard.LoginButton />
