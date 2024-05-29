@@ -34,3 +34,4 @@ export * from "./SchoolIcon";
 export * from "./ShareIcon";
 export * from "./ChartLineIcon";
 export * from "./PenIcon";
+export * from "./ClipboardIcon";
