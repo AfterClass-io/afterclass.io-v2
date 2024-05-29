@@ -31,7 +31,7 @@ export default async function CourseInfo({
         </InformationCard>
       </div>
       <div className="w-full md:w-1/3">
-        <DetailCard course={course} />
+        <DetailCard courseCode={course.code} courseCU={course.creditUnits} />
       </div>
     </div>
   );

@@ -1,8 +1,13 @@
-import { type Courses } from "@prisma/client";
 import { DetailCardTheme } from "./DetailCard.theme";
 import { DetailCardSkeleton } from "./DetailCardSkeleton";
 
-export const DetailCard = ({ course }: { course: Courses }) => {
+export const DetailCard = ({
+  courseCode,
+  courseCU,
+}: {
+  courseCode: string;
+  courseCU: number;
+}) => {
   const { wrapper, header, body, content, field, value } = DetailCardTheme();
   return (
     <div className={wrapper()}>
@@ -12,11 +17,11 @@ export const DetailCard = ({ course }: { course: Courses }) => {
       <div className={body()}>
         <div className={content()}>
           <p className={field()}>Course code</p>
-          <p className={value()}>{course.code}</p>
+          <p className={value()}>{courseCode}</p>
         </div>
         <div className={content()}>
           <p className={field()}>Credit unit</p>
-          <p className={value()}>{course.creditUnits}</p>
+          <p className={value()}>{courseCU}</p>
         </div>
       </div>
     </div>
