@@ -18,8 +18,15 @@ export default async function CourseInfo({
   return (
     <div className="flex w-full gap-6">
       <div className="w-2/3">
-        <InformationCard course={course} isLocked={!session}>
-          {course.description}
+        <InformationCard courseDesc={course.description}>
+          {!session ? (
+            <InformationCard.LoginButton />
+          ) : (
+            <InformationCard.Modal
+              courseName={course.name}
+              courseDesc={course.description}
+            />
+          )}
         </InformationCard>
       </div>
       <div className="w-1/3">TODO: course detail</div>

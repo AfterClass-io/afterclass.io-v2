@@ -1,14 +1,15 @@
 "use client";
 
 import { Modal } from "@/common/components/Modal";
-import { type Courses } from "@prisma/client";
 import { informationCardTheme } from "./InformationCard.theme";
 import { Button } from "@/common/components/Button";
 
 export const InformationModal = ({
-  course,
+  courseName,
+  courseDesc,
 }: {
-  course: Courses;
+  courseName: string;
+  courseDesc: string;
 }) => {
   const { content } = informationCardTheme();
   return (
@@ -19,8 +20,8 @@ export const InformationModal = ({
         </div>
       </Modal.Trigger>
       <Modal.Content>
-        <Modal.Header>{course.name}</Modal.Header>
-        <Modal.Body>{course.description}</Modal.Body>
+        <Modal.Header>{courseName}</Modal.Header>
+        <Modal.Body>{courseDesc}</Modal.Body>
       </Modal.Content>
     </Modal>
   );

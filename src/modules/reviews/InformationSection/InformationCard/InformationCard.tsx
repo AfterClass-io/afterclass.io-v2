@@ -1,25 +1,17 @@
-import {
-  informationCardTheme,
-  type InformationCardVariants,
-} from "./InformationCard.theme";
+import { informationCardTheme } from "./InformationCard.theme";
 import type { ReactNode } from "react";
-import { Button } from "@/common/components/Button";
 import { ClipboardIcon } from "@/common/components/CustomIcon";
-import { InformationModal } from "./InformationModal";
-import type { Courses } from "@prisma/client";
 import { InformationCardSkeleton } from "./InformationCardSkeleton";
-
-export type InformationCardProps = InformationCardVariants & {
-  course: Courses;
-  isLocked?: boolean;
-  children: ReactNode;
-};
+import { InformationCardLoginButton } from "./InformationCardLoginButton";
+import { InformationModal } from "./InformationModal";
 
 export const InformationCard = ({
-  course,
-  isLocked,
+  courseDesc,
   children,
-}: InformationCardProps) => {
+}: {
+  courseDesc: string;
+  children: ReactNode;
+}) => {
   const { wrapper, header, icon, content, description } =
     informationCardTheme();
   return (
@@ -29,17 +21,13 @@ export const InformationCard = ({
         <p>Information</p>
       </div>
       <div className={content()}>
-        <div className={description()}>{children}</div>
-        {isLocked ? (
-          <Button as="a" variant="link" href="/auth/login">
-            Login
-          </Button>
-        ) : (
-          <InformationModal course={course} />
-        )}
+        <div className={description()}>{courseDesc}</div>
+        {children}
       </div>
     </div>
   );
 };
 
 InformationCard.Skeleton = InformationCardSkeleton;
+InformationCard.LoginButton = InformationCardLoginButton;
+InformationCard.Modal = InformationModal;
