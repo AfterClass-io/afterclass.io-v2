@@ -1,6 +1,7 @@
 import { api } from "@/common/tools/trpc/server";
 import { notFound } from "next/navigation";
 import { InformationCard } from "@/modules/reviews/InformationSection/InformationCard";
+import { DetailCard } from "@/modules/reviews/InformationSection/DetailCard";
 import { getServerAuthSession } from "@/server/auth";
 
 export default async function CourseInfo({
@@ -16,8 +17,8 @@ export default async function CourseInfo({
     return notFound();
   }
   return (
-    <div className="flex w-full gap-6">
-      <div className="w-2/3">
+    <div className="flex w-full flex-wrap gap-6 md:flex-nowrap">
+      <div className="w-full md:w-2/3">
         <InformationCard courseDesc={course.description}>
           {!session ? (
             <InformationCard.LoginButton />
@@ -29,7 +30,9 @@ export default async function CourseInfo({
           )}
         </InformationCard>
       </div>
-      <div className="w-1/3">TODO: course detail</div>
+      <div className="w-full md:w-1/3">
+        <DetailCard courseCode={course.code} courseCU={course.creditUnits} />
+      </div>
     </div>
   );
 }
