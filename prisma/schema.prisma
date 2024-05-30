@@ -41,16 +41,16 @@ model Reviews {
 
 model Users {
     id                       String        @id @default(uuid())
-    deprecatedPasswordDigest String?       @map("deprecated_password_digest")
-    username                 String?       @unique
-    firstName                String?       @map("first_name")
-    lastName                 String?       @map("last_name")
     email                    String        @unique
-    telegramId               String?       @unique @map("telegram_id")
-    photoUrl                 String?       @map("photo_url")
+    username                 String        @unique
     isVerified               Boolean       @default(false) @map("is_verified")
     university               Universities  @relation(fields: [universityId], references: [id])
     universityId             Int           @map("university_id")
+    deprecatedPasswordDigest String?       @map("deprecated_password_digest")
+    firstName                String?       @map("first_name")
+    lastName                 String?       @map("last_name")
+    telegramId               String?       @unique @map("telegram_id")
+    photoUrl                 String?       @map("photo_url")
     faculty                  Faculties?    @relation(fields: [facultyId], references: [id])
     facultyId                Int?          @map("faculty_id")
     createdAt                DateTime      @default(now()) @map("created_at") @db.Timestamptz(3)
@@ -64,7 +64,7 @@ model Users {
 model Universities {
     id         Int                    @id @default(autoincrement())
     name       String
-    abbrv      UniversityAbbreviation
+    abbrv      UniversityAbbreviation @unique
     siteUrl    String                 @unique @map("site_url")
     createdAt  DateTime               @default(now()) @map("created_at") @db.Timestamptz(3)
     updatedAt  DateTime               @updatedAt @map("updated_at") @db.Timestamptz(3)
@@ -73,8 +73,20 @@ model Universities {
     courses    Courses[]
     professors Professors[]
     faculties  Faculties[]
+    domains    UniversityDomains[]
 
     @@map("universities")
+}
+
+model UniversityDomains {
+    id                   Int          @id @default(autoincrement())
+    domain               String       @unique
+    belongToUniversity   Universities @relation(fields: [belongToUniversityId], references: [id])
+    belongToUniversityId Int          @map("belong_to_university")
+    createdAt            DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt            DateTime     @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+    @@map("university_domains")
 }
 
 model Courses {
