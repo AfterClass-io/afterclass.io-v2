@@ -59,29 +59,6 @@ export const Sidebar = ({
   ...props
 }: SidebarProps) => {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const [searchTerm, setSearchTerm] = useState("");
-  const router = useRouter();
-
-  useEffect(() => {
-    const term = searchParams.get("q");
-    if (term) {
-      setSearchTerm(term);
-    }
-  }, [searchParams]);
-
-  const getSearchDestination = () => {
-    const params = new URLSearchParams();
-    params.set("q", searchTerm);
-    return `/search?${params.toString()}`;
-  };
-
-  const onSearchSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (searchTerm.length > 0) {
-      router.push(getSearchDestination());
-    }
-  };
 
   return (
     <div
