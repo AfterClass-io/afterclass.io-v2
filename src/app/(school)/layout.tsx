@@ -4,12 +4,12 @@ import { type PropsWithChildren } from "react";
 
 export default function SchoolLayout({ children }: PropsWithChildren) {
   return (
-    <div className="">
+    <div className="flex h-full flex-col">
       <header
         className={cn(
           "sticky top-0 z-header",
           "h-16 w-full border-b border-border-default bg-bg-base",
-          "hidden items-center justify-between sm:flex",
+          "hidden flex-none items-center justify-between sm:flex",
           "px-6",
         )}
       >
@@ -23,8 +23,10 @@ export default function SchoolLayout({ children }: PropsWithChildren) {
         </div>
       </header>
 
-      <div className="px-6 py-6 md:px-12 md:py-12">
-        <div className="mx-auto max-w-[1200px]">{children}</div>
+      <div className="h-full overflow-y-scroll">
+        <div className="px-6 py-6 md:px-12 md:py-12">
+          <div className="mx-auto max-w-[1200px]">{children}</div>
+        </div>
       </div>
     </div>
   );
