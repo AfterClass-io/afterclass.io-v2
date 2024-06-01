@@ -7,6 +7,7 @@ import { Modal } from "@/common/components/Modal";
 import { Button } from "@/common/components/Button";
 import { SearchIcon } from "@/common/components/CustomIcon";
 import { Input } from "@/common/components/Input";
+
 import { searchCmdkTheme } from "./SearchCmdk.theme";
 
 export const SearchCmdk = () => {
@@ -41,10 +42,12 @@ export const SearchCmdk = () => {
 
   const {
     modal,
+    triggerInput,
+    kbd: kbdStyle,
+    searchIcon,
     content,
-    form: inputFormStyle,
-    input: inputStyle,
-    searchIcon: inputSearchIcon,
+    contentForm,
+    contentInput,
     closeBtn,
   } = searchCmdkTheme();
 
@@ -56,13 +59,24 @@ export const SearchCmdk = () => {
       className={modal()}
       hasCloseButton={false}
     >
+      <Modal.Trigger asChild>
+        <Input
+          className={triggerInput()}
+          contentLeft={<SearchIcon size={16} className={searchIcon()} />}
+          contentRight={<kbd className={kbdStyle()}>/</kbd>}
+          placeholder="Search"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          size="sm"
+        />
+      </Modal.Trigger>
       <Modal.Content className={content()}>
-        <form onSubmit={onSearchSubmit} className={inputFormStyle()}>
+        <form onSubmit={onSearchSubmit} className={contentForm()}>
           <Input
             placeholder="Search for Professors or Courses..."
-            className={inputStyle()}
+            className={contentInput()}
             type="text"
-            contentLeft={<SearchIcon className={inputSearchIcon()} />}
+            contentLeft={<SearchIcon className={searchIcon()} />}
             wrapperProps={{ className: "border-0 h-full" }}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
