@@ -5,7 +5,7 @@ export const searchCmdkTheme = tv(
   {
     slots: {
       modal: ["w-[45rem]"],
-      triggerInput: ["w-full", "text-left"],
+      triggerInput: ["w-full", "text-left", "text-text-em-low"],
       kbd: [
         "pointer-events-none",
         "select-none",

@@ -64,9 +64,7 @@ export const SearchCmdk = () => {
           className={triggerInput()}
           contentLeft={<SearchIcon size={16} className={searchIcon()} />}
           contentRight={<kbd className={kbdStyle()}>/</kbd>}
-          placeholder="Search"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          value="Search"
           size="sm"
         />
       </Modal.Trigger>
