@@ -7,6 +7,8 @@ import {
 import { TRPCError } from "@trpc/server";
 import { Prisma } from "@prisma/client";
 import { type Review } from "@/common/types";
+import { reviewFormSchema } from "@/common/tools/zod/schemas";
+import { ReviewableEnum } from "@/modules/submit/types";
 
 const DEFAULT_PAGE_SIZE = 10;
 
@@ -64,21 +66,16 @@ const PRIVATE_REVIEW_FIELDS = {
 export const reviewsRouter = createTRPCRouter({
   create: protectedProcedure
     .input(
-      z.object({
-        body: z.string(),
-        tips: z.string().optional(),
-        rating: z.number(),
-        reviewedUniversityId: z.number(),
-        reviewedCourseId: z.string(),
-        reviewedProfessorId: z.string().optional(),
-        reviewerId: z.string(),
-        reviewLabelIds: z.array(z.number()).optional(),
-      }),
+      reviewFormSchema.and(
+        z.object({
+          user: z.object({ id: z.string() }),
+        }),
+      ),
     )
     .mutation(async ({ input, ctx }) => {
       const course = await ctx.db.courses.findFirst({
         where: {
-          id: input.reviewedCourseId,
+          id: input.course.value,
         },
       });
       if (!course) {
@@ -87,20 +84,34 @@ export const reviewsRouter = createTRPCRouter({
           message: "Course not found",
         });
       }
+      const { type, user, professor: profReview, course: courseReview } = input;
+      const reviewsToCreate = [courseReview];
+      if (type === ReviewableEnum.PROFESSOR) {
+        reviewsToCreate.push(profReview);
+      }
       try {
-        const review = await ctx.db.reviews.create({
-          data: {
-            body: input.body,
-            tips: input.tips,
-            rating: input.rating,
-            reviewedUniversityId: input.reviewedUniversityId,
-            reviewedCourseId: course.id,
-            reviewedProfessorId: input.reviewedProfessorId,
-            reviewerId: input.reviewerId,
-            reviewedFacultyId: course.belongToFacultyId,
-          },
-        });
-        return review;
+        for (const r of reviewsToCreate) {
+          const review = await ctx.db.reviews.create({
+            data: {
+              body: r.body,
+              tips: r.tips,
+              rating: r.rating,
+              reviewedCourseId: input.course.value,
+              reviewedFacultyId: course.belongToFacultyId,
+              reviewedProfessorId:
+                r.value === profReview?.value ? r.value : undefined,
+              reviewedUniversityId: course.belongToUniversityId,
+              reviewerId: user.id,
+            },
+          });
+          await ctx.db.reviewLabels.createMany({
+            data: r.labels?.map((label) => ({
+              reviewId: review.id,
+              labelId: parseInt(label),
+            })),
+          });
+        }
+        return;
       } catch (error) {
         console.error(error);
         if (error instanceof Prisma.PrismaClientKnownRequestError) {

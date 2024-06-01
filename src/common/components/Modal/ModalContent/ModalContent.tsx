@@ -43,6 +43,7 @@ export const ModalContent = ({
           {...preventClickOutsideToCloseProps}
           {...props}
         >
+          {children}
           {hasCloseButton && (
             <Close asChild>
               <Button
@@ -60,7 +61,6 @@ export const ModalContent = ({
               />
             </Close>
           )}
-          {children}
         </Content>
       </Overlay>
     </Portal>

@@ -1,8 +1,18 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
-import { ReviewLabelType } from "@prisma/client";
+import { ReviewLabelType, type Prisma } from "@prisma/client";
 
 export const labelsRouter = createTRPCRouter({
+  getAll: publicProcedure.query(async ({ ctx }) => {
+    const labels = await ctx.db.labels.findMany({
+      select: {
+        id: true,
+        name: true,
+        typeOf: true,
+      } satisfies Prisma.LabelsSelect,
+    });
+    return labels;
+  }),
   getAllByType: publicProcedure
     .input(z.object({ typeOf: z.nativeEnum(ReviewLabelType) }))
     .query(

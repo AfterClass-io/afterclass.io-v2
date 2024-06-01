@@ -22,11 +22,12 @@ export const Field = ({
   helperText,
   isError = false,
   size,
+  className,
   ...props
 }: FieldFullProps) => {
   const { labelContainer, wrapper } = fieldTheme();
   return (
-    <div {...props} className={wrapper({ className: props.className })}>
+    <div className={wrapper({ className: props.className })} {...props}>
       {label && (
         <div className={labelContainer()}>
           <Label text={label} size={size} />
