@@ -33,6 +33,7 @@ export const commandTheme = tv(
       commandInputWrapper: [
         "flex",
         "items-center",
+        "border-b",
         "border-border-elevated",
         "px-3",
       ],
