@@ -14,9 +14,9 @@ export const announcementsBannerTheme = tv({
       "basis-0",
       "overflow-hidden",
       "rounded-lg",
-      "bg-purple-400",
+      "animate-pulse",
     ],
-    image: ["h-48", "w-96", "flex-shrink-0", "bg-red-400"],
+    image: ["h-48", "w-96", "flex-shrink-0", "bg-surface-base"],
     text: [
       "absolute",
       "bottom-3",
