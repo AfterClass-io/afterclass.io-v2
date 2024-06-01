@@ -1,13 +1,8 @@
 "use client";
 
-import React, {
-  FormEvent,
-  useEffect,
-  useState,
-  type ComponentPropsWithoutRef,
-} from "react";
+import React, { type ComponentPropsWithoutRef } from "react";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import {
   BookLineIcon,
