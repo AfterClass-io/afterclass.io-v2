@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { SearchResultTitle } from "./SearchResultTitle";
 import { SearchResultItem } from "./SearchResultItem";
 import { SearchResultFilter } from "./SearchResultFilter";
