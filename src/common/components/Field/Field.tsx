@@ -28,10 +28,12 @@ export const Field = ({
   const { labelContainer, wrapper } = fieldTheme();
   return (
     <div className={wrapper({ className })} {...props}>
-      <div className={labelContainer()}>
-        {label && <Label text={label} size={size} />}
-        {labelRight}
-      </div>
+      {label && (
+        <div className={labelContainer()}>
+          <Label text={label} size={size} />
+          {labelRight}
+        </div>
+      )}
       {children}
       {helperText && (
         <Label
