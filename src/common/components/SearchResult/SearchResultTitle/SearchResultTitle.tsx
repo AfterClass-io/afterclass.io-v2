@@ -10,9 +10,7 @@ export const SearchResultTitle = () => {
   const { titleIcon } = searchResultTheme();
   return (
     <PageTitle contentLeft={<SearchIcon size={36} className={titleIcon()} />}>
-      Search results for <i>" </i>
-      {searchParams.get("q")}
-      <i>"</i>
+      Search results for “{searchParams.get("q")}”
     </PageTitle>
   );
 };
