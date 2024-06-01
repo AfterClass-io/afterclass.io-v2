@@ -12,9 +12,10 @@ export const config = {
      * - not-found (404 page)
      * - professor (professor page)
      * - course (course page)
+     * - search (search page)
      *
      * @see https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|account/auth|not-found|professor|course|$).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|account/auth|not-found|professor|course|search|$).*)",
   ],
 };
