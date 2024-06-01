@@ -12,6 +12,7 @@ import { env } from "@/env.mjs";
 import { signInWithEmail } from "./supabase";
 import { emailValidationSchema } from "@/common/tools/zod/schemas";
 import { db } from "@/server/db";
+import randomId from "@/common/functions/randomId";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -64,6 +65,7 @@ export const authOptions: NextAuthOptions = {
           console.log("auth.ts:72 ~ authorize ~ error:", c.error);
           return null;
         }
+        const emailDomain = c.data.email.split("@")[1];
 
         const user = await db.users.findUnique({
           where: { email: c.data.email },
@@ -94,10 +96,36 @@ export const authOptions: NextAuthOptions = {
         }
 
         if (data.user) {
-          // Any object returned will be saved in `user` property of the JWT
+          if (!user) {
+            // user signed into supabase successfully, but user doesn't exist in our database
+            const universities = await db.universities.findMany({
+              include: { domains: true },
+            });
+            const uniOfThisEmail = universities.find((u) =>
+              u.domains.some((d) => emailDomain!.endsWith(d.domain)),
+            );
 
-          // TODO: populate user values from supabase when user is authenticated
-          return data.user;
+            if (!uniOfThisEmail) {
+              console.error(
+                `Unexpected email domain '${emailDomain}'.\n` +
+                  "\tUser has signed up with this email but the domain is not associated with any university. " +
+                  "\tPlease check the database for the domain and add it to the universities table if necessary",
+              );
+              return null;
+            }
+
+            return await db.users.create({
+              data: {
+                id: data.user.id,
+                email: data.user.email ?? c.data.email,
+                username: `user_${randomId()}`,
+                isVerified: !!data.user.confirmed_at || false,
+                universityId: uniOfThisEmail.id,
+              },
+            });
+          }
+          // Any object returned will be saved in `user` property of the JWT
+          return user;
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
           return null;

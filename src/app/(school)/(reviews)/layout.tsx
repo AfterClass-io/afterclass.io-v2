@@ -7,16 +7,19 @@ export default function ReviewLayout({
   header,
   filter,
   rating,
+  information,
 }: {
   children: ReactNode;
   header: ReactNode;
   filter: ReactNode;
   rating: ReactNode;
+  information: ReactNode;
 }) {
   return (
     <section className="relative flex h-full flex-col items-center space-y-6 overflow-y-auto overflow-x-hidden">
       {header}
       {rating}
+      {information}
       {filter}
       <div className="flex w-full gap-10">
         {children}
