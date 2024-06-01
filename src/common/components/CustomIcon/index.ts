@@ -25,6 +25,7 @@ export * from "./PencilIcon";
 export * from "./PlusIcon";
 export * from "./SearchIcon";
 export * from "./SlashIcon";
+export * from "./Spinner";
 export * from "./StarLineAltIcon";
 export * from "./SunIcon";
 export * from "./ThumbUpFilledIcon";

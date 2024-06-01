@@ -16,7 +16,7 @@ import {
   buttonTheme,
   type ButtonVariants,
 } from "./Button.theme";
-import { Icon } from "@iconify-icon/react";
+import { Spinner } from "@/common/components/CustomIcon";
 
 interface ButtonBaseProps {
   iconLeft?: ReactNode;
@@ -191,7 +191,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
         <Child />
         {loading && (
           <span className="loading absolute inset-0 grid place-content-center">
-            <Icon icon="gg:spinner" className="animate-spin" />
+            <Spinner className="animate-spin" />
           </span>
         )}
       </Component>
