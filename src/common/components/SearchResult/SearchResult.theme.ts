@@ -5,9 +5,10 @@ export const searchResultTheme = tv(
   {
     slots: {
       root: ["flex", "h-full", "flex-col", "gap-10"],
-      titleIcon: ["text-text-em-mid"],
+      title: ["truncate", "text-left"],
+      titleIcon: ["text-text-em-mid", "flex-none"],
       content: ["flex", "h-full", "gap-12"],
-      list: ["flex", "w-3/5", "flex-col", "items-start", "gap-4"],
+      list: ["flex", "w-full", "flex-col", "items-start", "gap-4"],
       item: [
         "flex",
         "h-fit",
@@ -41,7 +42,7 @@ export const searchResultTheme = tv(
         "top-12",
         "flex",
         "h-fit",
-        "w-2/5",
+        "w-fit",
         "flex-col",
         "items-start gap-12",
       ],
