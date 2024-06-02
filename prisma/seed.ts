@@ -1,4 +1,4 @@
-import { Courses, Labels, PrismaClient, ReviewLabelName } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
@@ -55,6 +55,11 @@ async function main() {
   const reviewVotes = require("./data/11_review_votes.json");
   await prisma.reviewVotes.createMany({
     data: reviewVotes,
+  });
+
+  const universityDomain = require("./data/12_university_domains.json");
+  await prisma.universityDomains.createMany({
+    data: universityDomain,
   });
 }
 

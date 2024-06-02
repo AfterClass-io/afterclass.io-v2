@@ -1,11 +1,12 @@
 "use client";
-import { useState } from "react";
+import { type ElementRef, forwardRef, useState } from "react";
 
 import { CheckIcon, ChevronDownIcon } from "@/common/components/CustomIcon";
 import { Button } from "@/common/components/Button";
 import { Command } from "@/common/components/Command";
 import { Popover } from "@/common/components/Popover";
 import { cn } from "@/common/functions/cn";
+import { comboboxTheme } from "./Combobox.theme";
 
 export type ComboboxProps = {
   items: { label: string; value: string }[];
@@ -14,12 +15,11 @@ export type ComboboxProps = {
   onSelectChange?: (selectedValue: string) => void;
 };
 
-export const Combobox = ({
-  items,
-  placeholder,
-  triggerLabel,
-  onSelectChange,
-}: ComboboxProps) => {
+// TODO: find a better way for searching
+export const Combobox = forwardRef<
+  ElementRef<typeof Command.Item>,
+  ComboboxProps
+>(({ items, placeholder, triggerLabel, onSelectChange }, ref) => {
   const [value, setValue] = useState("");
   const [open, setOpen] = useState(false);
 
@@ -33,6 +33,7 @@ export const Combobox = ({
           as="button"
           aria-expanded={open}
           iconRight={<ChevronDownIcon />}
+          className={comboboxTheme()}
         >
           {value ? items.find((el) => el.value === value)?.label : triggerLabel}
         </Button>
@@ -56,6 +57,7 @@ export const Combobox = ({
                   }}
                   aria-selected={isMatched(el.value)}
                   data-selected={isMatched(el.value) ? "" : undefined}
+                  ref={ref}
                 >
                   <CheckIcon
                     className={cn(
@@ -72,4 +74,5 @@ export const Combobox = ({
       </Popover.Content>
     </Popover>
   );
-};
+});
+Combobox.displayName = "Combobox";
