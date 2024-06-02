@@ -4,7 +4,7 @@ import { type PropsWithChildren } from "react";
 
 export default function SchoolLayout({ children }: PropsWithChildren) {
   return (
-    <div className="flex h-full flex-col">
+    <>
       <header
         className={cn(
           "sticky top-0 z-header",
@@ -23,11 +23,9 @@ export default function SchoolLayout({ children }: PropsWithChildren) {
         </div>
       </header>
 
-      <div className="h-full overflow-y-scroll">
-        <div className="px-6 py-6 md:px-12 md:py-12">
-          <div className="mx-auto max-w-[1200px]">{children}</div>
-        </div>
+      <div className="h-full overflow-y-scroll px-6 py-6 md:px-12 md:py-12">
+        <div className="mx-auto max-w-[1200px]">{children}</div>
       </div>
-    </div>
+    </>
   );
 }

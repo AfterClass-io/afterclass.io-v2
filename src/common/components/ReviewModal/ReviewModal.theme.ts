@@ -15,7 +15,6 @@ export const reviewModalTheme = tv(
         "hover:border-border-elevated",
         "cursor-pointer",
         "w-full",
-        "max-w-[45rem]",
         "gap-4",
       ],
       modalTrigger: ["w-[45rem]"],
