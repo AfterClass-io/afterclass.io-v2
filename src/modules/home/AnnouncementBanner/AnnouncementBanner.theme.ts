@@ -22,11 +22,11 @@ export const announcementsBannerTheme = tv({
       "before:w-full",
       "before:h-full",
       "before:z-10",
-      "before:opacity-70",
+      "before:opacity-80",
       "before:bg-gradient-to-t",
       "before:from-primary-default",
       "before:from-20%",
-      "before:to-80%",
+      "before:to-60%",
       "before:to-primary-default/20",
     ],
     text: [
