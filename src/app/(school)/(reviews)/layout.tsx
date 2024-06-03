@@ -23,7 +23,7 @@ export default function ReviewLayout({
       {filter}
       <div className="flex w-full gap-10">
         {children}
-        <div className="flex w-96 flex-none flex-col items-start gap-6">
+        <div className="hidden h-fit w-96 flex-col items-start gap-6 text-nowrap min-[1200px]:flex">
           <CtaCard
             variant="secondary"
             ctaText="Write a review"
