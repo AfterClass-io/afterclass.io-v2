@@ -20,6 +20,13 @@ Philosophy](PHILOSOPHY.md.md) in our documentation.
 Please review and adhere to the [Code of Conduct](CODE_OF_CONDUCT.md) when
 participating in this project.
 
+## Open Development
+
+All work on AfterClass happens directly on
+[GitHub](https://github.com/AfterClass-io/afterclass.io-v2). Both core team
+members and external contributors send pull requests which go through the same
+review process.
+
 ## Getting Started
 
 If you're a beginner, lots of technical terms in this guide may be foreign to
