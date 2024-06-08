@@ -12,9 +12,7 @@ We’re a committed group of students and alumni working to improve campus life 
 <br>
 <br>
 
-<div align="center">
-    <img src=".github/assets/screenshot-course.png" alt="Course Reviews" width=800>
-</div>
+![course-review](.github/assets/screenshot-course.png)
 
 ## 🚀 Quick Start
 
