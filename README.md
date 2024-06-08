@@ -9,10 +9,11 @@
 _Explore over 14,000+ reviews of courses and professors. Plan ahead with bid analytics. Break classroom barriers. The open-source course planning platform for Singapore Management University (more to come!)_
 
 We’re a committed group of students and alumni working to improve campus life through technology. AfterClass supports more than 40,000 students each semester in selecting the ideal modules for their academic path.
-<br>
-<br>
 
-![course-review](.github/assets/screenshot-course.png)
+<br>
+<p align="center">
+  <img alt='course review' src=".github/assets/screenshot-course.png">
+</p>
 
 ## 🚀 Quick Start
 
