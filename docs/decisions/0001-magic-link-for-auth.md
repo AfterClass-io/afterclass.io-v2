@@ -2,7 +2,7 @@
 # Configuration for the Jekyll template "Just the Docs"
 parent: Decisions
 nav_order: 1
-title: ADR Template
+title: Use Magic Link for Authentication
 # These are optional elements. Feel free to remove any of them.
 # status: {proposed | rejected | accepted | deprecated | … | superseded by [ADR-0005](0005-example.md)}
 # date: {YYYY-MM-DD when the decision was last updated}
