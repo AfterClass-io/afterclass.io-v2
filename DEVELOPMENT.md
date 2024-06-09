@@ -2,6 +2,12 @@
 
 ## Getting Started
 
+### Branching Strategy
+
+Refer to our [[RFC] Branching Strategy
+#66](https://github.com/AfterClass-io/afterclass.io-v2/discussions/66) for more
+information on how to work with branches in this project.
+
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/en/) >= v20.x
