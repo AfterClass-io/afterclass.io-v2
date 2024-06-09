@@ -7,6 +7,49 @@ Next.js.
 The project uses [Supabase](https://supabase.com) as the PostgreSQL database
 hosting provider.
 
+## Git Tags and Releases
+
+If you have publish access, the steps below explain how to push a release for
+this project.
+
+### Creating a new release
+
+We use Git Tags to mark new releases. To create a new release, please use the
+[GitHub Release
+Page](https://github.com/AfterClass-io/afterclass.io-v2/releases/new):
+
+1. Click on `Choose a tag`.
+2. Determine what version this release is. If it is a major, minor, or patch
+   release. Refer to the [Semantic Versioning](https://semver.org/) when making
+   this decision.
+3. Enter the version number in the input field. For example, `v1.0.0`.
+4. Click on `Create a new tag: on publish`.
+5. Click on `Generate release notes`.
+6. Verify the release notes.
+7. Click on `Publish release`.
+
+Pushing Git Tags to main will trigger the GitHub Actions to deploy the project
+to the production environment and promote it as the latest production version.
+See section on [Vercel deployment](#vercel) for more information. A pull request
+will also be created with release notes.
+
+### Versioning
+
+We abide by [Semantic Versioning](https://semver.org/) to version our releases.
+For the versions available, see the [tags on this
+repository](https://github.com/AfterClass-io/afterclass.io-v2/tags).
+
+## Release Notes
+
+Release notes are automatically generated using the GitHub UI. When creating a
+new release, please ensure that the release notes are accurate and informative.
+
+Once a release is created with a corresponding git tag, the release notes will
+be automatically added to the release page and the
+[`CHANGELOG.md`](CHANGELOG.md) will be updated. Afterwhich, a pull request will
+be created with the updated `CHANGELOG.md` file via a GitHub Action
+[`changelog.yml`](.github/workflows/changelog.yml).
+
 ## Environment Variables
 
 All project environment variables are stored in the `.env.example` file.
