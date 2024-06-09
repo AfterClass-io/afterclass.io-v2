@@ -39,6 +39,16 @@ cp .env.example .env
 > file. However, you may need to update the `DATABASE_URL` if you are using a
 > different database.
 
+#### Ignoring Automated Code Formatting in Git Blame
+
+With automated code formatting, we sometimes expect large changes in pull
+requests. To avoid ruining git blame, we recommend using the following command
+to ignore such commits:
+
+```sh
+git config --local blame.ignoreRevsFile .git-blame-ignore-revs
+```
+
 ### Installing Recommended VSCode Settings & Extensions
 
 To ensure a consistent development experience, we recommend installing the
