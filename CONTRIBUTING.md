@@ -50,17 +50,19 @@ community forum at [GitHub
 Discussions](https://github.com/AfterClass-io/afterclass.io-v2/discussions/categories/q-a)
 or reach out to any of the core maintainers.
 
-**PLEASE NOTE:** If you choose to instead open an issue for your question, your
-issue will be immediately closed and redirected to the forum.
+> [!IMPORTANT]
+> If you choose to instead open an issue for your question, your
+> issue will be immediately closed and redirected to the forum.
 
 ### Reporting Issues
 
 If you have found what you think is a bug, please [file an
 issue](https://github.com/AfterClass-io/afterclass.io-v2/issues/new/choose).
 
-**PLEASE NOTE:** Issues that are identified as implementation questions or
-non-issues will be immediately closed and redirected to [GitHub
-Discussions](https://github.com/AfterClass-io/afterclass.io-v2/discussions).
+> [!IMPORTANT]
+> Issues that are identified as implementation questions or
+> non-issues will be immediately closed and redirected to [GitHub
+> Discussions](https://github.com/AfterClass-io/afterclass.io-v2/discussions).
 
 ### Feature Requests
 
@@ -70,8 +72,9 @@ Discussions](https://github.com/AfterClass-io/afterclass.io-v2/discussions/categ
 From there, we will discuss use-cases for the feature and then finally discuss
 how it could be implemented.
 
-**PLEASE NOTE:** If you choose to instead open an issue for your question, your
-issue will be immediately closed and redirected to the forum.
+> [!IMPORTANT]
+> If you choose to instead open an issue for your question, your
+> issue will be immediately closed and redirected to the forum.
 
 ### Submitting Pull Requests
 
@@ -249,7 +252,8 @@ On a general note, the review must ensure:
   Strategy pattern et al)
 - Testability — the functionality must be unit testable.
 
-> [!NOTE] Please note that this list is not exhaustive and the reviewer should
+> [!NOTE]
+> Please note that this list is not exhaustive and the reviewer should
 > use their discretion to evaluate the design based on the context and needs of
 > the change.
 
