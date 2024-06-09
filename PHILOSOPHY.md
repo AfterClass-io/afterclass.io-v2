@@ -4,6 +4,11 @@
 foster a strong community that encourages the preservation of high quality
 information.
 
+Taking heavy inspiration from the success of
+[NUSMods](https://github.com/nusmodifications/nusmods/), we aim to build a
+similar platform focused on Singapore Management University, with plans to
+expand to other universities in Singapore.
+
 ---
 
 ## Guiding Principles
@@ -13,7 +18,7 @@ information.
 We are committed to providing students with the most accurate and up-to-date
 information to help them make informed decisions about their academic journey.
 
-### 2. Free and Open
+### 2. 🕊️ Free and Open
 
 We believe that information should be freely available to all students. We are
 committed to providing a platform that is open and accessible to all.
