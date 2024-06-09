@@ -20,6 +20,11 @@ Philosophy](PHILOSOPHY.md.md) in our documentation.
 Please review and adhere to the [Code of Conduct](CODE_OF_CONDUCT.md) when
 participating in this project.
 
+## Our Philosophy
+
+Refer to our [Project Philosophy](PHILOSOPHY.md) for the standards that we
+adhere to.
+
 ## Open Development
 
 All work on AfterClass happens directly on
@@ -160,17 +165,12 @@ More Examples:
 
 ## Reviewing Pull Requests
 
-- Everyone can participate in a code review
-- Leave any comments on the Pull Request or [directly on the
-  code](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/commenting-on-a-pull-request#adding-comments-to-a-pull-request).
-
-### Philosophy
-
 Code reviews prevent potential (future) bugs early on and it is an effective way
 to communicate changes and sharing learnings within a team.
 
-Refer to the [Project Philosophy](PHILOSOPHY.md) for the standards that we
-adhere to.
+- Everyone can participate in a code review
+- Leave any comments on the Pull Request or [directly on the
+  code](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/commenting-on-a-pull-request#adding-comments-to-a-pull-request).
 
 ### How to Review
 
@@ -185,7 +185,8 @@ adhere to.
   - Actionable: Suggest a specific improvement
   - Constructive: Aim to help the author improve their code
 
-  Refer to [conventional comments](https://conventionalcomments.org/) for more details.
+  Refer to [conventional comments](https://conventionalcomments.org/) for more
+  details.
 
 ### Flavours of Reviews
 
