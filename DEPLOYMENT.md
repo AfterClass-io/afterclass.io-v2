@@ -33,6 +33,22 @@ to the production environment and promote it as the latest production version.
 See section on [Vercel deployment](#vercel) for more information. A pull request
 will also be created with release notes.
 
+### Deleting a release
+
+Sometimes the odds are just not in your favor, and you may need to delete a
+release. To delete a release, please use the [GitHub Release
+Page](https://github.com/AfterClass-io/afterclass.io-v2/releases) and follow the
+steps below:
+
+1. Click on the release you want to delete.
+2. Click on the `Delete` icon button.
+3. Confirm the deletion is correct.
+4. Click on `Delete this release`.
+5. Click on the `Tags` tab.
+6. On the right side of the tag, click on the `...` icon button.
+7. Click on `Delete tag`.
+8. Confirm the deletion is correct.
+
 ### Versioning
 
 We abide by [Semantic Versioning](https://semver.org/) to version our releases.
