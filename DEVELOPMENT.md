@@ -34,16 +34,16 @@ Ensure you have the `.env` file in the root directory. You can copy the
 cp .env.example .env
 ```
 
-> [!TIP]
-> For development, you can use the default values in the `.env.example`
+> [!TIP] For development, you can use the default values in the `.env.example`
 > file. However, you may need to update the `DATABASE_URL` if you are using a
 > different database.
 
 #### Ignoring Automated Code Formatting in Git Blame
 
 With automated code formatting, we sometimes expect large changes in pull
-requests. To avoid ruining git blame, we recommend using the following command
-to ignore such commits:
+requests. We have a [`.git-blame-ignore-revs`](.git-blame-ignore-revs) file to
+ignore formatting changes. To make this file used by `git blame`, you need to
+run the following command.
 
 ```sh
 git config --local blame.ignoreRevsFile .git-blame-ignore-revs
@@ -74,8 +74,7 @@ Start the database
 docker-compose up
 ```
 
-> [!TIP]
-> On first run, you will need to run the migrations to create the
+> [!TIP] On first run, you will need to run the migrations to create the
 > database schema
 
 ```sh
@@ -85,8 +84,7 @@ yarn prisma migrate dev
 Only needs to be done once. This command will create the database schema and
 seed the database with some initial data.
 
-> [!TIP]
-> The seed data are in the [`prisma/data`](prisma/data/) directory's json
+> [!TIP] The seed data are in the [`prisma/data`](prisma/data/) directory's json
 > files and populated using the [`prisma/seed.ts`](prisma/seed.ts) via a command
 > defined in [`package.json`](package.json) at the `prisma.seed` section. You
 > can modify these file to update seed data.
