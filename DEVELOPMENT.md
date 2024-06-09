@@ -60,6 +60,9 @@ yarn prisma migrate dev
 
 Only needs to be done once. This command will create the database schema and seed the database with some initial data.
 
+> [!TIP]
+> The seed data are in the [`prisma/data`](prisma/data/) directory's json files and populated using the [`prisma/seed.ts`](prisma/seed.ts) via a command defined in [`package.json`](package.json) at the `prisma.seed` section. You can modify these file to update seed data.
+
 To destroy the database and remove all data
 
 ```sh
