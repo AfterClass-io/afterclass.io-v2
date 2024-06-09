@@ -103,44 +103,7 @@ more information on how to use Storybook.
 
 ## Project Structure
 
-```txt
-.
-├── prisma/
-│   ├── data/
-│   ├── migrations/
-│   ├── schema.prisma
-│   └── seed.ts
-├── public/
-└── src/
-    ├── app/
-    │   └── ...
-    ├── common/
-    │   ├── components/
-    │   ├── constants/
-    │   ├── fonts/
-    │   ├── functions/
-    │   ├── hooks/
-    │   ├── providers/
-    │   ├── styles/
-    │   ├── tools/
-    │   └── types/
-    ├── modules/
-    │   ├── home/
-    │   ├── reviews/
-    │   └── submit/
-    └── server/
-        ├── api/
-        │   ├── root.ts
-        │   ├── routers/
-        │   │   └── ...
-        │   └── trpc.ts
-        ├── auth.ts
-        ├── db.ts
-        └── supabase.ts
-```
-
-For guides on how to work with the project structure, refer to the various
-READMEs in that subdirectory.
+Refer to the [Project Architecture](ARCHITECTURE.md) guide for more information.
 
 ## Developing with: Icons
 
