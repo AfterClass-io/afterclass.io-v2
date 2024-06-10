@@ -15,7 +15,12 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        run: |
+          vercel env pull .env \
+          --yes \
+          --environment=production \
+          --token=${{ secrets.VERCEL_TOKEN }} \
+          --scope=${{ secrets.VERCEL_TEAM_NAME }}
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
@@ -24,4 +29,6 @@ jobs:
           echo "deploymentUrl=$(cat deployment-url.txt)"
       - name: Promote new Production version
         run: |
-          vercel promote $(cat deployment-url.txt) --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.VERCEL_TEAM_NAME }}
+          vercel promote $(cat deployment-url.txt) \
+          --token=${{ secrets.VERCEL_TOKEN }} \
+          --scope=${{ secrets.VERCEL_TEAM_NAME }}
