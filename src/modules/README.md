@@ -1,6 +1,6 @@
 ## Modules folder
 
-If it is specific to a page, or it can't be used anywhere else in the project,
+If it is specific to a page, or it can't be reused elsewhere in the project,
 use a module instead.
 
 E.g. there could be an `auth` module that contains components, layouts and other
