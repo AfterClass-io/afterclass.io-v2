@@ -2,6 +2,7 @@
 
 import { Field } from "@/common/components/Field";
 import { ToggleGroup } from "@/common/components/ToggleGroup";
+import { toTitleCase } from "@/common/functions/toTitleCase";
 import { searchResultTheme } from "../SearchResult.theme";
 
 export type FilterOption = {
@@ -13,17 +14,23 @@ export type FilterOption = {
 export type Filter = {
   [key: string]: FilterOption[];
 };
-
-export const SearchResultFilter = ({ filters }: { filters: Filter }) => {
+export const SearchResultFilter = ({
+  filters,
+  onValueChange,
+}: {
+  filters: Filter;
+  onValueChange: (key: string, value: FilterOption["value"]) => void;
+}) => {
   const { filter, filterField, filterToggleGroup } = searchResultTheme();
   return (
-    <form className={filter()}>
+    <div className={filter()}>
       {Object.entries(filters).map(([filterFor, filterOptions], i) => (
-        <Field key={i} label={filterFor} className={filterField()}>
+        <Field key={i} label={toTitleCase(filterFor)} className={filterField()}>
           <ToggleGroup
             type="single"
             defaultValue={filterOptions.find((item) => item.isDefault)?.value}
             className={filterToggleGroup()}
+            onValueChange={(v) => onValueChange(filterFor, v)}
           >
             {filterOptions.map((item, j) => (
               <ToggleGroup.Item
@@ -37,6 +44,6 @@ export const SearchResultFilter = ({ filters }: { filters: Filter }) => {
           </ToggleGroup>
         </Field>
       ))}
-    </form>
+    </div>
   );
 };
