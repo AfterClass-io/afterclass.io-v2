@@ -1,7 +1,8 @@
 "use client";
 import { z } from "zod";
 import { useState } from "react";
-import type { Courses, Professors, Universities } from "@prisma/client";
+import { type SearchCourseResult } from "@/common/functions/searchCourse";
+import { type SearchProfResult } from "@/common/functions/searchProf";
 import { GraduationCapIcon, PencilIcon } from "@/common/components/CustomIcon";
 import { SearchResultList } from "../SearchResultList";
 import { SearchResultItem } from "../SearchResultItem";
@@ -17,13 +18,11 @@ const filterOptions = z.object({
 type FilterOptions = z.infer<typeof filterOptions>;
 
 export const SearchResultContent = ({
-  universities,
   searchedCourse,
   searchedProf,
 }: {
-  universities: Universities[];
-  searchedCourse: Courses[];
-  searchedProf: Professors[];
+  searchedCourse: SearchCourseResult[];
+  searchedProf: SearchProfResult[];
 }) => {
   const { content } = searchResultTheme();
   const [filter, setFilter] = useState<FilterOptions>({
@@ -31,14 +30,32 @@ export const SearchResultContent = ({
     type: "all",
   });
 
+  const schoolFilteredCourse = searchedCourse.filter((c) => {
+    switch (filter.school) {
+      case "all":
+        return true;
+      default:
+        return c.uniAbbrv === filter.school;
+    }
+  });
+
+  const schoolFilteredProf = searchedProf.filter((p) => {
+    switch (filter.school) {
+      case "all":
+        return true;
+      default:
+        return p.uniAbbrv === filter.school;
+    }
+  });
+
   const isEmpty = () => {
     switch (filter.type) {
       case "all":
-        return searchedCourse.length + searchedProf.length === 0;
+        return schoolFilteredCourse.length + schoolFilteredProf.length === 0;
       case "course":
-        return searchedCourse.length === 0;
+        return schoolFilteredCourse.length === 0;
       case "professor":
-        return searchedProf.length === 0;
+        return schoolFilteredProf.length === 0;
     }
   };
 
@@ -47,16 +64,13 @@ export const SearchResultContent = ({
       <SearchResultList>
         <SearchResultEmpty show={isEmpty()} />
         {(filter.type === "all" || filter.type === "course") &&
-          searchedCourse.map((course) => (
+          schoolFilteredCourse.map((c) => (
             <SearchResultItem
-              key={course.id}
-              school={
-                universities.find((u) => u.id === course.belongToUniversityId)
-                  ?.abbrv!
-              }
-              href={`/course/${course.id}`}
-              title={course.name}
-              subtitle={course.code}
+              key={c.courseCode}
+              school={c.uniAbbrv}
+              href={`/course/${c.courseCode}`}
+              title={c.courseName}
+              subtitle={c.courseCode}
               filterStats={[
                 { icon: <PencilIcon />, stat: 12 },
                 { icon: <GraduationCapIcon />, stat: 32 },
@@ -64,15 +78,12 @@ export const SearchResultContent = ({
             />
           ))}
         {(filter.type === "all" || filter.type === "professor") &&
-          searchedProf.map((prof) => (
+          schoolFilteredProf.map((p) => (
             <SearchResultItem
-              key={prof.id}
-              school={
-                universities.find((u) => u.id === prof.belongToUniversityId)
-                  ?.abbrv!
-              }
-              href={`/professor/${prof.id}`}
-              title={prof.name}
+              key={p.profSlug}
+              school={p.uniAbbrv}
+              href={`/professor/${p.profSlug}`}
+              title={p.profName}
               filterStats={[
                 { icon: <PencilIcon />, stat: 11 },
                 { icon: <GraduationCapIcon />, stat: 31 },
