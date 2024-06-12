@@ -7,6 +7,8 @@ export type SearchCourseResult = {
   courseName: Courses["name"];
 };
 
+// this is a band-aid solution
+// TODO: replace with better search algorithm
 export function searchCourse(
   query: string,
   limit: number = 5,

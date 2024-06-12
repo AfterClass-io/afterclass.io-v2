@@ -7,6 +7,8 @@ export type SearchProfResult = {
   profSlug: Professors["slug"];
 };
 
+// this is a band-aid solution
+// TODO: replace with better search algorithm
 export function searchProf(
   query: string,
   limit: number = 5,
