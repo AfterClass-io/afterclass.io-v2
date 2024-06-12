@@ -8,6 +8,12 @@ import ThemeProvider from "@/common/providers/ThemeProvider";
 import AuthProvider from "@/common/providers/AuthProvider";
 import { inter, poppins } from "@/common/fonts";
 import { env } from "@/env.mjs";
+import { CSPostHogProvider } from "@/common/providers/analytics/providers";
+import dynamic from 'next/dynamic'
+
+const PostHogPageView = dynamic(() => import('@/common/providers/analytics/PostHogPageView'), {
+  ssr: false,
+})
 
 const appName = "AfterClass";
 const appDesc = [
@@ -63,7 +69,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
+      <CSPostHogProvider>
       <body>
+        <PostHogPageView/>
         <ThemeProvider>
           <AuthProvider>
             <TRPCReactProvider>
@@ -72,6 +80,7 @@ export default function RootLayout({
           </AuthProvider>
         </ThemeProvider>
       </body>
+      </CSPostHogProvider>
     </html>
   );
 }
