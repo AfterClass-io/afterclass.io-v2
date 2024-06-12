@@ -1,3 +1,5 @@
+import Image from "next/image";
+import cat from "@/../public/cat.webp";
 import { announcementsBannerTheme } from "../AnnouncementBanner.theme";
 
 export const AnnouncementCard = ({
@@ -5,10 +7,10 @@ export const AnnouncementCard = ({
 }: {
   announcement: string;
 }) => {
-  const { card, image, text } = announcementsBannerTheme();
+  const { card, text } = announcementsBannerTheme();
   return (
     <div className={card()}>
-      <div className={image()} />
+      <Image src={cat} alt="Announcement" width={384} height={192} />
       <p className={text()}>{announcement}</p>
     </div>
   );

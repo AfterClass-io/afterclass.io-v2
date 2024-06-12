@@ -21,7 +21,7 @@ export type FilterToggleSectionItemProps = ComponentPropsWithoutRef<"div"> &
   FilterToggleSectionVariants &
   FilterItem;
 
-const FilterItemStats = ({ icon, stat }: FilterStat) => {
+export const FilterItemStats = ({ icon, stat }: FilterStat) => {
   const { stat: statWrapper } = filterToggleSectionTheme();
   return (
     <div className={statWrapper()}>

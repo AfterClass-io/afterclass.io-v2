@@ -8,13 +8,11 @@ import {
   BookLineIcon,
   ChartLineIcon,
   DealsIcon,
-  SearchIcon,
   StarLineAltIcon,
 } from "@/common/components/CustomIcon";
-import { Icon } from "@iconify-icon/react";
 import { SidebarItem } from "@/common/components/SidebarItem";
 import { Logo } from "@/common/components/Logo";
-import { Input } from "@/common/components/Input";
+import { SearchCmdk } from "@/common/components/SearchCmdk";
 import { cn } from "@/common/functions";
 
 const SIDEBAR_ITEMS = [
@@ -40,15 +38,7 @@ const SIDEBAR_ITEMS = [
     href: "/deals",
   },
   // Development-only links
-  ...(process.env.NODE_ENV === "development"
-    ? [
-        {
-          label: "Components",
-          icon: <Icon icon="uil:arrow" width={16} />,
-          href: "/components",
-        },
-      ]
-    : []),
+  ...(process.env.NODE_ENV === "development" ? [] : []),
 ];
 
 export type SidebarItemType = (typeof SIDEBAR_ITEMS)[number];
@@ -75,16 +65,7 @@ export const Sidebar = ({
           <Logo />
         </Link>
       )}
-      {!hideSearch && (
-        <Input
-          className="w-full"
-          contentLeft={
-            <SearchIcon size={16} className="ml-1 mr-2 text-text-em-low" />
-          }
-          placeholder="Search"
-          size="sm"
-        />
-      )}
+      {!hideSearch && <SearchCmdk />}
       <div>
         <ul className="space-y-2">
           {SIDEBAR_ITEMS.map((item) => (
