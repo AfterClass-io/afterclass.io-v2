@@ -3,7 +3,11 @@ import { z } from "zod";
 import { useState } from "react";
 import { type SearchCourseResult } from "@/common/functions/searchCourse";
 import { type SearchProfResult } from "@/common/functions/searchProf";
-import { GraduationCapIcon, PencilIcon } from "@/common/components/CustomIcon";
+import {
+  BooksIcon,
+  GraduationCapIcon,
+  PencilIcon,
+} from "@/common/components/CustomIcon";
 import { SearchResultList } from "../SearchResultList";
 import { SearchResultItem } from "../SearchResultItem";
 import { SearchResultDivider } from "../SearchResultDivider";
@@ -86,7 +90,7 @@ export const SearchResultContent = ({
               title={p.profName}
               filterStats={[
                 { icon: <PencilIcon />, stat: 11 },
-                { icon: <GraduationCapIcon />, stat: 31 },
+                { icon: <BooksIcon />, stat: 31 },
               ]}
             />
           ))}
