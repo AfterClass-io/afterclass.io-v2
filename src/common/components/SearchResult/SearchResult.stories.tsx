@@ -73,13 +73,15 @@ const searchedProf = [
 export const Default: Story = {
   render: () => {
     return (
-      <SearchResult>
-        <SearchResult.Title searchTerm="test" />
-        <SearchResult.Content
-          searchedCourse={searchedCourse}
-          searchedProf={searchedProf}
-        />
-      </SearchResult>
+      <div className="w-full">
+        <SearchResult>
+          <SearchResult.Title searchTerm="test" />
+          <SearchResult.Content
+            searchedCourse={searchedCourse}
+            searchedProf={searchedProf}
+          />
+        </SearchResult>
+      </div>
     );
   },
 };
@@ -87,39 +89,41 @@ export const Default: Story = {
 export const WithoutFilter: Story = {
   render: () => {
     return (
-      <SearchResult>
-        <SearchResult.Title searchTerm="test" />
-        <SearchResult.List>
-          <SearchResult.Empty
-            show={searchedCourse.length + searchedProf.length === 0}
-          />
-          {searchedCourse.map((c) => (
-            <SearchResult.Item
-              key={c.courseCode}
-              school={c.uniAbbrv}
-              href={`/course/${c.courseCode}`}
-              title={c.courseName}
-              subtitle={c.courseCode}
-              filterStats={[
-                { icon: <PencilIcon />, stat: 12 },
-                { icon: <GraduationCapIcon />, stat: 32 },
-              ]}
+      <div className="w-full">
+        <SearchResult>
+          <SearchResult.Title searchTerm="test" />
+          <SearchResult.List>
+            <SearchResult.Empty
+              show={searchedCourse.length + searchedProf.length === 0}
             />
-          ))}
-          {searchedProf.map((p) => (
-            <SearchResult.Item
-              key={p.profSlug}
-              school={p.uniAbbrv}
-              href={`/professor/${p.profSlug}`}
-              title={p.profName}
-              filterStats={[
-                { icon: <PencilIcon />, stat: 11 },
-                { icon: <BooksIcon />, stat: 31 },
-              ]}
-            />
-          ))}
-        </SearchResult.List>
-      </SearchResult>
+            {searchedCourse.map((c) => (
+              <SearchResult.Item
+                key={c.courseCode}
+                school={c.uniAbbrv}
+                href={`/course/${c.courseCode}`}
+                title={c.courseName}
+                subtitle={c.courseCode}
+                filterStats={[
+                  { icon: <PencilIcon />, stat: 12 },
+                  { icon: <GraduationCapIcon />, stat: 32 },
+                ]}
+              />
+            ))}
+            {searchedProf.map((p) => (
+              <SearchResult.Item
+                key={p.profSlug}
+                school={p.uniAbbrv}
+                href={`/professor/${p.profSlug}`}
+                title={p.profName}
+                filterStats={[
+                  { icon: <PencilIcon />, stat: 11 },
+                  { icon: <BooksIcon />, stat: 31 },
+                ]}
+              />
+            ))}
+          </SearchResult.List>
+        </SearchResult>
+      </div>
     );
   },
 };
@@ -127,22 +131,24 @@ export const WithoutFilter: Story = {
 export const JustSearchResultFilter: Story = {
   render: () => {
     return (
-      <SearchResult.Filter
-        onValueChange={(value) => console.log(value)}
-        filters={{
-          school: [
-            { label: "All", value: "all", isDefault: true },
-            { label: "SMU", value: "SMU" },
-            { label: "NUS", value: "NUS" },
-            { label: "NTU", value: "NTU" },
-          ],
-          type: [
-            { label: "All", value: "all", isDefault: true },
-            { label: "Professor", value: "professor" },
-            { label: "Course", value: "course" },
-          ],
-        }}
-      />
+      <div className="w-full">
+        <SearchResult.Filter
+          onValueChange={(value) => console.log(value)}
+          filters={{
+            school: [
+              { label: "All", value: "all", isDefault: true },
+              { label: "SMU", value: "SMU" },
+              { label: "NUS", value: "NUS" },
+              { label: "NTU", value: "NTU" },
+            ],
+            type: [
+              { label: "All", value: "all", isDefault: true },
+              { label: "Professor", value: "professor" },
+              { label: "Course", value: "course" },
+            ],
+          }}
+        />
+      </div>
     );
   },
 };
