@@ -15,6 +15,10 @@ export function searchProf(
 ): Promise<SearchProfResult[]> {
   // safety of query is ensured by the Prisma client using prepared statements
   // https://github.com/prisma/prisma-client-js/issues/727#issuecomment-650096790
+  const processedQuery = query.includes(" ")
+    ? query.split(" ").join(" & ")
+    : query;
+
   return db.$queryRaw`
     SELECT
       u.abbrv as "uniAbbrv",
