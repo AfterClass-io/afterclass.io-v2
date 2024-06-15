@@ -1,16 +1,29 @@
 import { SearchResult } from "@/common/components/SearchResult";
-import { searchCourse } from "@/common/functions/searchCourse";
-import { searchProf } from "@/common/functions/searchProf";
+import {
+  type SearchCourseResult,
+  searchCourse,
+} from "@/common/functions/searchCourse";
+import {
+  type SearchProfResult,
+  searchProf,
+} from "@/common/functions/searchProf";
 
 export default async function Search({
   searchParams,
 }: {
   searchParams: { q: string };
 }) {
-  const [searchedCourse, searchedProf] = await Promise.all([
-    searchCourse(searchParams.q),
-    searchProf(searchParams.q),
-  ]);
+  let searchedCourse: SearchCourseResult[] = [];
+  let searchedProf: SearchProfResult[] = [];
+
+  try {
+    [searchedCourse, searchedProf] = await Promise.all([
+      searchCourse(searchParams.q),
+      searchProf(searchParams.q),
+    ]);
+  } catch (e) {
+    console.error(e);
+  }
 
   return (
     <SearchResult>
