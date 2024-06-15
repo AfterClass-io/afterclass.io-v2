@@ -13,13 +13,14 @@ export default async function Search({
 }: {
   searchParams: { q: string };
 }) {
+  const query = searchParams.q;
+
   let searchedCourse: SearchCourseResult[] = [];
   let searchedProf: SearchProfResult[] = [];
-
   try {
     [searchedCourse, searchedProf] = await Promise.all([
-      searchCourse(searchParams.q),
-      searchProf(searchParams.q),
+      searchCourse(query),
+      searchProf(query),
     ]);
   } catch (e) {
     console.error(e);
@@ -27,7 +28,7 @@ export default async function Search({
 
   return (
     <SearchResult>
-      <SearchResult.Title searchTerm={searchParams.q} />
+      <SearchResult.Title searchTerm={query} />
       <SearchResult.Content
         searchedCourse={searchedCourse}
         searchedProf={searchedProf}

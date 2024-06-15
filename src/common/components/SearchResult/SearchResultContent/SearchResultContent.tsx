@@ -14,6 +14,7 @@ import { SearchResultDivider } from "../SearchResultDivider";
 import { SearchResultFilter } from "../SearchResultFilter";
 import { SearchResultEmpty } from "../SearchResultEmpty";
 import { searchResultTheme } from "../SearchResult.theme";
+import { type UniversityAbbreviation } from "@prisma/client";
 
 const filterOptions = z.object({
   school: z.enum(["all", "SMU", "NUS", "NTU"]),
@@ -34,23 +35,14 @@ export const SearchResultContent = ({
     type: "all",
   });
 
-  const schoolFilteredCourse = searchedCourse.filter((c) => {
+  const isSchoolSelected = (uniAbbrv: UniversityAbbreviation) => {
     switch (filter.school) {
       case "all":
         return true;
       default:
-        return c.uniAbbrv === filter.school;
+        return uniAbbrv === filter.school;
     }
-  });
-
-  const schoolFilteredProf = searchedProf.filter((p) => {
-    switch (filter.school) {
-      case "all":
-        return true;
-      default:
-        return p.uniAbbrv === filter.school;
-    }
-  });
+  };
 
   const isEmpty = () => {
     switch (filter.type) {
@@ -62,6 +54,13 @@ export const SearchResultContent = ({
         return schoolFilteredProf.length === 0;
     }
   };
+
+  const schoolFilteredCourse = searchedCourse.filter((c) =>
+    isSchoolSelected(c.uniAbbrv),
+  );
+  const schoolFilteredProf = searchedProf.filter((p) =>
+    isSchoolSelected(p.uniAbbrv),
+  );
 
   return (
     <div className={content()}>
