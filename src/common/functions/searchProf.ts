@@ -32,7 +32,7 @@ export function searchProf(
       p.belong_to_university = u.id
     WHERE
       to_tsvector(p.name)
-      @@ to_tsquery(${query + ":*"})
+      @@ to_tsquery(${processedQuery + ":*"})
     LIMIT ${limit};
   `;
 }
