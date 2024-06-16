@@ -1,58 +1,38 @@
-import { GraduationCapIcon, PencilIcon } from "@/common/components/CustomIcon";
 import { SearchResult } from "@/common/components/SearchResult";
+import {
+  type SearchCourseResult,
+  searchCourse,
+} from "@/common/functions/searchCourse";
+import {
+  type SearchProfResult,
+  searchProf,
+} from "@/common/functions/searchProf";
 
-export default function Search() {
+export default async function Search({
+  searchParams,
+}: {
+  searchParams: { q: string };
+}) {
+  const query = searchParams.q;
+
+  let searchedCourse: SearchCourseResult[] = [];
+  let searchedProf: SearchProfResult[] = [];
+  try {
+    [searchedCourse, searchedProf] = await Promise.all([
+      searchCourse(query),
+      searchProf(query),
+    ]);
+  } catch (e) {
+    console.error(e);
+  }
+
   return (
     <SearchResult>
-      <SearchResult.Title />
-      <SearchResult.Content>
-        <SearchResult.List>
-          <SearchResult.Item
-            school="SMU"
-            href="/professor/ouh-eng-lieh"
-            title="Ouh Eng Lieh"
-            filterStats={[
-              { icon: <PencilIcon />, stat: 10 },
-              { icon: <GraduationCapIcon />, stat: 10 },
-            ]}
-          />
-          <SearchResult.Item
-            school="SMU"
-            href="/course/IS215"
-            title="Introduction to Business Research: Philosophy of Science and Behavioural Approaches to Organizing"
-            subtitle="BSRM704"
-            filterStats={[
-              { icon: <PencilIcon />, stat: 10 },
-              { icon: <GraduationCapIcon />, stat: 10 },
-            ]}
-          />
-          <SearchResult.Item
-            school="SMU"
-            href="/professor/ouh-eng-lieh"
-            title="Ouh Eng Lieh"
-            filterStats={[
-              { icon: <PencilIcon />, stat: 10 },
-              { icon: <GraduationCapIcon />, stat: 10 },
-            ]}
-          />
-        </SearchResult.List>
-        <SearchResult.Divider />
-        <SearchResult.Filter
-          filters={{
-            School: [
-              { label: "All", value: "all", isDefault: true },
-              { label: "SMU", value: "SMU" },
-              { label: "NUS", value: "NUS" },
-              { label: "NTU", value: "NTU" },
-            ],
-            Type: [
-              { label: "All", value: "all", isDefault: true },
-              { label: "Professor", value: "professor" },
-              { label: "Course", value: "course" },
-            ],
-          }}
-        />
-      </SearchResult.Content>
+      <SearchResult.Title searchTerm={query} />
+      <SearchResult.Content
+        searchedCourse={searchedCourse}
+        searchedProf={searchedProf}
+      />
     </SearchResult>
   );
 }
