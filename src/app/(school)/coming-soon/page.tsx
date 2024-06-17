@@ -1,4 +1,5 @@
-import { useSession } from "next-auth/react";
+// For whoever is reading this. What's left to be done is the css animation and moving the afterclass logo behind the text
+//  the tailwind classes can be cleaned up after work is complete as well.
 import { AfterclassIcon } from "@/common/components/CustomIcon";
 export default function ComingSoon() {
   return (
