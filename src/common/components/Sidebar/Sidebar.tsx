@@ -39,6 +39,11 @@ const SIDEBAR_ITEMS = [
     icon: <DealsIcon size={16} />,
     href: "/deals",
   },
+  {
+    label: "Coming Soon",
+    icon: <DealsIcon size={16} />,
+    href: "/coming-soon",
+  },
   // Development-only links
   ...(process.env.NODE_ENV === "development"
     ? [
