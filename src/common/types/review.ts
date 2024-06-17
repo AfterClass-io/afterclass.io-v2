@@ -1,14 +1,15 @@
-import { type UniversityAbbreviation } from "@prisma/client";
+import { type Labels, type UniversityAbbreviation } from "@prisma/client";
 
 export type Review = {
   id: string;
   body: string;
   tips: string;
+  rating: number;
   courseCode: string;
   username: string;
   likeCount: number;
-  labels: { name: string }[];
   createdAt: number;
+  reviewLabels: Pick<Labels, "name">[];
   university: UniversityAbbreviation;
   reviewFor: "professor" | "course";
   professorName?: string;

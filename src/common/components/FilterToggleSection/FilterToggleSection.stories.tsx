@@ -30,8 +30,8 @@ export const Default: Story = {
     return (
       <FilterToggleSection>
         <FilterToggleSection.Header type="professor" />
-        <FilterToggleSection.Items
-          data={[
+        <FilterToggleSection.Items>
+          {[
             {
               label: "Alexander the Great",
               value: "alexander-the-great",
@@ -56,10 +56,21 @@ export const Default: Story = {
                 { icon: <BooksIcon />, stat: 20 },
               ],
             },
-          ]}
-          selectedItems={selectedItems}
-          setSelectedItems={setSelectedItems}
-        />
+          ].map((item, index) => (
+            <FilterToggleSection.Item
+              key={index}
+              {...item}
+              onClick={() => {
+                selectedItems.includes(item.value)
+                  ? setSelectedItems(
+                      selectedItems.filter((v) => v !== item.value),
+                    )
+                  : setSelectedItems([...selectedItems, item.value]);
+              }}
+              selected={selectedItems.includes(item.value)}
+            />
+          ))}
+        </FilterToggleSection.Items>
       </FilterToggleSection>
     );
   },
@@ -73,8 +84,8 @@ export const WithSubHeader: Story = {
     return (
       <FilterToggleSection>
         <FilterToggleSection.Header type="course" />
-        <FilterToggleSection.Items
-          data={[
+        <FilterToggleSection.Items>
+          {[
             {
               label: "AI: Past, Present, and Future",
               sublabel: "COR1234",
@@ -102,10 +113,21 @@ export const WithSubHeader: Story = {
                 { icon: <GraduationCapIcon />, stat: 20 },
               ],
             },
-          ]}
-          selectedItems={selectedItems}
-          setSelectedItems={setSelectedItems}
-        />
+          ].map((item, index) => (
+            <FilterToggleSection.Item
+              key={index}
+              {...item}
+              onClick={() => {
+                selectedItems.includes(item.value)
+                  ? setSelectedItems(
+                      selectedItems.filter((v) => v !== item.value),
+                    )
+                  : setSelectedItems([...selectedItems, item.value]);
+              }}
+              selected={selectedItems.includes(item.value)}
+            />
+          ))}
+        </FilterToggleSection.Items>
       </FilterToggleSection>
     );
   },

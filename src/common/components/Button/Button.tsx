@@ -16,7 +16,7 @@ import {
   buttonTheme,
   type ButtonVariants,
 } from "./Button.theme";
-import { Icon } from "@iconify-icon/react";
+import { Spinner } from "@/common/components/CustomIcon";
 
 interface ButtonBaseProps {
   iconLeft?: ReactNode;
@@ -76,7 +76,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
 
           if (baseLinkOrAnchorProps.external) {
             // baseLinkOrAnchorProps is discriminated based on external prop
-            const { href, ...baseAnchorProps } = baseLinkOrAnchorProps;
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const { href, external, ...baseAnchorProps } =
+              baseLinkOrAnchorProps;
             const externalLinkProps = {
               target: "_blank",
               rel: "noopener",
@@ -189,7 +191,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
         <Child />
         {loading && (
           <span className="loading absolute inset-0 grid place-content-center">
-            <Icon icon="gg:spinner" className="animate-spin" />
+            <Spinner className="animate-spin" />
           </span>
         )}
       </Component>

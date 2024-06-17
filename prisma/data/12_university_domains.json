@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "domain": "smu.edu.sg",
+    "belongToUniversityId": 1
+  },
+  {
+    "id": 2,
+    "domain": "u.nus.edu",
+    "belongToUniversityId": 2
+  },
+  {
+    "id": 3,
+    "domain": "ntu.edu.sg",
+    "belongToUniversityId": 3
+  }
+]
