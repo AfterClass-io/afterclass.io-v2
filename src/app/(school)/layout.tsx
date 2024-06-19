@@ -3,7 +3,7 @@ import { cn } from "@/common/functions";
 import { type PropsWithChildren } from "react";
 // import { getServerAuthSession } from "@/server/auth";
 
-export default async function SchoolLayout({ children }: PropsWithChildren) {
+export default function SchoolLayout({ children }: PropsWithChildren) {
   // const session = await getServerAuthSession();
   return (
     <>
