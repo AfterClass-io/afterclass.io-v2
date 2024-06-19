@@ -69,7 +69,7 @@ export const ReviewModal = ({
             </div>
           </div>
           {/* seeMore link only shown when user is from default reviews page, hidden when in professor/course pages */}
-          {seeMore && (
+          {seeMore && variant !== "professor" && (
             <div className={seeMoreWrapper()}>
               <div className={seeMoreLink()}>
                 {/* TODO: link to respective prof/course page */}
