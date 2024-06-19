@@ -27,16 +27,6 @@ const SIDEBAR_ITEMS = [
     icon: <ChartLineIcon />,
     href: "/bidding",
   },
-  {
-    label: "Marketplace",
-    icon: <BookLineIcon size={16} />,
-    href: "/marketplace",
-  },
-  {
-    label: "Deals",
-    icon: <DealsIcon size={16} />,
-    href: "/deals",
-  },
   // Development-only links
   ...(process.env.NODE_ENV === "development" ? [] : []),
 ];
