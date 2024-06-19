@@ -131,8 +131,7 @@ CommandRoot.displayName = CommandPrimitive.displayName;
 interface CommandDialogProps extends ModalProps {
   as?: "dialog";
 }
-
-export const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
+const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
   const { commandDialog, commandDialogContent } = commandTheme();
   return (
     <Modal variant="command" {...props}>
@@ -159,6 +158,7 @@ export const Command = (props: CommandRootProps | CommandDialogProps) => {
   }
 };
 
+Command.Dialog = CommandDialog;
 Command.Input = CommandInput;
 Command.List = CommandList;
 Command.Empty = CommandEmpty;

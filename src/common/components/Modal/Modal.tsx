@@ -1,4 +1,4 @@
-import { type DialogProps, Root, Trigger } from "@radix-ui/react-dialog";
+import { type DialogProps, Root, Trigger, Close } from "@radix-ui/react-dialog";
 import { type ComponentPropsWithoutRef, type PropsWithChildren } from "react";
 
 import ModalProvider from "./ModalProvider";
@@ -43,3 +43,4 @@ Modal.Content = ModalContent;
 Modal.Header = ModalHeader;
 Modal.Footer = ModalFooter;
 Modal.Body = ModalBody;
+Modal.Close = Close;

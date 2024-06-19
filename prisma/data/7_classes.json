@@ -246,5 +246,13 @@
     "label": "SG81",
     "createdAt": "2024-03-15T03:47:00.634Z",
     "updatedAt": "2024-03-15T03:47:00.634Z"
+  },
+  {
+    "id": 1001,
+    "courseId": "c229563a-4361-4b4a-8c89-346d0c6c6553",
+    "professorId": "e0d1c563-93d3-48aa-a096-f7ac93b9d57b",
+    "label": "G1",
+    "createdAt": "2024-03-15T03:47:00.634Z",
+    "updatedAt": "2024-03-15T03:47:00.634Z"
   }
 ]

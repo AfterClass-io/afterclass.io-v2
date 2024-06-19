@@ -1,3 +1,7 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+
 import { Button } from "@/common/components/Button";
 import { LockIcon } from "@/common/components/CustomIcon/LockIcon";
 import {
@@ -19,6 +23,7 @@ export const LockCtaOverlay = ({
   size = "md",
   ctaType = "rating",
 }: LockCtaOverlayProps) => {
+  const pathname = usePathname();
   const { wrapper, overlay, ctaTextContainer, icon } = lockCtaOverlayTheme({
     variant,
     size,
@@ -26,15 +31,22 @@ export const LockCtaOverlay = ({
   return (
     <>
       <div className={overlay()}></div>
-      <div className={wrapper()}>
+      <Button
+        className={wrapper()}
+        as="a"
+        href={{
+          pathname: "/account/auth/login",
+          query: { callbackUrl: pathname },
+        }}
+        variant="ghost"
+        asChild
+      >
         <LockIcon className={icon()} />
         <div className={ctaTextContainer()}>
-          <Button variant="link" as="a" href="/account/auth/login">
-            Login
-          </Button>
+          <Button variant="link">Login</Button>
           <span>{ctaTextMap[ctaType]}</span>
         </div>
-      </div>
+      </Button>
     </>
   );
 };

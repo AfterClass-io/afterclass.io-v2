@@ -9,7 +9,7 @@ export const filterToggleSectionTheme = tv(
     slots: {
       section: [
         "flex",
-        "w-[1200px]",
+        "w-full",
         "p-6",
         "flex-col",
         "items-start",
@@ -27,6 +27,7 @@ export const filterToggleSectionTheme = tv(
         "font-semibold",
         "text-2xl",
       ],
+      headerIcon: ["w-6", "h-6"],
       container: [
         "flex",
         "items-start",

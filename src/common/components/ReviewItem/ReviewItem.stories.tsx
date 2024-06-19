@@ -1,11 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { ReviewItem, type ReviewLabel } from "./ReviewItem";
+import { ReviewItem } from "./ReviewItem";
 import { UniversityAbbreviation } from "@prisma/client";
+import { type Review } from "@/common/types";
 
 const review = {
   id: "1",
   body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor nunc a velit congue, et faucibus sapien iaculis. Quisque id felis non sapien egestas ultricies vulputate posuere quam. Vestibulum scelerisque arcu leo, sit amet interdum enim suscipit ut. Sed dolor turpis, tincidunt sed elementum at, posuere ac justo. Curabitur sem turpis, porttitor at ante sed, laoreet condimentum magna. Suspendisse ex orci, laoreet in cursus nec, rhoncus quis eros. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam lacinia varius quam, ut blandit quam suscipit nec. Morbi facilisis mauris erat, quis porttitor purus consequat id. Maecenas.",
+  tips: "",
+  rating: 4,
   courseCode: "COR-MGMT1302",
   username: "Anonymous",
   likeCount: 10,
@@ -13,23 +16,23 @@ const review = {
   university: UniversityAbbreviation.SMU,
   reviewFor: "professor" as "professor" | "course",
   professorName: "John Doe",
-  labels: [
-    { name: "Engaging" },
-    { name: "Fair Grading" },
+  reviewLabels: [
+    { name: "ENGAGING" },
+    { name: "FAIR_GRADING" },
     {
-      name: "Effective Teaching",
+      name: "EFFECTIVE_TEACHING",
     },
     {
-      name: "Interesting",
+      name: "INTERESTING",
     },
     {
-      name: "Practical",
+      name: "PRACTICAL",
     },
     {
-      name: "Gained New Skills",
+      name: "GAINED_NEW_SKILLS",
     },
-  ] as ReviewLabel[],
-};
+  ],
+} satisfies Review;
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {

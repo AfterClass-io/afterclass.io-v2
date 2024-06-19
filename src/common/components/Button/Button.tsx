@@ -16,17 +16,23 @@ import {
   buttonTheme,
   type ButtonVariants,
 } from "./Button.theme";
-import { Icon } from "@iconify-icon/react";
+import { Spinner } from "@/common/components/CustomIcon";
 
 interface ButtonBaseProps {
   iconLeft?: ReactNode;
   iconRight?: ReactNode;
   isResponsive?: boolean;
+  asChild?: boolean;
 }
 
-export interface ButtonLinkProps extends ComponentPropsWithoutRef<"a"> {
+export interface ButtonLinkProps extends ComponentPropsWithoutRef<typeof Link> {
   as?: "a";
-  external?: boolean;
+  external?: false;
+}
+
+export interface ButtonAnchorProps extends ComponentPropsWithoutRef<"a"> {
+  as?: "a";
+  external: true;
   href: string;
 }
 
@@ -34,8 +40,10 @@ export interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
   as?: "button";
 }
 
+export type ButtonLinkOrAnchorProps = ButtonLinkProps | ButtonAnchorProps;
+
 // Discriminated union based on "as" prop
-export type ButtonOrLinkProps = (ButtonLinkProps | ButtonProps) &
+export type ButtonOrLinkProps = (ButtonLinkOrAnchorProps | ButtonProps) &
   ButtonBaseProps &
   Omit<ButtonVariants, "hasIcon" | "iconOnly">;
 
@@ -50,6 +58,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
       fullWidth,
       disabled,
       loading,
+      asChild = false,
       ...props
     },
     ref,
@@ -61,20 +70,26 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
         // Accessing .as instead of destructuring to make use of discriminated unions
         // https://github.com/microsoft/TypeScript/issues/46318
         if (_props.as === "a") {
-          // Has an unused `as` to remove it from baseLinkProps
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const { external, href, as, ...baseLinkProps } = _props;
-
           // External link
-          if (external) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { as, ...baseLinkOrAnchorProps } = _props;
+
+          if (baseLinkOrAnchorProps.external) {
+            // baseLinkOrAnchorProps is discriminated based on external prop
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const { href, external, ...baseAnchorProps } =
+              baseLinkOrAnchorProps;
             const externalLinkProps = {
               target: "_blank",
               rel: "noopener",
               href,
-              ...baseLinkProps,
+              ...baseAnchorProps,
             };
             return <a {...externalLinkProps}>{_children}</a>;
           }
+
+          // baseLinkOrAnchorProps is discriminated based on external prop
+          const { href, ...baseLinkProps } = baseLinkOrAnchorProps;
 
           // Internal link
           return (
@@ -143,6 +158,19 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
       [children, styleProps?.size],
     );
 
+    const Child = useCallback(() => {
+      if (asChild) {
+        return children;
+      }
+      return (
+        <>
+          <StyledIcon icon={iconLeft} />
+          {children && <span>{children}</span>}
+          <StyledIcon icon={iconRight} />
+        </>
+      );
+    }, [StyledIcon, iconLeft, iconRight, children, asChild]);
+
     const disableOnClickProp = {
       ...((loading ?? disabled) && { onClick: undefined }),
     };
@@ -160,12 +188,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
         })}
         data-disabled={disabled ? "" : undefined}
       >
-        <StyledIcon icon={iconLeft} />
-        {children && <span>{children}</span>}
-        <StyledIcon icon={iconRight} />
+        <Child />
         {loading && (
           <span className="loading absolute inset-0 grid place-content-center">
-            <Icon icon="gg:spinner" className="animate-spin" />
+            <Spinner className="animate-spin" />
           </span>
         )}
       </Component>

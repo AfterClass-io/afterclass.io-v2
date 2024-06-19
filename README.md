@@ -1,83 +1,79 @@
-# Create T3 App
+<div align="center">
+  <h1 align="center">
+    <a href="https://afterclass.io">
+      <img src=".github/assets/afterclass-with-name.svg" alt="AfterClass" width=300>
+    </a>
+  </h1>
+</div>
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+_Explore over 14,000+ reviews of courses and professors. Plan ahead with bid
+analytics. Break classroom barriers. The open-source course planning platform
+for Singapore Management University (more to come!)_
 
-## Icons
+We’re a committed group of students and alumni working to improve campus life
+through technology. AfterClass supports more than 40,000 students each semester
+in selecting the ideal modules for their academic path.
 
-### How do I use icons from libraries like mdi or other libs?
+<br>
+<p align="center">
+  <img alt='course review' src=".github/assets/screenshot-course.png">
+</p>
 
-We are using a library called Iconify.
+## 🚀 Quick Start
 
-On Figma, if the icon layer name is formatted like `uil:chart-line`, then it's likely using an icon from Iconify. Otherwise, see below for custom icon implementation.
+This project is built on top of the [T3
+Stack](https://create.t3.gg/en/introduction). With the following core
+technologies:
 
-Please also refer to Iconify guide [here](https://github.com/iconify/iconify/tree/main/iconify-icon/react)
+- [TypeScript](https://www.typescriptlang.org/) - Statically typed JavaScript
+- [Yarn](https://yarnpkg.com/) - Dependency management
 
-### How do I create custom icons that are not from Iconify?
+### Frontend
 
-Refer to the README [here](https://github.com/AfterClass-io/afterclass.io-v2/tree/main/src/common/components/CustomIcon/README.md)
+- [Next.js](https://nextjs.org/) - React framework
+- [TailwindCSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [RadixUI](https://www.radix-ui.com/) & [Shadcn](https://shadcn.com/) -
+  Composition-first UI libraries
 
-## Theming System
+### Backend
 
-Our theming system uses the Tailwind Plugin function to generate 2 things
+- [Next.js Api Routes](https://nextjs.org/docs/api-routes/introduction) -
+  Serverless API endpoints _(used with tRPC)_
+- [tRPC](https://trpc.io/) - TypeScript RPC, a framework for building type-safe
+  APIs
+- [PrismaORM](https://www.prisma.io/) - Modern database access for TypeScript &
+  Node.js
+- [NextAuth](https://next-auth.js.org/) - Authentication for Next.js
+- [Supabase](https://supabase.com/) - The open source Firebase alternative for
+  PostgreSQL
 
-- CSS variables for each token in figma
-- Tailwind classes for these tokens
+### Dev Tools
 
-### How do I use the theme colours?
+- [ESLint](https://eslint.org/) - Linting utility for TypeScript and TSX
+- [Prettier](https://prettier.io/) - Code formatter
+- [Storybook](https://storybook.js.org/) - UI component explorer
+- [Docker](https://www.docker.com/) - Containerized development environment
 
-VSCode should grab and expose the colours from the theming system with autocomplete support. You need the [Tailwind CSS IntelliSense VSCode Extension](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss).
+### Development
 
-Alternatively, you can refer to `common/tools/tailwind/themes/appTheme.ts` for the theming tailwind config and available classes.
+- [Vercel](https://vercel.com/) - Hosting and deployment
+- [Supabase](https://supabase.com/) - Database and authentication
 
-### What not to do
+For more information, see the [Development Guide](DEVELOPMENT.md) and
+[Deployment Guide](DEPLOYMENT.md).
 
-#### Avoid using `bg-light-*` or `bg-dark-*`
+## 📚 Documentation
 
-Even though the theming system exposes classes like `bg-light-primary-default` or `bg-dark-primary-default`, use only `bg-app-primary-default`. The additional light/dark prefix colours are for granular theming possibilities, like when certain components need a certain token.
+- [Project Philosophy](PHILOSOPHY.md)
+- [Contributing Guide](CONTRIBUTING.md)
+- [Project Architecture](ARCHITECTURE.md)
+- [Development Guide](DEVELOPMENT.md)
+- [Deployment Guide](DEPLOYMENT.md)
 
-### How does the theming system work?
+## 🤝 Contributing
 
-Based on the parent's className `light` or `dark`, the tailwind classes will use a different set of color variables.
+See our [contribution guide](CONTRIBUTING.md) for more information
 
-E.g. We use 1 class for both light or dark colours, such as `bg-app-primary-default`. This class points to a CSS variable like so `primary-default: 'var(--app-primary-default)`. Based on whether the parent has `.dark` or `.light` class, the class contains CSS variables that will override and apply the correct colour.
+## 📝 License
 
-It also works with opacity, so you could do `bg-app-primary-default/50` if you'd like.
-
-### Forcing a component to be of a different theme
-
-Just add something like `data-theme="dark"` to the HTML attributes, and it'll use the variables from that theme. You can also use classNames like `dark` or `light`.
-
-### Where are the theming files located?
-
-All Tailwind theming files are configured in the monorepo's `common/tools/tailwind` folder.
-
-### How do I modify the theme or the colours?
-
-If you're adding a new key or token, make sure to modify all the themes found in `/common/tools/tailwind/themes` so they have the same set of keys.
-
-If you're updating a certain theme's color code, just find the theme in `/common/tools/tailwind/themes` and paste the HEX code there.
-
-## What's next? How do I make an app with this?
-
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
-
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
-
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
-
-## Learn More
-
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
-
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
-
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+[MIT](LICENSE)

@@ -40,3 +40,24 @@ export const RatingSection = ({
     </div>
   );
 };
+
+const RatingSectionSkeleton = () => {
+  const { wrapper, headingContainer, headingRating, statItemWrapper, icon } =
+    ratingSectionTheme();
+  return (
+    <div className={wrapper()}>
+      <div className={headingContainer()}>
+        <div className={headingRating()}>
+          <HeartIcon className={icon()} />
+          <StatItem.Skeleton layout="horizontal" label="Average Rating" />
+        </div>
+      </div>
+      <div className={statItemWrapper()}>
+        <StatItem.Skeleton />
+        <StatItem.Skeleton />
+        <StatItem.Skeleton />
+      </div>
+    </div>
+  );
+};
+RatingSection.Skeleton = RatingSectionSkeleton;

@@ -1,15 +1,8 @@
-import {
-  ReviewHeader,
-  reviewItemTheme,
-  type ReviewItemVariants,
-} from "./index";
+import { ReviewHeader } from "./ReviewHeader";
+import { reviewItemTheme, type ReviewItemVariants } from "./ReviewItem.theme";
 import { LockCtaOverlay } from "@/common/components/LockCtaOverlay";
-import ReviewModal from "@/common/components/ReviewModal/ReviewModal";
+import { ReviewModal } from "@/common/components/ReviewModal";
 import { type Review } from "@/common/types";
-// TODO: to replace with prisma generated types
-export type ReviewLabel = {
-  name: string;
-};
 
 export type ReviewItemProps = ReviewItemVariants & {
   review: Review;
@@ -25,17 +18,17 @@ export const ReviewItem = ({
   const { wrapper, body } = reviewItemTheme();
 
   return (
-    <div>
+    <>
       {isLocked ? (
         <div className={wrapper()}>
           <ReviewHeader review={review} variant={variant} />
-          <div className={body()}>
+          <div className={body({ isLocked })}>
             <LockCtaOverlay size="sm" ctaType="review" variant="border" />
           </div>
         </div>
       ) : (
         <ReviewModal review={review} variant={variant} seeMore={true} />
       )}
-    </div>
+    </>
   );
 };
