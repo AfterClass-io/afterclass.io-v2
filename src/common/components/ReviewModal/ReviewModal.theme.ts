@@ -22,7 +22,7 @@ export const reviewModalTheme = tv(
       modalBody: ["space-y-8"],
       usernameAndTimestampWrapper: ["space-x-2", "pb-[18px]"],
       username: ["text-lg", "font-medium"],
-      body: ["pb-[16px]"],
+      body: ["pb-[16px]", "whitespace-pre-wrap"],
       likeAndShareWrapper: [
         "flex",
         "gap-x-6",
