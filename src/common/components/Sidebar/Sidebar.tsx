@@ -5,9 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import {
-  BookLineIcon,
   ChartLineIcon,
-  DealsIcon,
   StarLineAltIcon,
 } from "@/common/components/CustomIcon";
 import { SidebarItem } from "@/common/components/SidebarItem";
