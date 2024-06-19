@@ -1,3 +1,4 @@
+import { Button } from "@/common/components/Button";
 import { ThemeToggle } from "@/common/components/ThemeToggle";
 import { cn } from "@/common/functions";
 import { type PropsWithChildren } from "react";
@@ -15,10 +16,16 @@ export default function SchoolLayout({ children }: PropsWithChildren) {
       >
         {/* TODO: Add school select + breadcrumb */}
         <span>School header</span>
-
-        {/* TODO: Add user profile component */}
-        <div className="flex items-center gap-4">
-          <span>User</span>
+        <div className="space-between flex">
+          <Button
+            as="a"
+            variant="ghost"
+            href={{
+              pathname: "/account/auth/login",
+            }}
+          >
+            Login
+          </Button>
           <ThemeToggle />
         </div>
       </header>
