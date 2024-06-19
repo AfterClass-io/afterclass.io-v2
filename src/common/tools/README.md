@@ -2,7 +2,8 @@
 
 ## When to add tools here?
 
-Any external library configurations or files used specifically for the library will be added here to keep them all in the same place.
+Any external library configurations or files used specifically for the library
+will be added here to keep them all in the same place.
 
 Examples are libs like Chakra-UI or Apollo.
 

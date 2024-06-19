@@ -9,7 +9,9 @@ export default async function CourseHeader({
 }: {
   params: { code: string };
 }) {
-  const course = await api.courses.getByCourseCode({ code: params.code });
+  const course = await api.courses.getByCourseCode({
+    code: params.code.toUpperCase(),
+  });
   if (!course) {
     return notFound();
   }

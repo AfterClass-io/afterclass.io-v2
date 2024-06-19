@@ -1,7 +1,7 @@
 ---
 name: General Feature request
 about: Suggest a general feature
-title: "[Feat]"
+title: ""
 labels: enhancement
 assignees: ""
 ---

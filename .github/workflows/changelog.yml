@@ -1,0 +1,36 @@
+name: Changelog
+on:
+  release:
+    types: [published]
+
+jobs:
+  changelog:
+    name: Update changelog
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-tags: true
+
+      - name: Checkout New Branch
+        run: git checkout -b chore/release-notes
+
+      - uses: rhysd/changelog-from-release/action@v3
+        with:
+          file: CHANGELOG.md
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Pull Request
+        run: >
+          gh pr create 
+          --title "chore: update changelog to version ${{ github.event.release.tag_name }}"
+          --body "Created by [Changelog GitHub Action](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+          --base main
+          --head chore/release-notes
+          --label "skip-changelog"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -29,7 +29,8 @@ export const Tag = ({
   className,
   ...props
 }: TagProps) => {
-  const [isActive, setIsActive] = useState(active);
+  const [_active, setIsActive] = useState(active);
+  const isActive = active ?? _active;
 
   const { tag, icon: iconTheme } = tagTheme({
     active: isActive,
@@ -54,6 +55,7 @@ export const Tag = ({
     },
     [size, iconTheme],
   );
+
   return (
     <div
       className={tag({ className })}

@@ -1,0 +1,22 @@
+changelog:
+  exclude:
+    labels:
+      - skip-changelog
+    authors:
+      - dependabot[bot]
+  categories:
+    - title: 💥 Breaking Changes
+      labels:
+        - breaking-change
+    - title: 🚀 Features
+      labels:
+        - enhancement
+    - title: 👾 Bug Fixes
+      labels:
+        - bug
+    - title: 🆙 Performance Improvements
+      labels:
+        - performance
+    - title: Other Changes
+      labels:
+        - "*"
