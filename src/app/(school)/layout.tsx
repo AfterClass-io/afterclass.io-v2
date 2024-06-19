@@ -16,17 +16,17 @@ export default function SchoolLayout({ children }: PropsWithChildren) {
       >
         {/* TODO: Add school select + breadcrumb */}
         <span>School header</span>
-<div className="flex space-between">
-        <Button
-          as="a"
-          variant="ghost"
-          href={{
-            pathname: "/account/auth/login",
-          }}
-        >
-          Login
-        </Button>
-        <ThemeToggle/>
+        <div className="space-between flex">
+          <Button
+            as="a"
+            variant="ghost"
+            href={{
+              pathname: "/account/auth/login",
+            }}
+          >
+            Login
+          </Button>
+          <ThemeToggle />
         </div>
       </header>
 
