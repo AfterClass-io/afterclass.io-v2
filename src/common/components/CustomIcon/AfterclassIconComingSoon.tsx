@@ -1,8 +1,8 @@
 import { CustomIcon, type CustomIconProps } from "./CustomIcon";
 
-export const AfterclassIcon = (props: CustomIconProps) => {
+export const AfterclassIconComingSoon = (props: CustomIconProps) => {
   return (
-    <CustomIcon {...props}>
+    <CustomIcon {...props}className="animate-color-change">
       <path
         fillRule="evenodd"
         clipRule="evenodd"

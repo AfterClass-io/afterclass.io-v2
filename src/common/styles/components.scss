@@ -2,4 +2,62 @@
   .focus-ring {
     @apply focus-visible:border-primary-default focus-visible:ring-2 focus-visible:ring-primary-default/20;
   }
+
 }
+
+.background-icon {
+  position: absolute;
+  left: -2px;
+  top: 170px;
+  scale: 6;
+  rotate: 50deg;
+  opacity: 100;
+
+
+}
+.ComingSoon{
+  left: 127.41px;
+  top: 0px;
+  height: 36px;
+  width: 36px;
+  
+}
+
+.clip-70 {
+  clip-path: inset(0 30% 0 0);
+}
+
+.background-icon-1 {
+  position: absolute;
+  left: 50px;
+  scale: 3;
+  top:-50px;
+  rotate: 60deg;
+  height: 28; 
+  width: 28;
+  opacity: 70%;
+}
+
+
+.background-icon-2 {
+  position: absolute;
+  left: 140px;
+  top: 60px;
+  scale: 2;
+  rotate: 64deg;
+  height: 3.5rem; /* h-14 */
+  width: 3.5rem; /* w-14 */
+  opacity: 40%;
+}
+
+.background-icon-3{
+  position: absolute;
+  left: 180px;
+  top: 20px;
+  scale:1;
+  rotate: 70.58deg;
+  height: 6rem; /* h-14 */
+  width: 6rem; /* w-14 */
+  opacity: 30%;
+}
+
