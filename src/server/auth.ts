@@ -13,6 +13,9 @@ import { signInWithEmail } from "./supabase";
 import { emailValidationSchema } from "@/common/tools/zod/schemas";
 import { db } from "@/server/db";
 import randomId from "@/common/functions/randomId";
+import { type Users } from "@prisma/client";
+
+type SessionUser = Omit<Users, "deprecatedPasswordDigest">;
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -22,17 +25,8 @@ import randomId from "@/common/functions/randomId";
  */
 declare module "next-auth" {
   interface Session extends DefaultSession {
-    user: {
-      id: string;
-      // ...other properties not defined in `DefaultSession["user"]`
-      // role: UserRole;
-    } & DefaultSession["user"];
+    user: SessionUser;
   }
-
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
 }
 
 /**
@@ -180,6 +174,22 @@ export const authOptions: NextAuthOptions = {
       // Allows callback URLs on the same origin
       else if (new URL(url).origin === baseUrl) return url;
       return baseUrl;
+    },
+    jwt({ token, user }) {
+      if (token.sub && user) {
+        // strip user object of unwanted sensitive fields before populating to token
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { deprecatedPasswordDigest, ...rest } = user as Users;
+        // to expose user object in session
+        token.user = rest;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      if (token?.user) {
+        session.user = token.user as SessionUser;
+      }
+      return session;
     },
   },
 };
