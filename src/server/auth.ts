@@ -176,7 +176,9 @@ export const authOptions: NextAuthOptions = {
       return baseUrl;
     },
     jwt({ token, user }) {
-      if (!token.sub) return token;
+      if (!token.sub) {
+        return token;
+      }
       if (user) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { deprecatedPasswordDigest, ...rest } = user as Users;
@@ -186,7 +188,9 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     session({ session, token }) {
-      if (token?.user) session.user = token.user as SessionUser;
+      if (token?.user) {
+        session.user = token.user as SessionUser;
+      }
       return session;
     },
   },
