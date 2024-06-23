@@ -176,9 +176,6 @@ export const authOptions: NextAuthOptions = {
       return baseUrl;
     },
     jwt({ token, user }) {
-      if (!token.sub) {
-        return token;
-      }
       if (user) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { deprecatedPasswordDigest, ...rest } = user as Users;
