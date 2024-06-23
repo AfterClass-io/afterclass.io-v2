@@ -176,7 +176,8 @@ export const authOptions: NextAuthOptions = {
       return baseUrl;
     },
     jwt({ token, user }) {
-      if (user) {
+      if (token.sub && user) {
+        // strip user object of unwanted sensitive fields before populating to token
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { deprecatedPasswordDigest, ...rest } = user as Users;
         // to expose user object in session
