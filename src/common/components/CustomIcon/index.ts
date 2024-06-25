@@ -1,5 +1,6 @@
 export * from "@/common/components/Logo";
 export * from "./AfterclassIcon";
+export * from "./AfterclassIconComingSoon";
 export * from "./AfterclassText";
 export * from "./BookLineIcon";
 export * from "./BooksIcon";
