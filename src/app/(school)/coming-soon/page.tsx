@@ -1,6 +1,6 @@
 // For whoever is reading this. What's left to be done is the css animation and moving the afterclass logo behind the text
 //  the tailwind classes can be cleaned up after work is complete as well.
-import { AfterclassIconComingSoon } from "@/common/components/CustomIcon/AfterclassIconComingSoon.tsx";
+import { AfterclassIconComingSoon } from "@/common/components/CustomIcon/AfterclassIconComingSoon";
 export default function ComingSoon() {
   return (
     <>
