@@ -1,8 +1,11 @@
+import { Button } from "@/common/components/Button";
 import { ThemeToggle } from "@/common/components/ThemeToggle";
 import { cn } from "@/common/functions";
 import { type PropsWithChildren } from "react";
+import { getServerAuthSession } from "@/server/auth";
 
-export default function SchoolLayout({ children }: PropsWithChildren) {
+export default async function SchoolLayout({ children }: PropsWithChildren) {
+  const session = await getServerAuthSession();
   return (
     <>
       <header
@@ -18,7 +21,18 @@ export default function SchoolLayout({ children }: PropsWithChildren) {
 
         {/* TODO: Add user profile component */}
         <div className="flex items-center gap-4">
-          <span>User</span>
+          {session ? (
+            <div className="flex items-center gap-2">
+              <div className="overflow-hidden text-ellipsis text-sm text-text-em-mid">
+                <div className="h-4 w-4 rounded-full bg-cyan-800"></div>
+              </div>
+              <div>{session.user.email}</div>
+            </div>
+          ) : (
+            <Button as="a" variant="secondary" href="/account/auth/login">
+              Login
+            </Button>
+          )}
           <ThemeToggle />
         </div>
       </header>
