@@ -7,6 +7,7 @@ export const textareaTheme = tv(
     slots: {
       wrapper: [],
       textarea: [
+        "focus-ring",
         "flex",
         "items-start",
         "p-2",
@@ -19,6 +20,10 @@ export const textareaTheme = tv(
         "bg-surface-base",
         "border-border-default",
         "text-text-em-mid",
+        "hover:border-surface-elevated",
+        "hover:bg-surface-elevated",
+        "focus-visible:bg-bg-base",
+        "focus-visible:outline-none",
       ],
     },
     variants: {

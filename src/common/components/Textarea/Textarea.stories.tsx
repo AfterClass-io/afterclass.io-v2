@@ -22,3 +22,10 @@ export const Default: Story = {
     return <Textarea {...args} />;
   },
 };
+export const DefaultSmall: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    size: "sm",
+  },
+};
