@@ -9,6 +9,15 @@ export const searchResultTheme = tv(
       titleIcon: ["text-text-em-mid", "flex-none"],
       content: ["flex", "h-full", "gap-12"],
       list: ["flex", "w-full", "flex-col", "items-start", "gap-4"],
+      empty: [
+        "w-full",
+        "p-5",
+        "gap-4",
+        "items-center",
+        "flex",
+        "rounded-lg",
+        "bg-surface-base",
+      ],
       item: [
         "flex",
         "h-fit",
@@ -49,6 +58,13 @@ export const searchResultTheme = tv(
       filterField: ["w-fit"],
       filterToggleGroup: ["border-border-default"],
       filterToggleGroupItem: [],
+    },
+    variants: {
+      show: {
+        false: {
+          empty: ["hidden"],
+        },
+      },
     },
   },
   { responsiveVariants: true },

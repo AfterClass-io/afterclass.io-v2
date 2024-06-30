@@ -1,7 +1,7 @@
 ---
 name: UI Feature request
 about: Suggest a UI feature
-title: "[Feat][UI] feature_name"
+title: "feature_name"
 labels: enhancement, UI
 assignees: ""
 ---
