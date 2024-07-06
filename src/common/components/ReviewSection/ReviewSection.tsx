@@ -1,5 +1,4 @@
 import type { ReactNode, ComponentPropsWithoutRef } from "react";
-
 import { PenIcon } from "@/common/components/CustomIcon";
 import { reviewSectionTheme } from "./ReviewSection.theme";
 
@@ -12,7 +11,7 @@ export const ReviewSection = ({
   children,
   ...props
 }: ReviewSectionProps) => {
-  const { wrapper, header, title, icon, reviewsHeader } = reviewSectionTheme();
+  const { wrapper, header, title, icon, reviewsHeader} = reviewSectionTheme();
 
   return (
     <div className={wrapper({ className })} {...props}>

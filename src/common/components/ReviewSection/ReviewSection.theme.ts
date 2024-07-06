@@ -17,6 +17,7 @@ export const reviewSectionTheme = tv(
       title: ["flex", "items-center", "gap-4"],
       icon: ["h-6", "w-6", "rotate-90"],
       reviewsHeader: ["text-2xl", "font-semibold"],
+      seeMore: ["flex", "justify-center", "mt-4"],
     },
   },
   { responsiveVariants: true },
