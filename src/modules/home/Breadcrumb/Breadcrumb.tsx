@@ -8,17 +8,19 @@ type BreadcrumbElement = {
   href?: string;
 };
 
+const defaultBreadcrumbElement: BreadcrumbElement = {
+  label: "Home",
+  href: "/",
+};
+
 export const Breadcrumb = () => {
   const path = usePathname();
-  const defaultBreadcrumbElement: BreadcrumbElement = {
-    label: "Home",
-    href: "/",
-  };
 
   const breadcrumbElements: BreadcrumbElement[] = [defaultBreadcrumbElement];
 
-  const pathArr = path.split("/").filter(Boolean);
   let isSuccess = false;
+  const pathArr = path.split("/").filter(Boolean);
+
   switch (pathArr[0]) {
     case "professor": {
       const query = api.professors.getBySlug.useQuery({
@@ -33,6 +35,7 @@ export const Breadcrumb = () => {
       });
       break;
     }
+
     case "course": {
       const query = api.courses.getByCourseCode.useQuery({
         code: pathArr[1] ?? "",
@@ -46,6 +49,7 @@ export const Breadcrumb = () => {
       });
       break;
     }
+
     case "submit": {
       isSuccess = true;
       breadcrumbElements.push({
@@ -53,6 +57,7 @@ export const Breadcrumb = () => {
       });
       break;
     }
+
     case "search": {
       isSuccess = true;
       breadcrumbElements.push({
@@ -62,7 +67,25 @@ export const Breadcrumb = () => {
     }
   }
 
-  return isSuccess ? (
+  if (!isSuccess) {
+    return (
+      <BC>
+        <BC.List>
+          <BC.Item>
+            {defaultBreadcrumbElement.href ? (
+              <BC.Link href={defaultBreadcrumbElement.href}>
+                {defaultBreadcrumbElement.label}
+              </BC.Link>
+            ) : (
+              <BC.Page>{defaultBreadcrumbElement.label}</BC.Page>
+            )}
+          </BC.Item>
+        </BC.List>
+      </BC>
+    );
+  }
+
+  return (
     <BC>
       <BC.List>
         {breadcrumbElements.map((element, index) => (
@@ -75,20 +98,6 @@ export const Breadcrumb = () => {
             {index < breadcrumbElements.length - 1 && <BC.Separator />}
           </BC.Item>
         ))}
-      </BC.List>
-    </BC>
-  ) : (
-    <BC>
-      <BC.List>
-        <BC.Item>
-          {defaultBreadcrumbElement.href ? (
-            <BC.Link href={defaultBreadcrumbElement.href}>
-              {defaultBreadcrumbElement.label}
-            </BC.Link>
-          ) : (
-            <BC.Page>{defaultBreadcrumbElement.label}</BC.Page>
-          )}
-        </BC.Item>
       </BC.List>
     </BC>
   );
