@@ -29,21 +29,29 @@ const searchedCourse = [
     uniAbbrv: "SMU",
     courseCode: "IS215",
     courseName: "Course 1",
+    profCount: 21,
+    reviewCount: 22,
   },
   {
     uniAbbrv: "SMU",
     courseCode: "IS216",
     courseName: "Course 1a",
+    profCount: 23,
+    reviewCount: 24,
   },
   {
     uniAbbrv: "NUS",
     courseCode: "CS1010",
     courseName: "Course 2",
+    profCount: 25,
+    reviewCount: 26,
   },
   {
     uniAbbrv: "NTU",
     courseCode: "CS101",
     courseName: "Course 3",
+    profCount: 27,
+    reviewCount: 288,
   },
 ] satisfies SearchCourseResult[];
 
@@ -52,21 +60,29 @@ const searchedProf = [
     uniAbbrv: "SMU",
     profName: "Prof 1",
     profSlug: "prof-1",
+    courseCount: 11,
+    reviewCount: 12,
   },
   {
     uniAbbrv: "SMU",
     profName: "Prof 1a",
     profSlug: "prof-1a",
+    courseCount: 13,
+    reviewCount: 14,
   },
   {
     uniAbbrv: "NUS",
     profName: "Prof 2",
     profSlug: "prof-2",
+    courseCount: 15,
+    reviewCount: 16,
   },
   {
     uniAbbrv: "NTU",
     profName: "Prof 3",
     profSlug: "prof-3",
+    courseCount: 17,
+    reviewCount: 188,
   },
 ] satisfies SearchProfResult[];
 

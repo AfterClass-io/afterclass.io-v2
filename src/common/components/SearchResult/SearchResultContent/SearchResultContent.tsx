@@ -75,8 +75,8 @@ export const SearchResultContent = ({
               title={c.courseName}
               subtitle={c.courseCode}
               filterStats={[
-                { icon: <PencilIcon />, stat: 12 },
-                { icon: <GraduationCapIcon />, stat: 32 },
+                { icon: <PencilIcon />, stat: c.reviewCount },
+                { icon: <GraduationCapIcon />, stat: c.profCount },
               ]}
             />
           ))}
@@ -88,8 +88,8 @@ export const SearchResultContent = ({
               href={`/professor/${p.profSlug}`}
               title={p.profName}
               filterStats={[
-                { icon: <PencilIcon />, stat: 11 },
-                { icon: <BooksIcon />, stat: 31 },
+                { icon: <PencilIcon />, stat: p.reviewCount },
+                { icon: <BooksIcon />, stat: p.courseCount },
               ]}
             />
           ))}
