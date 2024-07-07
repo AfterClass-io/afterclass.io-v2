@@ -1,3 +1,23 @@
+<a name="v0.3.0"></a>
+# [v0.3.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.3.0) - 07 Jul 2024
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### 🚀 Features
+* feat(ui): coming soon page by [@whoisdavidd](https://github.com/whoisdavidd) in https://github.com/AfterClass-io/afterclass.io-v2/pull/183
+* feat(ui): implement breadcrumbs on navigation header by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/184
+### Other Changes
+* feat: search result includes review statistics by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/185
+
+## New Contributors
+* [@whoisdavidd](https://github.com/whoisdavidd) made their first contribution in https://github.com/AfterClass-io/afterclass.io-v2/pull/183
+
+**Full Changelog**: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.2.0...v0.3.0
+
+[Changes][v0.3.0]
+
+
 <a name="v0.2.0"></a>
 # [v0.2.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.2.0) - 23 Jun 2024
 
@@ -14,7 +34,7 @@
 
 ### Other Changes
 * chore: generate initial migrations by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/170
-* refactor(ui): format course details data by [@Jansen52x](https://github.com/Jansen52x) in https://github.com/AfterClass-io/afterclass.io-v2/pull/174
+* refactor(ui): format review details data by [@Jansen52x](https://github.com/Jansen52x) in https://github.com/AfterClass-io/afterclass.io-v2/pull/174
 * refactor(ui): hide see more reviews outside of home page by [@gnzat](https://github.com/gnzat) in https://github.com/AfterClass-io/afterclass.io-v2/pull/177
 
 ## New Contributors
@@ -123,6 +143,7 @@
 [Changes][v0.1.0]
 
 
+[v0.3.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.2.0...v0.3.0
 [v0.2.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.1.0...v0.2.0
 [v0.1.0]: https://github.com/AfterClass-io/afterclass.io-v2/tree/v0.1.0
 
