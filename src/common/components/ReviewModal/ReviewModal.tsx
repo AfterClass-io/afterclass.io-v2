@@ -8,6 +8,7 @@ import { reviewModalTheme } from "./ReviewModal.theme";
 import { getHumanReadableTimestampDelta } from "@/common/functions";
 import { ShareIcon, ThumbUpFilledIcon } from "@/common/components/CustomIcon";
 import { type Review } from "@/common/types";
+import Link from "next/link";
 
 export const ReviewModal = ({
   review,
@@ -33,6 +34,10 @@ export const ReviewModal = ({
     seeMoreLink,
   } = reviewModalTheme();
 
+  const reviewPath =
+    review.reviewFor === "professor"
+      ? `/professor/${review.professorName}`
+      : `/course/${review.courseCode}`;
   return (
     <Modal overflow="inside">
       <Modal.Trigger asChild className={modalTrigger()}>
@@ -71,11 +76,12 @@ export const ReviewModal = ({
           {/* seeMore link only shown when user is from default reviews page, hidden when in professor/course pages */}
           {seeMore && (
             <div className={seeMoreWrapper()}>
-              <div className={seeMoreLink()}>
-                {/* TODO: link to respective prof/course page */}
-                {/* can use review.professorName for professors and review.courseCode for courses */}
+              <Link
+                href={`${reviewPath.replace(/\s+/g, "-")}`}
+                className={seeMoreLink()}
+              >
                 See more reviews
-              </div>
+              </Link>
             </div>
           )}
         </Modal.Body>
