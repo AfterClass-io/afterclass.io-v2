@@ -18,8 +18,8 @@ export default async function CourseFilter({
   const professorWithMetadata = await Promise.all(
     professorForThisCourse.map(async (professor) => {
       const [courseCount, reviewCount] = await Promise.all([
-        await api.courses.countByProfSlug({ slug: professor.slug }),
-        await api.reviews.countByProfessorSlug({ slug: professor.slug }),
+        api.courses.countByProfSlug({ slug: professor.slug }),
+        api.reviews.count({ profSlug: professor.slug }),
       ]);
       return {
         ...professor,
