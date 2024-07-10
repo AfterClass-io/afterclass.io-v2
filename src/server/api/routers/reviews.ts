@@ -166,6 +166,7 @@ export const reviewsRouter = createTRPCRouter({
                 ? ("professor" as "professor" | "course")
                 : ("course" as "professor" | "course"),
             professorName: review.reviewedProfessor?.name,
+            professorSlug: review.reviewedProfessor?.slug,
             university: review.reviewedUniversity.abbrv,
           }) satisfies Review,
       );
@@ -211,6 +212,7 @@ export const reviewsRouter = createTRPCRouter({
                 ? ("professor" as "professor" | "course")
                 : ("course" as "professor" | "course"),
             professorName: review.reviewedProfessor?.name,
+            professorSlug: review.reviewedProfessor?.slug,
             university: review.reviewedUniversity.abbrv,
           }) satisfies Review,
       );
@@ -254,6 +256,7 @@ export const reviewsRouter = createTRPCRouter({
                 ? ("professor" as "professor" | "course")
                 : ("course" as "professor" | "course"),
             professorName: review.reviewedProfessor?.name,
+            professorSlug: review.reviewedProfessor?.slug,
             university: review.reviewedUniversity.abbrv,
           }) satisfies Review,
       );
@@ -299,6 +302,7 @@ export const reviewsRouter = createTRPCRouter({
                 ? ("professor" as "professor" | "course")
                 : ("course" as "professor" | "course"),
             professorName: review.reviewedProfessor?.name,
+            professorSlug: review.reviewedProfessor?.slug,
             university: review.reviewedUniversity.abbrv,
           }) satisfies Review,
       );
@@ -345,6 +349,7 @@ export const reviewsRouter = createTRPCRouter({
                 ? ("professor" as "professor" | "course")
                 : ("course" as "professor" | "course"),
             professorName: review.reviewedProfessor?.name,
+            professorSlug: review.reviewedProfessor?.slug,
             university: review.reviewedUniversity.abbrv,
           }) satisfies Review,
       );
@@ -393,6 +398,7 @@ export const reviewsRouter = createTRPCRouter({
                 ? ("professor" as "professor" | "course")
                 : ("course" as "professor" | "course"),
             professorName: review.reviewedProfessor?.name,
+            professorSlug: review.reviewedProfessor?.slug,
             university: review.reviewedUniversity.abbrv,
           }) satisfies Review,
       );
