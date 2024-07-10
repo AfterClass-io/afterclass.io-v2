@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/common/components/Button";
 import { ChevronRightIcon, SchoolIcon } from "@/common/components/CustomIcon";
 import {
@@ -7,6 +8,7 @@ import {
 import Heading from "@/common/components/Heading";
 import { searchResultTheme } from "../SearchResult.theme";
 import { type UniversityAbbreviation } from "@prisma/client";
+import { useSession } from "next-auth/react";
 
 export const SearchResultItem = ({
   href,
@@ -31,6 +33,7 @@ export const SearchResultItem = ({
     itemStatsWrapper,
     itemArrow,
   } = searchResultTheme();
+  const { data: session } = useSession();
   return (
     <Button as="a" className={item()} href={href} asChild>
       <div className={itemContent()}>
@@ -46,9 +49,10 @@ export const SearchResultItem = ({
           )}
         </div>
         <div className={itemStatsWrapper()}>
-          {filterStats?.map((stat, index) => (
-            <FilterItemStats key={index} {...stat} />
-          ))}
+          {session &&
+            filterStats?.map((stat, index) => (
+              <FilterItemStats key={index} {...stat} />
+            ))}
         </div>
       </div>
       <ChevronRightIcon size={24} className={itemArrow()} />
