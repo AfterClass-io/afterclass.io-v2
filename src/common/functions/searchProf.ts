@@ -46,7 +46,7 @@ export async function searchProf(
     queryResult.map(async (r) => {
       const [courseCount, reviewCount] = await Promise.all([
         await api.courses.countByProfSlug({ slug: r.profSlug }),
-        await api.reviews.countByProfessorSlug({ slug: r.profSlug }),
+        await api.reviews.count({ profSlug: r.profSlug }),
       ]);
       return {
         ...r,

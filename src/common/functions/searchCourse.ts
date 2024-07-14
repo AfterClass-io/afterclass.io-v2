@@ -45,7 +45,7 @@ export async function searchCourse(
     queryResult.map(async (r) => {
       const [profCount, reviewCount] = await Promise.all([
         await api.professors.countByCourseCode({ courseCode: r.courseCode }),
-        await api.reviews.countByCourseCode({ courseCode: r.courseCode }),
+        await api.reviews.count({ courseCode: r.courseCode }),
       ]);
       return {
         ...r,
