@@ -13,4 +13,5 @@ export type Review = {
   university: UniversityAbbreviation;
   reviewFor: "professor" | "course";
   professorName?: string;
+  professorSlug?: string;
 };
