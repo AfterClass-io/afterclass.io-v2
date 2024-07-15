@@ -1,1 +1,0 @@
-export * from "./ReviewGroup.theme";

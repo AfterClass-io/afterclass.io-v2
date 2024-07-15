@@ -1,62 +1,45 @@
 "use client"
 
-import { ReviewGroup } from "@/common/components/ReviewGroup";
-import { useState } from "react";
+import { useSession } from "next-auth/react"
+import { useState, useRef} from "react";
+import { api } from "@/common/tools/trpc/react"
+import { ReviewItem } from "@/common/components/ReviewItem";
 import { loadMoreReviewsTheme } from "./LoadMoreReviews.theme";
+import { Button } from "@/common/components/Button";
+import type { Review } from '@/common/types/review';
 
 export const LoadMoreReviews = () => {
+  const { data: session, status } = useSession()
+  const page = useRef(2)
+  const [data, setData] = useState<Review[]>([])
+  const response = api.reviews.getAllProtected.useQuery({page: page.current})
 
-  // const [isIntersecting, setIntersecting] = useState(false)
-  // const { data: session, status } = useSession()
-  const [page, setPage] = useState(1)
-  // const ref = useRef<typeof ReviewItem>(null)
-  // const isVisible = useOnScreen(ref)
-  // const [data, setData] = useState<Review[]>([])
-  
+  if (status !== "authenticated"){
+    return null;
+  }
   const { seeMore } = loadMoreReviewsTheme();
 
-  // if (status !== "authenticated"){
-  //   return null;
-  // }
-
-  // function getReviews(pageNum: number){
-  //   return api.reviews.getAllProtected.useQuery({page: pageNum})
-  // }
-
-  // const response = getReviews(page.current)
-  
-
-  // function handleIntersection(entry: IntersectionObserverEntry | undefined){
-  //   if (entry){
-  //     setIntersecting(entry.isIntersecting)
-  //   }
-  // }
-
-  // function useOnScreen(ref: RefObject<HTMLElement>) {
-  //   useEffect(() => {
-  //     const observer = new IntersectionObserver( 
-  //       ([entry]) => handleIntersection(entry)  
-  //     )
-  //     if (ref.current){
-  //       observer.observe(ref.current)
-  //     }
-
-  //     return () => observer.disconnect()
-  //   }, [])
-  
-  //   return isIntersecting
-  // }
-
   function increasePageNum(){
-    setPage(page + 1);
+    page.current += 1;
+  }
+  function extendData(newData: Review[]){
+    setData([...data, ...newData]);
+  }
+  function handleClick(responseData: Review[]){
+    increasePageNum();
+    extendData(responseData);
   }
 
+
+  if (!response.isSuccess){
+    return null;
+  }
   return (
     <>
-      { Array.from({length: page}, (_: null , currentPage: number) => {
-          <ReviewGroup pageNum={currentPage} />
-        })
-      }
+      {data.map((review) => (
+        <ReviewItem review={review} key={review.id} isLocked={!session} />
+      ))}
+      <div className={seeMore()}><Button onClick={()=>handleClick(response.data)}>See more</Button></div>
     </>
   );
 };
