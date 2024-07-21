@@ -30,7 +30,7 @@ export const ReviewModal = ({
     likeAndShareWrapper,
     likeWrapper,
     shareWrapper,
-    seeMoreWrapper,
+    seeMoreDivider,
     seeMoreLink,
   } = reviewModalTheme();
 
@@ -55,28 +55,27 @@ export const ReviewModal = ({
           />
         </Modal.Header>
         <Modal.Body className={modalBody()}>
-          <div>
-            <div className={usernameAndTimestampWrapper()}>
-              <span className={username()}>{review.username}</span>
-              <span>•</span>
-              <span>
-                {getHumanReadableTimestampDelta(review.createdAt / 1000)}
-              </span>
+          <div className={usernameAndTimestampWrapper()}>
+            <span className={username()}>{review.username}</span>
+            <span>•</span>
+            <span>
+              {getHumanReadableTimestampDelta(review.createdAt / 1000)}
+            </span>
+          </div>
+          <p className={body()}>{review.body}</p>
+          <div className={likeAndShareWrapper()}>
+            <div className={likeWrapper()}>
+              <ThumbUpFilledIcon size={18} />
+              <span>{review.likeCount}</span>
             </div>
-            <p className={body()}>{review.body}</p>
-            <div className={likeAndShareWrapper()}>
-              <div className={likeWrapper()}>
-                <ThumbUpFilledIcon size={18} />
-                <span>{review.likeCount}</span>
-              </div>
-              <div className={shareWrapper()}>
-                <ShareIcon size={18} />
-              </div>
+            <div className={shareWrapper()}>
+              <ShareIcon size={18} />
             </div>
           </div>
           {/* seeMore link only shown when user is from default reviews page, hidden when in professor/course pages */}
           {seeMore && (
-            <div className={seeMoreWrapper()}>
+            <>
+              <hr className={seeMoreDivider()} />
               <Button
                 as="a"
                 variant="link"
@@ -85,7 +84,7 @@ export const ReviewModal = ({
               >
                 See more reviews
               </Button>
-            </div>
+            </>
           )}
         </Modal.Body>
       </Modal.Content>
