@@ -19,7 +19,6 @@ export const reviewModalTheme = tv(
       ],
       modalTrigger: ["w-[45rem]"],
       modalContent: ["w-full", "mx-10"],
-      modalBody: [],
       usernameAndTimestampWrapper: ["space-x-2", "pb-[18px]"],
       username: ["text-lg", "font-medium"],
       body: ["pb-[16px]", "whitespace-pre-wrap"],

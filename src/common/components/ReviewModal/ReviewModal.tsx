@@ -22,7 +22,6 @@ export const ReviewModal = ({
   const {
     wrapper,
     modalTrigger,
-    modalBody,
     modalContent,
     usernameAndTimestampWrapper,
     username,
@@ -54,7 +53,7 @@ export const ReviewModal = ({
             university={review.university}
           />
         </Modal.Header>
-        <Modal.Body className={modalBody()}>
+        <Modal.Body>
           <div className={usernameAndTimestampWrapper()}>
             <span className={username()}>{review.username}</span>
             <span>•</span>
