@@ -323,7 +323,7 @@ export const reviewsRouter = createTRPCRouter({
         take: DEFAULT_PAGE_SIZE,
         where: {
           reviewedCourse: { code: input.code },
-          reviewedProfessor: input.slugs && { slug: { in: input.slugs } },
+          reviewedProfessor: { slug: { in: input.slugs } },
         },
         orderBy: input.latest ? { createdAt: "desc" } : undefined,
         select: PRIVATE_REVIEW_FIELDS,
@@ -366,7 +366,7 @@ export const reviewsRouter = createTRPCRouter({
         take: DEFAULT_PAGE_SIZE,
         where: {
           reviewedCourse: { code: input.code },
-          reviewedProfessor: input.slugs && { slug: { in: input.slugs } },
+          reviewedProfessor: { slug: { in: input.slugs } },
         },
         orderBy: input.latest ? { createdAt: "desc" } : undefined,
         select: PRIVATE_REVIEW_FIELDS,
