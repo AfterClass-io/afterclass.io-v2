@@ -47,7 +47,10 @@ export const ReviewModal = ({
           <ReviewBody isDetailed={variant !== "home"} review={review} />
         </div>
       </Modal.Trigger>
-      <Modal.Content className={modalContent()}>
+      <Modal.Content
+        className={modalContent()}
+        onOpenAutoFocus={(e) => e.preventDefault()}
+      >
         <Modal.Header>
           <ProfileSchool
             courseCode={review.courseCode}
