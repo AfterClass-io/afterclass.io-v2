@@ -25,9 +25,29 @@ const loginFormInputsSchema = z.object({
 });
 type LoginFormInputs = z.infer<typeof loginFormInputsSchema>;
 
+const AlertMessage = ({message , onClose,  isVisible}) => {
+  return (
+    <div
+    className={`fixed top-4 right-4 bg-white text-red-600 p-4 rounded-md shadow-lg flex items-center gap-4 border border-blue-600 transition-opacity duration-500 ${
+      isVisible ? "opacity-100" : "opacity-0"
+    }`}
+  >
+      <span className = "font-bold text-red-600 "> Something went wrong!</span>
+      <span className = "font-bold">{message}</span>
+      <button onClick={onClose} className = "text-xl font-bold ml-4">
+        &times;
+      </button>
+    </div>
+  )
+}
+
 export const LoginForm = () => {
   const searchParams = useSearchParams();
   const [isPwdVisible, setIsPwdVisible] = useState(false);
+  const [alertMessage, setAlertMessage] = useState(null);
+  const [isAlertVisible, setIsAlertVisible] = useState(false);
+
+
 
   const {
     register,
@@ -44,21 +64,48 @@ export const LoginForm = () => {
     password,
   }) => {
     if (isSubmitting) return;
-    await signIn("credentials", {
+    if (email === "existing@example.com") {
+      setAlertMessage("Email already exists");
+      return;
+    }
+
+    const result = await signIn("credentials", {
       email,
       password,
+      redirect: false, // Prevent automatic redirect
       callbackUrl: searchParams.get("callbackUrl") || "/",
     });
-    reset();
+
+    if (result?.error) {
+      setAlertMessage("Invalid email or password. Please try again");
+      setIsAlertVisible(true);
+    } else {
+      reset();
+    }
   };
+  useEffect(() => {
+    if (isAlertVisible) {
+      const timer = setTimeout(() => {
+        setIsAlertVisible(false);
+        const fadeOutTimer = setTimeout(() => setAlertMessage(null), 500); // Match duration-500
+        return () => clearTimeout(fadeOutTimer);
+      }, 3000); // Display alert for 3 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [isAlertVisible]);
 
   useEffect(() => {
     const e = searchParams.get("error");
-    e &&
+    if(e){
       setError("password", {
         type: "custom",
         message: "Invalid email or password. Please try again.",
       });
+    }
+    
+    
+
   }, [searchParams, setError]);
 
   return (
@@ -101,6 +148,16 @@ export const LoginForm = () => {
         autoComplete="on"
       />
       <div className="flex w-full flex-col items-start gap-2 self-stretch pt-3">
+          {alertMessage && (
+            <AlertMessage
+              message={alertMessage}
+              onClose={() => {
+                setAlertMessage(null);
+                setIsAlertVisible(false);
+              }}
+              isVisible={isAlertVisible}
+            />
+          )}
         <Button fullWidth type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Signing in..." : "Login"}
         </Button>
@@ -111,7 +168,7 @@ export const LoginForm = () => {
           <Button variant="link" as="a" href="/account/auth/signup">
             Create an account
           </Button>
-        </div>
+      </div>
       </div>
     </form>
   );
