@@ -396,7 +396,7 @@ export const reviewsRouter = createTRPCRouter({
       );
     }),
 
-  count: publicProcedure
+  count: protectedProcedure
     .input(
       z.object({
         profSlug: z.string().optional(),

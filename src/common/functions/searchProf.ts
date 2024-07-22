@@ -1,6 +1,7 @@
 import type { Universities, Professors } from "@prisma/client";
 import { db } from "@/server/db";
 import { api } from "@/common/tools/trpc/server";
+import { getServerAuthSession } from "@/server/auth";
 
 type QueryProfResult = {
   uniAbbrv: Universities["abbrv"];
@@ -42,11 +43,16 @@ export async function searchProf(
     LIMIT ${limit};
   `;
 
+  const session = await getServerAuthSession();
+  if (!session) {
+    return queryResult.map((r) => ({ ...r, courseCount: 0, reviewCount: 0 }));
+  }
+
   return Promise.all(
     queryResult.map(async (r) => {
       const [courseCount, reviewCount] = await Promise.all([
-        await api.courses.countByProfSlug({ slug: r.profSlug }),
-        await api.reviews.count({ profSlug: r.profSlug }),
+        api.courses.countByProfSlug({ slug: r.profSlug }),
+        api.reviews.count({ profSlug: r.profSlug }),
       ]);
       return {
         ...r,

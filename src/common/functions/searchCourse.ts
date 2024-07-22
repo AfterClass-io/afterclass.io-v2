@@ -1,6 +1,7 @@
 import type { Universities, Courses } from "@prisma/client";
 import { db } from "@/server/db";
 import { api } from "@/common/tools/trpc/server";
+import { getServerAuthSession } from "@/server/auth";
 
 type QueryCourseResult = {
   uniAbbrv: Universities["abbrv"];
@@ -12,6 +13,7 @@ export type SearchCourseResult = QueryCourseResult & {
   profCount: number;
   reviewCount: number;
 };
+
 // this is a band-aid solution
 // TODO: replace with better search algorithm
 export async function searchCourse(
@@ -41,11 +43,16 @@ export async function searchCourse(
     LIMIT ${limit};
   `;
 
+  const session = await getServerAuthSession();
+  if (!session) {
+    return queryResult.map((r) => ({ ...r, profCount: 0, reviewCount: 0 }));
+  }
+
   return Promise.all(
     queryResult.map(async (r) => {
       const [profCount, reviewCount] = await Promise.all([
-        await api.professors.countByCourseCode({ courseCode: r.courseCode }),
-        await api.reviews.count({ courseCode: r.courseCode }),
+        api.professors.countByCourseCode({ courseCode: r.courseCode }),
+        api.reviews.count({ courseCode: r.courseCode }),
       ]);
       return {
         ...r,
