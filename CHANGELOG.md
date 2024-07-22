@@ -1,3 +1,24 @@
+<a name="v0.4.0"></a>
+# [v0.4.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.4.0) - 22 Jul 2024
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### 🚀 Features
+* feat(ui): see more button links to respective page on review modal by [@minthukha12](https://github.com/minthukha12) in https://github.com/AfterClass-io/afterclass.io-v2/pull/190
+### 👾 Bug Fixes
+* fix: inaccurate review statistics on filter by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/191
+* fix: prevent review modal close button autofocus by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/196
+* fix: prof filter on course page not correctly filtering reviews by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/193
+### Other Changes
+* chore: hide search result item statistics on unauthenticated client by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/192
+
+
+**Full Changelog**: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.3.0...v0.4.0
+
+[Changes][v0.4.0]
+
+
 <a name="v0.3.0"></a>
 # [v0.3.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.3.0) - 07 Jul 2024
 
@@ -143,6 +164,7 @@
 [Changes][v0.1.0]
 
 
+[v0.4.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.3.0...v0.4.0
 [v0.3.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.2.0...v0.3.0
 [v0.2.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.1.0...v0.2.0
 [v0.1.0]: https://github.com/AfterClass-io/afterclass.io-v2/tree/v0.1.0
