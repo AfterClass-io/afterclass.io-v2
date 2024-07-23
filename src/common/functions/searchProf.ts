@@ -1,15 +1,22 @@
 import type { Universities, Professors } from "@prisma/client";
 import { db } from "@/server/db";
+import { api } from "@/common/tools/trpc/server";
+import { getServerAuthSession } from "@/server/auth";
 
-export type SearchProfResult = {
+type QueryProfResult = {
   uniAbbrv: Universities["abbrv"];
   profName: Professors["name"];
   profSlug: Professors["slug"];
 };
 
+export type SearchProfResult = QueryProfResult & {
+  courseCount: number;
+  reviewCount: number;
+};
+
 // this is a band-aid solution
 // TODO: replace with better search algorithm
-export function searchProf(
+export async function searchProf(
   query: string,
   limit: number = 5,
 ): Promise<SearchProfResult[]> {
@@ -19,7 +26,7 @@ export function searchProf(
     ? query.split(" ").join(" & ")
     : query;
 
-  return db.$queryRaw`
+  const queryResult: QueryProfResult[] = await db.$queryRaw`
     SELECT
       u.abbrv as "uniAbbrv",
       p.name as "profName",
@@ -35,4 +42,23 @@ export function searchProf(
       @@ to_tsquery(${processedQuery + ":*"})
     LIMIT ${limit};
   `;
+
+  const session = await getServerAuthSession();
+  if (!session) {
+    return queryResult.map((r) => ({ ...r, courseCount: 0, reviewCount: 0 }));
+  }
+
+  return Promise.all(
+    queryResult.map(async (r) => {
+      const [courseCount, reviewCount] = await Promise.all([
+        api.courses.countByProfSlug({ slug: r.profSlug }),
+        api.reviews.count({ profSlug: r.profSlug }),
+      ]);
+      return {
+        ...r,
+        courseCount,
+        reviewCount,
+      };
+    }),
+  );
 }

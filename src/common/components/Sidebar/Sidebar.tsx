@@ -5,9 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import {
-  BookLineIcon,
   ChartLineIcon,
-  DealsIcon,
   StarLineAltIcon,
 } from "@/common/components/CustomIcon";
 import { SidebarItem } from "@/common/components/SidebarItem";
@@ -27,6 +25,7 @@ const SIDEBAR_ITEMS = [
     icon: <ChartLineIcon />,
     href: "/bidding",
   },
+feat/coming-soon-page
   {
     label: "Marketplace",
     icon: <BookLineIcon size={16} />,
@@ -38,6 +37,7 @@ const SIDEBAR_ITEMS = [
     href: "/deals",
   },
   
+
   // Development-only links
   ...(process.env.NODE_ENV === "development" ? [] : []),
 ];

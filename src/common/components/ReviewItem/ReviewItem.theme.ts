@@ -49,7 +49,17 @@ export const reviewItemTheme = tv(
         "text-ellipsis",
         "text-text-em-low",
       ],
-      body: ["text-sm", "text-text-em-high", "line-clamp-3"],
+      body: [
+        "text-sm",
+        "text-text-em-high",
+        "line-clamp-3",
+        /**
+         * TODO: replace when tailwind fixes behavior
+         * see: https://github.com/tailwindlabs/tailwindcss/discussions/12127
+         */
+        // "break-words",
+        "break-anywhere",
+      ],
       labels: [
         "text-sm",
         "text-text-on-secondary",

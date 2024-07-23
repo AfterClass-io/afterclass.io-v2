@@ -23,8 +23,9 @@ export default async function ProfessorFilter({
         api.professors.countByCourseCode({
           courseCode: course.code,
         }),
-        api.reviews.countByCourseCode({
+        api.reviews.count({
           courseCode: course.code,
+          profSlug: params.slug,
         }),
       ]);
       return {

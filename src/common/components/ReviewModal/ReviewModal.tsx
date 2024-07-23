@@ -8,6 +8,7 @@ import { reviewModalTheme } from "./ReviewModal.theme";
 import { getHumanReadableTimestampDelta } from "@/common/functions";
 import { ShareIcon, ThumbUpFilledIcon } from "@/common/components/CustomIcon";
 import { type Review } from "@/common/types";
+import { Button } from "@/common/components/Button";
 
 export const ReviewModal = ({
   review,
@@ -21,7 +22,6 @@ export const ReviewModal = ({
   const {
     wrapper,
     modalTrigger,
-    modalBody,
     modalContent,
     usernameAndTimestampWrapper,
     username,
@@ -29,9 +29,14 @@ export const ReviewModal = ({
     likeAndShareWrapper,
     likeWrapper,
     shareWrapper,
-    seeMoreWrapper,
+    seeMoreDivider,
     seeMoreLink,
   } = reviewModalTheme();
+
+  const reviewPath =
+    review.reviewFor === "professor"
+      ? `/professor/${review.professorSlug}`
+      : `/course/${review.courseCode}`;
 
   return (
     <Modal overflow="inside">
@@ -41,42 +46,47 @@ export const ReviewModal = ({
           <ReviewBody isDetailed={variant !== "home"} review={review} />
         </div>
       </Modal.Trigger>
-      <Modal.Content className={modalContent()}>
+      <Modal.Content
+        className={modalContent()}
+        onOpenAutoFocus={(e) => e.preventDefault()}
+      >
         <Modal.Header>
           <ProfileSchool
             courseCode={review.courseCode}
             university={review.university}
           />
         </Modal.Header>
-        <Modal.Body className={modalBody()}>
-          <div>
-            <div className={usernameAndTimestampWrapper()}>
-              <span className={username()}>{review.username}</span>
-              <span>•</span>
-              <span>
-                {getHumanReadableTimestampDelta(review.createdAt / 1000)}
-              </span>
+        <Modal.Body>
+          <div className={usernameAndTimestampWrapper()}>
+            <span className={username()}>{review.username}</span>
+            <span>•</span>
+            <span>
+              {getHumanReadableTimestampDelta(review.createdAt / 1000)}
+            </span>
+          </div>
+          <p className={body()}>{review.body}</p>
+          <div className={likeAndShareWrapper()}>
+            <div className={likeWrapper()}>
+              <ThumbUpFilledIcon size={18} />
+              <span>{review.likeCount}</span>
             </div>
-            <p className={body()}>{review.body}</p>
-            <div className={likeAndShareWrapper()}>
-              <div className={likeWrapper()}>
-                <ThumbUpFilledIcon size={18} />
-                <span>{review.likeCount}</span>
-              </div>
-              <div className={shareWrapper()}>
-                <ShareIcon size={18} />
-              </div>
+            <div className={shareWrapper()}>
+              <ShareIcon size={18} />
             </div>
           </div>
           {/* seeMore link only shown when user is from default reviews page, hidden when in professor/course pages */}
           {seeMore && (
-            <div className={seeMoreWrapper()}>
-              <div className={seeMoreLink()}>
-                {/* TODO: link to respective prof/course page */}
-                {/* can use review.professorName for professors and review.courseCode for courses */}
+            <>
+              <hr className={seeMoreDivider()} />
+              <Button
+                as="a"
+                variant="link"
+                href={reviewPath}
+                className={seeMoreLink()}
+              >
                 See more reviews
-              </div>
-            </div>
+              </Button>
+            </>
           )}
         </Modal.Body>
       </Modal.Content>

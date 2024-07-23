@@ -6,7 +6,7 @@ export const breadcrumbTheme = tv(
   {
     slots: {
       list: [
-        "text-text-em-low",
+        "text-text-em-mid",
         "flex",
         "flex-wrap",
         "items-center",
@@ -17,7 +17,7 @@ export const breadcrumbTheme = tv(
       ],
       item: ["inline-flex", "items-center", "gap-1.5"],
       link: ["hover:text-text-on-secondary", "transition-colors"],
-      page: ["text-bg-base", "font-normal"],
+      page: ["text-text-em-low", "font-normal"],
       separator: ["[&>svg]:size-3.5"],
       ellipsisWrapper: ["flex", "h-9", "w-9", "items-center", "justify-center"],
       ellipsisIcon: ["h-4", "w-4"],

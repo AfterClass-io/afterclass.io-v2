@@ -1,3 +1,76 @@
+<a name="v0.4.0"></a>
+# [v0.4.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.4.0) - 22 Jul 2024
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### 🚀 Features
+* feat(ui): see more button links to respective page on review modal by [@minthukha12](https://github.com/minthukha12) in https://github.com/AfterClass-io/afterclass.io-v2/pull/190
+### 👾 Bug Fixes
+* fix: inaccurate review statistics on filter by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/191
+* fix: prevent review modal close button autofocus by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/196
+* fix: prof filter on course page not correctly filtering reviews by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/193
+### Other Changes
+* chore: hide search result item statistics on unauthenticated client by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/192
+
+
+**Full Changelog**: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.3.0...v0.4.0
+
+[Changes][v0.4.0]
+
+
+<a name="v0.3.0"></a>
+# [v0.3.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.3.0) - 07 Jul 2024
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### 🚀 Features
+* feat(ui): coming soon page by [@whoisdavidd](https://github.com/whoisdavidd) in https://github.com/AfterClass-io/afterclass.io-v2/pull/183
+* feat(ui): implement breadcrumbs on navigation header by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/184
+### Other Changes
+* feat: search result includes review statistics by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/185
+
+## New Contributors
+* [@whoisdavidd](https://github.com/whoisdavidd) made their first contribution in https://github.com/AfterClass-io/afterclass.io-v2/pull/183
+
+**Full Changelog**: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.2.0...v0.3.0
+
+[Changes][v0.3.0]
+
+
+<a name="v0.2.0"></a>
+# [v0.2.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.2.0) - 23 Jun 2024
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### 🚀 Features
+* feat: posthog analytics by [@onebignick](https://github.com/onebignick) in https://github.com/AfterClass-io/afterclass.io-v2/pull/143
+* feat: search api integration with postgres fulltext search by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/161
+* feat(ui): add login button to header by [@minthukha12](https://github.com/minthukha12) in https://github.com/AfterClass-io/afterclass.io-v2/pull/176
+* feat(ui): removed unused items from sidebar by [@ananyabhat29](https://github.com/ananyabhat29) in https://github.com/AfterClass-io/afterclass.io-v2/pull/173
+* feat(ui): add user profile component on school layout by [@haithisisme](https://github.com/haithisisme) in https://github.com/AfterClass-io/afterclass.io-v2/pull/175
+* feat: expose user fields to session object by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/178
+
+### Other Changes
+* chore: generate initial migrations by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/170
+* refactor(ui): format review details data by [@Jansen52x](https://github.com/Jansen52x) in https://github.com/AfterClass-io/afterclass.io-v2/pull/174
+* refactor(ui): hide see more reviews outside of home page by [@gnzat](https://github.com/gnzat) in https://github.com/AfterClass-io/afterclass.io-v2/pull/177
+
+## New Contributors
+* [@onebignick](https://github.com/onebignick) made their first contribution in https://github.com/AfterClass-io/afterclass.io-v2/pull/143
+* [@Jansen52x](https://github.com/Jansen52x) made their first contribution in https://github.com/AfterClass-io/afterclass.io-v2/pull/174
+* [@minthukha12](https://github.com/minthukha12) made their first contribution in https://github.com/AfterClass-io/afterclass.io-v2/pull/176
+* [@ananyabhat29](https://github.com/ananyabhat29) made their first contribution in https://github.com/AfterClass-io/afterclass.io-v2/pull/173
+* [@haithisisme](https://github.com/haithisisme) made their first contribution in https://github.com/AfterClass-io/afterclass.io-v2/pull/175
+* [@gnzat](https://github.com/gnzat) made their first contribution in https://github.com/AfterClass-io/afterclass.io-v2/pull/177
+
+**Full Changelog**: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.1.0...v0.2.0
+
+[Changes][v0.2.0]
+
+
 <a name="v0.1.0"></a>
 # [v0.1.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.1.0) - 10 Jun 2024
 
@@ -91,6 +164,9 @@
 [Changes][v0.1.0]
 
 
+[v0.4.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.3.0...v0.4.0
+[v0.3.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.2.0...v0.3.0
+[v0.2.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.1.0...v0.2.0
 [v0.1.0]: https://github.com/AfterClass-io/afterclass.io-v2/tree/v0.1.0
 
 <!-- Generated by https://github.com/rhysd/changelog-from-release v3.7.2 -->
