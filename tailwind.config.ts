@@ -9,21 +9,8 @@ import { withTV } from "tailwind-variants/transformer";
 // withTv is required for tailwind-variants resposnive variants to work
 export default withTV({
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
-   darkMode: 'class',
   theme: {
     extend: {
-      keyframes: {
-        'color-change': {
-          '0% , 70%': { 
-            color: '#cbcbcb',
-          },
-
-          '100%': { color: '#5039d4'},
-        },
-      },
-      animation: {
-        'color-change': 'color-change 5s infinite',
-      },
       zIndex: {
         elevated: "1",
         header: "10",

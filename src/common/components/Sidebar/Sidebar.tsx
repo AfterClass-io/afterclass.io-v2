@@ -25,7 +25,7 @@ const SIDEBAR_ITEMS = [
     icon: <ChartLineIcon />,
     href: "/bidding",
   },
-feat/coming-soon-page
+
   {
     label: "Marketplace",
     icon: <BookLineIcon size={16} />,
