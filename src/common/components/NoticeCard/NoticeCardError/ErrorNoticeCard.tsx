@@ -16,7 +16,6 @@ export const ErrorNoticeCard: React.FC<ErrorNoticeCardProps> = ({
   title,
   subtitle,
   wrapperProps,
-  afterclass,
   className,
   ...props
 }) => {

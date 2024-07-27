@@ -26,16 +26,16 @@ const SIDEBAR_ITEMS = [
     href: "/bidding",
   },
 
-  {
-    label: "Marketplace",
-    icon: <BookLineIcon size={16} />,
-    href: "/marketplace",
-  },
-  {
-    label: "Deals",
-    icon: <DealsIcon size={16} />,
-    href: "/deals",
-  },
+  // {
+  //   label: "Marketplace",
+  //   icon: <BookLineIcon size={16} />,
+  //   href: "/marketplace",
+  // },
+  // {
+  //   label: "Deals",
+  //   icon: <DealsIcon size={16} />,
+  //   href: "/deals",
+  // },
   
 
   // Development-only links
