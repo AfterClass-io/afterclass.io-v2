@@ -1,2 +1,2 @@
 export * from "./NoticeCard";
-export * from "./NoticeCardTheme";
+export * from "./NoticeCard.theme";

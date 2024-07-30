@@ -1,43 +1,32 @@
-import React from 'react';
-import { type ComponentPropsWithoutRef } from "react";
-import { NoticeCardTheme } from "./NoticeCardTheme";
+import { NoticeCardTheme,NoticeCardVariants } from "./NoticeCard.theme";
 import { AfterclassIcon } from "@/common/components/CustomIcon";
 
 
-export type NoticeCardProps = ComponentPropsWithoutRef<"div"> & {
+export type NoticeCardProps = NoticeCardVariants & {
   title: string;
   subtitle: string;
-  wrapperProps?: ComponentPropsWithoutRef<"div">;
 };
-export const NoticeCard: React.FC<NoticeCardProps> = ({
-  title,
-  subtitle,
-  wrapperProps,
-  className,
-  ...props
-}) => {
-  const theme = NoticeCardTheme();
+export const NoticeCard = ({title, subtitle, error}: NoticeCardProps) => {
+  const{
+    wrapper,
+    textBox,
+    icon,
+    icons,
+    title: titleClassNames,
+    subtitle: subtitleClassNames,
+  } = NoticeCardTheme();
   
-  const iconStyle = { color: '#5139D4' };
-  const wrapper = theme.wrapper({ className: wrapperProps?.className });
-  const icon = theme.icons();
-  const smallIconClass = NoticeCardTheme.variants.size.small.join(' ');
-  const mediumIconClass = NoticeCardTheme.variants.size.medium.join(' ');
-  const largeIconClass = NoticeCardTheme.variants.size.large.join(' ');
-  const titleClass = theme.title();
-  const subtitleClass = theme.subtitle();
-  const textClass = theme.textBox();
   return (
-    <div className={wrapper}>
-      <div className={icon}>
-        <AfterclassIcon className={smallIconClass} style ={iconStyle} />
-        <AfterclassIcon className={mediumIconClass} style ={iconStyle} />
-        <AfterclassIcon className={largeIconClass} style ={iconStyle} />
-        <div className={textClass}>
-          <div className={titleClass}>
+    <div className={wrapper()}>
+      <div className={icons()}>
+      <AfterclassIcon className={icon({ size: "xl" })} />
+      <AfterclassIcon className={icon({ size: "lg" })} />
+      <AfterclassIcon className={icon({ size: "md" })} />
+        <div className={textBox()}>
+          <div className={titleClassNames()}>
             {title}
           </div>
-          <div className={subtitleClass}>
+          <div className={subtitleClassNames()}>
             {subtitle}
           </div>
         </div>
@@ -46,4 +35,3 @@ export const NoticeCard: React.FC<NoticeCardProps> = ({
   
   );
 };
-export default NoticeCard;

@@ -1,7 +1,5 @@
-import React from 'react';
 import type { Meta, StoryObj } from "@storybook/react";
-import { NoticeCard, NoticeCardProps } from "./NoticeCard";
-import { ErrorNoticeCard, ErrorNoticeCardProps } from './NoticeCardError/ErrorNoticeCard';
+import { NoticeCard } from "./NoticeCard";
 
 
 const meta: Meta<typeof NoticeCard> = {
@@ -17,16 +15,10 @@ const meta: Meta<typeof NoticeCard> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const NormalNotice: Story = {};
 
-export const ErrorNotice: Story = {
+export const Default: Story = {
   args: {
-    title: "Custom Icons Title",
-    subtitle: "Custom Icons Subtitle",
+    title: "Coming Soon",
+    subtitle: "Watch out for the red dot in the sidebar once this is done!",
   },
-  render: (args: ErrorNoticeCardProps) => (
-    <ErrorNoticeCard {...args}>
-      
-    </ErrorNoticeCard>
-  ),
 };
