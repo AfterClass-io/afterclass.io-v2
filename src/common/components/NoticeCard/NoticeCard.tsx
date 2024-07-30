@@ -6,7 +6,7 @@ export type NoticeCardProps = NoticeCardVariants & {
   title: string;
   subtitle: string;
 };
-export const NoticeCard = ({title, subtitle, error}: NoticeCardProps) => {
+export const NoticeCard = ({title, subtitle}: NoticeCardProps) => {
   const{
     wrapper,
     textBox,

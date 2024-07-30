@@ -59,11 +59,11 @@ export const NoticeCardTheme = tv({
     ],
   },
   variants:{
-    error:{
-      true:{
-        icons:["scale-y-[-1"],
-      },
-    },
+    // error:{
+    //   true:{
+    //     icons:["scale-y-[-1"],
+    //   },
+    // },
     size:{
       xl: {
         icon: [
