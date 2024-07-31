@@ -53,6 +53,7 @@ export const ReviewModal = ({
         <Modal.Header>
           <ProfileSchool
             courseCode={review.courseCode}
+            courseName={review.courseName}
             university={review.university}
           />
         </Modal.Header>

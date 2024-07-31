@@ -3,9 +3,13 @@ import * as React from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import { tooltipTheme } from "./Tooltip.theme";
 
-const TooltipRoot = TooltipPrimitive.Root;
 const TooltipProvider = TooltipPrimitive.Provider;
+
 const TooltipTrigger = TooltipPrimitive.Trigger;
+
+const TooltipRoot = (
+  props: React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root>,
+) => <TooltipPrimitive.Root delayDuration={200} {...props} />;
 
 const TooltipContent = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Content>,
