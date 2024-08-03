@@ -1,10 +1,9 @@
-import { ProfileSchool } from "./ProfileSchool";
-import { ProfileReviewer } from "./ProfileReviewer";
 import { reviewItemTheme } from "./ReviewItem.theme";
 import { Button } from "@/common/components/Button";
-import { ThumbUpFilledIcon } from "@/common/components/CustomIcon";
+import { SchoolIcon, ThumbUpFilledIcon } from "@/common/components/CustomIcon";
 import { getHumanReadableTimestampDelta } from "@/common/functions";
 import { type Review } from "@/common/types";
+import { Profile } from "@/common/components/Profile";
 
 export const ReviewHeader = ({
   review,
@@ -17,19 +16,27 @@ export const ReviewHeader = ({
   return (
     <div className={headingContainer()}>
       {variant === "home" ? (
-        <ProfileSchool
-          courseCode={review.courseCode}
-          university={review.university}
+        <Profile
+          name={review.courseCode}
+          icon={<SchoolIcon school={review.university} />}
         />
       ) : (
-        <ProfileReviewer name={review.username} />
+        <Profile
+          name={review.username}
+          icon={<div className="h-4 w-4 rounded-full bg-cyan-800" />}
+        />
       )}
       <div className={metadataContainer()}>
-        {variant === "home" && <ProfileReviewer name={review.username} />}
+        {variant === "home" && (
+          <Profile
+            name={review.username}
+            icon={<div className="h-4 w-4 rounded-full bg-cyan-800" />}
+          />
+        )}
         {variant === "professor" && (
-          <ProfileSchool
-            courseCode={review.courseCode}
-            university={review.university}
+          <Profile
+            name={review.courseCode}
+            icon={<SchoolIcon school={review.university} />}
           />
         )}
         <Button

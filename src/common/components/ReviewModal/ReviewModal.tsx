@@ -3,12 +3,16 @@
 import { Modal } from "@/common/components/Modal";
 import { ReviewHeader } from "@/common/components/ReviewItem/ReviewHeader";
 import { ReviewBody } from "@/common/components/ReviewItem/ReviewBody";
-import { ProfileSchool } from "@/common/components/ReviewItem/ProfileSchool";
 import { reviewModalTheme } from "./ReviewModal.theme";
 import { getHumanReadableTimestampDelta } from "@/common/functions";
-import { ShareIcon, ThumbUpFilledIcon } from "@/common/components/CustomIcon";
+import {
+  SchoolIcon,
+  ShareIcon,
+  ThumbUpFilledIcon,
+} from "@/common/components/CustomIcon";
 import { type Review } from "@/common/types";
 import { Button } from "@/common/components/Button";
+import { Profile } from "@/common/components/Profile";
 
 export const ReviewModal = ({
   review,
@@ -51,9 +55,9 @@ export const ReviewModal = ({
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <Modal.Header>
-          <ProfileSchool
-            courseCode={review.courseCode}
-            university={review.university}
+          <Profile
+            name={review.courseCode}
+            icon={<SchoolIcon school={review.university} />}
           />
         </Modal.Header>
         <Modal.Body>
