@@ -31,7 +31,7 @@ export const ReviewModal = ({
     shareWrapper,
     seeMoreDivider,
     seeMoreLink,
-  } = reviewModalTheme();
+  } = reviewModalTheme({ size: { initial: "sm", md: "md" } });
 
   const reviewPath =
     review.reviewFor === "professor"
@@ -47,9 +47,7 @@ export const ReviewModal = ({
         </div>
       </Modal.Trigger>
       <Modal.Content
-        className={modalContent({
-          size: { initial: "sm", md: "md" },
-        })}
+        className={modalContent()}
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <Modal.Header>
