@@ -2,18 +2,14 @@
 
 import { Modal } from "@/common/components/Modal";
 import { getHumanReadableTimestampDelta } from "@/common/functions";
-import {
-  SchoolIcon,
-  ShareIcon,
-  ThumbUpFilledIcon,
-} from "@/common/components/CustomIcon";
+import { ShareIcon, ThumbUpFilledIcon } from "@/common/components/CustomIcon";
 import { type Review } from "@/common/types";
 import { Button } from "@/common/components/Button";
-import { Profile } from "@/common/components/Profile";
 
 import { ReviewHeader } from "../ReviewHeader";
 import { ReviewBody } from "../ReviewBody";
 import { reviewItemTheme } from "../ReviewItem.theme";
+import { RevieweeGroup } from "@/common/components/ReviewItem/ReviewHeader/RevieweeGroup";
 
 export const ReviewModal = ({
   review,
@@ -58,10 +54,7 @@ export const ReviewModal = ({
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <Modal.Header>
-          <Profile
-            name={review.courseCode}
-            icon={<SchoolIcon school={review.university} />}
-          />
+          <RevieweeGroup review={review} variant={variant} />
         </Modal.Header>
         <Modal.Body>
           <div className={usernameAndTimestampWrapper()}>
