@@ -1,18 +1,18 @@
-import { reviewItemTheme, type ReviewItemVariants } from "./ReviewItem.theme";
 import { type Review } from "@/common/types";
 import { Profile, profileTheme } from "@/common/components/Profile";
 import { SchoolIcon } from "@/common/components/CustomIcon";
 
-export type RevieweeHeaderGroupProps = ReviewItemVariants & {
+import { reviewItemTheme, type ReviewItemVariants } from "../ReviewItem.theme";
+
+export type RevieweeGroupProps = ReviewItemVariants & {
   review: Review;
   variant: "home" | "professor" | "course";
 };
 
-export const RevieweeHeaderGroup = ({
-  review,
-  variant,
-}: RevieweeHeaderGroupProps) => {
-  const { revieweeGroup } = reviewItemTheme();
+export const RevieweeGroup = ({ review, variant }: RevieweeGroupProps) => {
+  const { revieweeGroup } = reviewItemTheme({
+    size: { initial: "sm", md: "md" },
+  });
   const { name } = profileTheme();
 
   const profileNameToDisplay =

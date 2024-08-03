@@ -1,16 +1,19 @@
 import { Button } from "@/common/components/Button";
-import { reviewItemTheme, type ReviewItemVariants } from "./ReviewItem.theme";
 import { type Review } from "@/common/types";
 import { Profile } from "@/common/components/Profile";
 import { ThumbUpFilledIcon } from "@/common/components/CustomIcon";
 import { getHumanReadableTimestampDelta } from "@/common/functions";
 
-export type ReviewerHeaderGroupProps = ReviewItemVariants & {
+import { reviewItemTheme, type ReviewItemVariants } from "../ReviewItem.theme";
+
+export type ReviewerGroupProps = ReviewItemVariants & {
   review: Review;
 };
 
-export const ReviewerHeaderGroup = ({ review }: ReviewerHeaderGroupProps) => {
-  const { reviewerGroup, metadataContainer, timedelta } = reviewItemTheme();
+export const ReviewerGroup = ({ review }: ReviewerGroupProps) => {
+  const { reviewerGroup, metadataContainer, timedelta } = reviewItemTheme({
+    size: { initial: "sm", md: "md" },
+  });
   return (
     <div className={reviewerGroup()}>
       <Profile
