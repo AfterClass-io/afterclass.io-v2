@@ -48,7 +48,7 @@ export const ReviewModal = ({
       </Modal.Trigger>
       <Modal.Content
         className={modalContent({
-          size: { initial: "sm", sm: "sm", md: "md" },
+          size: { initial: "sm", md: "md" },
         })}
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
