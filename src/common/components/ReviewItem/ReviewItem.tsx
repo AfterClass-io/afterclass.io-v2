@@ -27,7 +27,11 @@ export const ReviewItem = ({
           </div>
         </div>
       ) : (
-        <ReviewModal review={review} variant={variant} seeMore={variant==="home"} />
+        <ReviewModal
+          review={review}
+          variant={variant}
+          seeMore={variant === "home"}
+        />
       )}
     </>
   );

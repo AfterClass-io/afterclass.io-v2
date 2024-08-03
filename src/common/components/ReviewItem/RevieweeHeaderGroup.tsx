@@ -1,24 +1,34 @@
 import { reviewItemTheme, type ReviewItemVariants } from "./ReviewItem.theme";
 import { type Review } from "@/common/types";
-import { Profile } from "@/common/components/Profile";
+import { Profile, profileTheme } from "@/common/components/Profile";
 import { SchoolIcon } from "@/common/components/CustomIcon";
 
 export type RevieweeHeaderGroupProps = ReviewItemVariants & {
   review: Review;
+  variant: "home" | "professor" | "course";
 };
 
-export const RevieweeHeaderGroup = ({ review }: RevieweeHeaderGroupProps) => {
-  const { timedelta } = reviewItemTheme();
+export const RevieweeHeaderGroup = ({
+  review,
+  variant,
+}: RevieweeHeaderGroupProps) => {
+  const { revieweeGroup } = reviewItemTheme();
+  const { name } = profileTheme();
+
+  const profileNameToDisplay =
+    variant === "professor" ? review.courseCode : review.professorName;
+
+  const isAdditionallyDisplayCourseCode =
+    variant === "home" && review.professorName;
+
   return (
-    <div className="flex w-full items-center justify-between gap-2 md:w-fit md:justify-normal">
+    <div className={revieweeGroup()}>
       <Profile
-        name={review.professorName ?? review.courseCode}
+        name={profileNameToDisplay ?? review.courseCode}
         icon={<SchoolIcon school={review.university} />}
       />
-      {review.professorName && (
-        <p className="text-ellipsis text-sm text-text-em-mid">
-          {review.courseCode}
-        </p>
+      {isAdditionallyDisplayCourseCode && (
+        <p className={name()}>{review.courseCode}</p>
       )}
     </div>
   );

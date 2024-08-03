@@ -10,14 +10,14 @@ export type ReviewerHeaderGroupProps = ReviewItemVariants & {
 };
 
 export const ReviewerHeaderGroup = ({ review }: ReviewerHeaderGroupProps) => {
-  const { timedelta } = reviewItemTheme();
+  const { reviewerGroup, metadataContainer, timedelta } = reviewItemTheme();
   return (
-    <div className="flex h-7 items-center justify-between gap-4 self-stretch">
+    <div className={reviewerGroup()}>
       <Profile
         name={review.username}
         icon={<div className="h-4 w-4 rounded-full bg-cyan-800" />}
       />
-      <div className="flex items-center gap-4">
+      <div className={metadataContainer()}>
         <Button
           rounded
           variant="secondary"

@@ -10,11 +10,11 @@ export const ReviewHeader = ({
   review: Review;
   variant: "home" | "professor" | "course";
 }) => {
-  const { headingContainer, metadataContainer, timedelta } = reviewItemTheme();
+  const { headingContainer } = reviewItemTheme();
   return (
-    <div className="flex flex-col items-start gap-3 self-stretch md:flex-row-reverse md:justify-between">
+    <div className={headingContainer()}>
       <ReviewerHeaderGroup review={review} />
-      <RevieweeHeaderGroup review={review} />
+      <RevieweeHeaderGroup review={review} variant={variant} />
     </div>
   );
 };
