@@ -6,10 +6,10 @@ export type ProfileProps = ProfileVariants & {
 };
 
 export const Profile = ({ icon, name }: ProfileProps) => {
-  const { wrapper, icon: iconClass, name: nameClass } = profileTheme();
+  const { wrapper, name: nameClass } = profileTheme();
   return (
     <div className={wrapper()}>
-      <div className={iconClass()}>{icon}</div>
+      {icon}
       <div className={nameClass()}>{name}</div>
     </div>
   );

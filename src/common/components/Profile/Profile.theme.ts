@@ -7,7 +7,6 @@ export const profileTheme = tv(
     slots: {
       wrapper: ["flex", "items-center", "gap-2"],
       name: ["overflow-hidden", "text-sm", "text-ellipsis", "text-text-em-mid"],
-      icon: [],
     },
   },
   { responsiveVariants: true },
