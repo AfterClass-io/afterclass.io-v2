@@ -18,7 +18,7 @@ export const reviewModalTheme = tv(
         "gap-4",
       ],
       modalTrigger: ["w-[45rem]"],
-      modalContent: ["w-full", "mx-10"],
+      modalContent: ["w-full"],
       usernameAndTimestampWrapper: ["space-x-2", "pb-[18px]"],
       username: ["text-lg", "font-medium"],
       body: ["pb-[16px]", "whitespace-pre-wrap"],
@@ -39,14 +39,18 @@ export const reviewModalTheme = tv(
       // likeIcon: ["h-fit", "w-[18px]"],
       shareWrapper: ["flex", "w-fit", "items-center", "justify-center"],
       // shareIcon: ["h-fit", "w-[18px]"],
-      seeMoreDivider: [
-        "w-full",
-        "border-t",
-        "border-border-default",
-        "mt-6",
-        "mb-3",
-      ],
+      seeMoreDivider: ["w-full", "border-t", "border-border-default"],
       seeMoreLink: ["flex", "h-10", "items-center", "text-primary-default"],
+    },
+    variants: {
+      size: {
+        sm: {
+          modalContent: ["m-0", "h-full"],
+        },
+        md: {
+          modalContent: ["mx-10"],
+        },
+      },
     },
   },
   { responsiveVariants: true },

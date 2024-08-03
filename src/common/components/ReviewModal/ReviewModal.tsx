@@ -47,7 +47,9 @@ export const ReviewModal = ({
         </div>
       </Modal.Trigger>
       <Modal.Content
-        className={modalContent()}
+        className={modalContent({
+          size: { initial: "sm", sm: "sm", md: "md" },
+        })}
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <Modal.Header>
@@ -65,6 +67,8 @@ export const ReviewModal = ({
             </span>
           </div>
           <p className={body()}>{review.body}</p>
+        </Modal.Body>
+        <Modal.Footer>
           <div className={likeAndShareWrapper()}>
             <div className={likeWrapper()}>
               <ThumbUpFilledIcon size={18} />
@@ -88,7 +92,7 @@ export const ReviewModal = ({
               </Button>
             </>
           )}
-        </Modal.Body>
+        </Modal.Footer>
       </Modal.Content>
     </Modal>
   );
