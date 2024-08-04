@@ -32,9 +32,7 @@ export const ReviewModal = ({
     shareWrapper,
     seeMoreDivider,
     seeMoreLink,
-  } = reviewItemTheme({
-    size: { initial: "sm", md: "md" },
-  });
+  } = reviewItemTheme({ size: { initial: "sm", md: "md" } });
 
   const reviewPath =
     review.reviewFor === "professor"
@@ -65,6 +63,8 @@ export const ReviewModal = ({
             </span>
           </div>
           <p className={modalBody()}>{review.body}</p>
+        </Modal.Body>
+        <Modal.Footer>
           <div className={likeAndShareWrapper()}>
             <div className={likeWrapper()}>
               <ThumbUpFilledIcon size={18} />
@@ -88,7 +88,7 @@ export const ReviewModal = ({
               </Button>
             </>
           )}
-        </Modal.Body>
+        </Modal.Footer>
       </Modal.Content>
     </Modal>
   );
