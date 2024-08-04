@@ -8,7 +8,7 @@ export const CoreLayout = ({ children }: CoreLayoutProps) => {
   return (
     <div className="relative flex h-full flex-col">
       <MobileHeader className="flex-shrink-0 sm:hidden" />
-      <div className="relative flex h-full flex-col overflow-hidden sm:flex-row">
+      <div className="relative flex h-full flex-col overflow-y-auto sm:flex-row">
         <aside className="relative hidden shrink-0 overflow-y-auto border-r border-border-default bg-surface-base sm:block">
           <Sidebar />
         </aside>
