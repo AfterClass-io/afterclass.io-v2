@@ -2,7 +2,6 @@
   .focus-ring {
     @apply focus-visible:border-primary-default focus-visible:ring-2 focus-visible:ring-primary-default/20;
   }
-
   .break-anywhere {
     /*
     tailwind's `break-words` class doesn't work as expected in some cases
