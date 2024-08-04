@@ -20,14 +20,17 @@ export type LabelProps = ComponentPropsWithoutRef<"div"> &
 
 export const Label = ({
   className,
-  size = "md",
+  size,
   isError = false,
   text,
   leftContent,
   wrapperProps,
   ...props
 }: LabelProps) => {
-  const { label, wrapper, icon } = labelTheme({ className, size });
+  const { label, wrapper, icon } = labelTheme({
+    className,
+    size: size || { initial: "sm", md: "md" },
+  });
 
   const StyledIcon = useCallback(
     () =>
