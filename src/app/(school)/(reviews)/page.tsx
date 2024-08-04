@@ -1,3 +1,4 @@
+import { LoadMoreReviews } from "@/common/components/LoadMoreReviews";
 import { ReviewItem } from "@/common/components/ReviewItem";
 import { ReviewSection } from "@/common/components/ReviewSection";
 import { api } from "@/common/tools/trpc/server";
@@ -15,6 +16,7 @@ export default async function Home() {
       {reviews.map((review) => (
         <ReviewItem review={review} key={review.id} isLocked={!session} />
       ))}
+      <LoadMoreReviews/>
     </ReviewSection>
   );
 }
