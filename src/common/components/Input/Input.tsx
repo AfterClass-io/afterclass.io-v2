@@ -20,7 +20,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
       className,
-      size = "md",
+      size,
       contentLeft,
       contentRight,
       wrapperProps,
@@ -33,7 +33,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref,
   ) => {
-    const { input: inputClasses, wrapper } = inputTheme({ className, size });
+    const { input: inputClasses, wrapper } = inputTheme({
+      className,
+      size: size || { initial: "sm", md: "md" },
+    });
     return (
       <Field
         {...fieldProps}

@@ -182,7 +182,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
         className={buttonTheme({
           ...styleProps,
           ...(isResponsive && {
-            size: { initial: "md", sm: "sm", md: "md" },
+            size: { initial: "sm", md: "md" },
           }),
           className: props.className,
         })}

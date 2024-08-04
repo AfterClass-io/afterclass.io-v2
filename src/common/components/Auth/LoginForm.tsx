@@ -63,7 +63,7 @@ export const LoginForm = () => {
 
   return (
     <form
-      className="flex w-full flex-col gap-6"
+      className="flex w-full flex-col gap-4 md:gap-6"
       onSubmit={handleSubmit(onSubmit)}
     >
       <Input
@@ -83,7 +83,8 @@ export const LoginForm = () => {
             variant="link"
             as="a"
             href="/account/auth/reset-password"
-            size="sm"
+            isResponsive
+            className="md:text-sm"
           >
             Forgot password?
           </Button>
@@ -101,14 +102,19 @@ export const LoginForm = () => {
         autoComplete="on"
       />
       <div className="flex w-full flex-col items-start gap-2 self-stretch pt-3">
-        <Button fullWidth type="submit" disabled={isSubmitting}>
+        <Button fullWidth type="submit" disabled={isSubmitting} isResponsive>
           {isSubmitting ? "Signing in..." : "Login"}
         </Button>
-        <div className="flex items-center gap-1 self-stretch text-base">
+        <div className="flex items-center gap-1 self-stretch text-xs md:text-base">
           <span className="text-center font-semibold text-text-em-mid">
             {"Don't have an account?"}
           </span>
-          <Button variant="link" as="a" href="/account/auth/signup">
+          <Button
+            variant="link"
+            as="a"
+            href="/account/auth/signup"
+            isResponsive
+          >
             Create an account
           </Button>
         </div>

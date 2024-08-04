@@ -101,12 +101,19 @@ export const buttonTheme = tv(
         ],
       },
       size: {
-        md: ["h-10", "px-4", "gap-1.5", "rounded-xl", "after:rounded-xl"],
+        md: [
+          "h-10",
+          "px-4",
+          "gap-1.5",
+          "text-base",
+          "rounded-xl",
+          "after:rounded-xl",
+        ],
         sm: [
           "h-8",
           "px-3",
           "gap-1.5",
-          "text-sm",
+          "text-xs",
           "rounded-lg",
           "after:rounded-lg",
         ],
