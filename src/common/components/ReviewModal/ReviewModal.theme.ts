@@ -48,7 +48,7 @@ export const reviewModalTheme = tv(
           modalContent: ["m-0", "h-full"],
         },
         md: {
-          modalContent: ["mx-10"],
+          modalContent: ["mx-10", "my-auto", "h-auto"],
         },
       },
     },
