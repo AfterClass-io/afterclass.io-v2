@@ -20,8 +20,6 @@ export const reviewItemTheme = tv(
         "items-start",
         "gap-3",
         "self-stretch",
-        "md:flex-row-reverse",
-        "md:justify-between",
       ],
       metadataContainer: ["flex", "gap-4", "items-center"],
       revieweeGroup: [
@@ -30,8 +28,6 @@ export const reviewItemTheme = tv(
         "items-center",
         "justify-between",
         "gap-3",
-        "md:w-fit",
-        "md:justify-normal",
       ],
       reviewerGroup: [
         "flex",
@@ -115,6 +111,8 @@ export const reviewItemTheme = tv(
         },
         md: {
           wrapper: ["gap-4"],
+          headingContainer: ["flex-row-reverse", "justify-between"],
+          revieweeGroup: ["w-fit", "justify-normal"],
           timedelta: ["text-sm"],
           body: ["text-sm"],
           labels: ["text-sm"],
