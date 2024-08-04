@@ -18,9 +18,9 @@ export const reviewModalTheme = tv(
         "gap-4",
       ],
       modalTrigger: ["w-[45rem]"],
-      modalContent: ["w-full"],
+      modalContent: ["w-full", "text-xs"],
       usernameAndTimestampWrapper: ["space-x-2", "pb-[18px]"],
-      username: ["text-lg", "font-medium"],
+      username: ["font-medium"],
       body: ["pb-[16px]", "whitespace-pre-wrap"],
       likeAndShareWrapper: [
         "flex",
