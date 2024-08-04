@@ -17,7 +17,7 @@ export default function Verify({
   }
 
   return (
-    <section className="flex h-full flex-shrink-0 items-center justify-center py-16 ">
+    <section className="flex h-full flex-shrink-0 items-start justify-center p-5 md:items-center md:py-16">
       <AuthCard title="You’re almost there!">
         <div className="flex flex-col gap-6 pb-3 leading-loose text-text-em-mid">
           <div>

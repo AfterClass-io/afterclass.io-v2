@@ -1,5 +1,3 @@
-"use client";
-
 import { AuthCard, ResetPasswordForm } from "@/common/components/Auth";
 
 export default function ResetPassword() {
@@ -10,12 +8,10 @@ export default function ResetPassword() {
   // }, []);
 
   return (
-    <>
-      <section className="flex h-full flex-shrink-0 items-center justify-center py-16">
-        <AuthCard title="Reset Password">
-          <ResetPasswordForm />
-        </AuthCard>
-      </section>
-    </>
+    <section className="flex h-full flex-shrink-0 items-start justify-center p-5 md:items-center md:py-16">
+      <AuthCard title="Reset Password">
+        <ResetPasswordForm />
+      </AuthCard>
+    </section>
   );
 }
