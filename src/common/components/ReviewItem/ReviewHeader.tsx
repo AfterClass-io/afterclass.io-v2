@@ -19,6 +19,7 @@ export const ReviewHeader = ({
       {variant === "home" ? (
         <ProfileSchool
           courseCode={review.courseCode}
+          courseName={review.courseName}
           university={review.university}
         />
       ) : (
@@ -29,6 +30,7 @@ export const ReviewHeader = ({
         {variant === "professor" && (
           <ProfileSchool
             courseCode={review.courseCode}
+            courseName={review.courseName}
             university={review.university}
           />
         )}

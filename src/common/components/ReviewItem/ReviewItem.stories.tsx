@@ -10,6 +10,7 @@ const review = {
   tips: "",
   rating: 4,
   courseCode: "COR-MGMT1302",
+  courseName: "Some Course Name",
   username: "Anonymous",
   likeCount: 10,
   createdAt: 1705745162,

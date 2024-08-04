@@ -22,6 +22,7 @@ const PUBLIC_REVIEW_FIELDS = {
   reviewedCourse: {
     select: {
       code: true,
+      name: true,
     },
   },
   reviewer: {
@@ -156,6 +157,7 @@ export const reviewsRouter = createTRPCRouter({
             tips: review.tips ?? "",
             createdAt: review.createdAt.getTime(),
             courseCode: review.reviewedCourse.code,
+            courseName: review.reviewedCourse.name,
             username: review.reviewer.username ?? "Anonymous",
             reviewLabels: review.reviewLabels.map((rl) => ({
               name: rl.label.name,
@@ -202,6 +204,7 @@ export const reviewsRouter = createTRPCRouter({
             rating: 0,
             createdAt: review.createdAt.getTime(),
             courseCode: review.reviewedCourse.code,
+            courseName: review.reviewedCourse.name,
             username: review.reviewer.username ?? "Anonymous",
             reviewLabels: review.reviewLabels.map((rl) => ({
               name: rl.label.name,
@@ -246,6 +249,7 @@ export const reviewsRouter = createTRPCRouter({
             tips: review.tips ?? "",
             createdAt: review.createdAt.getTime(),
             courseCode: review.reviewedCourse.code,
+            courseName: review.reviewedCourse.name,
             username: review.reviewer.username ?? "Anonymous",
             reviewLabels: review.reviewLabels.map((rl) => ({
               name: rl.label.name,
@@ -292,6 +296,7 @@ export const reviewsRouter = createTRPCRouter({
             rating: 0,
             createdAt: review.createdAt.getTime(),
             courseCode: review.reviewedCourse.code,
+            courseName: review.reviewedCourse.name,
             username: review.reviewer.username ?? "Anonymous",
             likeCount: review._count.votes,
             reviewLabels: review.reviewLabels.map((rl) => ({
@@ -335,6 +340,7 @@ export const reviewsRouter = createTRPCRouter({
             tips: review.tips ?? "",
             createdAt: review.createdAt.getTime(),
             courseCode: review.reviewedCourse.code,
+            courseName: review.reviewedCourse.name,
             username: review.reviewer.username ?? "Anonymous",
             reviewLabels: review.reviewLabels.map((rl) => ({
               name: rl.label.name,
@@ -380,6 +386,7 @@ export const reviewsRouter = createTRPCRouter({
             rating: 0,
             createdAt: review.createdAt.getTime(),
             courseCode: review.reviewedCourse.code,
+            courseName: review.reviewedCourse.name,
             username: review.reviewer.username ?? "Anonymous",
             likeCount: review._count.votes,
             reviewLabels: review.reviewLabels.map((rl) => ({
