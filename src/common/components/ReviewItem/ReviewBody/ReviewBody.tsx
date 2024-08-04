@@ -1,5 +1,5 @@
 import { Button } from "@/common/components/Button";
-import { reviewItemTheme, type ReviewItemVariants } from "./ReviewItem.theme";
+import { reviewItemTheme, type ReviewItemVariants } from "../ReviewItem.theme";
 import { type Review } from "@/common/types";
 
 export type ReviewBodyProps = ReviewItemVariants & {
@@ -9,7 +9,9 @@ export type ReviewBodyProps = ReviewItemVariants & {
 };
 
 export const ReviewBody = ({ review, isDetailed }: ReviewBodyProps) => {
-  const { body, labels } = reviewItemTheme();
+  const { body, labels } = reviewItemTheme({
+    size: { initial: "sm", md: "md" },
+  });
   return (
     <div className="flex flex-col gap-1">
       {isDetailed && (

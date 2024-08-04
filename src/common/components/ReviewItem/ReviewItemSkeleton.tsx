@@ -2,7 +2,9 @@ import { reviewItemTheme } from "./ReviewItem.theme";
 import { Skeleton } from "@/common/components/Skeleton";
 
 export const ReviewItemSkeleton = () => {
-  const { wrapper, headingContainer, metadataContainer } = reviewItemTheme();
+  const { wrapper, headingContainer, metadataContainer } = reviewItemTheme({
+    size: { initial: "sm", md: "md" },
+  });
   return (
     <div className={wrapper({ className: "w-full items-stretch" })}>
       <div className={headingContainer()}>

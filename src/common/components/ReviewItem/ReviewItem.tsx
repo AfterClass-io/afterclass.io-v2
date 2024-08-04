@@ -1,8 +1,9 @@
-import { ReviewHeader } from "./ReviewHeader";
-import { reviewItemTheme, type ReviewItemVariants } from "./ReviewItem.theme";
 import { LockCtaOverlay } from "@/common/components/LockCtaOverlay";
-import { ReviewModal } from "@/common/components/ReviewModal";
 import { type Review } from "@/common/types";
+
+import { reviewItemTheme, type ReviewItemVariants } from "./ReviewItem.theme";
+import { ReviewHeader } from "./ReviewHeader";
+import { ReviewModal } from "./ReviewModal";
 
 export type ReviewItemProps = ReviewItemVariants & {
   review: Review;
@@ -15,7 +16,9 @@ export const ReviewItem = ({
   isLocked,
   variant = "home",
 }: ReviewItemProps) => {
-  const { wrapper, body } = reviewItemTheme();
+  const { wrapper, body } = reviewItemTheme({
+    size: { initial: "sm", md: "md" },
+  });
 
   return (
     <>
@@ -27,7 +30,11 @@ export const ReviewItem = ({
           </div>
         </div>
       ) : (
-        <ReviewModal review={review} variant={variant} seeMore={variant==="home"} />
+        <ReviewModal
+          review={review}
+          variant={variant}
+          seeMore={variant === "home"}
+        />
       )}
     </>
   );
