@@ -7,10 +7,6 @@ const TooltipProvider = TooltipPrimitive.Provider;
 
 const TooltipTrigger = TooltipPrimitive.Trigger;
 
-const TooltipRoot = (
-  props: React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root>,
-) => <TooltipPrimitive.Root delayDuration={200} {...props} />;
-
 const TooltipContent = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>
@@ -24,8 +20,10 @@ const TooltipContent = React.forwardRef<
 ));
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
-export const Tooltip = Object.assign(TooltipRoot, {
-  Trigger: TooltipTrigger,
-  Content: TooltipContent,
-  Provider: TooltipProvider,
-});
+export const Tooltip = (
+  props: React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root>,
+) => <TooltipPrimitive.Root delayDuration={200} {...props} />;
+
+Tooltip.Trigger = TooltipTrigger;
+Tooltip.Content = TooltipContent;
+Tooltip.Provider = TooltipProvider;
