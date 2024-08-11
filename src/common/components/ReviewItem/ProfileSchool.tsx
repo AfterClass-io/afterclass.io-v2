@@ -1,3 +1,4 @@
+"use client";
 import { type UniversityAbbreviation } from "@prisma/client";
 import { reviewItemTheme, type ReviewItemVariants } from "./ReviewItem.theme";
 import { SchoolIcon } from "@/common/components/CustomIcon";
