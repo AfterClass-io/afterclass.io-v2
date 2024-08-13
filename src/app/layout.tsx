@@ -6,14 +6,18 @@ import { TRPCReactProvider } from "@/common/tools/trpc/react";
 import { CoreLayout } from "@/common/components/CoreLayout";
 import ThemeProvider from "@/common/providers/ThemeProvider";
 import AuthProvider from "@/common/providers/AuthProvider";
+import TooltipProvider from "@/common/providers/TooltipProvider";
 import { inter, poppins } from "@/common/fonts";
 import { env } from "@/env.mjs";
 import { CSPostHogProvider } from "@/common/providers/analytics/providers";
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic";
 
-const PostHogPageView = dynamic(() => import('@/common/providers/analytics/PostHogPageView'), {
-  ssr: false,
-})
+const PostHogPageView = dynamic(
+  () => import("@/common/providers/analytics/PostHogPageView"),
+  {
+    ssr: false,
+  },
+);
 
 const appName = "AfterClass";
 const appDesc = [
@@ -70,16 +74,18 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <CSPostHogProvider>
-      <body>
-        <PostHogPageView/>
-        <ThemeProvider>
-          <AuthProvider>
-            <TRPCReactProvider>
-              <CoreLayout>{children}</CoreLayout>
-            </TRPCReactProvider>
-          </AuthProvider>
-        </ThemeProvider>
-      </body>
+        <body>
+          <PostHogPageView />
+          <ThemeProvider>
+            <AuthProvider>
+              <TRPCReactProvider>
+                <TooltipProvider>
+                  <CoreLayout>{children}</CoreLayout>
+                </TooltipProvider>
+              </TRPCReactProvider>
+            </AuthProvider>
+          </ThemeProvider>
+        </body>
       </CSPostHogProvider>
     </html>
   );
