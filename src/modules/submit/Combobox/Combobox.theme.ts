@@ -5,7 +5,7 @@ export type ComboboxVariants = VariantProps<typeof comboboxTheme>;
 export const comboboxTheme = tv(
   {
     base: [
-      "h-10",
+      "min-h-12",
       "w-full",
       "max-w-sm",
       "items-center",
