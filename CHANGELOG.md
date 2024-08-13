@@ -1,3 +1,23 @@
+<a name="v0.5.0"></a>
+# [v0.5.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.5.0) - 06 Aug 2024
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### 🚀 Features
+* feat(ui): review modal responsive mobile viewport by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/209
+### 👾 Bug Fixes
+* fix: review item not wrapping text on long word causing container to grow by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/195
+* fix: add whitespace pre wrap for modal body by [@Jaylin0312](https://github.com/Jaylin0312) in https://github.com/AfterClass-io/afterclass.io-v2/pull/211
+### Other Changes
+* fix: coming soon page by [@whoisdavidd](https://github.com/whoisdavidd) in https://github.com/AfterClass-io/afterclass.io-v2/pull/197
+
+
+**Full Changelog**: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.4.0...v0.5.0
+
+[Changes][v0.5.0]
+
+
 <a name="v0.4.0"></a>
 # [v0.4.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.4.0) - 22 Jul 2024
 
@@ -164,6 +184,7 @@
 [Changes][v0.1.0]
 
 
+[v0.5.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.4.0...v0.5.0
 [v0.4.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.3.0...v0.4.0
 [v0.3.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.2.0...v0.3.0
 [v0.2.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.1.0...v0.2.0

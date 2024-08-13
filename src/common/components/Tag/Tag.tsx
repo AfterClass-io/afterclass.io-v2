@@ -29,14 +29,13 @@ export const Tag = ({
   className,
   ...props
 }: TagProps) => {
-  const [_active, setIsActive] = useState(active);
-  const isActive = active ?? _active;
-
+  const [isActive, setIsActive] = useState(active);
   const { tag, icon: iconTheme } = tagTheme({
     active: isActive,
     clickable,
     size,
   });
+
   const StyledIcon = useCallback(
     ({ icon }: { icon: ReactNode }) => {
       if (isValidElement(icon)) {
