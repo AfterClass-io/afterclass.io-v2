@@ -117,14 +117,14 @@ export const SignupForm = () => {
         autoComplete="on"
       />
       <div className="flex w-full flex-col items-start gap-2 self-stretch pt-3">
-        <Button fullWidth type="submit" disabled={isSubmitting}>
+        <Button fullWidth type="submit" disabled={isSubmitting} isResponsive>
           {isSubmitting ? "Creating an account..." : "Sign up"}
         </Button>
-        <div className="flex items-center gap-1 self-stretch text-base">
+        <div className="flex items-center gap-1 self-stretch text-xs md:text-base">
           <span className="text-center font-semibold text-text-em-mid">
             Already have an account?
           </span>
-          <Button variant="link" as="a" href="/account/auth/login">
+          <Button variant="link" as="a" href="/account/auth/login" isResponsive>
             Login
           </Button>
         </div>
