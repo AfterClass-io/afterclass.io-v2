@@ -18,7 +18,7 @@ export default function Verify({
 
   return (
     <AuthCard title="You’re almost there!">
-      <div className="flex flex-col gap-6 pb-3 text-sm leading-loose text-text-em-mid md:text-base">
+      <div className="flex flex-col gap-6 pb-3 text-xs leading-relaxed text-text-em-mid md:text-base">
         <div>
           <p>We’ve sent a verification email to:</p>
           <Heading
@@ -29,11 +29,11 @@ export default function Verify({
           </Heading>
         </div>
         <p>
-          Please click on the link in that email to verify your account within
-          <br />
+          Please click on the link in that email to verify your account within{" "}
+          <br className="hidden md:block" />
           20 minutes.
         </p>
-        <hr className="my-3 border-border-default" />
+        <hr className="my-1 border-border-default md:my-3" />
         <p>
           If you are not receiving AfterClass emails, try these troubleshooting
           steps:
@@ -73,7 +73,7 @@ export default function Verify({
                 as="a"
                 href="mailto:noreply@afterclass.io"
                 variant="link"
-                className="inline"
+                className="inline text-xs md:text-base"
               >
                 noreply@afterclass.io
               </Button>
@@ -82,7 +82,7 @@ export default function Verify({
                 as="a"
                 href="https://afterclass.io"
                 variant="link"
-                className="inline"
+                className="inline text-xs md:text-base"
               >
                 afterclass.io
               </Button>
@@ -99,7 +99,7 @@ export default function Verify({
             as="a"
             href="https://t.me/AfterClass"
             variant="link"
-            className="inline"
+            className="inline text-xs md:text-base"
             external
           >
             @afterclass
