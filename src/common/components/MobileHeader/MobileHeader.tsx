@@ -46,7 +46,12 @@ export const MobileHeader = ({ ...props }: MobileHeaderProps) => {
           </button>
 
           {/* TODO: Add logged in state */}
-          <Button variant="secondary" size="sm" href="/account/login">
+          <Button
+            variant="secondary"
+            size="sm"
+            as="a"
+            href="/account/auth/login"
+          >
             Login
           </Button>
         </div>

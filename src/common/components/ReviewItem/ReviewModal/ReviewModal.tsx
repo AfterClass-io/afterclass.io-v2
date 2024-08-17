@@ -1,14 +1,15 @@
 "use client";
 
 import { Modal } from "@/common/components/Modal";
-import { ReviewHeader } from "@/common/components/ReviewItem/ReviewHeader";
-import { ReviewBody } from "@/common/components/ReviewItem/ReviewBody";
-import { ProfileSchool } from "@/common/components/ReviewItem/ProfileSchool";
-import { reviewModalTheme } from "./ReviewModal.theme";
 import { getHumanReadableTimestampDelta } from "@/common/functions";
 import { ShareIcon, ThumbUpFilledIcon } from "@/common/components/CustomIcon";
 import { type Review } from "@/common/types";
 import { Button } from "@/common/components/Button";
+
+import { ReviewHeader } from "../ReviewHeader";
+import { ReviewBody } from "../ReviewBody";
+import { reviewItemTheme } from "../ReviewItem.theme";
+import { RevieweeGroup } from "@/common/components/ReviewItem/ReviewHeader/RevieweeGroup";
 
 export const ReviewModal = ({
   review,
@@ -25,13 +26,13 @@ export const ReviewModal = ({
     modalContent,
     usernameAndTimestampWrapper,
     username,
-    body,
+    modalBody,
     likeAndShareWrapper,
     likeWrapper,
     shareWrapper,
     seeMoreDivider,
     seeMoreLink,
-  } = reviewModalTheme({ size: { initial: "sm", md: "md" } });
+  } = reviewItemTheme({ size: { initial: "sm", md: "md" } });
 
   const reviewPath =
     review.reviewFor === "professor"
@@ -51,10 +52,7 @@ export const ReviewModal = ({
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <Modal.Header>
-          <ProfileSchool
-            courseCode={review.courseCode}
-            university={review.university}
-          />
+          <RevieweeGroup review={review} variant={variant} />
         </Modal.Header>
         <Modal.Body>
           <div className={usernameAndTimestampWrapper()}>
@@ -64,7 +62,7 @@ export const ReviewModal = ({
               {getHumanReadableTimestampDelta(review.createdAt / 1000)}
             </span>
           </div>
-          <p className={body()}>{review.body}</p>
+          <p className={modalBody()}>{review.body}</p>
         </Modal.Body>
         <Modal.Footer>
           <div className={likeAndShareWrapper()}>
