@@ -33,25 +33,16 @@ export const ReviewFormSection = ({
   const {
     register,
     setValue,
-    getValues,
+    watch,
     formState: { errors },
   } = useFormContext<ReviewFormInputsSchema>();
   const { wrapper, header, divider, lower, textarea } = reviewFormTheme();
   const [isSkipped, setIsSkipped] = useState(false);
-  const [selectedReviewable, setSelectedReviewable] = useState(
-    (getValues(`${type}.value`) || "") as string,
-  );
 
-  // type cast required as `getValues()` returns never
-  // https://github.com/react-hook-form/react-hook-form/issues/4694
-  const bodyValue = (getValues(`${type}.body`) || "") as string;
+  const bodyValue = (watch(`${type}.body`) || "") as string;
   const bodyHelperText =
     errors[type]?.body?.message +
     ` ${200 - bodyValue.length} more characters to go`;
-
-  if (isSkipped) {
-    return null;
-  }
 
   return (
     <div className={wrapper()}>
@@ -69,27 +60,36 @@ export const ReviewFormSection = ({
             onSelectChange={(v) => {
               /* @ts-expect-error: https://github.com/react-hook-form/react-hook-form/issues/4694 */
               setValue(`${type}.value`, v);
-              setSelectedReviewable(
-                (getValues(`${type}.value`) || "") as string,
-              );
             }}
             {...register(`${type}.value`)}
           />
         </Field>
-        {isOptional && (
-          <Button
-            variant="tertiary"
-            onClick={() => {
-              setIsSkipped(true);
-              setValue("type", ReviewableEnum.COURSE);
-              setValue(ReviewableEnum.PROFESSOR, {});
-            }}
-          >
-            Skip review
-          </Button>
-        )}
+        {isOptional &&
+          (isSkipped ? (
+            <Button
+              variant="secondary"
+              type="button"
+              onClick={() => {
+                setIsSkipped(false);
+              }}
+            >
+              Write review
+            </Button>
+          ) : (
+            <Button
+              variant="tertiary"
+              type="button"
+              onClick={() => {
+                setIsSkipped(true);
+                setValue("type", ReviewableEnum.COURSE);
+                setValue(ReviewableEnum.PROFESSOR, {});
+              }}
+            >
+              Skip review
+            </Button>
+          ))}
       </div>
-      {selectedReviewable && (
+      {!isSkipped && (
         <>
           <hr className={divider()} />
           <div className={lower()}>
