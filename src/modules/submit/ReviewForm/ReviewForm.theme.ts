@@ -19,7 +19,7 @@ export const reviewFormTheme = tv(
       ],
       header: ["flex", "items-end", "justify-between", "self-stretch"],
       divider: ["h-0", "w-full", "border-border-default"],
-      lower: ["flex", "flex-col", "items-start", "gap-8"],
+      lower: ["flex", "flex-col", "items-start", "gap-8", "self-stretch"],
       textarea: ["w-full"],
     },
   },
