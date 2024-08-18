@@ -39,6 +39,8 @@ export const ReviewFormSection = ({
   const { wrapper, header, divider, lower, textarea } = reviewFormTheme();
   const [isSkipped, setIsSkipped] = useState(false);
 
+  // type cast required as `watch()` returns never
+  // https://github.com/react-hook-form/react-hook-form/issues/4694
   const bodyValue = (watch(`${type}.body`) || "") as string;
   const bodyHelperText =
     errors[type]?.body?.message +
@@ -71,6 +73,8 @@ export const ReviewFormSection = ({
               type="button"
               onClick={() => {
                 setIsSkipped(false);
+                setValue("type", ReviewableEnum.PROFESSOR);
+                setValue(ReviewableEnum.PROFESSOR, {});
               }}
             >
               Write review
