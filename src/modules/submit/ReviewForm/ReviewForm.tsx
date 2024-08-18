@@ -20,7 +20,13 @@ export const ReviewForm = ({ children }: { children: ReactNode }) => {
     resolver: zodResolver(reviewFormSchema),
     mode: "onTouched",
     defaultValues: {
-      type: ReviewableEnum.COURSE,
+      type: ReviewableEnum.PROFESSOR,
+      course: {
+        labels: [],
+      },
+      professor: {
+        labels: [],
+      },
     },
   });
 
@@ -44,6 +50,14 @@ export const ReviewForm = ({ children }: { children: ReactNode }) => {
       router.push("/");
     }
   }, [reviewsMutation.isSuccess]);
+
+  // uncomment this useEffect to see the form values in the console on change
+  // useEffect(() => {
+  //   const subscription = formMethods.watch((value, { name, type }) =>
+  //     console.log(value, name, type),
+  //   );
+  //   return () => subscription.unsubscribe();
+  // }, [formMethods.watch]);
 
   const onSubmit: SubmitHandler<ReviewFormInputsSchema> = (data) => {
     console.log(data);
