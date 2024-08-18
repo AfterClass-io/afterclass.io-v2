@@ -1,3 +1,24 @@
+<a name="v0.6.0"></a>
+# [v0.6.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.6.0) - 18 Aug 2024
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### 🚀 Features
+* feat(ui): tooltip component by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/208
+* feat(ui): mobile view for auth flows by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/212
+* feat(ui): review item responsive mobile viewport  by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/210
+### 👾 Bug Fixes
+* fix: course specific review not showing if where in clause is empty array by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/215
+* fix(ui): review label tag on review form not reactive to clicks by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/214
+* fix(ui): mobile view not scrollable by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/216
+
+
+**Full Changelog**: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.5.0...v0.6.0
+
+[Changes][v0.6.0]
+
+
 <a name="v0.5.0"></a>
 # [v0.5.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.5.0) - 06 Aug 2024
 
@@ -184,6 +205,7 @@
 [Changes][v0.1.0]
 
 
+[v0.6.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.5.0...v0.6.0
 [v0.5.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.4.0...v0.5.0
 [v0.4.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.3.0...v0.4.0
 [v0.3.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.2.0...v0.3.0
