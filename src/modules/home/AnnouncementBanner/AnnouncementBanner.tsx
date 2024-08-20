@@ -1,8 +1,14 @@
 import Heading from "@/common/components/Heading";
 import { AnnouncementCard } from "./AnnouncementCard";
 import { announcementsBannerTheme } from "./AnnouncementBanner.theme";
+import { getFeatureFlag } from "@/common/tools/posthog";
 
-export const AnnouncementBanner = () => {
+export const AnnouncementBanner = async () => {
+  const isEnabled = await getFeatureFlag("announcements_carousel");
+  if (!isEnabled) {
+    return null;
+  }
+
   const { wrapper, announcements, heading, divider } =
     announcementsBannerTheme();
   return (
