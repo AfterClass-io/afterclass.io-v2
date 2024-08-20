@@ -7,7 +7,7 @@ import {
 } from "next-auth";
 import { z } from "zod";
 import { randomBytes, randomUUID } from "crypto";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import { env } from "@/env.mjs";
 import { signInWithEmail } from "./supabase";
 import { emailValidationSchema } from "@/common/tools/zod/schemas";
