@@ -14,6 +14,7 @@ import { emailValidationSchema } from "@/common/tools/zod/schemas";
 import { db } from "@/server/db";
 import randomId from "@/common/functions/randomId";
 import { type Users } from "@prisma/client";
+import { identifyUser } from "@/common/tools/posthog";
 
 type SessionUser = Omit<Users, "deprecatedPasswordDigest">;
 
@@ -74,7 +75,7 @@ export const authOptions: NextAuthOptions = {
           )
         ) {
           console.log(`User ${user.id} logged in with v1 credentials.`);
-          return user;
+          return await identifyUser(user);
         }
 
         const { data, error } = await signInWithEmail(
@@ -108,7 +109,7 @@ export const authOptions: NextAuthOptions = {
               return null;
             }
 
-            return await db.users.create({
+            const newUser = await db.users.create({
               data: {
                 id: data.user.id,
                 email: data.user.email ?? c.data.email,
@@ -117,9 +118,10 @@ export const authOptions: NextAuthOptions = {
                 universityId: uniOfThisEmail.id,
               },
             });
+            return await identifyUser(newUser);
           }
           // Any object returned will be saved in `user` property of the JWT
-          return user;
+          return await identifyUser(user);
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
           return null;
