@@ -49,6 +49,7 @@
     "react-hook-form": "^7.51.1",
     "sass": "^1.72.0",
     "server-only": "^0.0.1",
+    "sharp": "^0.33.5",
     "superjson": "^2.2.1",
     "tailwind-variants": "^0.2.1",
     "validator": "^13.11.0",
