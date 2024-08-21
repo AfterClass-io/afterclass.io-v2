@@ -21,22 +21,27 @@ export type CtaCardProps = CtaCardVariants &
     rightIcon?: ReactNode;
   };
 
-export const CtaCard = ({ ctaText, ...props }: CtaCardProps) => {
+export const CtaCard = ({
+  ctaText,
+  leftIcon,
+  rightIcon,
+  ...props
+}: CtaCardProps) => {
   const { button, ctaWrapper, cta, icon } = ctaCardTheme();
   const renderIcon = (iconElement: ReactNode) => {
-    if (isValidElement(iconElement)) {
-      return cloneElement(iconElement as ReactElement, { className: icon() });
+    if (!isValidElement(iconElement)) {
+      return null;
     }
-    return null;
+    return cloneElement(iconElement as ReactElement, { className: icon() });
   };
 
   return (
     <Button as="a" className={button()} asChild {...props}>
       <div className={ctaWrapper()}>
-        {renderIcon(props.leftIcon)}
+        {renderIcon(leftIcon)}
         <span className={cta()}>{ctaText}</span>
       </div>
-      {renderIcon(props.rightIcon)}
+      {renderIcon(rightIcon)}
     </Button>
   );
 };
