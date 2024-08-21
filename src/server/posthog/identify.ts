@@ -1,4 +1,4 @@
-import { PostHogClient } from "@/server/posthog";
+import { PostHogClient } from "./client";
 import { type Users } from "@prisma/client";
 
 /**

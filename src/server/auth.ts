@@ -14,7 +14,7 @@ import { emailValidationSchema } from "@/common/tools/zod/schemas";
 import { db } from "@/server/db";
 import randomId from "@/common/functions/randomId";
 import { type Users } from "@prisma/client";
-import { identifyUser } from "@/common/tools/posthog";
+import { identifyUser } from "@/server/posthog";
 
 type SessionUser = Omit<Users, "deprecatedPasswordDigest">;
 

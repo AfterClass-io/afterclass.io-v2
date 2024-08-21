@@ -1,5 +1,5 @@
 import { AnnouncementBanner } from "@/modules/home/AnnouncementBanner";
-import { getFeatureFlag } from "@/common/tools/posthog";
+import { getFeatureFlag } from "@/server/posthog";
 
 export default async function HomeHeader() {
   const isEnabled = await getFeatureFlag("announcements_carousel");

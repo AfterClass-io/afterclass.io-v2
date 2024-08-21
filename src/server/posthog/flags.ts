@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { env } from "@/env.mjs";
-import { PostHogClient } from "@/server/posthog";
+import { PostHogClient } from "./client";
 import { getServerAuthSession } from "@/server/auth";
 
 /**
