@@ -12,16 +12,19 @@ export const statItemTheme = tv(
         "gap-2",
         "rounded-none",
       ],
-      label: ["text-text-em-low", "text-center", "font-medium", "text-start"],
-      rating: ["text-text-em-high", "text-center", "font-semibold"],
+      label: [
+        "text-text-em-low",
+        "text-center",
+        "text-sm",
+        "font-medium",
+        "text-start",
+      ],
+      rating: ["text-text-em-high", "text-center", "text-xl", "font-semibold"],
       icon: ["h-7", "w-7"],
     },
     variants: {
       size: {
-        md: {
-          label: ["text-sm"],
-          rating: ["text-xl"],
-        },
+        md: {},
         sm: {
           label: ["text-xs"],
           rating: ["text-md"],
