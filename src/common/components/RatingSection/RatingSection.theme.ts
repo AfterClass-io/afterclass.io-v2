@@ -29,7 +29,6 @@ export const ratingSectionTheme = tv(
         "items-start",
         "rounded-none",
         "w-full",
-        "gap-14",
         "py-0",
         "px-1",
         "capitalize",
@@ -38,8 +37,8 @@ export const ratingSectionTheme = tv(
     },
     variants: {
       size: {
-        md: {},
-        sm: {},
+        md: { statItemWrapper: ["gap-14", "justify-start"] },
+        sm: { statItemWrapper: ["flex-wrap", "gap-5", "justify-between"] },
       },
     },
   },
