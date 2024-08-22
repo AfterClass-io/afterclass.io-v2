@@ -28,16 +28,22 @@ export const emailValidationSchema = z
  */
 const courseReviewFormSchema = z.object({
   value: z.string().min(1, "This field is required"),
-  rating: z.coerce.number().positive().min(1).max(5),
-  labels: z.array(z.string()),
+  rating: z.coerce
+    .number()
+    .min(1, "Please select your rating for this course")
+    .max(5, "Rating must be between 1 and 5"),
+  labels: z.string().array().optional(),
   body: z.string().min(200, "Help other students by writing a longer review. "),
   tips: z.string(),
 });
 
 const professorReviewFormSchema = z.object({
   value: z.string().min(1, "Please select a professor"),
-  rating: z.coerce.number().positive().min(1).max(5),
-  labels: z.array(z.string()),
+  rating: z.coerce
+    .number()
+    .min(1, "Please select your rating for this professor")
+    .max(5, "Rating must be between 1 and 5"),
+  labels: z.string().array().optional(),
   body: z.string().min(200, "Help other students by writing a longer review. "),
   tips: z.string(),
 });

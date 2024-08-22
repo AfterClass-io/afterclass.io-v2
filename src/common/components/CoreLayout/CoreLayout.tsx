@@ -6,9 +6,9 @@ interface CoreLayoutProps extends PropsWithChildren {}
 
 export const CoreLayout = ({ children }: CoreLayoutProps) => {
   return (
-    <div className="relative flex h-full flex-col">
+    <div className="flex h-dvh flex-col">
       <MobileHeader className="flex-shrink-0 sm:hidden" />
-      <div className="relative flex h-full flex-col overflow-hidden overflow-y-auto sm:flex-row">
+      <div className="flex flex-1 overflow-hidden">
         <aside className="relative hidden shrink-0 overflow-y-auto border-r border-border-default bg-surface-base sm:block">
           <Sidebar />
         </aside>
