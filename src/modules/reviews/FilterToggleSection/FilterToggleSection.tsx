@@ -46,7 +46,7 @@ export const FilterToggleSection = (props: FilterToggleSectionProps) => {
   const updateSearchParams = (newSelectedItems: string[]) => {
     params.delete(searchParamsName);
     newSelectedItems.forEach((v) => params.append(searchParamsName, v));
-    router.replace(`${pathname}?${params.toString()}`);
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
   return (
