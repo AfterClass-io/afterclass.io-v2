@@ -52,7 +52,12 @@ export const filterToggleSectionTheme = tv(
           container: ["gap-4", "flex-row", "flex-wrap", "content-start"],
           item: ["w-64", "p-3", "border", "border-border-elevated"],
           content: ["flex-col", "justify-center", "items-start", "flex-auto"],
-          itemHeader: ["text-sm", "font-semibold", "flex-auto"],
+          itemHeader: [
+            "text-sm",
+            "line-clamp-none",
+            "font-semibold",
+            "flex-auto",
+          ],
           headerIcon: ["w-6", "h-6"],
           statWrapper: ["gap-4"],
         },
