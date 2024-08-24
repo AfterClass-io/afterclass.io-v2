@@ -24,7 +24,6 @@ export const filterToggleSectionTheme = tv(
         "group",
         "flex",
         "items-center",
-        "gap-4",
         "rounded-lg",
         "hover:bg-surface-elevated",
       ],
@@ -50,7 +49,7 @@ export const filterToggleSectionTheme = tv(
           section: ["p-6", "gap-5"],
           sectionHeader: ["text-2xl", "gap-4", "pl-0"],
           container: ["gap-4", "flex-row", "flex-wrap", "content-start"],
-          item: ["w-64", "p-3", "border", "border-border-elevated"],
+          item: ["w-64", "p-3", "gap-4", "border", "border-border-elevated"],
           content: ["flex-col", "justify-center", "items-start", "flex-auto"],
           itemHeader: [
             "text-sm",
