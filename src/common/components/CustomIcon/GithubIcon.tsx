@@ -10,8 +10,6 @@ export const GithubIcon = (props: CustomIconProps) => {
       {...props}
     >
       <g
-        // Github cat wont be hollow if attributes are removed (if readme steps for custom icon are followed).
-        // not sure if theres any other way
         fill="none"
         stroke="currentColor"
         strokeLinecap="round"
