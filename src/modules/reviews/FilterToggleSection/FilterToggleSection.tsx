@@ -49,6 +49,12 @@ export const FilterToggleSection = (props: FilterToggleSectionProps) => {
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
+  dataToFilter.sort((a, b) => {
+    const aStat = a.filterStats[0]?.stat ?? 0;
+    const bStat = b.filterStats[0]?.stat ?? 0;
+    return bStat - aStat;
+  });
+
   return (
     <Filter>
       <Filter.Header type={filterType} />
