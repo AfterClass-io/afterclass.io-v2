@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { usePathname } from "next/navigation";
 import { api } from "@/common/tools/trpc/react";
 import { Breadcrumb as BC } from "@/common/components/Breadcrumb";
@@ -89,14 +90,16 @@ export const Breadcrumb = () => {
     <BC>
       <BC.List>
         {breadcrumbElements.map((element, index) => (
-          <BC.Item key={index}>
-            {element.href ? (
-              <BC.Link href={element.href}>{element.label}</BC.Link>
-            ) : (
-              <BC.Page>{element.label}</BC.Page>
-            )}
+          <React.Fragment key={index}>
+            <BC.Item>
+              {element.href ? (
+                <BC.Link href={element.href}>{element.label}</BC.Link>
+              ) : (
+                <BC.Page>{element.label}</BC.Page>
+              )}
+            </BC.Item>
             {index < breadcrumbElements.length - 1 && <BC.Separator />}
-          </BC.Item>
+          </React.Fragment>
         ))}
       </BC.List>
     </BC>
