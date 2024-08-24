@@ -7,7 +7,9 @@ export const FilterToggleSectionItems = ({
 }: {
   children: ReactNode;
 }) => {
-  const { container } = filterToggleSectionTheme();
+  const { container } = filterToggleSectionTheme({
+    size: { initial: "sm", md: "md" },
+  });
   return <div className={container()}>{children}</div>;
 };
 

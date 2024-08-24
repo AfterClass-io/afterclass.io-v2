@@ -13,7 +13,7 @@ export type CheckboxProps = CheckboxVariants &
   };
 
 export const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
-  ({ label, className, size = "md", disabled = false, ...props }, ref) => {
+  ({ label, className, size, disabled = false, ...props }, ref) => {
     const id = useId();
     const {
       wrapper,
@@ -23,7 +23,7 @@ export const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
       label: labelContainer,
     } = checkboxTheme({
       className,
-      size,
+      size: size || { initial: "sm", md: "md" },
       disabled,
     });
 
