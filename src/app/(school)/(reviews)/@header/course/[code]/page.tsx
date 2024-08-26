@@ -18,7 +18,7 @@ export default async function CourseHeader({
   return (
     <div className="w-full">
       <PageTitle
-        contentLeft={<BooksIcon className="h-9 w-9" />}
+        contentLeft={<BooksIcon className="h-9 w-9 text-text-em-low" />}
         contentRight={
           <Tag
             contentLeft={
