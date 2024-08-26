@@ -1,11 +1,9 @@
 "use client";
 import { useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { FilterToggleSection as Filter } from "@/common/components/FilterToggleSection";
 import { type FilterItem } from "@/common/components/FilterToggleSection/FilterToggleSectionItem";
-import { useBreakpoint } from "@/common/hooks/useBreakpoint";
-import { Button } from "@/common/components/Button";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export type FilterToggleSectionProps =
   | {
@@ -25,13 +23,11 @@ export const FilterToggleSection = (props: FilterToggleSectionProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { isBelowMd } = useBreakpoint("md");
 
   const params = new URLSearchParams(searchParams);
   const selected = params.getAll(props.searchParamsName ?? "");
   const [selectedItems, setSelectedItems] =
     useState<FilterItem["value"][]>(selected);
-  const [isMobileFilterExpanded, setIsMobileFilterExpanded] = useState(false);
 
   if (props.isLocked)
     return (
@@ -59,16 +55,11 @@ export const FilterToggleSection = (props: FilterToggleSectionProps) => {
     return bStat - aStat;
   });
 
-  const visibleDataToFilter =
-    isBelowMd && !isMobileFilterExpanded
-      ? dataToFilter.slice(0, 3)
-      : dataToFilter;
-
   return (
     <Filter>
       <Filter.Header type={filterType} />
       <Filter.Items>
-        {visibleDataToFilter.map((item, index) => (
+        {dataToFilter.map((item, index) => (
           <Filter.Item
             key={index}
             {...item}
@@ -82,16 +73,6 @@ export const FilterToggleSection = (props: FilterToggleSectionProps) => {
           />
         ))}
       </Filter.Items>
-      {isBelowMd && (
-        <Button
-          variant="link"
-          className="px-1"
-          onClick={() => setIsMobileFilterExpanded(!isMobileFilterExpanded)}
-          isResponsive
-        >
-          {isMobileFilterExpanded ? "Show less" : "Show more"}
-        </Button>
-      )}
     </Filter>
   );
 };
