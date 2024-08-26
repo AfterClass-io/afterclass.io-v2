@@ -1,9 +1,18 @@
 "use client";
 import { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { FilterToggleSection as Filter } from "@/common/components/FilterToggleSection";
 import { type FilterItem } from "@/common/components/FilterToggleSection/FilterToggleSectionItem";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Button } from "@/common/components/Button";
+import { cn } from "@/common/functions";
+
+const ITEMS_TO_SHOW_WHEN_NOT_EXPANDED = 3;
+
+const getFilterItemsHideOrShowClassName = (isFilterItemsExpanded: boolean) =>
+  isFilterItemsExpanded
+    ? `[&>*:nth-child(n+${ITEMS_TO_SHOW_WHEN_NOT_EXPANDED + 1})]:flex`
+    : `[&>*:nth-child(n+${ITEMS_TO_SHOW_WHEN_NOT_EXPANDED + 1})]:hidden`;
 
 export type FilterToggleSectionProps =
   | {
@@ -28,6 +37,7 @@ export const FilterToggleSection = (props: FilterToggleSectionProps) => {
   const selected = params.getAll(props.searchParamsName ?? "");
   const [selectedItems, setSelectedItems] =
     useState<FilterItem["value"][]>(selected);
+  const [isFilterItemsExpanded, setIsFilterItemsExpanded] = useState(false);
 
   if (props.isLocked)
     return (
@@ -58,7 +68,12 @@ export const FilterToggleSection = (props: FilterToggleSectionProps) => {
   return (
     <Filter>
       <Filter.Header type={filterType} />
-      <Filter.Items>
+      <Filter.Items
+        className={cn(
+          getFilterItemsHideOrShowClassName(isFilterItemsExpanded),
+          `md:${getFilterItemsHideOrShowClassName(true)}`,
+        )}
+      >
         {dataToFilter.map((item, index) => (
           <Filter.Item
             key={index}
@@ -73,6 +88,14 @@ export const FilterToggleSection = (props: FilterToggleSectionProps) => {
           />
         ))}
       </Filter.Items>
+      <Button
+        variant="link"
+        className="px-1 md:hidden"
+        onClick={() => setIsFilterItemsExpanded(!isFilterItemsExpanded)}
+        isResponsive
+      >
+        {isFilterItemsExpanded ? "Show less" : "Show more"}
+      </Button>
     </Filter>
   );
 };
