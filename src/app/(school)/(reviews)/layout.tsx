@@ -1,6 +1,7 @@
 import { type ReactNode } from "react";
 
 import { CtaCard } from "@/common/components/CtaCard";
+import { EditIcon, GithubIcon, PlusIcon } from "@/common/components/CustomIcon";
 
 export default function ReviewLayout({
   children,
@@ -28,12 +29,15 @@ export default function ReviewLayout({
             variant="secondary"
             ctaText="Write a review"
             href="/submit"
+            leftIcon={<PlusIcon />}
+            rightIcon={<EditIcon opacity={0.1} />}
           />
           <CtaCard
             variant="tertiary"
             ctaText="Contribute to AfterClass OSS"
             href="https://github.com/AfterClass-io/afterclass.io-v2"
             external
+            leftIcon={<GithubIcon />}
           />
         </div>
       </div>
