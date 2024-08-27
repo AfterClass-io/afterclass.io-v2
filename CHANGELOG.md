@@ -1,3 +1,85 @@
+<a name="v0.6.0"></a>
+# [v0.6.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.6.0) - 18 Aug 2024
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### 🚀 Features
+* feat(ui): tooltip component by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/208
+* feat(ui): mobile view for auth flows by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/212
+* feat(ui): review item responsive mobile viewport  by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/210
+### 👾 Bug Fixes
+* fix: course specific review not showing if where in clause is empty array by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/215
+* fix(ui): review label tag on review form not reactive to clicks by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/214
+* fix(ui): mobile view not scrollable by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/216
+
+
+**Full Changelog**: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.5.0...v0.6.0
+
+[Changes][v0.6.0]
+
+
+<a name="v0.5.0"></a>
+# [v0.5.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.5.0) - 06 Aug 2024
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### 🚀 Features
+* feat(ui): review modal responsive mobile viewport by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/209
+### 👾 Bug Fixes
+* fix: review item not wrapping text on long word causing container to grow by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/195
+* fix: add whitespace pre wrap for modal body by [@Jaylin0312](https://github.com/Jaylin0312) in https://github.com/AfterClass-io/afterclass.io-v2/pull/211
+### Other Changes
+* fix: coming soon page by [@whoisdavidd](https://github.com/whoisdavidd) in https://github.com/AfterClass-io/afterclass.io-v2/pull/197
+
+
+**Full Changelog**: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.4.0...v0.5.0
+
+[Changes][v0.5.0]
+
+
+<a name="v0.4.0"></a>
+# [v0.4.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.4.0) - 22 Jul 2024
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### 🚀 Features
+* feat(ui): see more button links to respective page on review modal by [@minthukha12](https://github.com/minthukha12) in https://github.com/AfterClass-io/afterclass.io-v2/pull/190
+### 👾 Bug Fixes
+* fix: inaccurate review statistics on filter by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/191
+* fix: prevent review modal close button autofocus by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/196
+* fix: prof filter on course page not correctly filtering reviews by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/193
+### Other Changes
+* chore: hide search result item statistics on unauthenticated client by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/192
+
+
+**Full Changelog**: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.3.0...v0.4.0
+
+[Changes][v0.4.0]
+
+
+<a name="v0.3.0"></a>
+# [v0.3.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.3.0) - 07 Jul 2024
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### 🚀 Features
+* feat(ui): coming soon page by [@whoisdavidd](https://github.com/whoisdavidd) in https://github.com/AfterClass-io/afterclass.io-v2/pull/183
+* feat(ui): implement breadcrumbs on navigation header by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/184
+### Other Changes
+* feat: search result includes review statistics by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/185
+
+## New Contributors
+* [@whoisdavidd](https://github.com/whoisdavidd) made their first contribution in https://github.com/AfterClass-io/afterclass.io-v2/pull/183
+
+**Full Changelog**: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.2.0...v0.3.0
+
+[Changes][v0.3.0]
+
+
 <a name="v0.2.0"></a>
 # [v0.2.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.2.0) - 23 Jun 2024
 
@@ -14,7 +96,7 @@
 
 ### Other Changes
 * chore: generate initial migrations by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/170
-* refactor(ui): format course details data by [@Jansen52x](https://github.com/Jansen52x) in https://github.com/AfterClass-io/afterclass.io-v2/pull/174
+* refactor(ui): format review details data by [@Jansen52x](https://github.com/Jansen52x) in https://github.com/AfterClass-io/afterclass.io-v2/pull/174
 * refactor(ui): hide see more reviews outside of home page by [@gnzat](https://github.com/gnzat) in https://github.com/AfterClass-io/afterclass.io-v2/pull/177
 
 ## New Contributors
@@ -123,6 +205,10 @@
 [Changes][v0.1.0]
 
 
+[v0.6.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.5.0...v0.6.0
+[v0.5.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.4.0...v0.5.0
+[v0.4.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.3.0...v0.4.0
+[v0.3.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.2.0...v0.3.0
 [v0.2.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.1.0...v0.2.0
 [v0.1.0]: https://github.com/AfterClass-io/afterclass.io-v2/tree/v0.1.0
 

@@ -18,7 +18,9 @@ export const RatingSection = ({
   isLocked,
 }: RatingSectionProps) => {
   const { wrapper, headingContainer, headingRating, statItemWrapper, icon } =
-    ratingSectionTheme();
+    ratingSectionTheme({
+      size: { initial: "sm", md: "md" },
+    });
   return (
     <div className={wrapper()}>
       {isLocked && <LockCtaOverlay />}

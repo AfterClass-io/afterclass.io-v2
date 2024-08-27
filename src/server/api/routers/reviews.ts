@@ -22,6 +22,7 @@ const PUBLIC_REVIEW_FIELDS = {
   reviewedCourse: {
     select: {
       code: true,
+      name: true,
     },
   },
   reviewer: {
@@ -104,12 +105,13 @@ export const reviewsRouter = createTRPCRouter({
               reviewerId: user.id,
             },
           });
-          await ctx.db.reviewLabels.createMany({
-            data: r.labels?.map((label) => ({
-              reviewId: review.id,
-              labelId: parseInt(label),
-            })),
-          });
+          r.labels &&
+            (await ctx.db.reviewLabels.createMany({
+              data: r.labels.map((label) => ({
+                reviewId: review.id,
+                labelId: parseInt(label),
+              })),
+            }));
         }
         return;
       } catch (error) {
@@ -156,6 +158,7 @@ export const reviewsRouter = createTRPCRouter({
             tips: review.tips ?? "",
             createdAt: review.createdAt.getTime(),
             courseCode: review.reviewedCourse.code,
+            courseName: review.reviewedCourse.name,
             username: review.reviewer.username ?? "Anonymous",
             reviewLabels: review.reviewLabels.map((rl) => ({
               name: rl.label.name,
@@ -166,6 +169,7 @@ export const reviewsRouter = createTRPCRouter({
                 ? ("professor" as "professor" | "course")
                 : ("course" as "professor" | "course"),
             professorName: review.reviewedProfessor?.name,
+            professorSlug: review.reviewedProfessor?.slug,
             university: review.reviewedUniversity.abbrv,
           }) satisfies Review,
       );
@@ -201,6 +205,7 @@ export const reviewsRouter = createTRPCRouter({
             rating: 0,
             createdAt: review.createdAt.getTime(),
             courseCode: review.reviewedCourse.code,
+            courseName: review.reviewedCourse.name,
             username: review.reviewer.username ?? "Anonymous",
             reviewLabels: review.reviewLabels.map((rl) => ({
               name: rl.label.name,
@@ -211,6 +216,7 @@ export const reviewsRouter = createTRPCRouter({
                 ? ("professor" as "professor" | "course")
                 : ("course" as "professor" | "course"),
             professorName: review.reviewedProfessor?.name,
+            professorSlug: review.reviewedProfessor?.slug,
             university: review.reviewedUniversity.abbrv,
           }) satisfies Review,
       );
@@ -244,6 +250,7 @@ export const reviewsRouter = createTRPCRouter({
             tips: review.tips ?? "",
             createdAt: review.createdAt.getTime(),
             courseCode: review.reviewedCourse.code,
+            courseName: review.reviewedCourse.name,
             username: review.reviewer.username ?? "Anonymous",
             reviewLabels: review.reviewLabels.map((rl) => ({
               name: rl.label.name,
@@ -254,6 +261,7 @@ export const reviewsRouter = createTRPCRouter({
                 ? ("professor" as "professor" | "course")
                 : ("course" as "professor" | "course"),
             professorName: review.reviewedProfessor?.name,
+            professorSlug: review.reviewedProfessor?.slug,
             university: review.reviewedUniversity.abbrv,
           }) satisfies Review,
       );
@@ -289,6 +297,7 @@ export const reviewsRouter = createTRPCRouter({
             rating: 0,
             createdAt: review.createdAt.getTime(),
             courseCode: review.reviewedCourse.code,
+            courseName: review.reviewedCourse.name,
             username: review.reviewer.username ?? "Anonymous",
             likeCount: review._count.votes,
             reviewLabels: review.reviewLabels.map((rl) => ({
@@ -299,6 +308,7 @@ export const reviewsRouter = createTRPCRouter({
                 ? ("professor" as "professor" | "course")
                 : ("course" as "professor" | "course"),
             professorName: review.reviewedProfessor?.name,
+            professorSlug: review.reviewedProfessor?.slug,
             university: review.reviewedUniversity.abbrv,
           }) satisfies Review,
       );
@@ -319,11 +329,7 @@ export const reviewsRouter = createTRPCRouter({
         take: DEFAULT_PAGE_SIZE,
         where: {
           reviewedCourse: { code: input.code },
-          // reviewedProfessor is in slugs or reviewedProfessorId is null
-          OR: [
-            { reviewedProfessor: { slug: { in: input.slugs } } },
-            { reviewedProfessorId: null },
-          ],
+          reviewedProfessor: input.slugs && { slug: { in: input.slugs } },
         },
         orderBy: input.latest ? { createdAt: "desc" } : undefined,
         select: PRIVATE_REVIEW_FIELDS,
@@ -335,6 +341,7 @@ export const reviewsRouter = createTRPCRouter({
             tips: review.tips ?? "",
             createdAt: review.createdAt.getTime(),
             courseCode: review.reviewedCourse.code,
+            courseName: review.reviewedCourse.name,
             username: review.reviewer.username ?? "Anonymous",
             reviewLabels: review.reviewLabels.map((rl) => ({
               name: rl.label.name,
@@ -345,6 +352,7 @@ export const reviewsRouter = createTRPCRouter({
                 ? ("professor" as "professor" | "course")
                 : ("course" as "professor" | "course"),
             professorName: review.reviewedProfessor?.name,
+            professorSlug: review.reviewedProfessor?.slug,
             university: review.reviewedUniversity.abbrv,
           }) satisfies Review,
       );
@@ -365,11 +373,7 @@ export const reviewsRouter = createTRPCRouter({
         take: DEFAULT_PAGE_SIZE,
         where: {
           reviewedCourse: { code: input.code },
-          // reviewedProfessor is in slugs or reviewedProfessorId is null
-          OR: [
-            { reviewedProfessor: { slug: { in: input.slugs } } },
-            { reviewedProfessorId: null },
-          ],
+          reviewedProfessor: { slug: { in: input.slugs } },
         },
         orderBy: input.latest ? { createdAt: "desc" } : undefined,
         select: PRIVATE_REVIEW_FIELDS,
@@ -383,6 +387,7 @@ export const reviewsRouter = createTRPCRouter({
             rating: 0,
             createdAt: review.createdAt.getTime(),
             courseCode: review.reviewedCourse.code,
+            courseName: review.reviewedCourse.name,
             username: review.reviewer.username ?? "Anonymous",
             likeCount: review._count.votes,
             reviewLabels: review.reviewLabels.map((rl) => ({
@@ -393,13 +398,19 @@ export const reviewsRouter = createTRPCRouter({
                 ? ("professor" as "professor" | "course")
                 : ("course" as "professor" | "course"),
             professorName: review.reviewedProfessor?.name,
+            professorSlug: review.reviewedProfessor?.slug,
             university: review.reviewedUniversity.abbrv,
           }) satisfies Review,
       );
     }),
 
-  countByCourseCode: publicProcedure
-    .input(z.object({ courseCode: z.string() }))
+  count: protectedProcedure
+    .input(
+      z.object({
+        profSlug: z.string().optional(),
+        courseCode: z.string().optional(),
+      }),
+    )
     .query(
       async ({ ctx, input }) =>
         await ctx.db.reviews.count({
@@ -407,22 +418,8 @@ export const reviewsRouter = createTRPCRouter({
             reviewedCourse: {
               code: input.courseCode,
             },
-          },
-        }),
-    ),
-
-  countByProfessorSlug: publicProcedure
-    .input(
-      z.object({
-        slug: z.string(),
-      }),
-    )
-    .query(
-      async ({ ctx, input }) =>
-        await ctx.db.reviews.count({
-          where: {
             reviewedProfessor: {
-              slug: input.slug,
+              slug: input.profSlug,
             },
           },
         }),

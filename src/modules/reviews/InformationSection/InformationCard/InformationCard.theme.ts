@@ -26,6 +26,7 @@ export const informationCardTheme = tv(
       icon: ["h-6", "w-6"],
       content: ["flex", "flex-col", "gap-2"],
       description: ["line-clamp-3", "text-text-em-high"],
+      body: ["whitespace-pre-wrap"]
     },
   },
   { responsiveVariants: true },

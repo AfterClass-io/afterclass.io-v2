@@ -6,6 +6,7 @@ export type Review = {
   tips: string;
   rating: number;
   courseCode: string;
+  courseName: string;
   username: string;
   likeCount: number;
   createdAt: number;
@@ -13,4 +14,5 @@ export type Review = {
   university: UniversityAbbreviation;
   reviewFor: "professor" | "course";
   professorName?: string;
+  professorSlug?: string;
 };

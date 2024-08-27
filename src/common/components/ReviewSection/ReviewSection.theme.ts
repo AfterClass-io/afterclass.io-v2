@@ -4,20 +4,25 @@ export type ReviewSectionVariants = VariantProps<typeof reviewSectionTheme>;
 export const reviewSectionTheme = tv(
   {
     slots: {
-      wrapper: [
-        "flex",
-        "flex-col",
-        "gap-6",
-        "bg-surface-base",
-        "rounded-3xl",
-        "p-8",
-        "w-full",
-      ],
+      wrapper: ["flex", "flex-col", "bg-surface-base", "rounded-3xl", "w-full"],
       header: ["flex", "items-center", "justify-between"],
       title: ["flex", "items-center", "gap-4"],
       icon: ["h-6", "w-6", "rotate-90"],
       reviewsHeader: ["text-2xl", "font-semibold"],
       seeMore: ["flex", "justify-center", "mt-4"],
+      reviews: ["flex", "flex-col", "gap-16"],
+    },
+    variants: {
+      size: {
+        sm: {
+          wrapper: ["p-6", "gap-6"],
+          reviews: ["gap-10"],
+        },
+        md: {
+          wrapper: ["p-10", "gap-10"],
+          reviews: ["gap-16"],
+        },
+      },
     },
   },
   { responsiveVariants: true },

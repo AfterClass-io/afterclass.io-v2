@@ -1,14 +1,19 @@
 import { type PropsWithChildren } from "react";
 import { Sidebar } from "../Sidebar";
 import { MobileHeader } from "@/common/components/MobileHeader";
+import { getServerAuthSession } from "@/server/auth";
 
 interface CoreLayoutProps extends PropsWithChildren {}
 
-export const CoreLayout = ({ children }: CoreLayoutProps) => {
+export async function CoreLayout({ children }: CoreLayoutProps) {
+  const session = await getServerAuthSession();
   return (
-    <div className="relative flex h-full flex-col">
-      <MobileHeader className="flex-shrink-0 sm:hidden" />
-      <div className="relative flex h-full flex-col overflow-hidden sm:flex-row">
+    <div className="flex h-dvh flex-col">
+      <MobileHeader
+        className="flex-shrink-0 sm:hidden"
+        isLoggedIn={!!session}
+      />
+      <div className="flex flex-1 overflow-hidden">
         <aside className="relative hidden shrink-0 overflow-y-auto border-r border-border-default bg-surface-base sm:block">
           <Sidebar />
         </aside>
@@ -18,4 +23,4 @@ export const CoreLayout = ({ children }: CoreLayoutProps) => {
       </div>
     </div>
   );
-};
+}

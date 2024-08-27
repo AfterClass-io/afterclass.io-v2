@@ -36,3 +36,4 @@ export * from "./ShareIcon";
 export * from "./ChartLineIcon";
 export * from "./PenIcon";
 export * from "./ClipboardIcon";
+export * from "./GithubIcon";

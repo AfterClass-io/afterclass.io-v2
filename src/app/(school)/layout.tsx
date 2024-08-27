@@ -3,6 +3,7 @@ import { ThemeToggle } from "@/common/components/ThemeToggle";
 import { cn } from "@/common/functions";
 import { type PropsWithChildren } from "react";
 import { getServerAuthSession } from "@/server/auth";
+import { Breadcrumb } from "@/modules/home/Breadcrumb";
 
 export default async function SchoolLayout({ children }: PropsWithChildren) {
   const session = await getServerAuthSession();
@@ -16,8 +17,7 @@ export default async function SchoolLayout({ children }: PropsWithChildren) {
           "px-6",
         )}
       >
-        {/* TODO: Add school select + breadcrumb */}
-        <span>School header</span>
+        <Breadcrumb />
 
         {/* TODO: Add user profile component */}
         <div className="flex items-center gap-4">

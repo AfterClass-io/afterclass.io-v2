@@ -19,7 +19,7 @@ export const StatItem = ({
     label: labelClasses,
     rating: ratingClasses,
     icon,
-  } = statItemTheme({ layout });
+  } = statItemTheme({ layout, size: { initial: "sm", md: "md" } });
 
   return (
     <div className={wrapper()}>
