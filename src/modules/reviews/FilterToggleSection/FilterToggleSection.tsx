@@ -7,13 +7,6 @@ import { type FilterItem } from "@/common/components/FilterToggleSection/FilterT
 import { Button } from "@/common/components/Button";
 import { cn } from "@/common/functions";
 
-const ITEMS_TO_SHOW_WHEN_NOT_EXPANDED = 3;
-
-const getFilterItemsHideOrShowClassName = (isFilterItemsExpanded: boolean) =>
-  isFilterItemsExpanded
-    ? `[&>*:nth-child(n+${ITEMS_TO_SHOW_WHEN_NOT_EXPANDED + 1})]:flex`
-    : `[&>*:nth-child(n+${ITEMS_TO_SHOW_WHEN_NOT_EXPANDED + 1})]:hidden`;
-
 export type FilterToggleSectionProps =
   | {
       dataToFilter: FilterItem[];
@@ -70,8 +63,12 @@ export const FilterToggleSection = (props: FilterToggleSectionProps) => {
       <Filter.Header type={filterType} />
       <Filter.Items
         className={cn(
-          getFilterItemsHideOrShowClassName(isFilterItemsExpanded),
-          `md:${getFilterItemsHideOrShowClassName(true)}`,
+          // tailwind classes should not be computed dynamically
+          // see https://tailwindcss.com/docs/content-configuration#dynamic-class-names
+          isFilterItemsExpanded
+            ? "[&>*:nth-child(n+4)]:flex"
+            : "[&>*:nth-child(n+4)]:hidden",
+          "md:[&>*:nth-child(n+4)]:flex",
         )}
       >
         {dataToFilter.map((item, index) => (
