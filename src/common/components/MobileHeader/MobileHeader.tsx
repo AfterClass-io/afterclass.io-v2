@@ -1,16 +1,18 @@
 "use client";
 
 import { Button } from "@/common/components/Button";
-import { AfterclassIcon } from "@/common/components/CustomIcon";
+import { AfterclassIcon, PlusIcon } from "@/common/components/CustomIcon";
 import { Sidebar } from "@/common/components/Sidebar";
 import { cn } from "@/common/functions";
 import { Icon } from "@iconify-icon/react";
 import Link from "next/link";
 import { useState, type ComponentPropsWithoutRef } from "react";
 
-export interface MobileHeaderProps extends ComponentPropsWithoutRef<"header"> {}
+export interface MobileHeaderProps extends ComponentPropsWithoutRef<"header"> {
+  isLoggedIn: boolean;
+}
 
-export const MobileHeader = ({ ...props }: MobileHeaderProps) => {
+export const MobileHeader = ({ isLoggedIn, ...props }: MobileHeaderProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   return (
     <>
@@ -45,15 +47,26 @@ export const MobileHeader = ({ ...props }: MobileHeaderProps) => {
             />
           </button>
 
-          {/* TODO: Add logged in state */}
-          <Button
-            variant="secondary"
-            size="sm"
-            as="a"
-            href="/account/auth/login"
-          >
-            Login
-          </Button>
+          {isLoggedIn ? (
+            <Button
+              variant="secondary"
+              size="sm"
+              as="a"
+              href="/submit"
+              iconLeft={<PlusIcon />}
+            >
+              Write a review
+            </Button>
+          ) : (
+            <Button
+              variant="secondary"
+              size="sm"
+              as="a"
+              href="/account/auth/login"
+            >
+              Login
+            </Button>
+          )}
         </div>
       </header>
 
