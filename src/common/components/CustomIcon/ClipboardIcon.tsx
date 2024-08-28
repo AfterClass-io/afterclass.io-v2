@@ -10,7 +10,7 @@ export const ClipboardIcon = (props: CustomIconProps) => {
       {...props}
     >
       <path
-        fill="#5039D4"
+        fill="#c1694f"
         d="M32 34a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h24a2 2 0 0 1 2 2z"
       />
       <path
