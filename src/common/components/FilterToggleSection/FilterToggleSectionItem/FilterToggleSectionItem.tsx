@@ -22,7 +22,9 @@ export type FilterToggleSectionItemProps = ComponentPropsWithoutRef<"div"> &
   FilterItem;
 
 export const FilterItemStats = ({ icon, stat }: FilterStat) => {
-  const { stat: statWrapper } = filterToggleSectionTheme();
+  const { stat: statWrapper } = filterToggleSectionTheme({
+    size: { initial: "sm", md: "md" },
+  });
   return (
     <div className={statWrapper()}>
       {icon}
@@ -39,14 +41,18 @@ export const FilterToggleSectionItem = ({
   ...props
 }: FilterToggleSectionItemProps) => {
   const { item, content, itemHeader, contentSubheaderWrapper, statWrapper } =
-    filterToggleSectionTheme({ selected });
+    filterToggleSectionTheme({ selected, size: { initial: "sm", md: "md" } });
   return (
     <div className={item()} {...props}>
       <Checkbox checked={selected as CheckedState} />
       <div className={content()}>
         <p className={itemHeader()}>{label}</p>
         <div className={contentSubheaderWrapper()}>
-          {sublabel && <p>{sublabel}</p>}
+          {sublabel && (
+            <p className={itemHeader({ class: "text-text-em-mid" })}>
+              {sublabel}
+            </p>
+          )}
           <div className={statWrapper()}>
             {filterStats?.map((stat, index) => (
               <FilterItemStats key={index} {...stat} />

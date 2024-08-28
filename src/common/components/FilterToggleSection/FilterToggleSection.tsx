@@ -17,7 +17,9 @@ export const FilterToggleSection = ({
   isLocked,
   ...props
 }: FilterToggleSectionProps) => {
-  const { section } = filterToggleSectionTheme();
+  const { section } = filterToggleSectionTheme({
+    size: { initial: "sm", md: "md" },
+  });
   if (isLocked) {
     return (
       <div className={section()} {...props}>
