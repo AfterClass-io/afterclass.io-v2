@@ -37,3 +37,5 @@ export * from "./ChartLineIcon";
 export * from "./PenIcon";
 export * from "./ClipboardIcon";
 export * from "./GithubIcon";
+export * from "./TelegramIcon";
+export * from "./HelpDeskIcon";
