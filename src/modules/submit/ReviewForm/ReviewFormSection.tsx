@@ -36,7 +36,11 @@ export const ReviewFormSection = ({
     watch,
     formState: { errors },
   } = useFormContext<ReviewFormInputsSchema>();
-  const { wrapper, header, divider, lower, textarea } = reviewFormTheme();
+  const { wrapper, header, button, divider, lower, textarea } = reviewFormTheme(
+    {
+      size: { initial: "sm", md: "md" },
+    },
+  );
   const [isSkipped, setIsSkipped] = useState(false);
 
   // type cast required as `watch()` returns never
@@ -71,6 +75,7 @@ export const ReviewFormSection = ({
             <Button
               variant="secondary"
               type="button"
+              className={button()}
               onClick={() => {
                 setIsSkipped(false);
                 setValue("type", ReviewableEnum.PROFESSOR);
@@ -83,6 +88,7 @@ export const ReviewFormSection = ({
             <Button
               variant="tertiary"
               type="button"
+              className={button()}
               onClick={() => {
                 setIsSkipped(true);
                 setValue("type", ReviewableEnum.COURSE);

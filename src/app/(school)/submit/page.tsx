@@ -17,7 +17,7 @@ export default async function SubmitReviewPage() {
   ]);
 
   return (
-    <div className="flex w-full flex-col gap-8">
+    <div className="flex w-full flex-col gap-5 md:gap-8">
       <PageTitle contentRight={<SchoolTag school={school} />}>
         Write a Review
       </PageTitle>

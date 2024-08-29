@@ -75,7 +75,9 @@ export const ReviewForm = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const { form: formTheme } = reviewFormTheme();
+  const { form: formTheme } = reviewFormTheme({
+    size: { initial: "sm", md: "md" },
+  });
 
   return (
     <FormProvider {...formMethods}>
