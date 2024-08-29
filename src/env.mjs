@@ -71,8 +71,8 @@ export const env = createEnv({
             });
           }),
       ),
-    NEXT_PUBLIC_AC_CHANNEL_LINK: z.string(),
-    NEXT_PUBLIC_AC_HELPDESK_LINK: z.string(),
+    NEXT_PUBLIC_AC_CHANNEL_LINK: z.string().url(),
+    NEXT_PUBLIC_AC_HELPDESK_LINK: z.string().url(),
   },
 
   /**
