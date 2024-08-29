@@ -32,9 +32,9 @@ const SIDEBAR_ITEMS = [
     category: "feature",
   },
   {
-    label: "Telegram",
+    label: "Channel",
     icon: <TelegramIcon size={16} />,
-    href: env.NEXT_PUBLIC_AC_TELEGRAM_LINK,
+    href: env.NEXT_PUBLIC_AC_CHANNEL_LINK,
     category: "channel",
   },
   {
