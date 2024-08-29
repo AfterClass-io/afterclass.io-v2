@@ -1,8 +1,8 @@
 import { api } from "@/common/tools/trpc/server";
 import { notFound } from "next/navigation";
 import { PageTitle } from "@/common/components/PageTitle";
-import { BooksIcon, SchoolIcon } from "@/common/components/CustomIcon";
-import { Tag } from "@/common/components/Tag";
+import { BooksIcon } from "@/common/components/CustomIcon";
+import { SchoolTag } from "@/common/components/SchoolTag";
 
 export default async function CourseHeader({
   params,
@@ -19,18 +19,7 @@ export default async function CourseHeader({
     <div className="w-full">
       <PageTitle
         contentLeft={<BooksIcon className="h-9 w-9 text-text-em-low" />}
-        contentRight={
-          <Tag
-            contentLeft={
-              <SchoolIcon
-                school={course.belongToUniversity.abbrv}
-                className="h-6 w-6"
-              />
-            }
-          >
-            {course.belongToUniversity.abbrv}
-          </Tag>
-        }
+        contentRight={<SchoolTag school={course.belongToUniversity.abbrv} />}
       >
         {course.name}
       </PageTitle>
