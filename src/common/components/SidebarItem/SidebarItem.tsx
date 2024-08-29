@@ -19,6 +19,7 @@ export const SidebarItem = ({
     <li>
       <SidebarLink
         href={href}
+        target={external ? "_blank" : undefined}
         className={cn(
           "flex items-center gap-x-3 rounded-lg px-3 py-2 transition duration-200 ease-in-out",
           "hover:bg-surface-elevated",
