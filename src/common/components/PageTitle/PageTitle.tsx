@@ -17,7 +17,9 @@ export const PageTitle = ({
   className,
   ...props
 }: PageTitleProps) => {
-  const { wrapper, heading } = pageTitleTheme();
+  const { wrapper, heading } = pageTitleTheme({
+    size: { initial: "sm", md: "md" },
+  });
   return (
     <div
       {...wrapperProps}

@@ -12,6 +12,7 @@ export const tagGroupTheme = tv(
         "items-start",
         "gap-3",
         "self-stretch",
+        "text-sm",
       ],
       input: ["hidden"],
       tag: ["select-none"],
