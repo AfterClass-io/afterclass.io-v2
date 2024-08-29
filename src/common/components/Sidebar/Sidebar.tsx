@@ -42,7 +42,7 @@ const SIDEBAR_ITEMS = [
   {
     label: "AfterClass OSS",
     icon: <GithubIcon size={16} />,
-    href: "https://github.com/AfterClass-io/afterclass.io-v2",
+    href: env.NEXT_PUBLIC_AC_GITHUB_LINK,
     category: "contribute",
   },
   {
