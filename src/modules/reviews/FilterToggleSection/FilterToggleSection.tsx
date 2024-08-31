@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { FilterToggleSection as Filter } from "@/common/components/FilterToggleSection";
 import { type FilterItem } from "@/common/components/FilterToggleSection/FilterToggleSectionItem";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Button } from "@/common/components/Button";
+import { cn } from "@/common/functions";
 
 export type FilterToggleSectionProps =
   | {
@@ -28,6 +30,7 @@ export const FilterToggleSection = (props: FilterToggleSectionProps) => {
   const selected = params.getAll(props.searchParamsName ?? "");
   const [selectedItems, setSelectedItems] =
     useState<FilterItem["value"][]>(selected);
+  const [isFilterItemsExpanded, setIsFilterItemsExpanded] = useState(false);
 
   if (props.isLocked)
     return (
@@ -46,13 +49,28 @@ export const FilterToggleSection = (props: FilterToggleSectionProps) => {
   const updateSearchParams = (newSelectedItems: string[]) => {
     params.delete(searchParamsName);
     newSelectedItems.forEach((v) => params.append(searchParamsName, v));
-    router.replace(`${pathname}?${params.toString()}`);
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
+
+  dataToFilter.sort((a, b) => {
+    const aStat = a.filterStats[0]?.stat ?? 0;
+    const bStat = b.filterStats[0]?.stat ?? 0;
+    return bStat - aStat;
+  });
 
   return (
     <Filter>
       <Filter.Header type={filterType} />
-      <Filter.Items>
+      <Filter.Items
+        className={cn(
+          // tailwind classes should not be computed dynamically
+          // see https://tailwindcss.com/docs/content-configuration#dynamic-class-names
+          isFilterItemsExpanded
+            ? "[&>*:nth-child(n+4)]:flex"
+            : "[&>*:nth-child(n+4)]:hidden",
+          "md:[&>*:nth-child(n+4)]:flex",
+        )}
+      >
         {dataToFilter.map((item, index) => (
           <Filter.Item
             key={index}
@@ -67,6 +85,14 @@ export const FilterToggleSection = (props: FilterToggleSectionProps) => {
           />
         ))}
       </Filter.Items>
+      <Button
+        variant="link"
+        className="px-1 md:hidden"
+        onClick={() => setIsFilterItemsExpanded(!isFilterItemsExpanded)}
+        isResponsive
+      >
+        {isFilterItemsExpanded ? "Show less" : "Show more"}
+      </Button>
     </Filter>
   );
 };

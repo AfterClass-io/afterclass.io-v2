@@ -1,3 +1,4 @@
+import Heading from "@/common/components/Heading";
 import { filterToggleSectionTheme } from "../FilterToggleSection.theme";
 import {
   GraduationCapColoredIcon,
@@ -9,18 +10,20 @@ export const FilterToggleSectionHeader = ({
 }: {
   type: "course" | "professor";
 }) => {
-  const { sectionHeader, headerIcon } = filterToggleSectionTheme();
+  const { sectionHeader, headerIcon } = filterToggleSectionTheme({
+    size: { initial: "sm", md: "md" },
+  });
   return (
     <div className={sectionHeader()}>
       {type === "course" ? (
         <>
           <BooksColoredIcon className={headerIcon()} />
-          <p>Courses</p>
+          <Heading as="h2">Courses</Heading>
         </>
       ) : (
         <>
           <GraduationCapColoredIcon className={headerIcon()} />
-          <p>Professors</p>
+          <Heading as="h2">Professors</Heading>
         </>
       )}
     </div>

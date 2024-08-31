@@ -1,8 +1,8 @@
 import { api } from "@/common/tools/trpc/server";
-import { GraduationCapIcon, SchoolIcon } from "@/common/components/CustomIcon";
+import { GraduationCapIcon } from "@/common/components/CustomIcon";
 import { PageTitle } from "@/common/components/PageTitle";
-import { Tag } from "@/common/components/Tag";
 import { notFound } from "next/navigation";
+import { SchoolTag } from "@/common/components/SchoolTag";
 
 export default async function ProfessorHeader({
   params,
@@ -18,18 +18,7 @@ export default async function ProfessorHeader({
     <div className="w-full">
       <PageTitle
         contentLeft={<GraduationCapIcon className="h-9 w-9" />}
-        contentRight={
-          <Tag
-            contentLeft={
-              <SchoolIcon
-                school={professor.belongToUniversity.abbrv}
-                className="h-6 w-6"
-              />
-            }
-          >
-            {professor.belongToUniversity.abbrv}
-          </Tag>
-        }
+        contentRight={<SchoolTag school={professor.belongToUniversity.abbrv} />}
       >
         {professor.name}
       </PageTitle>

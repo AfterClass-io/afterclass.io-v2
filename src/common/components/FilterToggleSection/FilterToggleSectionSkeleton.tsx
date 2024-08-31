@@ -3,7 +3,7 @@ import { filterToggleSectionTheme } from "./FilterToggleSection.theme";
 
 export const FilterToggleSectionItemSkeleton = () => {
   const { item, content, itemHeader, contentSubheaderWrapper, statWrapper } =
-    filterToggleSectionTheme();
+    filterToggleSectionTheme({ size: { initial: "sm", md: "md" } });
   return (
     <div className={item({ class: "hover:bg-inherit" })}>
       <div className={content()}>
@@ -23,7 +23,9 @@ export const FilterToggleSectionItemSkeleton = () => {
 };
 
 export const FilterToggleSectionItemsSkeleton = () => {
-  const { container } = filterToggleSectionTheme();
+  const { container } = filterToggleSectionTheme({
+    size: { initial: "sm", md: "md" },
+  });
   return (
     <div className={container()}>
       <FilterToggleSectionItemSkeleton />

@@ -11,9 +11,14 @@ export const SchoolTag = ({
 }: {
   school: SchoolIconProps["school"];
 }) => {
-  const { tagIcon, heading } = schoolTagTheme();
+  const { wrapper, tagIcon, heading } = schoolTagTheme({
+    size: { initial: "sm", md: "md" },
+  });
   return (
-    <Tag contentLeft={<SchoolIcon className={tagIcon()} school={school} />}>
+    <Tag
+      contentLeft={<SchoolIcon className={tagIcon()} school={school} />}
+      className={wrapper()}
+    >
       <Heading as="h5" className={heading()}>
         {school}
       </Heading>
