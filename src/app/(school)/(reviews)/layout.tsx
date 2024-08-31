@@ -2,6 +2,7 @@ import { type ReactNode } from "react";
 
 import { CtaCard } from "@/common/components/CtaCard";
 import { EditIcon, GithubIcon, PlusIcon } from "@/common/components/CustomIcon";
+import { env } from "@/env.mjs";
 
 export default function ReviewLayout({
   children,
@@ -35,7 +36,7 @@ export default function ReviewLayout({
           <CtaCard
             variant="tertiary"
             ctaText="Contribute to AfterClass OSS"
-            href="https://github.com/AfterClass-io/afterclass.io-v2"
+            href={env.NEXT_PUBLIC_AC_GITHUB_LINK}
             external
             leftIcon={<GithubIcon />}
           />

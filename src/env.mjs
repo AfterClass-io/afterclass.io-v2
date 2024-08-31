@@ -73,6 +73,7 @@ export const env = createEnv({
       ),
     NEXT_PUBLIC_AC_CHANNEL_LINK: z.string().url(),
     NEXT_PUBLIC_AC_HELPDESK_LINK: z.string().url(),
+    NEXT_PUBLIC_AC_GITHUB_LINK: z.string().url(),
   },
 
   /**
@@ -94,6 +95,7 @@ export const env = createEnv({
       process.env.NEXT_PUBLIC_SUPPORTED_SCH_DOMAINS,
     NEXT_PUBLIC_AC_CHANNEL_LINK: process.env.NEXT_PUBLIC_AC_CHANNEL_LINK,
     NEXT_PUBLIC_AC_HELPDESK_LINK: process.env.NEXT_PUBLIC_AC_HELPDESK_LINK,
+    NEXT_PUBLIC_AC_GITHUB_LINK: process.env.NEXT_PUBLIC_AC_GITHUB_LINK,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
