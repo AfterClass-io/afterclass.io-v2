@@ -1,4 +1,4 @@
-import { type ReactNode, ComponentPropsWithoutRef } from "react";
+import type { ReactNode, ComponentPropsWithoutRef } from "react";
 import { FilterToggleSectionItemsSkeleton } from "../FilterToggleSectionSkeleton";
 import { filterToggleSectionTheme } from "../FilterToggleSection.theme";
 

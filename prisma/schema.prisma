@@ -1,224 +1,216 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider  = "postgresql"
-    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations
-    //       in model Account below
-    // Further reading:
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-    url       = env("DATABASE_URL")
-    directUrl = env("DIRECT_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Reviews {
-    id                   String         @id @default(uuid())
-    body                 String
-    tips                 String?
-    rating               Int
-    reviewedProfessor    Professors?    @relation(fields: [reviewedProfessorId], references: [id])
-    reviewedProfessorId  String?        @map("reviewed_professor_id")
-    reviewedCourse       Courses        @relation(fields: [reviewedCourseId], references: [id])
-    reviewedCourseId     String         @map("reviewed_course_id")
-    reviewedUniversity   Universities   @relation(fields: [reviewedUniversityId], references: [id])
-    reviewedUniversityId Int            @map("reviewed_university_id")
-    reviewedFaculty      Faculties      @relation(fields: [reviewedFacultyId], references: [id])
-    reviewedFacultyId    Int            @map("reviewed_faculty_id")
-    reviewer             Users          @relation(fields: [reviewerId], references: [id])
-    reviewerId           String         @map("reviewer_id")
-    createdAt            DateTime       @default(now()) @map("created_at") @db.Timestamptz(3)
-    updatedAt            DateTime       @updatedAt @map("updated_at") @db.Timestamptz(3)
-    votes                ReviewVotes[]
-    reviewLabels         ReviewLabels[]
+  id                   String         @id @default(uuid())
+  body                 String
+  tips                 String?
+  rating               Int
+  reviewedProfessorId  String?        @map("reviewed_professor_id")
+  reviewedCourseId     String         @map("reviewed_course_id")
+  reviewedUniversityId Int            @map("reviewed_university_id")
+  reviewedFacultyId    Int            @map("reviewed_faculty_id")
+  reviewerId           String         @map("reviewer_id")
+  createdAt            DateTime       @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt            DateTime       @updatedAt @map("updated_at") @db.Timestamptz(3)
+  reviewLabels         ReviewLabels[]
+  votes                ReviewVotes[]
+  reviewedCourse       Courses        @relation(fields: [reviewedCourseId], references: [id])
+  reviewedFaculty      Faculties      @relation(fields: [reviewedFacultyId], references: [id])
+  reviewedProfessor    Professors?    @relation(fields: [reviewedProfessorId], references: [id])
+  reviewedUniversity   Universities   @relation(fields: [reviewedUniversityId], references: [id])
+  reviewer             Users          @relation(fields: [reviewerId], references: [id])
 
-    @@map("reviews")
+  @@map("reviews")
 }
 
 model Users {
-    id                       String        @id @default(uuid())
-    email                    String        @unique
-    username                 String        @unique
-    isVerified               Boolean       @default(false) @map("is_verified")
-    university               Universities  @relation(fields: [universityId], references: [id])
-    universityId             Int           @map("university_id")
-    deprecatedPasswordDigest String?       @map("deprecated_password_digest")
-    firstName                String?       @map("first_name")
-    lastName                 String?       @map("last_name")
-    telegramId               String?       @unique @map("telegram_id")
-    photoUrl                 String?       @map("photo_url")
-    faculty                  Faculties?    @relation(fields: [facultyId], references: [id])
-    facultyId                Int?          @map("faculty_id")
-    createdAt                DateTime      @default(now()) @map("created_at") @db.Timestamptz(3)
-    updatedAt                DateTime      @updatedAt @map("updated_at") @db.Timestamptz(3)
-    reviews                  Reviews[]
-    votes                    ReviewVotes[]
+  id                       String        @id @default(uuid())
+  email                    String        @unique
+  username                 String        @unique
+  isVerified               Boolean       @default(false) @map("is_verified")
+  universityId             Int           @map("university_id")
+  deprecatedPasswordDigest String?       @map("deprecated_password_digest")
+  firstName                String?       @map("first_name")
+  lastName                 String?       @map("last_name")
+  telegramId               String?       @unique @map("telegram_id")
+  photoUrl                 String?       @map("photo_url")
+  facultyId                Int?          @map("faculty_id")
+  createdAt                DateTime      @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt                DateTime      @updatedAt @map("updated_at") @db.Timestamptz(3)
+  votes                    ReviewVotes[]
+  reviews                  Reviews[]
+  faculty                  Faculties?    @relation(fields: [facultyId], references: [id])
+  university               Universities  @relation(fields: [universityId], references: [id])
 
-    @@map("users")
+  @@map("users")
 }
 
 model Universities {
-    id         Int                    @id @default(autoincrement())
-    name       String
-    abbrv      UniversityAbbreviation @unique
-    siteUrl    String                 @unique @map("site_url")
-    createdAt  DateTime               @default(now()) @map("created_at") @db.Timestamptz(3)
-    updatedAt  DateTime               @updatedAt @map("updated_at") @db.Timestamptz(3)
-    reviews    Reviews[] // Refers to reviews for course & professor from this university
-    users      Users[]
-    courses    Courses[]
-    professors Professors[]
-    faculties  Faculties[]
-    domains    UniversityDomains[]
+  id         Int                    @id @default(autoincrement())
+  name       String
+  abbrv      UniversityAbbreviation @unique
+  siteUrl    String                 @unique @map("site_url")
+  createdAt  DateTime               @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt  DateTime               @updatedAt @map("updated_at") @db.Timestamptz(3)
+  courses    Courses[]
+  faculties  Faculties[]
+  professors Professors[]
+  reviews    Reviews[]
+  domains    UniversityDomains[]
+  users      Users[]
 
-    @@map("universities")
+  @@map("universities")
 }
 
 model UniversityDomains {
-    id                   Int          @id @default(autoincrement())
-    domain               String       @unique
-    belongToUniversity   Universities @relation(fields: [belongToUniversityId], references: [id])
-    belongToUniversityId Int          @map("belong_to_university")
-    createdAt            DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
-    updatedAt            DateTime     @updatedAt @map("updated_at") @db.Timestamptz(3)
+  id                   Int          @id @default(autoincrement())
+  domain               String       @unique
+  belongToUniversityId Int          @map("belong_to_university")
+  createdAt            DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt            DateTime     @updatedAt @map("updated_at") @db.Timestamptz(3)
+  belongToUniversity   Universities @relation(fields: [belongToUniversityId], references: [id])
 
-    @@map("university_domains")
+  @@map("university_domains")
 }
 
 model Courses {
-    id                   String       @id @default(uuid())
-    code                 String       @unique
-    name                 String
-    description          String
-    creditUnits          Float        @map("credit_units")
-    belongToUniversity   Universities @relation(fields: [belongToUniversityId], references: [id])
-    belongToUniversityId Int          @map("belong_to_university")
-    belongToFaculty      Faculties    @relation(fields: [belongToFacultyId], references: [id])
-    belongToFacultyId    Int          @map("belong_to_faculty")
-    createdAt            DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
-    updatedAt            DateTime     @updatedAt @map("updated_at") @db.Timestamptz(3)
-    reviews              Reviews[]
-    classes              Classes[]
+  id                   String       @id @default(uuid())
+  code                 String       @unique
+  name                 String
+  description          String
+  creditUnits          Float        @map("credit_units")
+  belongToUniversityId Int          @map("belong_to_university")
+  belongToFacultyId    Int          @map("belong_to_faculty")
+  createdAt            DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt            DateTime     @updatedAt @map("updated_at") @db.Timestamptz(3)
+  classes              Classes[]
+  belongToFaculty      Faculties    @relation(fields: [belongToFacultyId], references: [id])
+  belongToUniversity   Universities @relation(fields: [belongToUniversityId], references: [id])
+  reviews              Reviews[]
 
-    @@map("courses")
+  @@map("courses")
 }
 
 model Professors {
-    id                   String               @id @default(uuid())
-    name                 String
-    email                String
-    slug                 String               @unique
-    photoUrl             String               @map("photo_url")
-    profileUrl           String               @map("profile_url")
-    belongToUniversity   Universities         @relation(fields: [belongToUniversityId], references: [id])
-    belongToUniversityId Int                  @map("belong_to_university")
-    belongToFaculties    ProfessorFaculties[]
-    reviews              Reviews[]
-    classes              Classes[]
-    createdAt            DateTime             @default(now()) @map("created_at") @db.Timestamptz(3)
-    updatedAt            DateTime             @updatedAt @map("updated_at") @db.Timestamptz(3)
+  id                   String               @id @default(uuid())
+  name                 String
+  email                String
+  slug                 String               @unique
+  photoUrl             String               @map("photo_url")
+  profileUrl           String               @map("profile_url")
+  belongToUniversityId Int                  @map("belong_to_university")
+  createdAt            DateTime             @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt            DateTime             @updatedAt @map("updated_at") @db.Timestamptz(3)
+  classes              Classes[]
+  belongToFaculties    ProfessorFaculties[]
+  belongToUniversity   Universities         @relation(fields: [belongToUniversityId], references: [id])
+  reviews              Reviews[]
 
-    @@map("professors")
+  @@map("professors")
 }
 
 model ProfessorFaculties {
-    id          Int        @id @default(autoincrement())
-    professor   Professors @relation(fields: [professorId], references: [id])
-    professorId String     @map("professor_id")
-    faculty     Faculties  @relation(fields: [facultyId], references: [id])
-    facultyId   Int        @map("faculty_id")
-    createdAt   DateTime   @default(now()) @map("created_at") @db.Timestamptz(3)
-    updatedAt   DateTime   @updatedAt @map("updated_at") @db.Timestamptz(3)
+  id          Int        @id @default(autoincrement())
+  professorId String     @map("professor_id")
+  facultyId   Int        @map("faculty_id")
+  createdAt   DateTime   @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt   DateTime   @updatedAt @map("updated_at") @db.Timestamptz(3)
+  faculty     Faculties  @relation(fields: [facultyId], references: [id])
+  professor   Professors @relation(fields: [professorId], references: [id])
 
-    @@map("professor_faculties")
+  @@map("professor_faculties")
 }
 
 model Faculties {
-    id                   Int                  @id @default(autoincrement())
-    name                 String
-    acronym              String
-    siteUrl              String               @map("site_url")
-    belongToUniversity   Universities         @relation(fields: [belongToUniversityId], references: [id])
-    belongToUniversityId Int                  @map("belong_to_university")
-    belongToFaculties    ProfessorFaculties[]
-    reviews              Reviews[]
-    users                Users[]
-    courses              Courses[]
-    createdAt            DateTime             @default(now()) @map("created_at") @db.Timestamptz(3)
-    updatedAt            DateTime             @updatedAt @map("updated_at") @db.Timestamptz(3)
+  id                   Int                  @id @default(autoincrement())
+  name                 String
+  acronym              String
+  siteUrl              String               @map("site_url")
+  belongToUniversityId Int                  @map("belong_to_university")
+  createdAt            DateTime             @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt            DateTime             @updatedAt @map("updated_at") @db.Timestamptz(3)
+  courses              Courses[]
+  belongToUniversity   Universities         @relation(fields: [belongToUniversityId], references: [id])
+  belongToFaculties    ProfessorFaculties[]
+  reviews              Reviews[]
+  users                Users[]
 
-    @@unique([belongToUniversityId, acronym])
-    @@map("faculties")
+  @@unique([belongToUniversityId, acronym])
+  @@map("faculties")
 }
 
 model Classes {
-    id          Int        @id @default(autoincrement())
-    label       String?
-    course      Courses    @relation(fields: [courseId], references: [id])
-    courseId    String     @map("course_id")
-    professor   Professors @relation(fields: [professorId], references: [id])
-    professorId String     @map("professor_id")
-    createdAt   DateTime   @default(now()) @map("created_at") @db.Timestamptz(3)
-    updatedAt   DateTime   @updatedAt @map("updated_at") @db.Timestamptz(3)
+  id          Int        @id @default(autoincrement())
+  label       String?
+  courseId    String     @map("course_id")
+  professorId String     @map("professor_id")
+  createdAt   DateTime   @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt   DateTime   @updatedAt @map("updated_at") @db.Timestamptz(3)
+  course      Courses    @relation(fields: [courseId], references: [id])
+  professor   Professors @relation(fields: [professorId], references: [id])
 
-    @@map("classes")
+  @@map("classes")
 }
 
 model ReviewVotes {
-    id        Int      @id @default(autoincrement())
-    review    Reviews  @relation(fields: [reviewId], references: [id])
-    reviewId  String   @map("review_id")
-    voter     Users    @relation(fields: [voterId], references: [id])
-    voterId   String   @map("voter_id")
-    createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
-    updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+  id        Int      @id @default(autoincrement())
+  reviewId  String   @map("review_id")
+  voterId   String   @map("voter_id")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+  review    Reviews  @relation(fields: [reviewId], references: [id])
+  voter     Users    @relation(fields: [voterId], references: [id])
 
-    @@map("review_votes")
+  @@map("review_votes")
 }
 
 model Labels {
-    id           Int             @id @default(autoincrement())
-    name         ReviewLabelName
-    typeOf       ReviewLabelType @map("type_of")
-    reviewLabels ReviewLabels[]
-    createdAt    DateTime        @default(now()) @map("created_at") @db.Timestamptz(3)
-    updatedAt    DateTime        @updatedAt @map("updated_at") @db.Timestamptz(3)
+  id           Int             @id @default(autoincrement())
+  name         ReviewLabelName
+  typeOf       ReviewLabelType @map("type_of")
+  createdAt    DateTime        @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt    DateTime        @updatedAt @map("updated_at") @db.Timestamptz(3)
+  reviewLabels ReviewLabels[]
 
-    @@map("labels")
+  @@map("labels")
 }
 
 model ReviewLabels {
-    id        Int      @id @default(autoincrement())
-    label     Labels   @relation(fields: [labelId], references: [id])
-    labelId   Int      @map("label_id")
-    review    Reviews  @relation(fields: [reviewId], references: [id])
-    reviewId  String   @map("review_id")
-    createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
-    updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+  id        Int      @id @default(autoincrement())
+  labelId   Int      @map("label_id")
+  reviewId  String   @map("review_id")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+  label     Labels   @relation(fields: [labelId], references: [id])
+  review    Reviews  @relation(fields: [reviewId], references: [id])
 
-    @@map("review_labels")
+  @@map("review_labels")
 }
 
 enum UniversityAbbreviation {
-    SMU
-    NUS
-    NTU
+  SMU
+  NUS
+  NTU
 }
 
 enum ReviewLabelName {
-    INTERESTING        @map("interesting")
-    PRACTICAL          @map("practical")
-    GAINED_NEW_SKILLS  @map("gained new skills")
-    ENGAGING           @map("engaging")
-    FAIR_GRADING       @map("fair grading")
-    EFFECTIVE_TEACHING @map("effective teaching")
+  INTERESTING        @map("interesting")
+  PRACTICAL          @map("practical")
+  GAINED_NEW_SKILLS  @map("gained new skills")
+  ENGAGING           @map("engaging")
+  FAIR_GRADING       @map("fair grading")
+  EFFECTIVE_TEACHING @map("effective teaching")
 }
 
 enum ReviewLabelType {
-    COURSE
-    PROFESSOR
+  COURSE
+  PROFESSOR
 }

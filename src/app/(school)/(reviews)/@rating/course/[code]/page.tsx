@@ -40,7 +40,8 @@ export default async function CourseRating({
     code: params.code,
     ...(professorSlugs.length > 0 && { slugs: professorSlugs }),
   };
-  const reviewsOfCourse = await api.reviews.getByCourseCodeProtected(apiParams);
+  const { items: reviewsOfCourse } =
+    await api.reviews.getByCourseCodeProtected(apiParams);
   if (reviewsOfCourse.length === 0) {
     return (
       <RatingSection

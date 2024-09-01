@@ -41,10 +41,12 @@ export default async function ProfessorRating({
       : [searchParams.course];
   }
 
-  const reviewsOfThisProf = await api.reviews.getByProfSlugProtected({
-    slug: params.slug,
-    courseCodes: courseCodes.length > 0 ? courseCodes : undefined,
-  });
+  const { items: reviewsOfThisProf } = await api.reviews.getByProfSlugProtected(
+    {
+      slug: params.slug,
+      courseCodes: courseCodes.length > 0 ? courseCodes : undefined,
+    },
+  );
 
   if (reviewsOfThisProf.length === 0) {
     return (

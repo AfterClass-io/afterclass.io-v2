@@ -1,5 +1,4 @@
 import type { ReactNode, ComponentPropsWithoutRef } from "react";
-
 import { PenIcon } from "@/common/components/CustomIcon";
 import { reviewSectionTheme } from "./ReviewSection.theme";
 
