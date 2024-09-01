@@ -20,13 +20,8 @@ export const ReviewItemLoaderHome = () => {
   }
 
   if (isLoading) {
-    return (
-      <>
-        {[...Array(5)].map((_, i) => (
-          <ReviewItemSkeleton key={i} />
-        ))}
-      </>
-    );
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    return [...Array(5)].map((_, i) => <ReviewItemSkeleton key={i} />);
   }
 
   // data will be split in pages

@@ -13,9 +13,6 @@ export const ReviewItemLoaderCourse = ({
   slugs?: string[];
 }) => {
   const { data: session, status } = useSession();
-  if (status !== "authenticated") {
-    return null;
-  }
 
   const apiFn = session
     ? api.reviews.getByCourseCodeProtected
@@ -28,14 +25,13 @@ export const ReviewItemLoaderCourse = ({
       },
     );
 
+  if (status !== "authenticated") {
+    return null;
+  }
+
   if (isLoading) {
-    return (
-      <>
-        {[...Array(5)].map((_, i) => (
-          <ReviewItemSkeleton key={i} />
-        ))}
-      </>
-    );
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    return [...Array(5)].map((_, i) => <ReviewItemSkeleton key={i} />);
   }
 
   // data will be split in pages
