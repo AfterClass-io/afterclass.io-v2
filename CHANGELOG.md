@@ -1,3 +1,33 @@
+<a name="v0.7.0"></a>
+# [v0.7.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.7.0) - 01 Sep 2024
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### 🚀 Features
+* feat: mobile view for rating section by [@Jaylin0312](https://github.com/Jaylin0312) in https://github.com/AfterClass-io/afterclass.io-v2/pull/227
+* feat: enable feature flag on announcement banner by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/225
+* chore: update book and clipboard icons by [@AlvinLingg](https://github.com/AlvinLingg) in https://github.com/AfterClass-io/afterclass.io-v2/pull/229
+* feat(ui): filter section responsive mobile viewport by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/228
+* feat: add AC telegram channel and helpdesk links by [@Jaylin0312](https://github.com/Jaylin0312) in https://github.com/AfterClass-io/afterclass.io-v2/pull/231
+* feat: mobile view for review submission by [@AlvinLingg](https://github.com/AlvinLingg) in https://github.com/AfterClass-io/afterclass.io-v2/pull/232
+* feat: mobile add review submission and contribute buttons to the sidebar drawer by [@Jaylin0312](https://github.com/Jaylin0312) in https://github.com/AfterClass-io/afterclass.io-v2/pull/234
+* feat(ui): more reviews can be loaded with a see more button by [@Jansen52x](https://github.com/Jansen52x) in https://github.com/AfterClass-io/afterclass.io-v2/pull/194
+### 👾 Bug Fixes
+* fix: review submission form removes review section completely if skipped by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/221
+* fix: mobile view login button by [@AlvinLingg](https://github.com/AlvinLingg) in https://github.com/AfterClass-io/afterclass.io-v2/pull/230
+### Other Changes
+* chore: allow passing icons as props to ctacard by [@AlvinLingg](https://github.com/AlvinLingg) in https://github.com/AfterClass-io/afterclass.io-v2/pull/224
+* fix: removed the Tag and SchoolIcon to become SchoolTag by [@AlvinLingg](https://github.com/AlvinLingg) in https://github.com/AfterClass-io/afterclass.io-v2/pull/233
+
+## New Contributors
+* [@AlvinLingg](https://github.com/AlvinLingg) made their first contribution in https://github.com/AfterClass-io/afterclass.io-v2/pull/224
+
+**Full Changelog**: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.6.0...v0.7.0
+
+[Changes][v0.7.0]
+
+
 <a name="v0.6.0"></a>
 # [v0.6.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.6.0) - 18 Aug 2024
 
@@ -205,6 +235,7 @@
 [Changes][v0.1.0]
 
 
+[v0.7.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.6.0...v0.7.0
 [v0.6.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.5.0...v0.6.0
 [v0.5.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.4.0...v0.5.0
 [v0.4.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.3.0...v0.4.0
