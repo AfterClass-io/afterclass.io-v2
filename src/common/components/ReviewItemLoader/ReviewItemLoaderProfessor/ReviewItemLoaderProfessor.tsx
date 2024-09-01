@@ -23,10 +23,6 @@ export const ReviewItemLoaderProfessor = ({
       { getNextPageParam: (lastPage) => lastPage.nextCursor },
     );
 
-  if (status !== "authenticated") {
-    return null;
-  }
-
   if (isLoading) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     return [...Array(5)].map((_, i) => <ReviewItemSkeleton key={i} />);
@@ -45,7 +41,7 @@ export const ReviewItemLoaderProfessor = ({
           isLocked={!session}
         />
       ))}
-      {hasNextPage && (
+      {status === "authenticated" && hasNextPage && (
         <Button
           fullWidth
           variant="primary"
