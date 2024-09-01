@@ -132,7 +132,9 @@ export const reviewsRouter = createTRPCRouter({
   getAllProtected: protectedProcedure
     .input(
       z.object({
-        page: z.number().default(1),
+        cursor: z.string().nullish(),
+        limit: z.number().default(DEFAULT_PAGE_SIZE),
+        skip: z.number().default(0),
         universityId: z.number().optional(),
         courseId: z.string().optional(),
         profId: z.string().optional(),
@@ -141,8 +143,9 @@ export const reviewsRouter = createTRPCRouter({
     )
     .query(async ({ ctx, input }) => {
       const reviews = await ctx.db.reviews.findMany({
-        skip: DEFAULT_PAGE_SIZE * (input.page - 1),
-        take: DEFAULT_PAGE_SIZE,
+        skip: input.skip,
+        take: input.limit + 1,
+        cursor: input.cursor ? { id: input.cursor } : undefined,
         where: {
           reviewedUniversityId: input.universityId,
           reviewedCourseId: input.courseId,
@@ -151,33 +154,43 @@ export const reviewsRouter = createTRPCRouter({
         orderBy: input.latest ? { createdAt: "desc" } : undefined,
         select: PRIVATE_REVIEW_FIELDS,
       });
-      return reviews.map(
-        (review) =>
-          ({
-            ...review,
-            tips: review.tips ?? "",
-            createdAt: review.createdAt.getTime(),
-            courseCode: review.reviewedCourse.code,
-            courseName: review.reviewedCourse.name,
-            username: review.reviewer.username ?? "Anonymous",
-            reviewLabels: review.reviewLabels.map((rl) => ({
-              name: rl.label.name,
-            })),
-            likeCount: review._count.votes,
-            reviewFor:
-              review.reviewedCourseId && review.reviewedProfessorId
-                ? ("professor" as "professor" | "course")
-                : ("course" as "professor" | "course"),
-            professorName: review.reviewedProfessor?.name,
-            professorSlug: review.reviewedProfessor?.slug,
-            university: review.reviewedUniversity.abbrv,
-          }) satisfies Review,
-      );
+      let nextCursor: typeof input.cursor | undefined = undefined;
+      if (reviews.length > input.limit) {
+        const nextItem = reviews.pop(); // return the last item from the array
+        nextCursor = nextItem?.id;
+      }
+      return {
+        items: reviews.map(
+          (review) =>
+            ({
+              ...review,
+              tips: review.tips ?? "",
+              createdAt: review.createdAt.getTime(),
+              courseCode: review.reviewedCourse.code,
+              courseName: review.reviewedCourse.name,
+              username: review.reviewer.username ?? "Anonymous",
+              reviewLabels: review.reviewLabels.map((rl) => ({
+                name: rl.label.name,
+              })),
+              likeCount: review._count.votes,
+              reviewFor:
+                review.reviewedCourseId && review.reviewedProfessorId
+                  ? ("professor" as "professor" | "course")
+                  : ("course" as "professor" | "course"),
+              professorName: review.reviewedProfessor?.name,
+              professorSlug: review.reviewedProfessor?.slug,
+              university: review.reviewedUniversity.abbrv,
+            }) satisfies Review,
+        ),
+        nextCursor,
+      };
     }),
   getAll: publicProcedure
     .input(
       z.object({
-        page: z.number().default(1),
+        cursor: z.string().nullish(),
+        limit: z.number().default(DEFAULT_PAGE_SIZE),
+        skip: z.number().default(0),
         universityId: z.number().optional(),
         courseId: z.string().optional(),
         profId: z.string().optional(),
@@ -186,8 +199,9 @@ export const reviewsRouter = createTRPCRouter({
     )
     .query(async ({ ctx, input }) => {
       const reviews = await ctx.db.reviews.findMany({
-        skip: DEFAULT_PAGE_SIZE * (input.page - 1),
-        take: DEFAULT_PAGE_SIZE,
+        skip: input.skip,
+        take: input.limit + 1,
+        cursor: input.cursor ? { id: input.cursor } : undefined,
         where: {
           reviewedUniversityId: input.universityId,
           reviewedCourseId: input.courseId,
@@ -196,36 +210,46 @@ export const reviewsRouter = createTRPCRouter({
         orderBy: input.latest ? { createdAt: "desc" } : undefined,
         select: PUBLIC_REVIEW_FIELDS,
       });
-      return reviews.map(
-        (review) =>
-          ({
-            ...review,
-            body: "",
-            tips: "",
-            rating: 0,
-            createdAt: review.createdAt.getTime(),
-            courseCode: review.reviewedCourse.code,
-            courseName: review.reviewedCourse.name,
-            username: review.reviewer.username ?? "Anonymous",
-            reviewLabels: review.reviewLabels.map((rl) => ({
-              name: rl.label.name,
-            })),
-            likeCount: review._count.votes,
-            reviewFor:
-              review.reviewedCourseId && review.reviewedProfessorId
-                ? ("professor" as "professor" | "course")
-                : ("course" as "professor" | "course"),
-            professorName: review.reviewedProfessor?.name,
-            professorSlug: review.reviewedProfessor?.slug,
-            university: review.reviewedUniversity.abbrv,
-          }) satisfies Review,
-      );
+      let nextCursor: typeof input.cursor | undefined = undefined;
+      if (reviews.length > input.limit) {
+        const nextItem = reviews.pop(); // return the last item from the array
+        nextCursor = nextItem?.id;
+      }
+      return {
+        items: reviews.map(
+          (review) =>
+            ({
+              ...review,
+              body: "",
+              tips: "",
+              rating: 0,
+              createdAt: review.createdAt.getTime(),
+              courseCode: review.reviewedCourse.code,
+              courseName: review.reviewedCourse.name,
+              username: review.reviewer.username ?? "Anonymous",
+              reviewLabels: review.reviewLabels.map((rl) => ({
+                name: rl.label.name,
+              })),
+              likeCount: review._count.votes,
+              reviewFor:
+                review.reviewedCourseId && review.reviewedProfessorId
+                  ? ("professor" as "professor" | "course")
+                  : ("course" as "professor" | "course"),
+              professorName: review.reviewedProfessor?.name,
+              professorSlug: review.reviewedProfessor?.slug,
+              university: review.reviewedUniversity.abbrv,
+            }) satisfies Review,
+        ),
+        nextCursor,
+      };
     }),
   getByProfSlugProtected: protectedProcedure
     .input(
       z.object({
+        cursor: z.string().nullish(),
+        limit: z.number().default(DEFAULT_PAGE_SIZE),
+        skip: z.number().default(0),
         slug: z.string(),
-        page: z.number().default(1),
         universityId: z.number().optional(),
         courseCodes: z.string().array().optional(),
         latest: z.boolean().optional().default(true),
@@ -233,8 +257,9 @@ export const reviewsRouter = createTRPCRouter({
     )
     .query(async ({ ctx, input }) => {
       const reviews = await ctx.db.reviews.findMany({
-        skip: DEFAULT_PAGE_SIZE * (input.page - 1),
-        take: DEFAULT_PAGE_SIZE,
+        skip: input.skip,
+        take: input.limit + 1,
+        cursor: input.cursor ? { id: input.cursor } : undefined,
         where: {
           reviewedUniversityId: input.universityId,
           reviewedCourse: { code: { in: input.courseCodes } },
@@ -243,34 +268,44 @@ export const reviewsRouter = createTRPCRouter({
         orderBy: input.latest ? { createdAt: "desc" } : undefined,
         select: PRIVATE_REVIEW_FIELDS,
       });
-      return reviews.map(
-        (review) =>
-          ({
-            ...review,
-            tips: review.tips ?? "",
-            createdAt: review.createdAt.getTime(),
-            courseCode: review.reviewedCourse.code,
-            courseName: review.reviewedCourse.name,
-            username: review.reviewer.username ?? "Anonymous",
-            reviewLabels: review.reviewLabels.map((rl) => ({
-              name: rl.label.name,
-            })),
-            likeCount: review._count.votes,
-            reviewFor:
-              review.reviewedCourseId && review.reviewedProfessorId
-                ? ("professor" as "professor" | "course")
-                : ("course" as "professor" | "course"),
-            professorName: review.reviewedProfessor?.name,
-            professorSlug: review.reviewedProfessor?.slug,
-            university: review.reviewedUniversity.abbrv,
-          }) satisfies Review,
-      );
+      let nextCursor: typeof input.cursor | undefined = undefined;
+      if (reviews.length > input.limit) {
+        const nextItem = reviews.pop(); // return the last item from the array
+        nextCursor = nextItem?.id;
+      }
+      return {
+        items: reviews.map(
+          (review) =>
+            ({
+              ...review,
+              tips: review.tips ?? "",
+              createdAt: review.createdAt.getTime(),
+              courseCode: review.reviewedCourse.code,
+              courseName: review.reviewedCourse.name,
+              username: review.reviewer.username ?? "Anonymous",
+              reviewLabels: review.reviewLabels.map((rl) => ({
+                name: rl.label.name,
+              })),
+              likeCount: review._count.votes,
+              reviewFor:
+                review.reviewedCourseId && review.reviewedProfessorId
+                  ? ("professor" as "professor" | "course")
+                  : ("course" as "professor" | "course"),
+              professorName: review.reviewedProfessor?.name,
+              professorSlug: review.reviewedProfessor?.slug,
+              university: review.reviewedUniversity.abbrv,
+            }) satisfies Review,
+        ),
+        nextCursor,
+      };
     }),
   getByProfSlug: publicProcedure
     .input(
       z.object({
+        cursor: z.string().nullish(),
+        limit: z.number().default(DEFAULT_PAGE_SIZE),
+        skip: z.number().default(0),
         slug: z.string(),
-        page: z.number().default(1),
         universityId: z.number().optional(),
         courseCodes: z.string().array().optional(),
         latest: z.boolean().optional().default(true),
@@ -278,8 +313,9 @@ export const reviewsRouter = createTRPCRouter({
     )
     .query(async ({ ctx, input }) => {
       const reviews = await ctx.db.reviews.findMany({
-        skip: DEFAULT_PAGE_SIZE * (input.page - 1),
-        take: DEFAULT_PAGE_SIZE,
+        skip: input.skip,
+        take: input.limit + 1,
+        cursor: input.cursor ? { id: input.cursor } : undefined,
         where: {
           reviewedUniversityId: input.universityId,
           reviewedCourse: { code: { in: input.courseCodes } },
@@ -288,45 +324,56 @@ export const reviewsRouter = createTRPCRouter({
         orderBy: input.latest ? { createdAt: "desc" } : undefined,
         select: PUBLIC_REVIEW_FIELDS,
       });
-      return reviews.map(
-        (review) =>
-          ({
-            ...review,
-            body: "",
-            tips: "",
-            rating: 0,
-            createdAt: review.createdAt.getTime(),
-            courseCode: review.reviewedCourse.code,
-            courseName: review.reviewedCourse.name,
-            username: review.reviewer.username ?? "Anonymous",
-            likeCount: review._count.votes,
-            reviewLabels: review.reviewLabels.map((rl) => ({
-              name: rl.label.name,
-            })),
-            reviewFor:
-              review.reviewedCourseId && review.reviewedProfessorId
-                ? ("professor" as "professor" | "course")
-                : ("course" as "professor" | "course"),
-            professorName: review.reviewedProfessor?.name,
-            professorSlug: review.reviewedProfessor?.slug,
-            university: review.reviewedUniversity.abbrv,
-          }) satisfies Review,
-      );
+      let nextCursor: typeof input.cursor | undefined = undefined;
+      if (reviews.length > input.limit) {
+        const nextItem = reviews.pop(); // return the last item from the array
+        nextCursor = nextItem?.id;
+      }
+      return {
+        items: reviews.map(
+          (review) =>
+            ({
+              ...review,
+              body: "",
+              tips: "",
+              rating: 0,
+              createdAt: review.createdAt.getTime(),
+              courseCode: review.reviewedCourse.code,
+              courseName: review.reviewedCourse.name,
+              username: review.reviewer.username ?? "Anonymous",
+              likeCount: review._count.votes,
+              reviewLabels: review.reviewLabels.map((rl) => ({
+                name: rl.label.name,
+              })),
+              reviewFor:
+                review.reviewedCourseId && review.reviewedProfessorId
+                  ? ("professor" as "professor" | "course")
+                  : ("course" as "professor" | "course"),
+              professorName: review.reviewedProfessor?.name,
+              professorSlug: review.reviewedProfessor?.slug,
+              university: review.reviewedUniversity.abbrv,
+            }) satisfies Review,
+        ),
+        nextCursor,
+      };
     }),
 
   getByCourseCodeProtected: protectedProcedure
     .input(
       z.object({
+        cursor: z.string().nullish(),
+        limit: z.number().default(DEFAULT_PAGE_SIZE),
+        skip: z.number().default(0),
         code: z.string(),
         slugs: z.string().array().optional(),
-        page: z.number().default(1),
         latest: z.boolean().optional().default(true),
       }),
     )
     .query(async ({ ctx, input }) => {
       const reviews = await ctx.db.reviews.findMany({
-        skip: DEFAULT_PAGE_SIZE * (input.page - 1),
-        take: DEFAULT_PAGE_SIZE,
+        skip: input.skip,
+        take: input.limit + 1,
+        cursor: input.cursor ? { id: input.cursor } : undefined,
         where: {
           reviewedCourse: { code: input.code },
           reviewedProfessor: input.slugs && { slug: { in: input.slugs } },
@@ -334,43 +381,54 @@ export const reviewsRouter = createTRPCRouter({
         orderBy: input.latest ? { createdAt: "desc" } : undefined,
         select: PRIVATE_REVIEW_FIELDS,
       });
-      return reviews.map(
-        (review) =>
-          ({
-            ...review,
-            tips: review.tips ?? "",
-            createdAt: review.createdAt.getTime(),
-            courseCode: review.reviewedCourse.code,
-            courseName: review.reviewedCourse.name,
-            username: review.reviewer.username ?? "Anonymous",
-            reviewLabels: review.reviewLabels.map((rl) => ({
-              name: rl.label.name,
-            })),
-            likeCount: review._count.votes,
-            reviewFor:
-              review.reviewedCourseId && review.reviewedProfessorId
-                ? ("professor" as "professor" | "course")
-                : ("course" as "professor" | "course"),
-            professorName: review.reviewedProfessor?.name,
-            professorSlug: review.reviewedProfessor?.slug,
-            university: review.reviewedUniversity.abbrv,
-          }) satisfies Review,
-      );
+      let nextCursor: typeof input.cursor | undefined = undefined;
+      if (reviews.length > input.limit) {
+        const nextItem = reviews.pop(); // return the last item from the array
+        nextCursor = nextItem?.id;
+      }
+      return {
+        items: reviews.map(
+          (review) =>
+            ({
+              ...review,
+              tips: review.tips ?? "",
+              createdAt: review.createdAt.getTime(),
+              courseCode: review.reviewedCourse.code,
+              courseName: review.reviewedCourse.name,
+              username: review.reviewer.username ?? "Anonymous",
+              reviewLabels: review.reviewLabels.map((rl) => ({
+                name: rl.label.name,
+              })),
+              likeCount: review._count.votes,
+              reviewFor:
+                review.reviewedCourseId && review.reviewedProfessorId
+                  ? ("professor" as "professor" | "course")
+                  : ("course" as "professor" | "course"),
+              professorName: review.reviewedProfessor?.name,
+              professorSlug: review.reviewedProfessor?.slug,
+              university: review.reviewedUniversity.abbrv,
+            }) satisfies Review,
+        ),
+        nextCursor,
+      };
     }),
 
   getByCourseCode: publicProcedure
     .input(
       z.object({
+        cursor: z.string().nullish(),
+        limit: z.number().default(DEFAULT_PAGE_SIZE),
+        skip: z.number().default(0),
         code: z.string(),
         slugs: z.string().array().optional(),
-        page: z.number().default(1),
         latest: z.boolean().optional().default(true),
       }),
     )
     .query(async ({ ctx, input }) => {
       const reviews = await ctx.db.reviews.findMany({
-        skip: DEFAULT_PAGE_SIZE * (input.page - 1),
-        take: DEFAULT_PAGE_SIZE,
+        skip: input.skip,
+        take: input.limit + 1,
+        cursor: input.cursor ? { id: input.cursor } : undefined,
         where: {
           reviewedCourse: { code: input.code },
           reviewedProfessor: { slug: { in: input.slugs } },
@@ -378,30 +436,38 @@ export const reviewsRouter = createTRPCRouter({
         orderBy: input.latest ? { createdAt: "desc" } : undefined,
         select: PRIVATE_REVIEW_FIELDS,
       });
-      return reviews.map(
-        (review) =>
-          ({
-            ...review,
-            body: "",
-            tips: "",
-            rating: 0,
-            createdAt: review.createdAt.getTime(),
-            courseCode: review.reviewedCourse.code,
-            courseName: review.reviewedCourse.name,
-            username: review.reviewer.username ?? "Anonymous",
-            likeCount: review._count.votes,
-            reviewLabels: review.reviewLabels.map((rl) => ({
-              name: rl.label.name,
-            })),
-            reviewFor:
-              review.reviewedCourseId && review.reviewedProfessorId
-                ? ("professor" as "professor" | "course")
-                : ("course" as "professor" | "course"),
-            professorName: review.reviewedProfessor?.name,
-            professorSlug: review.reviewedProfessor?.slug,
-            university: review.reviewedUniversity.abbrv,
-          }) satisfies Review,
-      );
+      let nextCursor: typeof input.cursor | undefined = undefined;
+      if (reviews.length > input.limit) {
+        const nextItem = reviews.pop(); // return the last item from the array
+        nextCursor = nextItem?.id;
+      }
+      return {
+        items: reviews.map(
+          (review) =>
+            ({
+              ...review,
+              body: "",
+              tips: "",
+              rating: 0,
+              createdAt: review.createdAt.getTime(),
+              courseCode: review.reviewedCourse.code,
+              courseName: review.reviewedCourse.name,
+              username: review.reviewer.username ?? "Anonymous",
+              likeCount: review._count.votes,
+              reviewLabels: review.reviewLabels.map((rl) => ({
+                name: rl.label.name,
+              })),
+              reviewFor:
+                review.reviewedCourseId && review.reviewedProfessorId
+                  ? ("professor" as "professor" | "course")
+                  : ("course" as "professor" | "course"),
+              professorName: review.reviewedProfessor?.name,
+              professorSlug: review.reviewedProfessor?.slug,
+              university: review.reviewedUniversity.abbrv,
+            }) satisfies Review,
+        ),
+        nextCursor,
+      };
     }),
 
   count: protectedProcedure

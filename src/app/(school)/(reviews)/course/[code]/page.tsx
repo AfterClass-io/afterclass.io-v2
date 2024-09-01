@@ -1,7 +1,5 @@
-import { ReviewItem } from "@/common/components/ReviewItem";
+import { ReviewItemLoaderCourse } from "@/common/components/ReviewItemLoader";
 import { ReviewSection } from "@/common/components/ReviewSection";
-import { api } from "@/common/tools/trpc/server";
-import { getServerAuthSession } from "@/server/auth";
 
 export default async function Course({
   params,
@@ -10,32 +8,18 @@ export default async function Course({
   params: { code: string };
   searchParams?: { professor?: string | string[] };
 }) {
-  const session = await getServerAuthSession();
   const professorSlugs = searchParams?.professor
     ? Array.isArray(searchParams.professor)
       ? searchParams.professor
       : [searchParams.professor]
     : [];
 
-  const apiParams = {
-    code: params.code,
-    ...(professorSlugs.length > 0 && { slugs: professorSlugs }),
-  };
-
-  const reviews = session
-    ? await api.reviews.getByCourseCodeProtected(apiParams)
-    : await api.reviews.getByCourseCode(apiParams);
-
   return (
     <ReviewSection>
-      {reviews.map((review) => (
-        <ReviewItem
-          review={review}
-          key={review.id}
-          isLocked={!session}
-          variant="course"
-        />
-      ))}
+      <ReviewItemLoaderCourse
+        code={params.code}
+        slugs={professorSlugs.length > 0 ? professorSlugs : undefined}
+      />
     </ReviewSection>
   );
 }
