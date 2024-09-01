@@ -1,7 +1,7 @@
 import { ReviewItemLoaderCourse } from "@/common/components/ReviewItemLoader";
 import { ReviewSection } from "@/common/components/ReviewSection";
 
-export default async function Course({
+export default function Course({
   params,
   searchParams,
 }: {
