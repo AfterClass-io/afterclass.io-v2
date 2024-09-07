@@ -16,13 +16,14 @@ export const noticeCardTheme = tv(
         "border",
         "border-border-default",
         "bg-surface-elevated",
+        "bg-gradient-to-b",
+        "from-bg-alt",
       ],
       floatingIcons: [],
       icon: [
         "absolute",
         "flex-shrink-0",
         "animate-[pulse_3s_ease-in-out_infinite]",
-        "text-primary-default/20",
       ],
       textContainer: [
         "mx-auto",
@@ -46,6 +47,9 @@ export const noticeCardTheme = tv(
         true: {
           floatingIcons: ["scale-y-[-1]"],
           icon: ["text-red-600/20"],
+        },
+        false: {
+          icon: ["text-primary-default/20"],
         },
       },
       iconSize: {

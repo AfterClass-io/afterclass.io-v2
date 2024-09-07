@@ -16,11 +16,12 @@ export const NoticeCard = ({ title, children, isError }: NoticeCardProps) => {
     title: titleClassNames,
     children: childrenClassNames,
   } = noticeCardTheme({
+    isError,
     size: { initial: "sm", md: "md" },
   });
   return (
     <div className={wrapper()}>
-      <div className={floatingIcons({ isError })}>
+      <div className={floatingIcons()}>
         <AfterclassIcon className={icon({ iconSize: "xl" })} />
         <AfterclassIcon className={icon({ iconSize: "lg" })} />
         <AfterclassIcon className={icon({ iconSize: "md" })} />
