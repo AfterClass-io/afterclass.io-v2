@@ -28,7 +28,7 @@ const SIDEBAR_ITEMS = [
     category: "feature",
   },
   {
-    label: "Bid History",
+    label: "Bid Analytics",
     icon: <ChartLineIcon />,
     href: "/bidding",
     category: "feature",
