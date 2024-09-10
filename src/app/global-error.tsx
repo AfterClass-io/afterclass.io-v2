@@ -1,9 +1,11 @@
 "use client"; // Error boundaries must be Client Components
 import { useEffect } from "react";
 
+import { inter, poppins } from "@/common/fonts";
 import { Button } from "@/common/components/Button";
 import { NoticeCard } from "@/common/components/NoticeCard";
 import { env } from "@/env.mjs";
+import ThemeProvider from "@/common/providers/ThemeProvider";
 
 export default function GlobalError({
   error,
@@ -17,30 +19,34 @@ export default function GlobalError({
     console.error(error);
   }, [error]);
   return (
-    <html>
+    <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <body>
-        <div className="flex justify-center p-6 md:h-full md:items-center md:p-12">
-          <NoticeCard title="Something went wrong!" isError>
-            <Button
-              variant="link"
-              className="inline text-[length:inherit]"
-              onClick={() => reset()}
-            >
-              Click here to try again.
-            </Button>
-            <span className="inline">Otherwise, you can get help from us</span>
-            <Button
-              as="a"
-              href={env.NEXT_PUBLIC_AC_HELPDESK_LINK}
-              variant="link"
-              className="inline px-1 text-[length:inherit]"
-              external
-            >
-              @afterclass
-            </Button>
-            <span className="inline">on Telegram.</span>
-          </NoticeCard>
-        </div>
+        <ThemeProvider>
+          <div className="flex justify-center p-6 md:h-full md:items-center md:p-12">
+            <NoticeCard title="Something went wrong!" isError>
+              <Button
+                variant="link"
+                className="inline text-[length:inherit]"
+                onClick={() => reset()}
+              >
+                Click here to try again.
+              </Button>
+              <span className="inline">
+                Otherwise, you can get help from us
+              </span>
+              <Button
+                as="a"
+                href={env.NEXT_PUBLIC_AC_HELPDESK_LINK}
+                variant="link"
+                className="inline px-1 text-[length:inherit]"
+                external
+              >
+                @afterclass
+              </Button>
+              <span className="inline">on Telegram.</span>
+            </NoticeCard>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
