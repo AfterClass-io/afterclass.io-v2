@@ -23,7 +23,7 @@ export const ReviewItem = ({
   return (
     <>
       {isLocked ? (
-        <div className={wrapper()}>
+        <div className={wrapper({ className: "hover:bg-inherit" })}>
           <ReviewHeader review={review} variant={variant} />
           <div className={body({ isLocked })}>
             <LockCtaOverlay size="sm" ctaType="review" variant="border" />
