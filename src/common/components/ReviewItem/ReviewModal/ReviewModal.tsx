@@ -42,10 +42,10 @@ export const ReviewModal = ({
   return (
     <Modal overflow="inside">
       <Modal.Trigger asChild className={modalTrigger()}>
-        <div className={wrapper()}>
+        <Button variant="ghost" className={wrapper()} asChild>
           <ReviewHeader review={review} variant={variant} />
           <ReviewBody isDetailed={variant !== "home"} review={review} />
-        </div>
+        </Button>
       </Modal.Trigger>
       <Modal.Content
         className={modalContent()}
