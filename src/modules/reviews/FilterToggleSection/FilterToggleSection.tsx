@@ -41,6 +41,15 @@ export const FilterToggleSection = (props: FilterToggleSectionProps) => {
 
   const { dataToFilter, filterType, searchParamsName, onSelectChange } = props;
 
+  if (dataToFilter.length === 0) {
+    return (
+      <Filter>
+        <Filter.Header type={filterType} />
+        <p className="w-full py-6 text-center">No Results</p>
+      </Filter>
+    );
+  }
+
   const getNewSelectedItems = (selectedValue: string) =>
     selectedItems.includes(selectedValue)
       ? selectedItems.filter((v) => v !== selectedValue)
