@@ -6,22 +6,21 @@ import { ShareIcon, ThumbUpFilledIcon } from "@/common/components/CustomIcon";
 import { type Review } from "@/common/types";
 import { Button } from "@/common/components/Button";
 
-import { ReviewHeader } from "../ReviewHeader";
-import { ReviewBody } from "../ReviewBody";
 import { reviewItemTheme } from "../ReviewItem.theme";
-import { RevieweeGroup } from "@/common/components/ReviewItem/ReviewHeader/RevieweeGroup";
+import { RevieweeGroup } from "../RevieweeGroup";
 
 export const ReviewModal = ({
   review,
   variant,
+  children,
   seeMore = false,
 }: {
   review: Review;
   variant: "home" | "professor" | "course";
+  children: React.ReactNode;
   seeMore?: boolean;
 }) => {
   const {
-    wrapper,
     modalTrigger,
     modalContent,
     usernameAndTimestampWrapper,
@@ -42,10 +41,7 @@ export const ReviewModal = ({
   return (
     <Modal overflow="inside">
       <Modal.Trigger asChild className={modalTrigger()}>
-        <div className={wrapper()}>
-          <ReviewHeader review={review} variant={variant} />
-          <ReviewBody isDetailed={variant !== "home"} review={review} />
-        </div>
+        {children}
       </Modal.Trigger>
       <Modal.Content
         className={modalContent()}

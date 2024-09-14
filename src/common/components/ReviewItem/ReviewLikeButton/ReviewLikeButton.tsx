@@ -6,7 +6,23 @@ import { Button } from "@/common/components/Button";
 import { ThumbUpFilledIcon } from "@/common/components/CustomIcon";
 import { useSession } from "next-auth/react";
 
-export const ReviewerGroupLikeButton = ({ reviewId }: { reviewId: string }) => {
+export const MockedReviewLikeButton = ({
+  reviewLikeCount,
+}: {
+  reviewLikeCount: number;
+}) => (
+  <Button
+    rounded
+    variant="tertiary"
+    size="sm"
+    iconRight={<ThumbUpFilledIcon />}
+    aria-label="Like"
+  >
+    {reviewLikeCount}
+  </Button>
+);
+
+export const ReviewLikeButton = ({ reviewId }: { reviewId: string }) => {
   const { data: session } = useSession();
   const [isLiked, setIsLiked] = useState(false);
 
