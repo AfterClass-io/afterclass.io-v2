@@ -22,22 +22,22 @@ export const reviewVotesRouter = createTRPCRouter({
         }),
     ),
 
-  hasUserVoted: protectedProcedure
+  getUserVote: protectedProcedure
     .input(
       z.object({
-        reviewId: z.string(),
         userId: z.string(),
+        reviewId: z.string().optional(),
       }),
     )
-    .query(async ({ input, ctx }) => {
-      const like = await ctx.db.reviewVotes.findFirst({
-        where: {
-          reviewId: input.reviewId,
-          voterId: input.userId,
-        },
-      });
-      return !!like;
-    }),
+    .query(
+      async ({ input, ctx }) =>
+        await ctx.db.reviewVotes.findFirst({
+          where: {
+            voterId: input.userId,
+            reviewId: input.reviewId,
+          },
+        }),
+    ),
 
   voteOrUnvote: protectedProcedure
     .input(
