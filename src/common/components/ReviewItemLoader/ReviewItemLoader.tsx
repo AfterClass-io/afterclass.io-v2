@@ -1,9 +1,10 @@
 "use client";
 import { useSession } from "next-auth/react";
+import { InView } from "react-intersection-observer";
 
 import { api } from "@/common/tools/trpc/react";
-import { Button } from "@/common/components/Button";
 import { ReviewItem, ReviewItemSkeleton } from "@/common/components/ReviewItem";
+import { AfterclassIcon } from "@/common/components/CustomIcon";
 
 export type ReviewItemLoaderHomeProps = {
   variant: "home";
@@ -68,8 +69,7 @@ export const ReviewItemLoader = (props: ReviewItemLoaderProps) => {
     }
   }
 
-  const { isLoading, data, fetchNextPage, isFetchingNextPage, hasNextPage } =
-    infiniteQuery;
+  const { isLoading, data, fetchNextPage, hasNextPage } = infiniteQuery;
 
   if (isLoading) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -90,14 +90,16 @@ export const ReviewItemLoader = (props: ReviewItemLoaderProps) => {
         />
       ))}
       {status === "authenticated" && hasNextPage && (
-        <Button
-          fullWidth
-          variant="primary"
-          onClick={() => fetchNextPage()}
-          loading={isFetchingNextPage}
+        <InView
+          as="div"
+          className="flex w-full justify-center"
+          onChange={(inView, _) => inView && fetchNextPage()}
         >
-          See more
-        </Button>
+          <AfterclassIcon
+            size={64}
+            className="animate-[pulse_3s_ease-in-out_infinite] text-primary-default/60"
+          />
+        </InView>
       )}
     </>
   );
