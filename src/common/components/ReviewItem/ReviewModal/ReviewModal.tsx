@@ -8,6 +8,7 @@ import { Button } from "@/common/components/Button";
 
 import { reviewItemTheme } from "../ReviewItem.theme";
 import { RevieweeGroup } from "../RevieweeGroup";
+import { ReviewLikeButton } from "@/common/components/ReviewItem/ReviewLikeButton";
 
 export const ReviewModal = ({
   review,
@@ -27,8 +28,6 @@ export const ReviewModal = ({
     username,
     modalBody,
     likeAndShareWrapper,
-    likeWrapper,
-    shareWrapper,
     seeMoreDivider,
     seeMoreLink,
   } = reviewItemTheme({ size: { initial: "sm", md: "md" } });
@@ -62,13 +61,19 @@ export const ReviewModal = ({
         </Modal.Body>
         <Modal.Footer>
           <div className={likeAndShareWrapper()}>
-            <div className={likeWrapper()}>
-              <ThumbUpFilledIcon size={18} />
-              <span>{review.likeCount}</span>
-            </div>
-            <div className={shareWrapper()}>
-              <ShareIcon size={18} />
-            </div>
+            <ReviewLikeButton
+              reviewId={review.id}
+              iconLeft={<ThumbUpFilledIcon />}
+              iconRight={undefined}
+            />
+            <Button
+              rounded
+              variant="tertiary"
+              iconLeft={<ShareIcon />}
+              aria-label="Share"
+            >
+              0
+            </Button>
           </div>
           {/* seeMore link only shown when user is from default reviews page, hidden when in professor/course pages */}
           {seeMore && (

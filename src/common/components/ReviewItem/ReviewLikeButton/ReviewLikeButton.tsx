@@ -3,40 +3,59 @@ import { useEffect, useState } from "react";
 
 import { api } from "@/common/tools/trpc/react";
 import { Button } from "@/common/components/Button";
+import type {
+  ButtonBaseProps,
+  ButtonProps,
+  ButtonVariants,
+} from "@/common/components/Button";
 import { ThumbUpFilledIcon } from "@/common/components/CustomIcon";
 import { useSession } from "next-auth/react";
 
+export type ReviewLikeButtonProps = ButtonProps &
+  ButtonBaseProps &
+  Omit<ButtonVariants, "hasIcon" | "iconOnly">;
+
 export const MockedReviewLikeButton = ({
   reviewLikeCount,
+  ...props
 }: {
   reviewLikeCount: number;
-}) => (
+} & ReviewLikeButtonProps) => (
   <Button
     rounded
     variant="tertiary"
-    size="sm"
     iconRight={<ThumbUpFilledIcon />}
     aria-label="Like"
+    {...props}
   >
     {reviewLikeCount}
   </Button>
 );
 
-export const ReviewLikeButton = ({ reviewId }: { reviewId: string }) => {
+export const ReviewLikeButton = ({
+  reviewId,
+  ...props
+}: { reviewId: string } & ReviewLikeButtonProps) => {
   const { data: session } = useSession();
   const [isLiked, setIsLiked] = useState(false);
 
-  const { data: hasUserVoted } = api.reviewVotes.hasUserVoted.useQuery({
+  const hasUserVotedQuery = api.reviewVotes.getUserVote.useQuery({
     reviewId,
     userId: session?.user.id ?? "",
   });
-  useEffect(() => setIsLiked(hasUserVoted ?? false), [hasUserVoted]);
+  useEffect(
+    () => setIsLiked(!!hasUserVotedQuery.data),
+    [hasUserVotedQuery.data],
+  );
 
   const reviewVotesCountQuery = api.reviewVotes.count.useQuery({ reviewId });
 
   const { mutate: likeOrUnlike, isSuccess } =
     api.reviewVotes.voteOrUnvote.useMutation({
-      onSuccess: () => void reviewVotesCountQuery.refetch(),
+      onSuccess: () => {
+        void reviewVotesCountQuery.refetch();
+        void hasUserVotedQuery.refetch();
+      },
     });
 
   const handleLike = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -53,11 +72,11 @@ export const ReviewLikeButton = ({ reviewId }: { reviewId: string }) => {
     <Button
       rounded
       variant={isLiked ? "secondary" : "tertiary"}
-      size="sm"
       iconRight={<ThumbUpFilledIcon />}
       onClick={handleLike}
       loading={reviewVotesCountQuery.isLoading}
       aria-label="Like"
+      {...props}
     >
       {reviewVotesCountQuery.data}
     </Button>

@@ -26,9 +26,12 @@ export const ReviewerGroup = ({
       />
       <div className={metadataContainer()}>
         {isMocked ? (
-          <MockedReviewLikeButton reviewLikeCount={review.likeCount} />
+          <MockedReviewLikeButton
+            reviewLikeCount={review.likeCount}
+            size="sm"
+          />
         ) : (
-          <ReviewLikeButton reviewId={review.id} />
+          <ReviewLikeButton reviewId={review.id} size="sm" />
         )}
         <div className={timedelta()}>
           {getHumanReadableTimestampDelta(review.createdAt / 1000)}
