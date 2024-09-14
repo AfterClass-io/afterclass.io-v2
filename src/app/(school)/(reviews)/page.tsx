@@ -1,10 +1,10 @@
 import { ReviewSection } from "@/common/components/ReviewSection";
-import { ReviewItemLoaderHome } from "@/common/components/ReviewItemLoader";
+import { ReviewItemLoader } from "@/common/components/ReviewItemLoader";
 
 export default function Home() {
   return (
     <ReviewSection>
-      <ReviewItemLoaderHome />
+      <ReviewItemLoader variant="home" />
     </ReviewSection>
   );
 }

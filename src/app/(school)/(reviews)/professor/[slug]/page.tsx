@@ -1,4 +1,4 @@
-import { ReviewItemLoaderProfessor } from "@/common/components/ReviewItemLoader";
+import { ReviewItemLoader } from "@/common/components/ReviewItemLoader";
 import { ReviewSection } from "@/common/components/ReviewSection";
 
 export default function Professor({
@@ -19,7 +19,8 @@ export default function Professor({
 
   return (
     <ReviewSection>
-      <ReviewItemLoaderProfessor
+      <ReviewItemLoader
+        variant="professor"
         slug={params.slug}
         courseCodes={courseCodes.length > 0 ? courseCodes : undefined}
       />
