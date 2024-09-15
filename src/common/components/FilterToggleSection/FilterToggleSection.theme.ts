@@ -25,6 +25,7 @@ export const filterToggleSectionTheme = tv(
         "flex",
         "items-center",
         "rounded-lg",
+        "cursor-pointer",
         "hover:bg-surface-elevated",
       ],
       itemHeader: ["text-text-em-high"],
