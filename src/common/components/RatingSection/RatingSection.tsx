@@ -35,9 +35,13 @@ export const RatingSection = ({
         </div>
       </div>
       <div className={statItemWrapper()}>
-        {ratingItems.map((item, i) => (
-          <StatItem {...item} key={i} isLocked={isLocked} />
-        ))}
+        {ratingItems.length > 0 ? (
+          ratingItems.map((item, i) => (
+            <StatItem {...item} key={i} isLocked={isLocked} />
+          ))
+        ) : (
+          <p className="w-full py-6 text-center">No Ratings</p>
+        )}
       </div>
     </div>
   );
