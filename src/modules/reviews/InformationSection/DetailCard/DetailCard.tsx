@@ -1,4 +1,4 @@
-import { DetailCardTheme } from "./DetailCard.theme";
+import { detailCardTheme } from "./DetailCard.theme";
 import { DetailCardSkeleton } from "./DetailCardSkeleton";
 
 export const DetailCard = ({
@@ -8,7 +8,7 @@ export const DetailCard = ({
   courseCode: string;
   courseCU: number;
 }) => {
-  const { wrapper, header, body, content, field, value } = DetailCardTheme();
+  const { wrapper, header, body, content, field, value } = detailCardTheme();
   return (
     <div className={wrapper()}>
       <div className={header()}>

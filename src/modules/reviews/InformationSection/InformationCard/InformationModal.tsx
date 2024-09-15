@@ -11,13 +11,11 @@ export const InformationModal = ({
   courseName: string;
   courseDesc: string;
 }) => {
-  const { content, body } = informationCardTheme();
+  const { body } = informationCardTheme();
   return (
     <Modal overflow="inside">
       <Modal.Trigger asChild>
-        <div className={content()}>
-          <Button variant="link">See more</Button>
-        </div>
+        <Button variant="link">See more</Button>
       </Modal.Trigger>
       <Modal.Content>
         <Modal.Header>{courseName}</Modal.Header>
