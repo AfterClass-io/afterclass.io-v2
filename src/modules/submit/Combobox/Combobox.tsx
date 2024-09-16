@@ -39,7 +39,18 @@ export const Combobox = forwardRef<
         </Button>
       </Popover.Trigger>
       <Popover.Content variant="combobox">
-        <Command variant="combobox">
+        <Command
+          variant="combobox"
+          value={value}
+          filter={(_, search, keywords) => {
+            if (
+              keywords?.join("").toLowerCase().includes(search.toLowerCase())
+            ) {
+              return 1;
+            }
+            return 0;
+          }}
+        >
           <Command.Input placeholder={placeholder} />
           <Command.Separator />
           <Command.Empty>Nothing found.</Command.Empty>
@@ -50,6 +61,7 @@ export const Combobox = forwardRef<
                   id={el.value}
                   key={el.value}
                   value={el.value}
+                  keywords={[el.label]}
                   onSelect={(selectedValue) => {
                     setValue(selectedValue === value ? "" : selectedValue);
                     setOpen(false);

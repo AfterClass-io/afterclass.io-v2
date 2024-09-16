@@ -1,3 +1,21 @@
+<a name="v0.8.0"></a>
+# [v0.8.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.8.0) - 15 Sep 2024
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### 🚀 Features
+* feat(ui): implement noticecard component on coming soon and error pages by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/236
+* feat(ui): disallow mobile to zoom on form input by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/238
+* feat(ui): show no result if reviews or rating is empty by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/237
+* feat(ui): review form improvements by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/241
+
+
+**Full Changelog**: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.7.0...v0.8.0
+
+[Changes][v0.8.0]
+
+
 <a name="v0.7.0"></a>
 # [v0.7.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.7.0) - 01 Sep 2024
 
@@ -235,6 +253,7 @@
 [Changes][v0.1.0]
 
 
+[v0.8.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.7.0...v0.8.0
 [v0.7.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.6.0...v0.7.0
 [v0.6.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.5.0...v0.6.0
 [v0.5.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.4.0...v0.5.0

@@ -9,10 +9,13 @@ export const reviewItemTheme = tv(
         "flex",
         "flex-col",
         "items-start",
+        "h-fit",
         "w-full",
         "rounded-md",
-        "cursor-pointer",
-        "max-w-[45rem]",
+        "after:rounded-md",
+        "hover:bg-surface-elevated",
+        "p-4",
+        "text-left",
       ],
       headingContainer: [
         "flex",
@@ -45,7 +48,7 @@ export const reviewItemTheme = tv(
       ],
       body: [
         "text-sm",
-        "text-text-em-high",
+        "text-text-em-mid",
         "line-clamp-3",
         /**
          * TODO: replace when tailwind fixes behavior
@@ -69,21 +72,11 @@ export const reviewItemTheme = tv(
       modalBody: ["pb-[16px]", "whitespace-pre-wrap"],
       likeAndShareWrapper: [
         "flex",
-        "gap-x-6",
+        "gap-x-3",
         "items-center",
         "w-fit",
         "justify-between",
       ],
-      likeWrapper: [
-        "flex",
-        "w-fit",
-        "items-center",
-        "justify-center",
-        "gap-x-1",
-      ],
-      // likeIcon: ["h-fit", "w-[18px]"],
-      shareWrapper: ["flex", "w-fit", "items-center", "justify-center"],
-      // shareIcon: ["h-fit", "w-[18px]"],
       seeMoreDivider: ["w-full", "border-t", "border-border-default"],
       seeMoreLink: ["flex", "h-10", "items-center", "text-primary-default"],
     },

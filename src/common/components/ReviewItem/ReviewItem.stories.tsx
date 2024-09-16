@@ -44,6 +44,7 @@ const meta = {
   args: {
     review: review,
     isLocked: false,
+    isMocked: true,
   },
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
 } satisfies Meta<typeof ReviewItem>;
@@ -54,8 +55,6 @@ type Story = StoryObj<typeof meta>;
 export const DefaultHomePage: Story = {
   args: {
     variant: "home",
-    review: review,
-    isLocked: false,
   },
 };
 export const LockedHomePage: Story = {

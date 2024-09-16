@@ -37,7 +37,7 @@ export default async function SchoolLayout({ children }: PropsWithChildren) {
         </div>
       </header>
 
-      <div className="h-full overflow-y-scroll px-6 py-6 md:px-12 md:py-12">
+      <div className="h-full overflow-y-scroll p-6 md:p-12">
         <div className="mx-auto max-w-[1200px]">{children}</div>
       </div>
     </>
