@@ -16,6 +16,8 @@ export const comboboxTheme = tv(
       "border-border-elevated",
       "bg-surface-base",
       "p-2",
+      "flex-1",
+      "text-left",
     ],
   },
   { responsiveVariants: true },

@@ -30,10 +30,13 @@ export const ReviewItemLoaderProfessor = ({
 
   // data will be split in pages
   const toShow = data?.pages.flatMap((page) => page.items);
+  if (!toShow || toShow.length === 0) {
+    return <p className="text-center">No results</p>;
+  }
 
   return (
     <>
-      {toShow?.map((review) => (
+      {toShow.map((review) => (
         <ReviewItem
           key={review.id}
           variant="professor"

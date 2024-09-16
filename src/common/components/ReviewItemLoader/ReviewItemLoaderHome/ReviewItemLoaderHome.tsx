@@ -22,11 +22,14 @@ export const ReviewItemLoaderHome = () => {
 
   // data will be split in pages
   const toShow = data?.pages.flatMap((page) => page.items);
+  if (!toShow || toShow.length === 0) {
+    return <p className="text-center">No results</p>;
+  }
 
   return (
     <>
-      {toShow?.map((review) => (
-        <ReviewItem review={review} key={review.id} isLocked={!session} />
+      {toShow.map((review) => (
+        <ReviewItem key={review.id} review={review} isLocked={!session} />
       ))}
       {status === "authenticated" && hasNextPage && (
         <Button

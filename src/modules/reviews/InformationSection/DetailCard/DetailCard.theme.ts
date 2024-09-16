@@ -1,8 +1,8 @@
 import { type VariantProps, tv } from "tailwind-variants";
 
-export type DetailCardVariations = VariantProps<typeof DetailCardTheme>;
+export type DetailCardVariations = VariantProps<typeof detailCardTheme>;
 
-export const DetailCardTheme = tv(
+export const detailCardTheme = tv(
   {
     slots: {
       wrapper: [

@@ -9,9 +9,13 @@ export const reviewItemTheme = tv(
         "flex",
         "flex-col",
         "items-start",
+        "h-fit",
         "w-full",
         "rounded-md",
-        "cursor-pointer",
+        "after:rounded-md",
+        "hover:bg-surface-elevated",
+        "p-4",
+        "text-left",
         "max-w-[45rem]",
       ],
       headingContainer: [
@@ -45,7 +49,7 @@ export const reviewItemTheme = tv(
       ],
       body: [
         "text-sm",
-        "text-text-em-high",
+        "text-text-em-mid",
         "line-clamp-3",
         /**
          * TODO: replace when tailwind fixes behavior
