@@ -16,7 +16,6 @@ export const reviewItemTheme = tv(
         "hover:bg-surface-elevated",
         "p-4",
         "text-left",
-        "max-w-[45rem]",
       ],
       headingContainer: [
         "flex",
