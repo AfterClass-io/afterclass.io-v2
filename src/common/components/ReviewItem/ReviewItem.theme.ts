@@ -20,7 +20,7 @@ export const reviewItemTheme = tv(
       headingContainer: [
         "flex",
         "flex-col",
-        "items-start",
+        "items-center",
         "gap-3",
         "self-stretch",
       ],
