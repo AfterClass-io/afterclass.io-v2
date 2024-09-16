@@ -4,6 +4,7 @@ import {
   professorsRouter,
   reviewsRouter,
   reviewLabelsRouter,
+  reviewVotesRouter,
   universityRouter,
 } from "@/server/api/routers";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
@@ -19,6 +20,7 @@ export const appRouter = createTRPCRouter({
   professors: professorsRouter,
   reviews: reviewsRouter,
   reviewLabels: reviewLabelsRouter,
+  reviewVotes: reviewVotesRouter,
   university: universityRouter,
 });
 

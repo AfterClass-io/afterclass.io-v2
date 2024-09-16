@@ -18,7 +18,7 @@ export const reviewSectionTheme = tv(
           reviews: ["gap-3"],
         },
         md: {
-          wrapper: ["p-6", "gap-6"],
+          wrapper: ["p-8", "gap-6"],
           reviews: ["gap-5"],
         },
       },

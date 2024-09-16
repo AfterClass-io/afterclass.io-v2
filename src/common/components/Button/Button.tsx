@@ -18,7 +18,7 @@ import {
 } from "./Button.theme";
 import { Spinner } from "@/common/components/CustomIcon";
 
-interface ButtonBaseProps {
+export interface ButtonBaseProps {
   iconLeft?: ReactNode;
   iconRight?: ReactNode;
   isResponsive?: boolean;
