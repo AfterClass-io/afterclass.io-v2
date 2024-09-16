@@ -1,3 +1,6 @@
+import { useCallback } from "react";
+
+import { Button } from "@/common/components/Button";
 import { LockCtaOverlay } from "@/common/components/LockCtaOverlay";
 import { type Review } from "@/common/types";
 
@@ -6,7 +9,6 @@ import { ReviewerGroup } from "./ReviewerGroup";
 import { RevieweeGroup } from "./RevieweeGroup";
 import { ReviewBody } from "./ReviewBody";
 import { ReviewModal } from "./ReviewModal";
-import { useCallback } from "react";
 
 export type ReviewItemProps = ReviewItemVariants & {
   review: Review;
@@ -46,10 +48,10 @@ export const ReviewItem = ({
         </div>
       ) : (
         <ReviewModal review={review} variant={variant}>
-          <div className={wrapper()}>
+          <Button variant="ghost" className={wrapper()} asChild>
             <ReviewHeader />
             <ReviewBody isDetailed={variant !== "home"} review={review} />
-          </div>
+          </Button>
         </ReviewModal>
       )}
     </>
