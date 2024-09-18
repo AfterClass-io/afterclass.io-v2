@@ -14,7 +14,7 @@ export const ReviewerGroup = ({
   review,
   isMocked = false,
 }: ReviewerGroupProps) => {
-  const { reviewerGroup, metadataContainer, timedelta } = reviewItemTheme({
+  const { reviewerGroup, metadataContainer } = reviewItemTheme({
     size: { initial: "sm", md: "md" },
   });
 
