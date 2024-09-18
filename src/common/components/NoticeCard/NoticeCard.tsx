@@ -1,5 +1,5 @@
 import { AfterclassIcon } from "@/common/components/CustomIcon";
-import { noticeCardTheme, NoticeCardVariants } from "./NoticeCard.theme";
+import { noticeCardTheme, type NoticeCardVariants } from "./NoticeCard.theme";
 import { type ReactNode } from "react";
 
 export type NoticeCardProps = NoticeCardVariants & {
