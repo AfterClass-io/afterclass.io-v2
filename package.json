@@ -1,6 +1,6 @@
 {
   "name": "afterclass.io-v2",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": true,
   "scripts": {
     "build": "next build",
@@ -81,7 +81,7 @@
     "@typescript-eslint/eslint-plugin": "^7.3.1",
     "@typescript-eslint/parser": "^7.3.1",
     "autoprefixer": "^10.4.18",
-    "chromatic": "^11.0.8",
+    "chromatic": "^11.10.2",
     "css-loader": "^6.10.0",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.1.3",
