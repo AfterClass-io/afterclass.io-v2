@@ -97,7 +97,7 @@
     "tailwindcss-animate": "^1.0.7",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.2",
-    "webpack": "^5.90.3"
+    "webpack": "^5.94.0"
   },
   "ct3aMetadata": {
     "initVersion": "7.15.0"
