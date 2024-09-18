@@ -1,6 +1,5 @@
 import { useCallback } from "react";
 
-import { Button } from "@/common/components/Button";
 import { LockCtaOverlay } from "@/common/components/LockCtaOverlay";
 import { type Review } from "@/common/types";
 
@@ -47,11 +46,11 @@ export const ReviewItem = ({
           </div>
         </div>
       ) : (
-        <ReviewModal review={review} variant={variant}>
-          <Button variant="ghost" className={wrapper()} asChild>
+        <ReviewModal review={review} variant={variant} seeMore>
+          <div className={wrapper()}>
             <ReviewHeader />
             <ReviewBody isDetailed={variant !== "home"} review={review} />
-          </Button>
+          </div>
         </ReviewModal>
       )}
     </>

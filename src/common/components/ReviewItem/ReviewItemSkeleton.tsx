@@ -6,7 +6,11 @@ export const ReviewItemSkeleton = () => {
     size: { initial: "sm", md: "md" },
   });
   return (
-    <div className={wrapper({ className: "w-full items-stretch" })}>
+    <div
+      className={wrapper({
+        className: "w-full cursor-default items-stretch hover:bg-inherit",
+      })}
+    >
       <div className={headingContainer()}>
         <Skeleton className="h-[24px] w-[100px]" />
         <div className={metadataContainer()}>
