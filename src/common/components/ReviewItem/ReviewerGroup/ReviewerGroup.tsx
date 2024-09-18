@@ -1,9 +1,9 @@
 import { type Review } from "@/common/types";
 import { Profile } from "@/common/components/Profile";
-import { getHumanReadableTimestampDelta } from "@/common/functions";
 
 import { MockedReviewLikeButton, ReviewLikeButton } from "../ReviewLikeButton";
 import { reviewItemTheme, type ReviewItemVariants } from "../ReviewItem.theme";
+import { ReviewCreatedAt } from "../ReviewCreatedAt";
 
 export type ReviewerGroupProps = ReviewItemVariants & {
   review: Review;
@@ -33,9 +33,7 @@ export const ReviewerGroup = ({
         ) : (
           <ReviewLikeButton reviewId={review.id} size="sm" />
         )}
-        <div className={timedelta()}>
-          {getHumanReadableTimestampDelta(review.createdAt / 1000)}
-        </div>
+        <ReviewCreatedAt createdAt={review.createdAt} />
       </div>
     </div>
   );

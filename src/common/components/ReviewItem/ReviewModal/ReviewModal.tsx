@@ -1,14 +1,14 @@
 "use client";
 
 import { Modal } from "@/common/components/Modal";
-import { getHumanReadableTimestampDelta } from "@/common/functions";
 import { ShareIcon, ThumbUpFilledIcon } from "@/common/components/CustomIcon";
 import { type Review } from "@/common/types";
 import { Button } from "@/common/components/Button";
 
 import { reviewItemTheme } from "../ReviewItem.theme";
 import { RevieweeGroup } from "../RevieweeGroup";
-import { ReviewLikeButton } from "@/common/components/ReviewItem/ReviewLikeButton";
+import { ReviewLikeButton } from "../ReviewLikeButton";
+import { ReviewCreatedAt } from "../ReviewCreatedAt";
 
 export const ReviewModal = ({
   review,
@@ -53,9 +53,7 @@ export const ReviewModal = ({
           <div className={usernameAndTimestampWrapper()}>
             <span className={username()}>{review.username}</span>
             <span>•</span>
-            <span>
-              {getHumanReadableTimestampDelta(review.createdAt / 1000)}
-            </span>
+            <ReviewCreatedAt createdAt={review.createdAt} />
           </div>
           <p className={modalBody()}>{review.body}</p>
         </Modal.Body>
