@@ -2,7 +2,7 @@
   "enabled": true,
   "extends": ["config:best-practices", ":gitSignOff"],
   "automerge": false,
-  "bumpVersions": "patch",
+  "bumpVersion": "patch",
   "commitBodyTable": true,
   "configMigration": true,
   "labels": ["skip-changelog", "dependencies"]
