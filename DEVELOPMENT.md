@@ -11,7 +11,9 @@ information on how to work with branches in this project.
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/en/) >= v20.x
-- [Yarn](https://yarnpkg.com/) >= v1.22.x
+- package manager, either:
+  - [Yarn](https://yarnpkg.com/) >= v1.22.x
+  - [Bun](https://bun.sh/) >= v1.1.x
 - [Docker](https://www.docker.com/) and [Docker
   Compose](https://docs.docker.com/compose/) to spin up a local database
 
@@ -25,6 +27,10 @@ Install dependencies
 
 ```sh
 yarn
+
+# OR
+
+bun install
 ```
 
 Ensure you have the `.env` file in the root directory. You can copy the
@@ -62,6 +68,10 @@ Start the development server
 
 ```sh
 yarn dev
+
+# OR
+
+bunx dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the
@@ -81,6 +91,10 @@ docker-compose up
 
 ```sh
 yarn prisma migrate dev
+
+# OR
+
+bunx prisma migrate dev
 ```
 
 Only needs to be done once. This command will create the database schema and
@@ -107,6 +121,10 @@ Start the Storybook server
 
 ```sh
 yarn storybook
+
+# OR
+
+bunx storybook
 ```
 
 Open [http://localhost:6006](http://localhost:6006) with your browser to see the

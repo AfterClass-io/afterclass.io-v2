@@ -117,6 +117,10 @@ To run the migrations, you can use the following command:
 
 ```sh
 yarn prisma migrate dev
+
+# OR
+
+bunx prisma migrate dev
 ```
 
 Refer to prisma's [migration

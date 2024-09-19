@@ -26,7 +26,7 @@ Stack](https://create.t3.gg/en/introduction). With the following core
 technologies:
 
 - [TypeScript](https://www.typescriptlang.org/) - Statically typed JavaScript
-- [Yarn](https://yarnpkg.com/) - Dependency management
+- [Bun](https://bun.sh/) - Dependency management (not runtime)
 
 ### Frontend
 
