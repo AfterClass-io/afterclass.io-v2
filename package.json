@@ -1,6 +1,6 @@
 {
   "name": "afterclass.io-v2",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "private": true,
   "scripts": {
     "build": "next build",
@@ -29,7 +29,7 @@
     "@radix-ui/react-toggle-group": "^1.0.4",
     "@radix-ui/react-tooltip": "^1.1.2",
     "@supabase/supabase-js": "^2.39.8",
-    "@t3-oss/env-nextjs": "^0.9.2",
+    "@t3-oss/env-nextjs": "^0.11.0",
     "@tanstack/react-query": "^5.25.0",
     "@trpc/client": "next",
     "@trpc/next": "next",
