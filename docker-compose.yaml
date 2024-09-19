@@ -6,7 +6,7 @@ volumes:
 services:
   db:
     container_name: supabase-db
-    image: supabase/postgres:15.6.1.121@sha256:8b5b139dc29e5b56ba47dec2e48273a0c30582f65323c9edacdd3c80c06eb3a4
+    image: supabase/postgres:15.6.1.122@sha256:7b9ce9845960be12dd4f179bdf8974ae5f694f5d7f0c3d5def062351dc592661
     # networks:
     #   - afterclass
     healthcheck:
