@@ -1,3 +1,4 @@
+"use client";
 import { Tooltip } from "@/common/components/Tooltip";
 import { Button } from "@/common/components/Button";
 import { profileTheme } from "@/common/components/Profile";

@@ -1,3 +1,4 @@
+"use client";
 import { CustomIcon, type CustomIconProps } from "../CustomIcon";
 import { NTUIcon } from "./NTUIcon";
 import { NUSIcon } from "./NUSIcon";
