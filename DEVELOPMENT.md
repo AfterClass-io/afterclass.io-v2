@@ -11,9 +11,7 @@ information on how to work with branches in this project.
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/en/) >= v20.x
-- package manager, either:
-  - [Yarn](https://yarnpkg.com/) >= v1.22.x
-  - [Bun](https://bun.sh/) >= v1.1.x
+- [Bun](https://bun.sh/) >= v1.1.x
 - [Docker](https://www.docker.com/) and [Docker
   Compose](https://docs.docker.com/compose/) to spin up a local database
 
@@ -26,10 +24,6 @@ git clone <PROJECT_URL>
 Install dependencies
 
 ```sh
-yarn
-
-# OR
-
 bun install
 ```
 
@@ -67,10 +61,6 @@ recommended settings and extensions for VSCode. You can find the settings in the
 Start the development server
 
 ```sh
-yarn dev
-
-# OR
-
 bunx dev
 ```
 
@@ -90,10 +80,6 @@ docker-compose up
 > database schema
 
 ```sh
-yarn prisma migrate dev
-
-# OR
-
 bunx prisma migrate dev
 ```
 
@@ -120,10 +106,6 @@ more information on how to use docker compose.
 Start the Storybook server
 
 ```sh
-yarn storybook
-
-# OR
-
 bunx storybook
 ```
 

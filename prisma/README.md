@@ -18,7 +18,7 @@
 
 - correct copy of `.env` file
 - `docker-compose`
-- `prisma` (via running `yarn` or `bun install` from project root)
+- `prisma` (via running `bun install` from project root)
 
 ## Schema and Data Migrations
 

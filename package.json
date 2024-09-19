@@ -2,7 +2,6 @@
   "name": "afterclass.io-v2",
   "version": "0.1.7",
   "private": true,
-  "packageManager": "bun@1.1.28",
   "scripts": {
     "build": "next build",
     "dev": "next dev",
