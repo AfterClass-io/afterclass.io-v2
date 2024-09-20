@@ -8,7 +8,7 @@
   "labels": ["skip-changelog", "dependencies"],
   "packageRules": [
     {
-      "depTypeList": ["devDependencies"],
+      "matchDepTypes": ["devDependencies"],
       "schedule": "before 3am on Sunday",
       "groupName": "all devDependencies"
     }
