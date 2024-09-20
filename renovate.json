@@ -5,5 +5,12 @@
   "bumpVersion": "patch",
   "commitBodyTable": true,
   "configMigration": true,
-  "labels": ["skip-changelog", "dependencies"]
+  "labels": ["skip-changelog", "dependencies"],
+  "packageRules": [
+    {
+      "depTypeList": ["devDependencies"],
+      "schedule": "before 3am on Sunday",
+      "groupName": "all devDependencies"
+    }
+  ]
 }
