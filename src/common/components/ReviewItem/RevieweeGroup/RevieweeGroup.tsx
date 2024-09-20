@@ -34,7 +34,7 @@ export const RevieweeGroup = ({ review, variant }: RevieweeGroupProps) => {
           <Button
             variant="link"
             as="a"
-            href={`/professor/${review.username}`}
+            href={`/professor/${review.professorSlug}`}
             className={profileNameClass({
               class: "hover:text-primary-default hover:no-underline",
             })}
