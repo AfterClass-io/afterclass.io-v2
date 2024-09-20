@@ -8,7 +8,8 @@ import { lightCssVariables, lightTailwindConfig } from "../themes/lightTheme";
 export const themingSystemPlugin = plugin(
   // Note: somehow unable to use { theme } and pass it into our functions
   // so we're using config instead
-  function ({ addBase, config }) {
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  ({ addBase, config }) => {
     const theme = config().theme;
     addBase({
       // Create CSS variable overrides based on theme class

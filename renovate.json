@@ -12,5 +12,8 @@
       "schedule": "before 3am on Sunday",
       "groupName": "all devDependencies"
     }
-  ]
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true
+  }
 }
