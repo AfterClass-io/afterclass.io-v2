@@ -19,16 +19,15 @@ export const ThemeToggle = () => {
     if (theme === APP_THEMES.dark) setTheme(APP_THEMES.light);
   }, [setTheme, theme]);
 
-  return (
-    <>
-      {isMounted && (
-        <Button
-          onClick={handleToggleTheme}
-          aria-label="theme-toggle"
-          variant="tertiary"
-          iconLeft={theme === APP_THEMES.dark ? <SunIcon /> : <MoonIcon />}
-        />
-      )}
-    </>
+  return isMounted ? (
+    <Button
+      onClick={handleToggleTheme}
+      aria-label="theme-toggle"
+      variant="tertiary"
+      iconLeft={theme === APP_THEMES.dark ? <SunIcon /> : <MoonIcon />}
+      disabled={!isMounted}
+    />
+  ) : (
+    <Button aria-label="theme-toggle" variant="tertiary" loading disabled />
   );
 };
