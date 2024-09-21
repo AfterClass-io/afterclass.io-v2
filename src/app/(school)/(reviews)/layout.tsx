@@ -18,7 +18,7 @@ export default function ReviewLayout({
   information: ReactNode;
 }) {
   return (
-    <section className="flex flex-col items-center space-y-6">
+    <section className="flex flex-col items-center space-y-4 md:space-y-6">
       {header}
       {rating}
       {information}

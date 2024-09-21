@@ -17,7 +17,7 @@ export default async function CourseInfo({
     return notFound();
   }
   return (
-    <div className="flex w-full flex-wrap gap-6 md:flex-nowrap">
+    <div className="flex w-full flex-wrap gap-4 md:flex-nowrap md:gap-6">
       <div className="w-full md:w-2/3">
         <InformationCard courseDesc={course.description}>
           {!session ? (

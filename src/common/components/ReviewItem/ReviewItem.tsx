@@ -49,7 +49,7 @@ export const ReviewItem = ({
         <ReviewModal review={review} variant={variant} seeMore>
           <div className={wrapper()}>
             <ReviewHeader />
-            <ReviewBody isDetailed={variant !== "home"} review={review} />
+            <ReviewBody review={review} />
           </div>
         </ReviewModal>
       )}

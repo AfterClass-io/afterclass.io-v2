@@ -96,7 +96,8 @@ export const reviewItemTheme = tv(
           timedelta: ["text-xs"],
           body: ["text-xs"],
           labels: ["text-xs"],
-          modalContent: ["m-0", "h-full", "text-xs"],
+          modalContent: ["text-xs"],
+          seeMoreLink: ["h-fit"],
         },
         md: {
           wrapper: ["gap-4"],

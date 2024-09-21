@@ -3,8 +3,9 @@ import { ClipboardIcon } from "@/common/components/CustomIcon";
 import { Skeleton } from "@/common/components/Skeleton";
 
 export const InformationCardSkeleton = () => {
-  const { wrapper, header, icon, content, description } =
-    informationCardTheme();
+  const { wrapper, header, icon, content, description } = informationCardTheme({
+    size: { initial: "sm", md: "md" },
+  });
   return (
     <div className={wrapper()}>
       <div className={header()}>

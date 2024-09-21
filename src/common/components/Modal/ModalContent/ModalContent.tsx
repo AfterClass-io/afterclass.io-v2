@@ -9,8 +9,8 @@ import {
 import { type PropsWithChildren } from "react";
 import { Button } from "@/common/components/Button";
 
-import { modalTheme } from "@/common/components/Modal/Modal.theme";
-import { useModal } from "@/common/components/Modal/ModalProvider";
+import { modalTheme } from "../Modal.theme";
+import { useModal } from "../ModalProvider";
 
 type PointerDownOutsideEvent = CustomEvent<{
   originalEvent: PointerEvent;
@@ -28,7 +28,11 @@ export const ModalContent = ({
   const { hasCloseButton, preventClickOutsideToClose, variant, overflow } =
     useModal();
 
-  const { content, close, overlay } = modalTheme({ variant, overflow });
+  const { content, close, overlay } = modalTheme({
+    variant,
+    overflow,
+    size: { initial: "sm", md: "md" },
+  });
 
   const preventClickOutsideToCloseProps = preventClickOutsideToClose && {
     onPointerDownOutside: (e: PointerDownOutsideEvent) => e.preventDefault(),

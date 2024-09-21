@@ -2,7 +2,9 @@ import { detailCardTheme } from "./DetailCard.theme";
 import { Skeleton } from "@/common/components/Skeleton";
 
 export const DetailCardSkeleton = () => {
-  const { wrapper, header, body } = detailCardTheme();
+  const { wrapper, header, body } = detailCardTheme({
+    size: { initial: "sm", md: "md" },
+  });
   return (
     <div className={wrapper()}>
       <div className={header()}>

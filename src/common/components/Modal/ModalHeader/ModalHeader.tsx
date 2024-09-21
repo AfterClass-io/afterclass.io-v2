@@ -9,8 +9,8 @@ import {
   Heading,
   type HeadingProps,
 } from "@/common/components/Heading/Heading";
-import { modalTheme } from "@/common/components/Modal/Modal.theme";
 import { cn } from "@/common/functions";
+import { modalTheme } from "../Modal.theme";
 
 export interface ModalHeaderProps extends ComponentPropsWithoutRef<"div"> {
   className?: string;
@@ -27,7 +27,9 @@ export const ModalHeader = ({
   headingProps,
   ...props
 }: PropsWithChildren<ModalHeaderProps>) => {
-  const { header, headerDescription } = modalTheme();
+  const { header, headerDescription } = modalTheme({
+    size: { initial: "sm", md: "md" },
+  });
 
   return (
     <div

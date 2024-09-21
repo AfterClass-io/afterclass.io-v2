@@ -94,14 +94,16 @@ export const FilterToggleSection = (props: FilterToggleSectionProps) => {
           />
         ))}
       </Filter.Items>
-      <Button
-        variant="link"
-        className="px-1 md:hidden"
-        onClick={() => setIsFilterItemsExpanded(!isFilterItemsExpanded)}
-        isResponsive
-      >
-        {isFilterItemsExpanded ? "Show less" : "Show more"}
-      </Button>
+      {dataToFilter.length > 3 && (
+        <Button
+          variant="link"
+          className="px-1 md:hidden"
+          onClick={() => setIsFilterItemsExpanded(!isFilterItemsExpanded)}
+          isResponsive
+        >
+          {isFilterItemsExpanded ? "Show less" : "Show more"}
+        </Button>
+      )}
     </Filter>
   );
 };

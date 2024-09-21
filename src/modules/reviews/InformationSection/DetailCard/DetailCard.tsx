@@ -8,7 +8,9 @@ export const DetailCard = ({
   courseCode: string;
   courseCU: number;
 }) => {
-  const { wrapper, header, body, content, field, value } = detailCardTheme();
+  const { wrapper, header, body, content, field, value } = detailCardTheme({
+    size: { initial: "sm", md: "md" },
+  });
   return (
     <div className={wrapper()}>
       <div className={header()}>
@@ -16,11 +18,11 @@ export const DetailCard = ({
       </div>
       <div className={body()}>
         <div className={content()}>
-          <p className={field()}>Course code</p>
+          <p className={field()}>Course code:</p>
           <p className={value()}>{courseCode}</p>
         </div>
         <div className={content()}>
-          <p className={field()}>Credit unit</p>
+          <p className={field()}>Credit unit:</p>
           <p className={value()}>{courseCU}</p>
         </div>
       </div>

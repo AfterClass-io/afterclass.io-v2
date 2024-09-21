@@ -11,17 +11,16 @@ export const ReviewSection = ({
   children,
   ...props
 }: ReviewSectionProps) => {
-  const { wrapper, header, title, icon, reviewsHeader, reviews } =
-    reviewSectionTheme({
-      size: { initial: "sm", md: "md" },
-    });
+  const { wrapper, header, title, icon, reviews } = reviewSectionTheme({
+    size: { initial: "sm", md: "md" },
+  });
 
   return (
     <div className={wrapper({ className })} {...props}>
       <div className={header()}>
         <div className={title()}>
           <PenIcon className={icon()} />
-          <div className={reviewsHeader()}>Reviews</div>
+          <p>Reviews</p>
         </div>
       </div>
       <div className={reviews()}>{children}</div>

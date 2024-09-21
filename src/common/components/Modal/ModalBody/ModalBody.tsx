@@ -1,7 +1,7 @@
 import { type ComponentPropsWithoutRef, type PropsWithChildren } from "react";
 
-import { modalTheme } from "@/common/components/Modal/Modal.theme";
-import { useModal } from "@/common/components/Modal/ModalProvider";
+import { modalTheme } from "../Modal.theme";
+import { useModal } from "../ModalProvider";
 
 interface ModalBodyProps extends ComponentPropsWithoutRef<"div"> {
   className?: string;
@@ -12,7 +12,7 @@ export const ModalBody = ({
   className,
   ...props
 }: PropsWithChildren<ModalBodyProps>) => {
-  const { body } = modalTheme();
+  const { body } = modalTheme({ size: { initial: "sm", md: "md" } });
   const { overflow } = useModal();
 
   return (

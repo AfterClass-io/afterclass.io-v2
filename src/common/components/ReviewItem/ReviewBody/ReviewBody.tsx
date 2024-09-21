@@ -4,7 +4,7 @@ import { type Review } from "@/common/types";
 
 export type ReviewBodyProps = ReviewItemVariants & {
   review: Review;
-  isDetailed: boolean;
+  isDetailed?: boolean;
   variant?: "home" | "subpage";
 };
 

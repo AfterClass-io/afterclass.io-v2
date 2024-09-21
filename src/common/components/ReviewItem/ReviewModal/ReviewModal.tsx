@@ -69,6 +69,7 @@ export const ReviewModal = ({
               variant="tertiary"
               iconLeft={<ShareIcon />}
               aria-label="Share"
+              isResponsive
             >
               0
             </Button>
@@ -82,6 +83,7 @@ export const ReviewModal = ({
                 variant="link"
                 href={reviewPath}
                 className={seeMoreLink()}
+                isResponsive
               >
                 See more reviews
               </Button>

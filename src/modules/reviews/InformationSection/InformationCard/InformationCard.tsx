@@ -12,8 +12,9 @@ export const InformationCard = ({
   courseDesc: string;
   children: ReactNode;
 }) => {
-  const { wrapper, header, icon, content, description } =
-    informationCardTheme();
+  const { wrapper, header, icon, content, description } = informationCardTheme({
+    size: { initial: "sm", md: "md" },
+  });
   return (
     <div className={wrapper()}>
       <div className={header()}>

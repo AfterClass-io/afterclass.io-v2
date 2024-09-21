@@ -1,6 +1,6 @@
 import { type ComponentPropsWithoutRef, type PropsWithChildren } from "react";
 
-import { modalTheme } from "@/common/components/Modal/Modal.theme";
+import { modalTheme } from "../Modal.theme";
 
 interface ModalFooterProps extends ComponentPropsWithoutRef<"div"> {
   className?: string;
@@ -13,6 +13,7 @@ export const ModalFooter = ({
 }: PropsWithChildren<ModalFooterProps>) => {
   const { footer } = modalTheme({
     className,
+    size: { initial: "sm", md: "md" },
   });
 
   return (
