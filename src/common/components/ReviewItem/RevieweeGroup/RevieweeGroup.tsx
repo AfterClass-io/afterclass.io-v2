@@ -15,36 +15,35 @@ export const RevieweeGroup = ({ review, variant }: RevieweeGroupProps) => {
   const { revieweeGroup } = reviewItemTheme({
     size: { initial: "sm", md: "md" },
   });
-  const { wrapper: profileWrapperClass, name: profileNameClass } =
-    profileTheme();
+  const { name: profileNameClass } = profileTheme();
 
-  const isAdditionallyDisplayCourseCode =
-    variant === "home" && review.professorName;
+  const isShowProf =
+    review.professorName && (variant === "home" || variant === "course");
+
+  const isShowCourse = variant === "home" && isShowProf;
 
   return (
     <div className={revieweeGroup()}>
-      <div className={profileWrapperClass()}>
-        <SchoolIcon school={review.university} />
-        {!review.professorName ? (
-          <RevieweeCourse
-            courseCode={review.courseCode}
-            courseName={review.courseName}
-          />
-        ) : (
-          <Button
-            variant="link"
-            as="a"
-            href={`/professor/${review.professorSlug}`}
-            className={profileNameClass({
-              class: "hover:text-primary-default hover:no-underline",
-            })}
-            aria-label="professor"
-          >
-            {review.professorName}
-          </Button>
-        )}
-      </div>
-      {isAdditionallyDisplayCourseCode && (
+      <SchoolIcon school={review.university} />
+      {isShowProf ? (
+        <Button
+          variant="link"
+          as="a"
+          href={`/professor/${review.professorSlug}`}
+          className={profileNameClass({
+            class: "hover:text-primary-default hover:no-underline",
+          })}
+          aria-label="professor"
+        >
+          {review.professorName}
+        </Button>
+      ) : (
+        <RevieweeCourse
+          courseCode={review.courseCode}
+          courseName={review.courseName}
+        />
+      )}
+      {isShowCourse && (
         <RevieweeCourse
           courseCode={review.courseCode}
           courseName={review.courseName}
