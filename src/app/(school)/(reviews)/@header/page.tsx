@@ -1,4 +1,4 @@
-import { AnnouncementBanner } from "@/modules/home/AnnouncementBanner";
+import { AnnouncementCarousel } from "@/modules/home/AnnouncementCarousel";
 import { getFeatureFlag } from "@/server/posthog";
 
 export default async function HomeHeader() {
@@ -6,5 +6,5 @@ export default async function HomeHeader() {
   if (!isEnabled) {
     return null;
   }
-  return <AnnouncementBanner />;
+  return <AnnouncementCarousel />;
 }

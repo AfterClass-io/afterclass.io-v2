@@ -1,6 +1,6 @@
 import Image from "next/image";
 import cat from "@/../public/cat.webp";
-import { announcementsBannerTheme } from "../AnnouncementBanner.theme";
+import { announcementsBannerTheme } from "../AnnouncementCarousel.theme";
 
 export const AnnouncementCard = ({
   announcement,

@@ -1,9 +1,11 @@
+import { type PropsWithChildren } from "react";
+
 import { Button } from "@/common/components/Button";
 import { ThemeToggle } from "@/common/components/ThemeToggle";
 import { cn } from "@/common/functions";
-import { type PropsWithChildren } from "react";
 import { getServerAuthSession } from "@/server/auth";
 import { Breadcrumb } from "@/modules/home/Breadcrumb";
+import { AnnouncementsBanner } from "@/modules/home/AnnouncementBanner";
 
 export default async function SchoolLayout({ children }: PropsWithChildren) {
   const session = await getServerAuthSession();
@@ -36,6 +38,8 @@ export default async function SchoolLayout({ children }: PropsWithChildren) {
           <ThemeToggle />
         </div>
       </header>
+
+      <AnnouncementsBanner />
 
       <div className="h-full overflow-y-scroll p-6 md:p-12">
         <div className="mx-auto max-w-[1200px]">{children}</div>
