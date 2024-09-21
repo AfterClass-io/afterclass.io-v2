@@ -95,7 +95,7 @@ export const SearchCmdk = () => {
                 <kbd className={kbdStyle()}>/</kbd>
               </Tooltip.Trigger>
               <Tooltip.Content side="right" sideOffset={36}>
-                <div className="p-1 px-5 text-center text-sm">
+                <div className="p-1 px-5 text-sm">
                   <div className="text-secondary-default">
                     Looking for a
                     <br />
