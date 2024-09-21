@@ -1,7 +1,7 @@
 /**
  * Zod schemas for custom validation
  */
-import { env } from "@/env.mjs";
+import { env } from "@/env";
 import { z } from "zod";
 
 import { ReviewableEnum, SubmitAsEnum } from "@/modules/submit/types";

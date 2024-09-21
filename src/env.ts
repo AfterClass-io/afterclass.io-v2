@@ -2,6 +2,16 @@ import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
 import validator from "validator";
 
+const siteUrlValidator = (vercelUrlEnv?: string) =>
+  z
+    .optional(z.string())
+    .transform((str) => {
+      let url = str ?? vercelUrlEnv ?? "http://localhost:3000/";
+      url = url.startsWith("http") ? url : `https://${url}`;
+      return url;
+    })
+    .pipe(z.string().url());
+
 export const env = createEnv({
   /**
    * Specify your server-side environment variables schema here. This way you can ensure the app
@@ -9,19 +19,17 @@ export const env = createEnv({
    */
   server: {
     DATABASE_URL: z.string().url(),
-    NODE_ENV: z.enum(["development", "test", "production"]),
+    NODE_ENV: z
+      .enum(["development", "test", "production"])
+      .default("development"),
     NEXTAUTH_SECRET:
       process.env.NODE_ENV === "production"
-        ? z.string().min(1)
-        : z.string().min(1).optional(),
-    // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
-    NEXTAUTH_URL: z.preprocess(
-      // This makes Vercel deployments not fail if you don't set NEXTAUTH_URL
-      // Since NextAuth.js automatically uses the VERCEL_URL if present.
-      (str) => process.env.VERCEL_URL ?? str,
-      // VERCEL_URL doesn't include `https` so it cant be validated as a URL
-      process.env.VERCEL ? z.string().min(1) : z.string().url(),
-    ),
+        ? z.string()
+        : z.string().optional(),
+    // VERCEL_URL is automatically set by Vercel
+    // as system environment variable. doesn't include `https`
+    // https://vercel.com/docs/projects/environment-variables/system-environment-variables
+    NEXTAUTH_URL: siteUrlValidator(process.env.VERCEL_URL),
     SUPABASE_SERVICE_ROLE_KEY: z.string(),
   },
 
@@ -34,21 +42,10 @@ export const env = createEnv({
     // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
     NEXT_PUBLIC_POSTHOG_KEY: z.string(),
     NEXT_PUBLIC_POSTHOG_HOST: z.string(),
-    NEXT_PUBLIC_SITE_URL: z
-      .optional(z.string())
-      .transform((str) => {
-        let url =
-          str ??
-          // Automatically set by Vercel as system environment variable
-          // NEXT_PUBLIC_VERCEL_URL doesn't include `https`
-          // https://vercel.com/docs/projects/environment-variables/system-environment-variables
-          process.env.NEXT_PUBLIC_VERCEL_URL ??
-          "http://localhost:3000/";
-        // Make sure to include `https://` when using NEXT_PUBLIC_VERCEL_URL
-        url = url.startsWith("http") ? url : `https://${url}`;
-        return url;
-      })
-      .pipe(z.string().url()),
+    // NEXT_PUBLIC_VERCEL_URL is automatically set by Vercel
+    // as system environment variable. doesn't include `https`
+    // https://vercel.com/docs/projects/environment-variables/system-environment-variables
+    NEXT_PUBLIC_SITE_URL: siteUrlValidator(process.env.NEXT_PUBLIC_VERCEL_URL),
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
     NEXT_PUBLIC_SUPABASE_URL: z.string(),
     NEXT_PUBLIC_SUPPORTED_SCH_DOMAINS: z
@@ -102,4 +99,9 @@ export const env = createEnv({
    * This is especially useful for Docker builds.
    */
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,
+  /**
+   * Makes it so that empty strings are treated as undefined. `SOME_VAR: z.string()` and
+   * `SOME_VAR=''` will throw an error.
+   */
+  emptyStringAsUndefined: true,
 });

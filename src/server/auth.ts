@@ -8,7 +8,7 @@ import {
 import { z } from "zod";
 import { randomBytes, randomUUID } from "crypto";
 import bcrypt from "bcrypt";
-import { env } from "@/env.mjs";
+import { env } from "@/env";
 import { signInWithEmail } from "./supabase";
 import { emailValidationSchema } from "@/common/tools/zod/schemas";
 import { db } from "@/server/db";

@@ -2,7 +2,7 @@ import { type ReactNode } from "react";
 
 import { CtaCard } from "@/common/components/CtaCard";
 import { EditIcon, GithubIcon, PlusIcon } from "@/common/components/CustomIcon";
-import { env } from "@/env.mjs";
+import { env } from "@/env";
 
 export default function ReviewLayout({
   children,

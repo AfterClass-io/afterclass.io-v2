@@ -17,7 +17,7 @@ import { SidebarItem } from "@/common/components/SidebarItem";
 import { Logo } from "@/common/components/Logo";
 import { SearchCmdk } from "@/common/components/SearchCmdk";
 import { cn } from "@/common/functions";
-import { env } from "@/env.mjs";
+import { env } from "@/env";
 
 const SIDEBAR_ITEMS = [
   {

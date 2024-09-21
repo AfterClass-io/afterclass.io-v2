@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { inter, poppins } from "@/common/fonts";
 import { Button } from "@/common/components/Button";
 import { NoticeCard } from "@/common/components/NoticeCard";
-import { env } from "@/env.mjs";
+import { env } from "@/env";
 import ThemeProvider from "@/common/providers/ThemeProvider";
 
 export default function GlobalError({

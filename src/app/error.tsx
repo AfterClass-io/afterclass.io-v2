@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 import { Button } from "@/common/components/Button";
 import { NoticeCard } from "@/common/components/NoticeCard";
-import { env } from "@/env.mjs";
+import { env } from "@/env";
 
 export default function RootError({
   error,

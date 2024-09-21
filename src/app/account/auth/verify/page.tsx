@@ -2,7 +2,7 @@ import { AuthCard } from "@/common/components/Auth";
 import { Button } from "@/common/components/Button";
 import Heading from "@/common/components/Heading";
 import { notFound } from "next/navigation";
-import { env } from "@/env.mjs";
+import { env } from "@/env";
 import { Fragment } from "react";
 
 export default function Verify({

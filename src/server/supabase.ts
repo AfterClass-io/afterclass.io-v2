@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { env } from "@/env.mjs";
+import { env } from "@/env";
 
 export enum ResendType {
   SIGNUP = "signup",

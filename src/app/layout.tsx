@@ -8,7 +8,7 @@ import ThemeProvider from "@/common/providers/ThemeProvider";
 import AuthProvider from "@/common/providers/AuthProvider";
 import TooltipProvider from "@/common/providers/TooltipProvider";
 import { inter, poppins } from "@/common/fonts";
-import { env } from "@/env.mjs";
+import { env } from "@/env";
 import { CSPostHogProvider } from "@/common/providers/analytics/providers";
 import dynamic from "next/dynamic";
 
