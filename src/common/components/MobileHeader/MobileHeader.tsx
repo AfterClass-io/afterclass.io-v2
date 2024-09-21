@@ -39,14 +39,17 @@ export const MobileHeader = ({ isLoggedIn, ...props }: MobileHeaderProps) => {
           </Link>
         </div>
         <div className="flex items-center gap-4">
-          {/* TODO: Add search command */}
-          <SearchCmdk>
-            <Icon
-              icon="charm:search"
-              width={20}
-              className="text-text-on-tertiary"
-            />
-          </SearchCmdk>
+          <Icon
+            icon="charm:search"
+            width={20}
+            className="text-text-on-tertiary"
+            onClick={() =>
+              // hack to activate search command modal
+              // due to hooks on <SearchCmdk/> somehow being loaded
+              // despite parent component being 'hidden'
+              document.dispatchEvent(new KeyboardEvent("keydown", { key: "/" }))
+            }
+          />
 
           {isLoggedIn ? (
             <Button

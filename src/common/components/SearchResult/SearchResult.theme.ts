@@ -39,9 +39,9 @@ export const searchResultTheme = tv(
       ],
       itemSchoolIcon: ["mt-[2px]", "flex-none", "text-primary-default"],
       itemArrow: ["flex-none", "text-text-em-mid"],
-      itemTitle: ["text-left", "tracking-tight"],
-      itemSubtitle: ["tracking-tight", "text-text-em-low"],
-      itemStatsWrapper: ["flex", "items-center", "gap-4", "text-text-em-low"],
+      itemTitle: ["text-left", "tracking-tight", "text-text-em-mid"],
+      itemSubtitle: ["tracking-tight", "text-text-em-low", "font-normal"],
+      itemStatsWrapper: ["flex", "items-center", "text-text-em-low"],
       divider: ["mx-4", "border-l-2", "border-border-default"],
       filter: [
         "sticky",
