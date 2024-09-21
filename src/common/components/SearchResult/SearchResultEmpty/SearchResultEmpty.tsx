@@ -9,9 +9,9 @@ export const SearchResultEmpty = ({ show = false }: { show: boolean }) => {
     <div className={empty()}>
       <div className="text-xl">No results found.</div>
       <hr />
-      <div className="text-text-em-low">
+      <div className="w-full text-text-em-low">
         <strong className="text-text-em-mid">💡 Tip!</strong> You can search for
-        a course's name, course code, or professor's name.
+        a course’s name, course code, or professor’s name.
         <br />
         <br />
         (e.g.)

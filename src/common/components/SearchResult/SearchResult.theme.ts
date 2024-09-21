@@ -76,7 +76,7 @@ export const searchResultTheme = tv(
           filter: ["hidden"],
         },
         md: {
-          empty: ["p-8"],
+          empty: ["p-8", "px-16"],
           item: ["p-4", "gap-4"],
           itemContent: ["gap-4"],
           itemTitle: ["text-lg"],

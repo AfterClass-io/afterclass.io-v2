@@ -2,6 +2,7 @@
 
 import { Button } from "@/common/components/Button";
 import { AfterclassIcon, PlusIcon } from "@/common/components/CustomIcon";
+import { SearchCmdk } from "@/common/components/SearchCmdk";
 import { Sidebar } from "@/common/components/Sidebar";
 import { cn } from "@/common/functions";
 import { Icon } from "@iconify-icon/react";
@@ -39,13 +40,13 @@ export const MobileHeader = ({ isLoggedIn, ...props }: MobileHeaderProps) => {
         </div>
         <div className="flex items-center gap-4">
           {/* TODO: Add search command */}
-          <button className="grid place-content-center">
+          <SearchCmdk>
             <Icon
               icon="charm:search"
               width={20}
               className="text-text-on-tertiary"
             />
-          </button>
+          </SearchCmdk>
 
           {isLoggedIn ? (
             <Button
