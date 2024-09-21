@@ -27,3 +27,4 @@ export const Tooltip = (
 Tooltip.Trigger = TooltipTrigger;
 Tooltip.Content = TooltipContent;
 Tooltip.Provider = TooltipProvider;
+Tooltip.Arrow = TooltipPrimitive.TooltipArrow;

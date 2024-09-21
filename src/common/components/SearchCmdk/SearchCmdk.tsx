@@ -7,13 +7,31 @@ import { Modal } from "@/common/components/Modal";
 import { Button } from "@/common/components/Button";
 import { SearchIcon } from "@/common/components/CustomIcon";
 import { Input } from "@/common/components/Input";
+import { Tooltip } from "@/common/components/Tooltip";
 
 import { searchCmdkTheme } from "./SearchCmdk.theme";
+import { usePostHog } from "posthog-js/react";
 
 export const SearchCmdk = () => {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const router = useRouter();
+
+  const posthog = usePostHog();
+
+  const isFirstTimeToolTip = posthog.isFeatureEnabled(
+    "onboarding_search_tooltip",
+  );
+
+  useEffect(() => {
+    if (isFirstTimeToolTip) {
+      const timeoutId = setTimeout(() => {
+        setIsTooltipOpen(true);
+      }, 10_000);
+      return () => clearTimeout(timeoutId);
+    }
+  }, []);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -63,7 +81,35 @@ export const SearchCmdk = () => {
         <Input
           className={triggerInput()}
           contentLeft={<SearchIcon size={16} className={searchIcon()} />}
-          contentRight={<kbd className={kbdStyle()}>/</kbd>}
+          contentRight={
+            <Tooltip
+              open={isTooltipOpen}
+              onOpenChange={() => {
+                posthog.capture("onboarding_search_tooltip", {
+                  $set: { onboarding_search_tooltip_visited: true },
+                });
+                setIsTooltipOpen((prev) => !prev);
+              }}
+            >
+              <Tooltip.Trigger asChild>
+                <kbd className={kbdStyle()}>/</kbd>
+              </Tooltip.Trigger>
+              <Tooltip.Content side="right" sideOffset={36}>
+                <div className="p-1 px-5 text-center text-sm">
+                  <div className="text-secondary-default">
+                    Looking for a
+                    <br />
+                    Professor or Course?
+                  </div>
+                  <div className="mt-2">
+                    Try pressing &quot;/&quot; or
+                    <br />
+                    clicking here to search
+                  </div>
+                </div>
+              </Tooltip.Content>
+            </Tooltip>
+          }
           value="Search"
           size="sm"
         />

@@ -56,12 +56,9 @@ export const authOptions: NextAuthOptions = {
           password: z.string(),
         });
         const c = Credential.safeParse(credentials);
-        if (!c.success) {
-          console.log("auth.ts:72 ~ authorize ~ error:", c.error);
-          return null;
-        }
-        const emailDomain = c.data.email.split("@")[1];
+        if (!c.success) return null;
 
+        const emailDomain = c.data.email.split("@")[1];
         const user = await db.users.findUnique({
           where: { email: c.data.email },
         });
@@ -83,10 +80,7 @@ export const authOptions: NextAuthOptions = {
           c.data.password,
         );
         if (error) {
-          console.log(
-            "auth.ts:80 ~ authorize ~ error:",
-            `${error.name}: ${error.message}`,
-          );
+          console.error(`Authorize Error: ${error.name}: ${error.message}`);
           return null;
         }
 
