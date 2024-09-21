@@ -28,15 +28,18 @@ export const AnnouncementsBanner = () => {
 
   return (
     isShown && (
-      <div className="relative flex w-full items-center justify-center gap-2 bg-primary-dark">
-        <span>We have a new look!</span>
-        <span>Missed the old AfterClass?</span>
+      <div className="relative flex w-full items-center justify-center gap-6 bg-primary-dark p-2 text-xs md:gap-2 md:p-1 md:text-sm">
+        <span className="flex flex-col gap-1 md:flex-row">
+          <span>We have a new look!</span>
+          <span>Missed the old AfterClass?</span>
+        </span>
         <Button
           as="a"
           variant="link"
-          className="inline-flex pb-[1px] text-text-on-primary underline hover:text-secondary-default"
+          className="inline-flex h-fit p-0 pb-[1px] text-text-on-primary underline hover:text-secondary-default md:h-fit md:p-0 md:text-sm"
           href="https://old.afterclass.io"
           external
+          isResponsive
         >
           Bring me back
         </Button>

@@ -2,7 +2,6 @@
 
 import { Button } from "@/common/components/Button";
 import { AfterclassIcon, PlusIcon } from "@/common/components/CustomIcon";
-import { SearchCmdk } from "@/common/components/SearchCmdk";
 import { Sidebar } from "@/common/components/Sidebar";
 import { cn } from "@/common/functions";
 import { Icon } from "@iconify-icon/react";
