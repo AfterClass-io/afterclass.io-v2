@@ -7,7 +7,9 @@ export const SearchResultTitle = ({
 }: {
   searchTerm?: string;
 }) => {
-  const { title, titleIcon } = searchResultTheme();
+  const { title, titleIcon } = searchResultTheme({
+    size: { initial: "sm", md: "md" },
+  });
   return (
     <PageTitle
       className={title()}

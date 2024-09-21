@@ -21,7 +21,9 @@ export const SearchResultFilter = ({
   filters: Filter;
   onValueChange: (key: string, value: FilterOption["value"]) => void;
 }) => {
-  const { filter, filterField, filterToggleGroup } = searchResultTheme();
+  const { filter, filterField, filterToggleGroup } = searchResultTheme({
+    size: { initial: "sm", md: "md" },
+  });
   return (
     <div className={filter()}>
       {Object.entries(filters).map(([filterFor, filterOptions], i) => (

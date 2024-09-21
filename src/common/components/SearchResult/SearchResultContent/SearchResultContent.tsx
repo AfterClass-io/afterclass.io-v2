@@ -29,7 +29,7 @@ export const SearchResultContent = ({
   searchedCourse: SearchCourseResult[];
   searchedProf: SearchProfResult[];
 }) => {
-  const { content } = searchResultTheme();
+  const { content } = searchResultTheme({ size: { initial: "sm", md: "md" } });
   const [filter, setFilter] = useState<FilterOptions>({
     school: "all",
     type: "all",

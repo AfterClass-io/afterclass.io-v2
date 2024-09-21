@@ -9,7 +9,7 @@ import { SearchResultFilter } from "./SearchResultFilter";
 import { searchResultTheme } from "./SearchResult.theme";
 
 export const SearchResult = ({ children }: { children: ReactNode }) => {
-  const { root } = searchResultTheme();
+  const { root } = searchResultTheme({ size: { initial: "sm", md: "md" } });
   return <div className={root()}>{children}</div>;
 };
 

@@ -32,7 +32,7 @@ export const SearchResultItem = ({
     itemSubtitle,
     itemStatsWrapper,
     itemArrow,
-  } = searchResultTheme();
+  } = searchResultTheme({ size: { initial: "sm", md: "md" } });
   const { data: session } = useSession();
   return (
     <Button as="a" className={item()} href={href} asChild>
