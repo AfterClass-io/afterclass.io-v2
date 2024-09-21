@@ -1,6 +1,6 @@
+import { Button } from "@/common/components/Button";
 import { type SidebarItemType } from "@/common/components/Sidebar/Sidebar";
 import { cn } from "@/common/functions";
-import Link from "next/link";
 
 export type SidebarListItem = SidebarItemType & {
   active?: boolean;
@@ -14,25 +14,36 @@ export const SidebarItem = ({
   external = false,
   active,
 }: SidebarListItem) => {
-  const SidebarLink = external ? "a" : Link;
   return (
     <li>
-      <SidebarLink
+      <Button
+        as="a"
+        variant="ghost"
         href={href}
         target={external ? "_blank" : undefined}
+        external={external}
+        iconLeft={icon}
+        fullWidth
         className={cn(
-          "flex items-center gap-x-3 rounded-lg px-3 py-2 transition duration-200 ease-in-out",
-          "hover:bg-surface-elevated",
-          "border border-transparent",
-          "text-sm font-semibold",
-          "text-text-em-mid hover:text-text-em-high",
+          "flex",
+          "items-center",
+          "justify-start",
+          "gap-x-3",
+          "border",
+          "border-transparent",
+          "px-3",
+          "py-2",
+          "text-sm",
+          "font-semibold",
+          "text-text-em-mid",
+          "hover:text-text-em-high",
+          "hover:bg-border-elevated",
           active &&
             "border-border-default bg-surface-elevated text-text-em-high",
         )}
       >
-        {icon}
-        <span>{label}</span>
-      </SidebarLink>
+        {label}
+      </Button>
     </li>
   );
 };
