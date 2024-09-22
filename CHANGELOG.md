@@ -1,3 +1,24 @@
+<a name="v1.0.0"></a>
+# [v1.0.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v1.0.0) - 22 Sep 2024
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### 🚀 Features
+* feat: implement like button functionality on review item by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/242
+* feat(ui): implement infinite scrolling by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/243
+### Other Changes
+* chore: add renovate config by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/245
+* chore(deps): use bun pkgmr and pin dependencies by [@davidlhw](https://github.com/davidlhw) in https://github.com/AfterClass-io/afterclass.io-v2/pull/284
+
+## New Contributors
+* [@renovate](https://github.com/renovate) made their first contribution in https://github.com/AfterClass-io/afterclass.io-v2/pull/247
+
+**Full Changelog**: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.8.0...v1.0.0
+
+[Changes][v1.0.0]
+
+
 <a name="v0.8.0"></a>
 # [v0.8.0](https://github.com/AfterClass-io/afterclass.io-v2/releases/tag/v0.8.0) - 15 Sep 2024
 
@@ -253,6 +274,7 @@
 [Changes][v0.1.0]
 
 
+[v1.0.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.8.0...v1.0.0
 [v0.8.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.7.0...v0.8.0
 [v0.7.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.6.0...v0.7.0
 [v0.6.0]: https://github.com/AfterClass-io/afterclass.io-v2/compare/v0.5.0...v0.6.0
