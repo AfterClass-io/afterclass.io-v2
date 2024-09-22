@@ -1,9 +1,10 @@
 "use client";
 import { usePostHog } from "posthog-js/react";
+import { useEffect, useState } from "react";
 
 import { XCloseIcon } from "@/common/components/CustomIcon";
 import { Button } from "@/common/components/Button";
-import { useEffect, useState } from "react";
+import { env } from "@/env";
 
 export const AnnouncementsBanner = () => {
   const posthog = usePostHog();
@@ -37,7 +38,7 @@ export const AnnouncementsBanner = () => {
           as="a"
           variant="link"
           className="inline-flex h-fit p-0 pb-[1px] text-text-on-primary underline hover:text-secondary-default md:h-fit md:p-0 md:text-sm"
-          href="https://old.afterclass.io"
+          href={env.NEXT_PUBLIC_OLD_SITE_URL}
           external
           isResponsive
         >
