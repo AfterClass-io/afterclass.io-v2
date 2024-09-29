@@ -8,12 +8,14 @@
   "labels": ["skip-changelog", "dependencies"],
   "packageRules": [
     {
-      "matchDepTypes": ["devDependencies"],
-      "schedule": "before 3am on Sunday",
-      "groupName": "all devDependencies"
+      "enabled": false,
+      "matchPackageNames": [
+        "*"
+      ]
     }
   ],
   "vulnerabilityAlerts": {
     "enabled": true
-  }
+  },
+  "osvVulnerabilityAlerts": true
 }
