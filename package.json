@@ -43,7 +43,7 @@
     "js-cookie": "^3.0.5",
     "nanoid": "5.0.7",
     "next": "14.2.13",
-    "next-auth": "4.24.7",
+    "next-auth": "4.24.8",
     "next-themes": "0.3.0",
     "posthog-js": "1.165.0",
     "posthog-node": "4.2.0",
