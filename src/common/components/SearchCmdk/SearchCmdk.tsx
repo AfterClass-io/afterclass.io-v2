@@ -12,7 +12,7 @@ import { Input } from "@/common/components/Input";
 import { searchCmdkTheme } from "./SearchCmdk.theme";
 import { SearchCmdkModalTrigger } from "./SearchCmdkModalTrigger";
 
-export const SearchCmdk = ({ children }: { children?: React.ReactNode }) => {
+export const SearchCmdk = () => {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
@@ -76,13 +76,11 @@ export const SearchCmdk = ({ children }: { children?: React.ReactNode }) => {
       className={modal()}
       hasCloseButton={false}
     >
-      <Modal.Trigger asChild>
-        {children || (
-          <SearchCmdkModalTrigger
-            open={isTooltipOpen}
-            onOpenChange={handleTooltipOpenChange}
-          />
-        )}
+      <Modal.Trigger>
+        <SearchCmdkModalTrigger
+          open={isTooltipOpen}
+          onOpenChange={handleTooltipOpenChange}
+        />
       </Modal.Trigger>
       <Modal.Content className={content()}>
         <form onSubmit={onSearchSubmit} className={contentForm()}>
