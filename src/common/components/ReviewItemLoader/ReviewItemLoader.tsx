@@ -37,7 +37,7 @@ export const ReviewItemLoader = (props: ReviewItemLoaderProps) => {
       const apiFn = session
         ? api.reviews.getByCourseCodeProtected
         : api.reviews.getByCourseCode;
-      infiniteQuery = apiFn.useInfiniteQuery(
+      infiniteQuery = apiFn.useSuspenseInfiniteQuery(
         { code, slugs },
         {
           getNextPageParam: (lastPage) => lastPage.nextCursor,
@@ -50,7 +50,7 @@ export const ReviewItemLoader = (props: ReviewItemLoaderProps) => {
       const apiFn = session
         ? api.reviews.getByProfSlugProtected
         : api.reviews.getByProfSlug;
-      infiniteQuery = apiFn.useInfiniteQuery(
+      infiniteQuery = apiFn.useSuspenseInfiniteQuery(
         { slug, courseCodes },
         {
           getNextPageParam: (lastPage) => lastPage.nextCursor,
@@ -60,7 +60,7 @@ export const ReviewItemLoader = (props: ReviewItemLoaderProps) => {
     }
     default: {
       const apiFn = session ? api.reviews.getAllProtected : api.reviews.getAll;
-      infiniteQuery = apiFn.useInfiniteQuery(
+      infiniteQuery = apiFn.useSuspenseInfiniteQuery(
         {},
         {
           getNextPageParam: (lastPage) => lastPage.nextCursor,
@@ -69,19 +69,25 @@ export const ReviewItemLoader = (props: ReviewItemLoaderProps) => {
     }
   }
 
-  const { isLoading, data, fetchNextPage, hasNextPage } = infiniteQuery;
-
-  if (isLoading) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    return [...Array(5)].map((_, i) => <ReviewItemSkeleton key={i} />);
-  }
+  const [{ pages }, allReviewsQuery] = infiniteQuery;
+  const { fetchNextPage, hasNextPage } = allReviewsQuery;
 
   // data will be split in pages
-  const toShow = data?.pages.flatMap((page) => page.items);
+  const toShow = pages.flatMap((page) => page.items);
+
+  if (status === "loading") {
+    return (
+      <>
+        {toShow.map((_, index) => (
+          <ReviewItemSkeleton key={index} />
+        ))}
+      </>
+    );
+  }
 
   return (
     <>
-      {toShow?.map((review) => (
+      {toShow.map((review) => (
         <ReviewItem
           key={review.id}
           variant={props.variant}
