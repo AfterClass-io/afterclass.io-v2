@@ -24,6 +24,7 @@ export const SearchCmdkModalTrigger = ({
       }
       value="Search"
       size="sm"
+      readOnly
     />
   );
 };
