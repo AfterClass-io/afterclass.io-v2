@@ -17,36 +17,17 @@ export default async function ProfessorFilter({
     slug: params.slug,
   });
 
-  const coursesWithMetadata = await Promise.all(
-    coursesTaughtByThisProf.map(async (course) => {
-      const [professorCount, reviewCount] = await Promise.all([
-        api.professors.countByCourseCode({
-          courseCode: course.code,
-        }),
-        api.reviews.count({
-          courseCode: course.code,
-          profSlug: params.slug,
-        }),
-      ]);
-      return {
-        ...course,
-        professorCount,
-        reviewCount,
-      };
-    }),
-  );
-
   return (
     <FilterToggleSection
       filterType="course"
       searchParamsName="course"
-      dataToFilter={coursesWithMetadata.map((course) => ({
+      dataToFilter={coursesTaughtByThisProf.map((course) => ({
         label: course.name,
         sublabel: course.code,
         value: course.code,
         filterStats: [
-          { icon: <PencilIcon />, stat: course.reviewCount },
-          { icon: <GraduationCapIcon />, stat: course.professorCount },
+          { icon: <PencilIcon />, stat: course._count.reviews },
+          { icon: <GraduationCapIcon />, stat: course._count.classes },
         ],
       }))}
     />
