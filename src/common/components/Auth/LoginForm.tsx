@@ -13,12 +13,10 @@ import { Input } from "@/common/components/Input";
 import { EyeSlashIcon } from "@/common/components/CustomIcon/EyeSlashIcon";
 import { EyeIcon } from "@/common/components/CustomIcon/EyeIcon";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { emailValidationSchema } from "@/common/tools/zod/schemas";
 
 const loginFormInputsSchema = z.object({
-  email: z
-    .string()
-    .min(1, { message: "Please enter a valid school email address" })
-    .email("Please enter a valid school email address"),
+  email: emailValidationSchema,
   password: z
     .string()
     .min(8, { message: "Passwords must be at least 8 characters long" }),
@@ -74,6 +72,8 @@ export const LoginForm = () => {
         isError={!!errors.email}
         helperText={errors.email?.message}
         autoComplete="on"
+        data-test="email"
+        fieldProps={{ helperTextDataTestId: "email-helper-text" }}
       />
       <Input
         {...register("password")}
@@ -100,9 +100,17 @@ export const LoginForm = () => {
         isError={!!errors.password}
         helperText={errors.password?.message}
         autoComplete="on"
+        data-test="password"
+        fieldProps={{ helperTextDataTestId: "password-helper-text" }}
       />
       <div className="flex w-full flex-col items-start gap-2 self-stretch pt-3">
-        <Button fullWidth type="submit" disabled={isSubmitting} isResponsive>
+        <Button
+          fullWidth
+          type="submit"
+          disabled={isSubmitting}
+          isResponsive
+          data-test="submit"
+        >
           {isSubmitting ? "Signing in..." : "Login"}
         </Button>
         <div className="flex items-center gap-1 self-stretch text-xs md:text-base">
