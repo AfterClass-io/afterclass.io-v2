@@ -66,10 +66,7 @@ export const authOptions: NextAuthOptions = {
         if (
           user &&
           user.deprecatedPasswordDigest &&
-          bcrypt.compareSync(
-            c.data.password,
-            user.deprecatedPasswordDigest ?? "",
-          )
+          bcrypt.compareSync(c.data.password, user.deprecatedPasswordDigest)
         ) {
           console.log(`User ${user.id} logged in with v1 credentials.`);
           return await identifyUser(user);
