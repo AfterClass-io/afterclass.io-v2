@@ -72,8 +72,6 @@ export const LoginForm = () => {
         isError={!!errors.email}
         helperText={errors.email?.message}
         autoComplete="on"
-        data-test="email"
-        fieldProps={{ helperTextDataTestId: "email-helper-text" }}
       />
       <Input
         {...register("password")}
@@ -100,17 +98,9 @@ export const LoginForm = () => {
         isError={!!errors.password}
         helperText={errors.password?.message}
         autoComplete="on"
-        data-test="password"
-        fieldProps={{ helperTextDataTestId: "password-helper-text" }}
       />
       <div className="flex w-full flex-col items-start gap-2 self-stretch pt-3">
-        <Button
-          fullWidth
-          type="submit"
-          disabled={isSubmitting}
-          isResponsive
-          data-test="submit"
-        >
+        <Button fullWidth type="submit" disabled={isSubmitting} isResponsive>
           {isSubmitting ? "Signing in..." : "Login"}
         </Button>
         <div className="flex items-center gap-1 self-stretch text-xs md:text-base">
