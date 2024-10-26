@@ -80,7 +80,7 @@ export const LoginForm = () => {
           <Button
             variant="link"
             as="a"
-            href="/account/auth/reset-password"
+            href="/account/auth/forgot"
             isResponsive
             className="md:text-sm"
           >
