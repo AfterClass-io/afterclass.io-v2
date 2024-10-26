@@ -5,10 +5,12 @@ import { fieldTheme } from "./Field.theme";
 
 export type FieldProps = {
   label?: string;
+  labelDataTestId?: string;
   labelRight?: ReactNode;
   children?: ReactNode;
   isError?: boolean;
   helperText?: string;
+  helperTextDataTestId?: string;
 };
 
 export type FieldFullProps = ComponentPropsWithoutRef<"div"> &
@@ -23,6 +25,8 @@ export const Field = ({
   isError = false,
   size,
   className,
+  labelDataTestId,
+  helperTextDataTestId,
   ...props
 }: FieldFullProps) => {
   const { labelContainer, wrapper } = fieldTheme();
@@ -30,7 +34,7 @@ export const Field = ({
     <div className={wrapper({ className })} {...props}>
       {label && (
         <div className={labelContainer()}>
-          <Label text={label} size={size} />
+          <Label text={label} size={size} data-test={labelDataTestId} />
           {labelRight}
         </div>
       )}
@@ -41,6 +45,7 @@ export const Field = ({
           text={helperText}
           size={size}
           isError={isError}
+          data-test={helperTextDataTestId}
         />
       )}
     </div>

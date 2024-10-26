@@ -12,7 +12,7 @@ export type InputProps = Omit<ComponentPropsWithRef<"input">, "size"> &
   FieldProps & {
     contentLeft?: ReactNode;
     contentRight?: ReactNode;
-    fieldProps?: ComponentPropsWithoutRef<"div">;
+    fieldProps?: FieldProps;
     wrapperProps?: ComponentPropsWithoutRef<"div">;
   };
 

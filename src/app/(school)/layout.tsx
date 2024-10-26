@@ -31,7 +31,12 @@ export default async function SchoolLayout({ children }: PropsWithChildren) {
               <div>{session.user.email}</div>
             </div>
           ) : (
-            <Button as="a" variant="secondary" href="/account/auth/login">
+            <Button
+              as="a"
+              variant="secondary"
+              href="/account/auth/login"
+              data-test="login"
+            >
               Login
             </Button>
           )}

@@ -74,6 +74,8 @@ export const LoginForm = () => {
         isError={!!errors.email}
         helperText={errors.email?.message}
         autoComplete="on"
+        data-test="email"
+        fieldProps={{ helperTextDataTestId: "email-helper-text" }}
       />
       <Input
         {...register("password")}
@@ -85,6 +87,7 @@ export const LoginForm = () => {
             href="/account/auth/reset-password"
             isResponsive
             className="md:text-sm"
+            data-test="forget"
           >
             Forgot password?
           </Button>
@@ -100,9 +103,17 @@ export const LoginForm = () => {
         isError={!!errors.password}
         helperText={errors.password?.message}
         autoComplete="on"
+        data-test="password"
+        fieldProps={{ helperTextDataTestId: "password-helper-text" }}
       />
       <div className="flex w-full flex-col items-start gap-2 self-stretch pt-3">
-        <Button fullWidth type="submit" disabled={isSubmitting} isResponsive>
+        <Button
+          fullWidth
+          type="submit"
+          disabled={isSubmitting}
+          isResponsive
+          data-test="submit"
+        >
           {isSubmitting ? "Signing in..." : "Login"}
         </Button>
         <div className="flex items-center gap-1 self-stretch text-xs md:text-base">
@@ -114,6 +125,7 @@ export const LoginForm = () => {
             as="a"
             href="/account/auth/signup"
             isResponsive
+            data-test="register"
           >
             Create an account
           </Button>
