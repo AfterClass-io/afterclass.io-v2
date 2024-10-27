@@ -32,6 +32,7 @@ export default function ReviewLayout({
             href="/submit"
             leftIcon={<PlusIcon />}
             rightIcon={<EditIcon opacity={0.1} />}
+            data-test="cta-write-review"
           />
           <CtaCard
             variant="tertiary"
@@ -39,6 +40,7 @@ export default function ReviewLayout({
             href={env.NEXT_PUBLIC_AC_GITHUB_LINK}
             external
             leftIcon={<GithubIcon />}
+            data-test="cta-contribute-oss"
           />
         </div>
       </div>

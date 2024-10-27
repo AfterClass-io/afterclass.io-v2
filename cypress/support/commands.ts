@@ -11,7 +11,7 @@
 //
 //
 // -- This is a parent command --
-Cypress.Commands.add("login", (email, password) => {
+Cypress.Commands.add("loginWith", ({ email, password }) => {
   const loginUrl = "/api/auth/callback/credentials";
   const loginRequestBody = {
     csrfToken: "",
@@ -58,8 +58,13 @@ Cypress.Commands.add("login", (email, password) => {
 
       // Set the session token in Cypress cookies
       cy.setCookie(sessionTokenCookieName!, sessionTokenCookieValue!);
+      cy.visit("/");
     });
   });
+});
+
+Cypress.Commands.add("login", () => {
+  cy.loginWith({ email: "test@smu.edu.sg", password: "P@ssw0rd" });
 });
 
 //
@@ -75,11 +80,15 @@ Cypress.Commands.add("login", (email, password) => {
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
+
 declare global {
   namespace Cypress {
     interface Chainable {
-      login(email: string, password: string): Chainable<void>;
-      deleteTestUser(email: string): Chainable<void>;
+      login(): Chainable<void>;
+      loginWith(credentials: {
+        email: string;
+        password: string;
+      }): Chainable<void>;
     }
   }
 }

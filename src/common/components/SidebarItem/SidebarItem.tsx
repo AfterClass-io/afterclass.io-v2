@@ -1,11 +1,12 @@
-import { Button } from "@/common/components/Button";
+import { Button, ButtonLinkOrAnchorProps } from "@/common/components/Button";
 import { type SidebarItemType } from "@/common/components/Sidebar/Sidebar";
 import { cn } from "@/common/functions";
 
-export type SidebarListItem = SidebarItemType & {
-  active?: boolean;
-  external?: boolean;
-};
+export type SidebarListItem = SidebarItemType &
+  ButtonLinkOrAnchorProps & {
+    active?: boolean;
+    external?: boolean;
+  };
 
 export const SidebarItem = ({
   label,
@@ -13,6 +14,7 @@ export const SidebarItem = ({
   href,
   external = false,
   active,
+  ...prop
 }: SidebarListItem) => {
   return (
     <li>
@@ -41,6 +43,7 @@ export const SidebarItem = ({
           active &&
             "border-border-default bg-surface-elevated text-text-em-high",
         )}
+        {...prop}
       >
         {label}
       </Button>

@@ -46,7 +46,10 @@ export default async function SchoolLayout({ children }: PropsWithChildren) {
 
       <AnnouncementsBanner />
 
-      <div className="h-full overflow-y-scroll p-6 md:p-12">
+      <div
+        className="h-full overflow-y-scroll p-6 md:p-12"
+        data-test="review-scrollable"
+      >
         <div className="mx-auto max-w-[1200px]">{children}</div>
       </div>
     </>
