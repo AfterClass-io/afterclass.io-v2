@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-const pagesToTest = [
+const PAGES_TO_TEST = [
   { url: "/", name: "Home", searchForCourse: "CS301", searchForProf: "vivien" },
   {
     url: "/search?q=IS215",
@@ -22,15 +22,15 @@ const pagesToTest = [
   },
 ];
 
-context("Home", () => {
-  pagesToTest.forEach(({ url, name, searchForCourse, searchForProf }) => {
-    describe(`Search Functionality on ${name} Page`, () => {
-      beforeEach(() => {
+context("Home", function () {
+  PAGES_TO_TEST.forEach(({ url, name, searchForCourse, searchForProf }) => {
+    describe(`Search Functionality on ${name} Page`, function () {
+      beforeEach(function () {
         cy.visit(url);
         cy.wait(1000);
       });
 
-      it("should bring up searchbar when shortcut or search input is clicked", () => {
+      it("should bring up searchbar when shortcut or search input is clicked", function () {
         cy.get("[data-test=search-cmdk-trigger]").should("be.visible").click();
         cy.get("input[data-test=search-cmdk-input]")
           .should("be.visible")
@@ -42,7 +42,7 @@ context("Home", () => {
           .type("{esc}");
       });
 
-      it("should be able to search for a course", () => {
+      it("should be able to search for a course", function () {
         cy.get("[data-test=search-cmdk-trigger]").should("be.visible").click();
         cy.get("input[data-test=search-cmdk-input]")
           .should("be.visible")
@@ -58,7 +58,7 @@ context("Home", () => {
         cy.get("[data-test=search-result]").should("have.length.gte", 1);
       });
 
-      it("should be able to search for a professor", () => {
+      it("should be able to search for a professor", function () {
         cy.get("[data-test=search-cmdk-trigger]").should("be.visible").click();
         cy.get("input[data-test=search-cmdk-input]")
           .should("be.visible")
@@ -74,7 +74,7 @@ context("Home", () => {
         cy.get("[data-test=search-result]").should("have.length.gte", 1);
       });
 
-      it("should not be able to sql inject", () => {
+      it("should not be able to sql inject", function () {
         cy.get("[data-test=search-cmdk-trigger]").should("be.visible").click();
         cy.get("input[data-test=search-cmdk-input]")
           .should("be.visible")
@@ -88,7 +88,7 @@ context("Home", () => {
         );
       });
 
-      it("should display not-found if no search results", () => {
+      it("should display not-found if no search results", function () {
         const NONSENSE = "asdfasdfasdf";
 
         cy.get("[data-test=search-cmdk-trigger]").should("be.visible").click();

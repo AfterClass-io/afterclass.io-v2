@@ -4,13 +4,13 @@ const TEST_EMAIL_VALID = "test@smu.edu.sg";
 const TEST_PWD_VALID = "P@ssw0rd";
 const TEST_PWD_INVALID = "wrongpassword";
 
-context("Login", () => {
-  beforeEach(() => {
+context("Login", function () {
+  beforeEach(function () {
     cy.visit("/account/auth/login");
   });
 
-  describe("Successful Login", () => {
-    it("should login a user with valid credentials", () => {
+  describe("Successful Login", function () {
+    it("should login a user with valid credentials", function () {
       cy.get("input[data-test=email]").type(TEST_EMAIL_VALID);
       cy.get("input[data-test=password]").type(TEST_PWD_VALID);
       cy.get("button[data-test=submit]").click();
@@ -19,7 +19,7 @@ context("Login", () => {
       cy.url().should("eq", `${Cypress.config("baseUrl")}/`);
     });
 
-    it("should be able to navigate to login page and login", () => {
+    it("should be able to navigate to login page and login", function () {
       cy.visit("/");
 
       cy.get("a[data-test=login]").click();
@@ -33,8 +33,8 @@ context("Login", () => {
     });
   });
 
-  describe("Unsuccessful Logins", () => {
-    it("should warn user to fill in email", () => {
+  describe("Unsuccessful Logins", function () {
+    it("should warn user to fill in email", function () {
       cy.get("input[data-test=password]").type(TEST_PWD_VALID);
       cy.get("button[data-test=submit]").click();
 
@@ -46,7 +46,7 @@ context("Login", () => {
       );
     });
 
-    it("should warn user to fill in password", () => {
+    it("should warn user to fill in password", function () {
       cy.get("input[data-test=email]").type(TEST_EMAIL_VALID);
       cy.get("button[data-test=submit]").click();
 
@@ -58,7 +58,7 @@ context("Login", () => {
       );
     });
 
-    it("should warn user to fill in email and password", () => {
+    it("should warn user to fill in email and password", function () {
       cy.get("button[data-test=submit]").click();
 
       cy.get("button[data-test=submit]").should("have.text", "Login");
@@ -74,7 +74,7 @@ context("Login", () => {
       );
     });
 
-    it("should not login a user with invalid credentials", () => {
+    it("should not login a user with invalid credentials", function () {
       cy.get("input[data-test=email]").type(TEST_EMAIL_VALID);
       cy.get("input[data-test=password]").type(TEST_PWD_INVALID);
       cy.get("button[data-test=submit]").click();

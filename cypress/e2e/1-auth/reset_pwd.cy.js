@@ -3,8 +3,8 @@
 const TEST_EMAIL_INVALID = "test@test.com";
 const TEST_EMAIL_VALID = "test@smu.edu.sg";
 
-context("ResetPwd", () => {
-  beforeEach(() => {
+context("ResetPwd", function () {
+  beforeEach(function () {
     cy.visit("/account/auth/forgot");
     cy.intercept("POST", "**/auth/v1/recover*", {
       delay: 1000,
@@ -12,8 +12,8 @@ context("ResetPwd", () => {
     }).as("mockPasswordReset");
   });
 
-  describe("Successful Password Reset", () => {
-    it("should be able to submit password reset request", () => {
+  describe("Successful Password Reset", function () {
+    it("should be able to submit password reset request", function () {
       cy.get("input[data-test=email]").type(TEST_EMAIL_VALID);
       cy.get("button[data-test=submit]").click();
 
@@ -28,7 +28,7 @@ context("ResetPwd", () => {
       );
     });
 
-    it("should be able to navigate to register page and submit password reset request", () => {
+    it("should be able to navigate to register page and submit password reset request", function () {
       cy.visit("/");
 
       cy.get("a[data-test=login]").click();
@@ -51,8 +51,8 @@ context("ResetPwd", () => {
     });
   });
 
-  describe("Incomplete Password Reset", () => {
-    it("should warn user to fill in fields", () => {
+  describe("Incomplete Password Reset", function () {
+    it("should warn user to fill in fields", function () {
       cy.get("button[data-test=submit]").click();
 
       cy.get("button[data-test=submit]").should(
@@ -66,7 +66,7 @@ context("ResetPwd", () => {
       );
     });
 
-    it("should warn user to fill in schoool email", () => {
+    it("should warn user to fill in schoool email", function () {
       cy.get("input[data-test=email]").type(TEST_EMAIL_INVALID);
       cy.get("button[data-test=submit]").click();
 

@@ -4,8 +4,8 @@ const TEST_EMAIL_INVALID = "test@test.com";
 const TEST_EMAIL_VALID = "test2@smu.edu.sg";
 const TEST_PWD_VALID = "P@ssw0rd";
 
-context("Register", () => {
-  beforeEach(() => {
+context("Register", function () {
+  beforeEach(function () {
     cy.visit("/account/auth/signup");
     cy.intercept("POST", "**/auth/v1/signup*", {
       delay: 1000,
@@ -52,8 +52,8 @@ context("Register", () => {
     }).as("mockSignup");
   });
 
-  describe("Successful Registration", () => {
-    it("should register a user with credentials", () => {
+  describe("Successful Registration", function () {
+    it("should register a user with credentials", function () {
       cy.get("input[data-test=email]").type(TEST_EMAIL_VALID);
       cy.get("input[data-test=password]").type(TEST_PWD_VALID);
       cy.get("input[data-test=confirm-password]").type(TEST_PWD_VALID);
@@ -71,7 +71,7 @@ context("Register", () => {
       );
     });
 
-    it("should be able to navigate to register page and register", () => {
+    it("should be able to navigate to register page and register", function () {
       cy.visit("/");
 
       cy.get("a[data-test=login]").click();
@@ -97,8 +97,8 @@ context("Register", () => {
     });
   });
 
-  describe("Incomplete Registrations", () => {
-    it("should warn user to fill in fields", () => {
+  describe("Incomplete Registrations", function () {
+    it("should warn user to fill in fields", function () {
       cy.get("button[data-test=submit]").click();
 
       cy.get("button[data-test=submit]").should("have.text", "Sign up");
@@ -119,7 +119,7 @@ context("Register", () => {
       );
     });
 
-    it("should warn user to fill in schoool email", () => {
+    it("should warn user to fill in schoool email", function () {
       cy.get("input[data-test=email]").type(TEST_EMAIL_INVALID);
       cy.get("input[data-test=password]").type(TEST_PWD_VALID);
       cy.get("input[data-test=confirm-password]").type(TEST_PWD_VALID);

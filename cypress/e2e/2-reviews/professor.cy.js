@@ -3,34 +3,34 @@
 const TEST_PROF_SLUG = "ouh-eng-lieh";
 const TEST_PROF_PATH = `/professor/${TEST_PROF_SLUG}`;
 
-context("Home", () => {
-  beforeEach(() => {
+context("Home", function () {
+  beforeEach(function () {
     cy.visit(TEST_PROF_PATH);
   });
 
-  describe("Basic Navigations", () => {
-    it("should be able to navigate to login page", () => {
+  describe("Basic Navigations", function () {
+    it("should be able to navigate to login page", function () {
       cy.intercept("GET", "/account/auth/login*").as("navigateToLoginPage");
       cy.get("a[data-test=login]").click();
       cy.wait("@navigateToLoginPage");
       cy.url().should("eq", `${Cypress.config("baseUrl")}/account/auth/login`);
     });
 
-    it("should be able to navigate to bid analytics page", () => {
+    it("should be able to navigate to bid analytics page", function () {
       cy.intercept("GET", "/bidding*").as("navigateToBiddingPage");
       cy.get("aside a[data-test=sidebar-bid-analytics]").click();
       cy.wait("@navigateToBiddingPage");
       cy.url().should("eq", `${Cypress.config("baseUrl")}/bidding`);
     });
 
-    it("should be able to navigate to reviews page", () => {
+    it("should be able to navigate to reviews page", function () {
       cy.intercept("GET", "/?*").as("navigateToReviewsPage");
       cy.get("aside a[data-test=sidebar-reviews]").click();
       cy.wait("@navigateToReviewsPage");
       cy.url().should("eq", `${Cypress.config("baseUrl")}/`);
     });
 
-    it("should be able to navigate to course reviews page", () => {
+    it("should be able to navigate to course reviews page", function () {
       cy.intercept("GET", "/course/*").as("navigateToCoursePage");
       cy.get("a[data-test=review-course-label]").first().click();
       cy.wait("@navigateToCoursePage");
@@ -38,8 +38,8 @@ context("Home", () => {
     });
   });
 
-  describe("Unauthenticated User", () => {
-    it("should be able to see login overlays", () => {
+  describe("Unauthenticated User", function () {
+    it("should be able to see login overlays", function () {
       cy.get(
         "[data-test=filter-toggle-section] a[data-test=lock-cta-overlay]",
       ).should("be.visible");
@@ -53,24 +53,24 @@ context("Home", () => {
       );
     });
 
-    it("should not be able to see reviews ratings", () => {
+    it("should not be able to see reviews ratings", function () {
       cy.get("[data-test=rating-section] [data-test=stats-value]").should(
         "not.exist",
       );
     });
 
-    it("should not be able to filter reviews", () => {
+    it("should not be able to filter reviews", function () {
       cy.get(
         "[data-test=filter-toggle-section] [data-test=filter-item]",
       ).should("not.exist");
     });
 
-    it("should not be able to open review modal", () => {
+    it("should not be able to open review modal", function () {
       cy.get("[data-test=review]").first().click();
       cy.get("div[data-test=review-modal]").should("not.exist");
     });
 
-    it("should not be able to load more reviews", () => {
+    it("should not be able to load more reviews", function () {
       cy.intercept(
         "GET",
         "/api/trpc/professors.getBySlug,reviews.getByProfSlug*",
@@ -83,7 +83,7 @@ context("Home", () => {
       cy.get("[data-test=review]").should("have.length", 10);
     });
 
-    it("should not be able to like a review", () => {
+    it("should not be able to like a review", function () {
       cy.wait(1000);
 
       const getFirstUnlikedBtn = () =>
@@ -102,7 +102,7 @@ context("Home", () => {
         });
     });
 
-    it("should not be able to navigate to review submission", () => {
+    it("should not be able to navigate to review submission", function () {
       cy.get("a[data-test=cta-write-review]").click();
       cy.url().should(
         "include",
@@ -111,13 +111,13 @@ context("Home", () => {
     });
   });
 
-  describe("Authenticated User", () => {
-    beforeEach(() => {
+  describe("Authenticated User", function () {
+    beforeEach(function () {
       cy.login();
       cy.wait(1_000);
     });
 
-    it("should not be able to see login overlays", () => {
+    it("should not be able to see login overlays", function () {
       cy.get(
         "[data-test=filter-toggle-section] a[data-test=lock-cta-overlay]",
       ).should("not.exist");
@@ -131,13 +131,13 @@ context("Home", () => {
       );
     });
 
-    it("should be able to see reviews ratings", () => {
+    it("should be able to see reviews ratings", function () {
       cy.get("[data-test=rating-section] [data-test=stats-value]").should(
         "be.visible",
       );
     });
 
-    it("should be able to filter reviews", () => {
+    it("should be able to filter reviews", function () {
       cy.get("[data-test=filter-toggle-section] [data-test=filter-item]")
         .should("be.visible")
         .last()
@@ -145,12 +145,12 @@ context("Home", () => {
       cy.get("[data-test=reviews]").should("have.length.lt", 10);
     });
 
-    it("should be able to open review modal", () => {
+    it("should be able to open review modal", function () {
       cy.get("[data-test=review]").first().click();
       cy.get("div[data-test=review-modal]").should("be.visible");
     });
 
-    it("should be able to like a review", () => {
+    it("should be able to like a review", function () {
       const getFirstUnlikedBtn = () =>
         cy
           .get("button[data-test=like-button]")
@@ -169,7 +169,7 @@ context("Home", () => {
         });
     });
 
-    it("should be able to unlike a review", () => {
+    it("should be able to unlike a review", function () {
       const getFirstLikedBtn = () =>
         cy
           .get("button[data-test=like-button]")
@@ -188,14 +188,14 @@ context("Home", () => {
         });
     });
 
-    it("should be able to load more reviews", () => {
+    it("should be able to load more reviews", function () {
       cy.get("[data-test=review-scrollable]").scrollTo("bottom");
       cy.wait(1000);
 
       cy.get("[data-test=review]").should("have.length", 20);
     });
 
-    it("should be able to write a review", () => {
+    it("should be able to write a review", function () {
       cy.intercept("GET", "/submit*").as("navigateToReviewSubmission");
       cy.get("a[data-test=cta-write-review]").click();
       cy.wait("@navigateToReviewSubmission");
@@ -203,7 +203,7 @@ context("Home", () => {
     });
   });
 
-  describe("Data Accuracy", () => {
+  describe("Data Accuracy", function () {
     // anonymous function to avoid `this` binding issues
     beforeEach(function () {
       cy.login();
@@ -221,8 +221,6 @@ context("Home", () => {
           (obj1, i, arr) =>
             arr.findIndex((obj2) => obj2.courseId === obj1.courseId) === i,
         );
-        cy.log(selectClassesWithUniqueCourse);
-        cy.log(classesOfThisProfessor);
         this.numCourseOfThisProf = selectClassesWithUniqueCourse.length;
       });
     });
