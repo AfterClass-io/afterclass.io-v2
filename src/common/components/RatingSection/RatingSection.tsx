@@ -22,7 +22,7 @@ export const RatingSection = ({
       size: { initial: "sm", md: "md" },
     });
   return (
-    <div className={wrapper()}>
+    <div className={wrapper()} data-test="rating-section">
       {isLocked && <LockCtaOverlay />}
       <div className={headingContainer()}>
         <div className={headingRating()}>

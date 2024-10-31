@@ -89,7 +89,7 @@ context("Home", () => {
       cy.wait(1000);
     });
 
-    it("should be not able to see login overlay on review item", () => {
+    it("should not be able to see login overlay on review item", () => {
       cy.get("a[data-test=lock-cta-overlay]").should("not.exist");
     });
 
@@ -144,7 +144,9 @@ context("Home", () => {
     });
 
     it("should be able to write a review", () => {
+      cy.intercept("GET", "/submit*").as("navigateToReviewSubmission");
       cy.get("a[data-test=cta-write-review]").click();
+      cy.wait("@navigateToReviewSubmission");
       cy.url().should("eq", `${Cypress.config("baseUrl")}/submit`);
     });
   });

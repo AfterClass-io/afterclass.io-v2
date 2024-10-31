@@ -19,11 +19,15 @@ export const DetailCard = ({
       <div className={body()}>
         <div className={content()}>
           <p className={field()}>Course code:</p>
-          <p className={value()}>{courseCode}</p>
+          <p className={value()} data-test="course-code">
+            {courseCode}
+          </p>
         </div>
         <div className={content()}>
           <p className={field()}>Credit unit:</p>
-          <p className={value()}>{courseCU}</p>
+          <p className={value()} data-test="course-credit">
+            {courseCU}
+          </p>
         </div>
       </div>
     </div>

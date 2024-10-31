@@ -91,6 +91,7 @@ export const FilterToggleSection = (props: FilterToggleSectionProps) => {
               updateSearchParams(newSelectedItems);
             }}
             selected={selectedItems.includes(item.value)}
+            data-test="filter-item"
           />
         ))}
       </Filter.Items>

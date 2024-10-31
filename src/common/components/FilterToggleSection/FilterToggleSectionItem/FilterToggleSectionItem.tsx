@@ -28,7 +28,7 @@ export const FilterItemStats = ({ icon, stat }: FilterStat) => {
   return (
     <div className={statWrapper()}>
       {icon}
-      <p>{stat}</p>
+      <p data-test="filter-item-value">{stat}</p>
     </div>
   );
 };
@@ -49,7 +49,10 @@ export const FilterToggleSectionItem = ({
         <p className={itemHeader()}>{label}</p>
         <div className={contentSubheaderWrapper()}>
           {sublabel && (
-            <p className={itemHeader({ class: "text-text-em-mid" })}>
+            <p
+              className={itemHeader({ class: "text-text-em-mid" })}
+              data-test="filter-item-label"
+            >
               {sublabel}
             </p>
           )}

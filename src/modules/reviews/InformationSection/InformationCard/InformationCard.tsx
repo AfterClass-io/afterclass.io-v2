@@ -22,7 +22,9 @@ export const InformationCard = ({
         <p>Information</p>
       </div>
       <div className={content()}>
-        <div className={description()}>{courseDesc}</div>
+        <div className={description()} data-test="course-description">
+          {courseDesc}
+        </div>
         {children}
       </div>
     </div>

@@ -22,14 +22,19 @@ export const StatItem = ({
   } = statItemTheme({ layout, size: { initial: "sm", md: "md" } });
 
   return (
-    <div className={wrapper()}>
+    <div
+      className={wrapper()}
+      data-test={`rating-${label.replace(/\s/g, "-").toLowerCase()}`}
+    >
       <div className={labelClasses()}>
         <span>{label}</span>
       </div>
       {isLocked ? (
         <LockIcon className={icon()} />
       ) : (
-        <div className={ratingClasses()}>{rating}</div>
+        <div className={ratingClasses()} data-test="stats-value">
+          {rating}
+        </div>
       )}
     </div>
   );
