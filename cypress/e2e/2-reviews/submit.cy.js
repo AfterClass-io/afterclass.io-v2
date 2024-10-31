@@ -114,7 +114,7 @@ context("Home", function () {
       });
 
       cy.fillReviewSectionFor({
-        reviewfor: "professor",
+        reviewFor: "professor",
         comboInputValue: this.professor.name,
         comboExpectedValue: this.professor.id,
         body: this.reviewsJson[0].body,
@@ -140,7 +140,7 @@ context("Home", function () {
       });
 
       cy.fillReviewSectionFor({
-        reviewfor: "professor",
+        reviewFor: "professor",
         comboInputValue: this.professor.name,
         comboExpectedValue: this.professor.id,
         body: this.reviewsJson[0].body,
