@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
@@ -21,12 +22,14 @@ const resetPwdFormInputsSchema = z.object({
 type ResetPwdFormInputs = z.infer<typeof resetPwdFormInputsSchema>;
 
 export const ResetPasswordForm = () => {
+  const router = useRouter();
   const [isPwdVisible, setIsPwdVisible] = useState(false);
+  const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false);
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    formState: { errors, isSubmitting },
   } = useForm<ResetPwdFormInputs>({
     resolver: zodResolver(resetPwdFormInputsSchema),
     mode: "onTouched",
@@ -34,8 +37,13 @@ export const ResetPasswordForm = () => {
   const onSubmit: SubmitHandler<ResetPwdFormInputs> = async ({ password }) => {
     if (isSubmitting) return;
     const { error } = await supabase.auth.updateUser({ password });
-    if (error) alert(error.message);
-    reset();
+    if (error) {
+      alert(error.message);
+      reset();
+      return;
+    }
+    setIsSubmitSuccessful(true);
+    router.push("/account/auth/login");
   };
 
   return (

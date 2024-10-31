@@ -13,12 +13,10 @@ import { Input } from "@/common/components/Input";
 import { EyeSlashIcon } from "@/common/components/CustomIcon/EyeSlashIcon";
 import { EyeIcon } from "@/common/components/CustomIcon/EyeIcon";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { emailValidationSchema } from "@/common/tools/zod/schemas";
 
 const loginFormInputsSchema = z.object({
-  email: z
-    .string()
-    .min(1, { message: "Please enter a valid school email address" })
-    .email("Please enter a valid school email address"),
+  email: emailValidationSchema,
   password: z
     .string()
     .min(8, { message: "Passwords must be at least 8 characters long" }),
@@ -84,7 +82,7 @@ export const LoginForm = () => {
           <Button
             variant="link"
             as="a"
-            href="/account/auth/reset-password"
+            href="/account/auth/forgot"
             isResponsive
             className="md:text-sm"
             data-test="forget"
