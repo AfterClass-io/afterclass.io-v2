@@ -58,6 +58,44 @@ Cypress.Commands.add("login", () => {
   cy.loginWith({ email: "test@smu.edu.sg", password: "P@ssw0rd" });
 });
 
+Cypress.Commands.add(
+  "fillReviewSectionFor",
+  ({ reviewFor, comboInputValue, comboExpectedValue, body, tips }) => {
+    cy.get(
+      `[data-test=review-form-${reviewFor}-section] [data-test=combobox-trigger]`,
+    )
+      .click()
+      .get("[data-test=combobox-input]")
+      .should("be.visible")
+      .type(`${comboInputValue}{enter}`)
+      .get(`[data-test=combobox-item-${comboExpectedValue}]`)
+      .should("be.visible")
+      .click();
+
+    cy.get(`[data-test=review-form-${reviewFor}-rating]`)
+      .should("exist")
+      .should("have.length", 5)
+      .last()
+      .parent()
+      .click();
+
+    cy.get(`[data-test=review-form-${reviewFor}-label]`)
+      .should("exist")
+      .should("have.length", 3)
+      .last()
+      .parent()
+      .click();
+
+    cy.get(`[data-test=review-form-${reviewFor}-body]`)
+      .should("be.visible")
+      .type(body, { delay: 0 });
+
+    cy.get(`[data-test=review-form-${reviewFor}-tips]`)
+      .should("be.visible")
+      .type(tips, { delay: 0 });
+  },
+);
+
 //
 //
 // -- This is a child command --
@@ -79,6 +117,13 @@ declare global {
       loginWith(credentials: {
         email: string;
         password: string;
+      }): Chainable<void>;
+      fillReviewSectionFor(reviewFor: {
+        reviewFor: string;
+        comboInputValue: string;
+        comboExpectedValue: string;
+        body: string;
+        tips: string;
       }): Chainable<void>;
     }
   }

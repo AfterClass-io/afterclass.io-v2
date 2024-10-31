@@ -51,7 +51,7 @@ export const ReviewFormSection = ({
     ` ${200 - bodyValue.length} more characters to go`;
 
   return (
-    <div className={wrapper()}>
+    <div className={wrapper()} data-test={`review-form-${type}-section`}>
       <div className={header()}>
         <Field
           label={texts.COMBOBOX.FIELD_LABEL[type]}
@@ -81,6 +81,7 @@ export const ReviewFormSection = ({
                 setValue("type", ReviewableEnum.PROFESSOR);
                 setValue(ReviewableEnum.PROFESSOR, {});
               }}
+              data-test={`review-form-${type}-toggle-write`}
             >
               Write review
             </Button>
@@ -94,6 +95,7 @@ export const ReviewFormSection = ({
                 setValue("type", ReviewableEnum.COURSE);
                 setValue(ReviewableEnum.PROFESSOR, {});
               }}
+              data-test={`review-form-${type}-toggle-skip`}
             >
               Skip review
             </Button>
@@ -111,6 +113,7 @@ export const ReviewFormSection = ({
               <RatingGroup
                 maxRating={maxRating}
                 {...register(`${type}.rating`)}
+                data-test={`review-form-${type}-rating`}
               />
             </Field>
             <Field
@@ -118,7 +121,11 @@ export const ReviewFormSection = ({
               isError={!!errors[type]?.labels}
               helperText={errors[type]?.labels?.message}
             >
-              <TagGroup items={reviewLabels} {...register(`${type}.labels`)} />
+              <TagGroup
+                items={reviewLabels}
+                {...register(`${type}.labels`)}
+                data-test={`review-form-${type}-label`}
+              />
             </Field>
             <Field
               label={texts.BODY.FIELD_LABEL[type]}
@@ -129,6 +136,7 @@ export const ReviewFormSection = ({
                 className={textarea()}
                 placeholder={texts.BODY.PLACEHOLDER[type]}
                 {...register(`${type}.body`)}
+                data-test={`review-form-${type}-body`}
               />
             </Field>
             <Field
@@ -140,6 +148,7 @@ export const ReviewFormSection = ({
                 className={textarea()}
                 placeholder={texts.TIPS.PLACEHOLDER[type]}
                 {...register(`${type}.tips`)}
+                data-test={`review-form-${type}-tips`}
               />
             </Field>
           </div>

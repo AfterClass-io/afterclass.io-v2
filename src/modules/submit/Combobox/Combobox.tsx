@@ -34,6 +34,7 @@ export const Combobox = forwardRef<
           aria-expanded={open}
           iconRight={<ChevronDownIcon />}
           className={comboboxTheme()}
+          data-test="combobox-trigger"
         >
           {value ? items.find((el) => el.value === value)?.label : triggerLabel}
         </Button>
@@ -51,7 +52,7 @@ export const Combobox = forwardRef<
             return 0;
           }}
         >
-          <Command.Input placeholder={placeholder} />
+          <Command.Input placeholder={placeholder} data-test="combobox-input" />
           <Command.Separator />
           <Command.Empty>Nothing found.</Command.Empty>
           <Command.List>
@@ -70,6 +71,7 @@ export const Combobox = forwardRef<
                   aria-selected={isMatched(el.value)}
                   data-selected={isMatched(el.value) ? "" : undefined}
                   ref={ref}
+                  data-test={`combobox-item-${el.value}`}
                 >
                   <CheckIcon
                     className={cn(
