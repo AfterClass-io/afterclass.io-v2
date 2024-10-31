@@ -9,11 +9,32 @@ on:
 
 jobs:
   cypress-run:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
-      - name: Cypress run
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "latest"
+
+      - name: Start Docker Compose
+        run: docker compose up -d
+
+      - name: Wait for database to be ready
+        run: |
+          echo "Waiting for database to be ready..."
+          until docker exec $(docker ps -qf "name=your_db_container_name") pg_isready -U postgres; do
+            sleep 1
+          done
+          echo "Database is ready"
+
+      - name: Load database
+        run: bun run db:reset -f
+
+      - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
           install-command: bun install
@@ -34,3 +55,6 @@ jobs:
           name: cypress-videos
           path: cypress/videos
           if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
+
+      - name: Stop Docker Compose
+        run: docker compose down
