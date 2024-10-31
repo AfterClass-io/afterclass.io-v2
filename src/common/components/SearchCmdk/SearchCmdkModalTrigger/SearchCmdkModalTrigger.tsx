@@ -25,6 +25,7 @@ export const SearchCmdkModalTrigger = ({
       value="Search"
       size="sm"
       readOnly
+      data-test="search-cmdk-trigger"
     />
   );
 };

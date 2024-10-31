@@ -82,7 +82,7 @@ export const SearchCmdk = () => {
           onOpenChange={handleTooltipOpenChange}
         />
       </Modal.Trigger>
-      <Modal.Content className={content()}>
+      <Modal.Content className={content()} data-test="search-cmdk-modal">
         <form onSubmit={onSearchSubmit} className={contentForm()}>
           <Input
             placeholder="Search for Professors or Courses..."
@@ -91,6 +91,7 @@ export const SearchCmdk = () => {
             contentLeft={<SearchIcon className={searchIcon()} />}
             wrapperProps={{ className: "border-0 h-full" }}
             onChange={(e) => setSearchTerm(e.target.value)}
+            data-test="search-cmdk-input"
           />
         </form>
         <Modal.Close asChild>
@@ -101,6 +102,8 @@ export const SearchCmdk = () => {
             className={closeBtn()}
             as="a"
             href={getSearchDestination()}
+            data-test="search-cmdk-submit"
+            type="button"
           >
             Search
           </Button>

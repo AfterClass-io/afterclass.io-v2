@@ -6,7 +6,7 @@ export const SearchResultEmpty = ({ show = false }: { show: boolean }) => {
     size: { initial: "sm", md: "md" },
   });
   return (
-    <div className={empty()}>
+    <div className={empty()} data-test="search-empty">
       <div className="text-xl">No results found.</div>
       <hr />
       <div className="w-full text-text-em-low">

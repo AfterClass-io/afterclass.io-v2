@@ -1,14 +1,29 @@
 /// <reference types="cypress" />
 
 const pagesToTest = [
-  { url: "/", name: "Home" },
-  { url: "/search?q=CS%20225", name: "Search" },
-  { url: "/course/CS%20225", name: "Course" },
-  { url: "/professor/Dan%20Roth", name: "Professor" },
+  { url: "/", name: "Home", searchForCourse: "CS301", searchForProf: "vivien" },
+  {
+    url: "/search?q=IS215",
+    name: "Search",
+    searchForCourse: "CS301",
+    searchForProf: "vivien",
+  },
+  {
+    url: "/course/IS215",
+    name: "Course",
+    searchForCourse: "CS301",
+    searchForProf: "vivien",
+  },
+  {
+    url: "/professor/ouh-eng-lieh",
+    name: "Professor",
+    searchForCourse: "CS301",
+    searchForProf: "vivien",
+  },
 ];
 
 context("Home", () => {
-  pagesToTest.forEach(({ url, name }) => {
+  pagesToTest.forEach(({ url, name, searchForCourse, searchForProf }) => {
     describe(`Search Functionality on ${name} Page`, () => {
       beforeEach(() => {
         cy.visit(url);
@@ -16,46 +31,80 @@ context("Home", () => {
       });
 
       it("should bring up searchbar when shortcut or search input is clicked", () => {
-        cy.get("input[data-test=search-input]").should("be.visible");
+        cy.get("[data-test=search-cmdk-trigger]").should("be.visible").click();
+        cy.get("input[data-test=search-cmdk-input]")
+          .should("be.visible")
+          .type("{esc}");
+
+        cy.get("body").type("/", { release: false });
+        cy.get("input[data-test=search-cmdk-input]")
+          .should("be.visible")
+          .type("{esc}");
       });
 
       it("should be able to search for a course", () => {
-        cy.get("input[data-test=search-input]").type("CS 225");
-        cy.get("button[data-test=search-button]").click();
+        cy.get("[data-test=search-cmdk-trigger]").should("be.visible").click();
+        cy.get("input[data-test=search-cmdk-input]")
+          .should("be.visible")
+          .type(searchForCourse);
+
+        cy.get("[data-test=search-cmdk-submit]").click();
+
         cy.url().should(
-          "contain",
-          `${Cypress.config("baseUrl")}/search?q=CS%20225`,
+          "eq",
+          `${Cypress.config("baseUrl")}/search?q=${searchForCourse}`,
         );
+        cy.get("[data-test=search-cmdk-input]").should("not.exist");
+        cy.get("[data-test=search-result]").should("have.length.gte", 1);
       });
 
       it("should be able to search for a professor", () => {
-        cy.get("input[data-test=search-input]").type("Dan Roth");
-        cy.get("button[data-test=search-button]").click();
+        cy.get("[data-test=search-cmdk-trigger]").should("be.visible").click();
+        cy.get("input[data-test=search-cmdk-input]")
+          .should("be.visible")
+          .type(searchForProf);
+
+        cy.get("[data-test=search-cmdk-submit]").click();
+
         cy.url().should(
-          "contain",
-          `${Cypress.config("baseUrl")}/search?q=Dan%20Roth`,
+          "eq",
+          `${Cypress.config("baseUrl")}/search?q=${searchForProf}`,
         );
+        cy.get("[data-test=search-cmdk-input]").should("not.exist");
+        cy.get("[data-test=search-result]").should("have.length.gte", 1);
       });
 
       it("should not be able to sql inject", () => {
-        cy.get("input[data-test=search-input]").type(
-          "CS 225; DROP TABLE courses;",
-        );
-        cy.get("button[data-test=search-button]").click();
+        cy.get("[data-test=search-cmdk-trigger]").should("be.visible").click();
+        cy.get("input[data-test=search-cmdk-input]")
+          .should("be.visible")
+          .type("; SELECT * FROM courses;--");
+
+        cy.get("[data-test=search-cmdk-submit]").click();
+
         cy.url().should(
-          "contain",
-          `${Cypress.config("baseUrl")}/search?q=CS%20225%3B%20DROP%20TABLE%20courses%3B`,
+          "eq",
+          `${Cypress.config("baseUrl")}/search?q=%3B+SELECT+*+FROM+courses%3B--`,
         );
       });
 
       it("should display not-found if no search results", () => {
-        cy.get("input[data-test=search-input]").type("CS 999");
-        cy.get("button[data-test=search-button]").click();
+        const NONSENSE = "asdfasdfasdf";
+
+        cy.get("[data-test=search-cmdk-trigger]").should("be.visible").click();
+        cy.get("input[data-test=search-cmdk-input]")
+          .should("be.visible")
+          .type(NONSENSE);
+
+        cy.get("[data-test=search-cmdk-submit]").click();
+
         cy.url().should(
-          "contain",
-          `${Cypress.config("baseUrl")}/search?q=CS%20999`,
+          "eq",
+          `${Cypress.config("baseUrl")}/search?q=${NONSENSE}`,
         );
-        cy.get("h1").should("contain", "No results found");
+        cy.get("[data-test=search-empty]")
+          .should("be.visible")
+          .should("contain", "No results found");
       });
     });
   });

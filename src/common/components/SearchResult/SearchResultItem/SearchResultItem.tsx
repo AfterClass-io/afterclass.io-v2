@@ -35,7 +35,13 @@ export const SearchResultItem = ({
   } = searchResultTheme({ size: { initial: "sm", md: "md" } });
   const { data: session } = useSession();
   return (
-    <Button as="a" className={item()} href={href} asChild>
+    <Button
+      as="a"
+      className={item()}
+      href={href}
+      asChild
+      data-test="search-result"
+    >
       <div className={itemContent()}>
         <div className={itemHeadWrapper()}>
           <SchoolIcon size={24} className={itemSchoolIcon()} school={school} />
