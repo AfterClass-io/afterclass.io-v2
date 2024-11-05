@@ -20,6 +20,8 @@ jobs:
         with:
           bun-version: "latest"
 
+      - run: bun install
+
       - name: Setup Env
         run: cp .env.example .env
 
