@@ -39,9 +39,15 @@ jobs:
       - name: Load database
         run: bun run db:reset -f
 
+      # required for cypress to generate a hashkey for caching
+      # cypress github action naively terminates if lockfile
+      # for either of yarn/npm/pnpm is missing
+      - run: touch yarn.lock
+
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
+          install-command: bun install
           build: bun run build
           start: bun run start
           browser: chrome
