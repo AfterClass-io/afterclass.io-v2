@@ -20,6 +20,9 @@ jobs:
         with:
           bun-version: "latest"
 
+      - name: Setup Env
+        run: cp .env.example .env
+
       - name: Start Docker Compose
         run: docker compose up -d
 
