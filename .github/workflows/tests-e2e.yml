@@ -23,7 +23,11 @@ jobs:
       - run: bun install
 
       - name: Setup Env
-        run: cp .env.example .env
+        run: |
+          cp .env.example .env
+
+          sed -i "s|NEXT_PUBLIC_SUPABASE_URL=.*|NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}|" .env
+          sed -i "s|NEXT_PUBLIC_SUPABASE_ANON_KEY=.*|NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}|" .env
 
       - name: Start Docker Compose
         run: docker compose up -d
@@ -51,6 +55,10 @@ jobs:
           build: bun run build
           start: bun run start
           browser: chrome
+        env:
+          CYPRESS_TEST_EMAIL_V1_VALID: ${{ secrets.CYPRESS_TEST_EMAIL_V1_VALID }}
+          CYPRESS_TEST_EMAIL_V2_VALID: ${{ secrets.CYPRESS_TEST_EMAIL_V2_VALID }}
+          CYPRESS_TEST_PWD_VALID: ${{ secrets.CYPRESS_TEST_PWD_VALID }}
 
       # after the test run completes store videos and any screenshots
       - uses: actions/upload-artifact@v4

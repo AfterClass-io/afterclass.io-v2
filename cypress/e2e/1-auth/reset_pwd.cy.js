@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 const TEST_EMAIL_INVALID = "test@test.com";
-const TEST_EMAIL_VALID = "test@smu.edu.sg";
+const TEST_EMAIL_VALID = Cypress.env("TEST_EMAIL_V1_VALID");
 
 context("ResetPwd", function () {
   beforeEach(function () {

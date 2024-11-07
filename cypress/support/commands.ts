@@ -15,7 +15,6 @@ Cypress.Commands.add("loginWith", ({ email, password }) => {
   cy.clearCookies();
   cy.request("/api/auth/csrf").then((response) => {
     const csrfToken = response.body.csrfToken;
-
     // Perform login with credentials
     cy.request({
       method: "POST",

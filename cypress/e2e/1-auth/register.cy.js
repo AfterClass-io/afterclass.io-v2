@@ -2,7 +2,7 @@
 
 const TEST_EMAIL_INVALID = "test@test.com";
 const TEST_EMAIL_VALID = "test2@smu.edu.sg";
-const TEST_PWD_VALID = "P@ssw0rd";
+const TEST_PWD_VALID = Cypress.env("TEST_PWD_VALID");
 
 context("Register", function () {
   beforeEach(function () {
