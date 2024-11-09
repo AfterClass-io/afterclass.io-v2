@@ -26,7 +26,12 @@ export const PageTitle = ({
       className={wrapper({ className: wrapperProps?.className })}
     >
       {contentLeft}
-      <Heading className={heading({ className })} as="h1" {...props}>
+      <Heading
+        className={heading({ className })}
+        as="h1"
+        {...props}
+        data-test="page-title"
+      >
         {children}
       </Heading>
       {contentRight}

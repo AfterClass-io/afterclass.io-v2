@@ -1399,5 +1399,19 @@
     "facultyId": null,
     "createdAt": "2022-08-01T07:48:56.035Z",
     "updatedAt": "2023-08-03T12:58:32.721Z"
+  },
+  {
+    "id": "68a37e21-8209-44eb-ac22-79a123c81296",
+    "username": "user_bad5412523",
+    "firstName": "bad54314First",
+    "lastName": "bad54314Last",
+    "email": "test@smu.edu.sg",
+    "telegramId": null,
+    "photoUrl": "https://afterclass-user-profile-pics.s3.amazonaws.com/Asset+6%402x.png",
+    "isVerified": true,
+    "universityId": 1,
+    "facultyId": null,
+    "createdAt": "2022-08-01T07:48:56.035Z",
+    "updatedAt": "2023-08-03T12:58:32.721Z"
   }
 ]

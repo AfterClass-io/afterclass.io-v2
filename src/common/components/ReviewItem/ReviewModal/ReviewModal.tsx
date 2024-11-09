@@ -45,6 +45,7 @@ export const ReviewModal = ({
       <Modal.Content
         className={modalContent()}
         onOpenAutoFocus={(e) => e.preventDefault()}
+        data-test="review-modal"
       >
         <Modal.Header>
           <RevieweeGroup review={review} variant={variant} />

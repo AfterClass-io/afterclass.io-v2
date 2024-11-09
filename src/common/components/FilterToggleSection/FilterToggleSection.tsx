@@ -22,7 +22,7 @@ export const FilterToggleSection = ({
   });
   if (isLocked) {
     return (
-      <div className={section()} {...props}>
+      <div className={section()} {...props} data-test="filter-toggle-section">
         <LockCtaOverlay />
         <div className="h-[150px] w-full"></div>
       </div>
@@ -30,7 +30,7 @@ export const FilterToggleSection = ({
   }
 
   return (
-    <div className={section()} {...props}>
+    <div className={section()} {...props} data-test="filter-toggle-section">
       {props.children}
     </div>
   );

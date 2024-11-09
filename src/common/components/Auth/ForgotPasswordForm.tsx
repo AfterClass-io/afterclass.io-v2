@@ -56,9 +56,16 @@ export const ForgotPasswordForm = () => {
         isError={!!errors.email}
         helperText={errors.email?.message}
         autoComplete="on"
+        data-test="email"
+        fieldProps={{ helperTextDataTestId: "email-helper-text" }}
       />
       <div className="flex w-full flex-col items-start gap-2 self-stretch pt-3">
-        <Button fullWidth type="submit" disabled={isSubmitting}>
+        <Button
+          fullWidth
+          type="submit"
+          disabled={isSubmitting}
+          data-test="submit"
+        >
           {isSubmitting ? "Confirming your email..." : "Reset my password"}
         </Button>
       </div>

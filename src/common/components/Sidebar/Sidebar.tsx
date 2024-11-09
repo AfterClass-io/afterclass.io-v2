@@ -99,6 +99,7 @@ export const Sidebar = ({
           {SIDEBAR_FEATURES_ITEMS.map((item) => (
             <SidebarItem
               key={item.href}
+              data-test={`sidebar-${item.label.replace(/\s/g, "-").toLowerCase()}`}
               {...item}
               active={
                 item.exact

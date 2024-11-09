@@ -61,6 +61,7 @@ export const ReviewForm = ({ children }: { children: ReactNode }) => {
 
   const onSubmit: SubmitHandler<ReviewFormInputsSchema> = (data) => {
     console.log(data);
+    console.log(session);
     let userId;
     // TODO: populate user values from supabase when user is authenticated
     if (!session?.user?.id) {

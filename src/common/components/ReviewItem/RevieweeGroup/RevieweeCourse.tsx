@@ -22,6 +22,7 @@ export const RevieweeCourse = ({
             class: "hover:text-primary-default hover:no-underline",
           })}
           aria-label="course"
+          data-test="review-course-label"
         >
           {courseCode}
         </Button>

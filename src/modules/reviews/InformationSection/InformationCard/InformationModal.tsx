@@ -17,13 +17,26 @@ export const InformationModal = ({
   return (
     <Modal overflow="inside">
       <Modal.Trigger asChild>
-        <Button variant="link" isResponsive className="md:px-0">
+        <Button
+          variant="link"
+          isResponsive
+          className="md:px-0"
+          data-test="course-information-modal-trigger"
+        >
           See more
         </Button>
       </Modal.Trigger>
-      <Modal.Content className="max-w-prose">
+      <Modal.Content
+        className="max-w-prose"
+        data-test="course-information-modal"
+      >
         <Modal.Header className={modalHeader()}>{courseName}</Modal.Header>
-        <Modal.Body className={modalBody()}>{courseDesc}</Modal.Body>
+        <Modal.Body
+          className={modalBody()}
+          data-test="course-information-modal-body"
+        >
+          {courseDesc}
+        </Modal.Body>
       </Modal.Content>
     </Modal>
   );

@@ -37,6 +37,7 @@ export const SubmitButtonGroup = ({ isLoading }: { isLoading: boolean }) => {
         type="submit"
         className={submitButton()}
         loading={isLoading}
+        data-test="review-submit-button"
       >
         Submit {session && submitAsBtnText}
       </Button>
@@ -49,20 +50,25 @@ export const SubmitButtonGroup = ({ isLoading }: { isLoading: boolean }) => {
         defaultValue={submitAs}
       >
         <Select.Trigger asChild className={selectTrigger()}>
-          <Button variant="primary">
+          <Button variant="primary" data-test="review-submit-select-trigger">
             <ChevronDownIcon className={selectIcon()} />
           </Button>
         </Select.Trigger>
         <Select.Content align="end" sideOffset={8}>
           <Select.Group>
             {session && (
-              <Select.Item className={selectItem()} value={SubmitAsEnum.USER}>
+              <Select.Item
+                className={selectItem()}
+                value={SubmitAsEnum.USER}
+                data-test="review-submit-select-user"
+              >
                 Submit as {session.user.email}
               </Select.Item>
             )}
             <Select.Item
               className={selectItem()}
               value={SubmitAsEnum.ANONYMOUS}
+              data-test="review-submit-select-anon"
             >
               Submit Anonymously
             </Select.Item>

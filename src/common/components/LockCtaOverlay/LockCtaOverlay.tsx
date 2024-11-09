@@ -40,6 +40,7 @@ export const LockCtaOverlay = ({
         }}
         variant="ghost"
         asChild
+        data-test="lock-cta-overlay"
       >
         <LockIcon className={icon()} />
         <div className={ctaTextContainer()}>

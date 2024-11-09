@@ -34,6 +34,7 @@ export const RevieweeGroup = ({ review, variant }: RevieweeGroupProps) => {
             class: "hover:text-primary-default hover:no-underline",
           })}
           aria-label="professor"
+          data-test="review-professor-label"
         >
           {review.professorName}
         </Button>

@@ -76,6 +76,8 @@ export const ReviewLikeButton = ({
       onClick={handleLike}
       loading={reviewVotesCountQuery.isLoading}
       aria-label="Like"
+      data-test="like-button"
+      data-liked={isLiked}
       isResponsive
       {...props}
     >

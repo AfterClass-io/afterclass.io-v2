@@ -1,0 +1,78 @@
+name: Cypress Tests
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "latest"
+
+      - run: bun install
+
+      - name: Setup Env
+        run: |
+          cp .env.example .env
+
+          sed -i "s|NEXT_PUBLIC_SUPABASE_URL=.*|NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}|" .env
+          sed -i "s|NEXT_PUBLIC_SUPABASE_ANON_KEY=.*|NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}|" .env
+
+      - name: Start Docker Compose
+        run: docker compose up -d
+
+      - name: Wait for database to be ready
+        run: |
+          echo "Waiting for database to be ready..."
+          until docker exec $(docker ps -qf "name=supabase-db") pg_isready -U postgres; do
+            sleep 1
+          done
+          echo "Database is ready"
+
+      - name: Load database
+        run: bun run db:reset -f
+
+      # required for cypress to generate a hashkey for caching
+      # cypress github action naively terminates if lockfile
+      # for either of yarn/npm/pnpm is missing
+      - run: touch yarn.lock
+
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+          install-command: bun install
+          build: bun run build
+          start: bun run start
+          browser: chrome
+        env:
+          CYPRESS_TEST_EMAIL_V1_VALID: ${{ secrets.CYPRESS_TEST_EMAIL_V1_VALID }}
+          CYPRESS_TEST_EMAIL_V2_VALID: ${{ secrets.CYPRESS_TEST_EMAIL_V2_VALID }}
+          CYPRESS_TEST_PWD_VALID: ${{ secrets.CYPRESS_TEST_PWD_VALID }}
+
+      # after the test run completes store videos and any screenshots
+      - uses: actions/upload-artifact@v4
+        # add the line below to store screenshots only on failures
+        # if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
+
+      - name: Stop Docker Compose
+        run: docker compose down
