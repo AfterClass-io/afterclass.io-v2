@@ -54,7 +54,10 @@ Cypress.Commands.add("loginWith", ({ email, password }) => {
 });
 
 Cypress.Commands.add("login", () => {
-  cy.loginWith({ email: "test@smu.edu.sg", password: "P@ssw0rd" });
+  cy.loginWith({
+    email: Cypress.env("TEST_EMAIL_V1_VALID"),
+    password: Cypress.env("TEST_PWD_VALID"),
+  });
 });
 
 Cypress.Commands.add(
