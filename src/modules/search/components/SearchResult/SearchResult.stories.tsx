@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { SearchResult } from "./SearchResult";
-import { type SearchCourseResult } from "@/common/functions/searchCourse";
-import { type SearchProfResult } from "@/common/functions/searchProf";
+import { type SearchCourseResult } from "@/modules/search/functions/searchCourse";
+import { type SearchProfResult } from "@/modules/search/functions/searchProf";
 import {
   BooksIcon,
   GraduationCapIcon,

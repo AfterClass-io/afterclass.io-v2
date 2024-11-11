@@ -1,5 +1,5 @@
-import { ReviewSection } from "@/common/components/ReviewSection";
-import { ReviewItemLoader } from "@/common/components/ReviewItemLoader";
+import { ReviewSection } from "@/modules/reviews/components/ReviewSection";
+import { ReviewItemLoader } from "@/modules/reviews/components/ReviewItemLoader";
 
 export default function Home() {
   return (

@@ -1,12 +1,12 @@
-import { SearchResult } from "@/common/components/SearchResult";
+import { SearchResult } from "@/modules/search/components/SearchResult";
 import {
   type SearchCourseResult,
   searchCourse,
-} from "@/common/functions/searchCourse";
+} from "@/modules/search/functions/searchCourse";
 import {
   type SearchProfResult,
   searchProf,
-} from "@/common/functions/searchProf";
+} from "@/modules/search/functions/searchProf";
 
 export default async function Search({
   searchParams,

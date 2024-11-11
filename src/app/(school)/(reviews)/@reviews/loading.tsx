@@ -1,5 +1,5 @@
-import { ReviewItemSkeleton } from "@/common/components/ReviewItem";
-import { ReviewSection } from "@/common/components/ReviewSection";
+import { ReviewItemSkeleton } from "@/modules/reviews/components/ReviewItem";
+import { ReviewSection } from "@/modules/reviews/components/ReviewSection";
 
 export default function Loading() {
   return (

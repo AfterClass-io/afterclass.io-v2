@@ -1,4 +1,4 @@
-import { RatingSection } from "@/common/components/RatingSection";
+import { RatingSection } from "@/modules/reviews/components/RatingSection";
 import formatPercentage from "@/common/functions/formatPercentage";
 import { api } from "@/common/tools/trpc/server";
 import { getServerAuthSession } from "@/server/auth";

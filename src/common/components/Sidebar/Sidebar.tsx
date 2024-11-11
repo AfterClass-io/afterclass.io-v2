@@ -15,7 +15,7 @@ import {
 } from "@/common/components/CustomIcon";
 import { SidebarItem } from "@/common/components/SidebarItem";
 import { Logo } from "@/common/components/Logo";
-import { SearchCmdk } from "@/common/components/SearchCmdk";
+import { SearchCmdk } from "@/modules/search/components/SearchCmdk";
 import { cn } from "@/common/functions";
 import { env } from "@/env";
 

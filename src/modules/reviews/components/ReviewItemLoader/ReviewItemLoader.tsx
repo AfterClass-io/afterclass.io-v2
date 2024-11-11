@@ -3,7 +3,10 @@ import { useSession } from "next-auth/react";
 import { InView } from "react-intersection-observer";
 
 import { api } from "@/common/tools/trpc/react";
-import { ReviewItem, ReviewItemSkeleton } from "@/common/components/ReviewItem";
+import {
+  ReviewItem,
+  ReviewItemSkeleton,
+} from "@/modules/reviews/components/ReviewItem";
 import { AfterclassIcon } from "@/common/components/CustomIcon";
 
 export type ReviewItemLoaderHomeProps = {
