@@ -1,2 +1,2 @@
-export * from "./InformationCard"
-export * from "./InformationCard.theme"
+export * from "./InformationCard";
+export * from "./InformationCard.theme";
