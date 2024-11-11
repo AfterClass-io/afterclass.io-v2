@@ -1,4 +1,4 @@
-import { type Review } from "@/common/types";
+import { type Review } from "@/modules/reviews/types";
 import { Profile } from "@/common/components/Profile";
 
 import { MockedReviewLikeButton, ReviewLikeButton } from "../ReviewLikeButton";

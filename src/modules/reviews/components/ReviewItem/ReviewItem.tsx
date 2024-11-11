@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 
 import { LockCtaOverlay } from "@/common/components/LockCtaOverlay";
-import { type Review } from "@/common/types";
+import { type Review } from "@/modules/reviews/types";
 
 import { reviewItemTheme, type ReviewItemVariants } from "./ReviewItem.theme";
 import { ReviewerGroup } from "./ReviewerGroup";

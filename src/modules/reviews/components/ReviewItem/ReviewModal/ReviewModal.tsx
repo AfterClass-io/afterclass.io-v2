@@ -2,7 +2,7 @@
 
 import { Modal } from "@/common/components/Modal";
 import { ShareIcon, ThumbUpFilledIcon } from "@/common/components/CustomIcon";
-import { type Review } from "@/common/types";
+import { type Review } from "@/modules/reviews/types";
 import { Button } from "@/common/components/Button";
 
 import { reviewItemTheme } from "../ReviewItem.theme";
