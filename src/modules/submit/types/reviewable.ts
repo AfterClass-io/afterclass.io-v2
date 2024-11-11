@@ -3,8 +3,3 @@ export enum ReviewableEnum {
   PROFESSOR = "professor",
 }
 export type ReviewableType = `${ReviewableEnum}`;
-
-export enum SubmitAsEnum {
-  ANONYMOUS = "anonymous",
-  USER = "user",
-}

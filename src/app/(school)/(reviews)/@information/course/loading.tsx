@@ -1,5 +1,5 @@
-import { InformationCard } from "@/modules/reviews/InformationSection/InformationCard";
-import { DetailCard } from "@/modules/reviews/InformationSection/DetailCard";
+import { InformationCard } from "@/modules/reviews/components/InformationSection/InformationCard";
+import { DetailCard } from "@/modules/reviews/components/InformationSection/DetailCard";
 
 export default function Loading() {
   return (

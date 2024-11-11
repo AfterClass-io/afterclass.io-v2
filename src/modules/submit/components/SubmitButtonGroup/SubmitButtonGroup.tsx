@@ -9,12 +9,12 @@ import { Select } from "@/common/components/Select";
 import { ChevronDownIcon } from "@/common/components/CustomIcon";
 import { type ReviewFormInputsSchema } from "@/common/tools/zod/schemas";
 
-import { SubmitAsEnum } from "@/modules/submit/types";
+import { ReviewerEnum } from "@/modules/submit/types";
 
 import { submitButtonGroupTheme } from "./SubmitButtonGroup.theme";
 
 export const SubmitButtonGroup = ({ isLoading }: { isLoading: boolean }) => {
-  const [submitAs, setSubmitAs] = useState<SubmitAsEnum>(SubmitAsEnum.USER);
+  const [submitAs, setSubmitAs] = useState<ReviewerEnum>(ReviewerEnum.USER);
   const { setValue } = useFormContext<ReviewFormInputsSchema>();
   const { data: session } = useSession();
 
@@ -23,7 +23,7 @@ export const SubmitButtonGroup = ({ isLoading }: { isLoading: boolean }) => {
   }, []);
 
   const submitAsBtnText =
-    submitAs === SubmitAsEnum.ANONYMOUS
+    submitAs === ReviewerEnum.ANONYMOUS
       ? "Anonymously"
       : `as ${session?.user.email}`;
 
@@ -43,7 +43,7 @@ export const SubmitButtonGroup = ({ isLoading }: { isLoading: boolean }) => {
       </Button>
       <Select
         onValueChange={(v) => {
-          const value = v as SubmitAsEnum;
+          const value = v as ReviewerEnum;
           setSubmitAs(value);
           setValue("submitAs", value);
         }}
@@ -59,7 +59,7 @@ export const SubmitButtonGroup = ({ isLoading }: { isLoading: boolean }) => {
             {session && (
               <Select.Item
                 className={selectItem()}
-                value={SubmitAsEnum.USER}
+                value={ReviewerEnum.USER}
                 data-test="review-submit-select-user"
               >
                 Submit as {session.user.email}
@@ -67,7 +67,7 @@ export const SubmitButtonGroup = ({ isLoading }: { isLoading: boolean }) => {
             )}
             <Select.Item
               className={selectItem()}
-              value={SubmitAsEnum.ANONYMOUS}
+              value={ReviewerEnum.ANONYMOUS}
               data-test="review-submit-select-anon"
             >
               Submit Anonymously

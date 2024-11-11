@@ -4,7 +4,7 @@
 import { env } from "@/env";
 import { z } from "zod";
 
-import { ReviewableEnum, SubmitAsEnum } from "@/modules/submit/types";
+import { ReviewableEnum, ReviewerEnum } from "@/modules/submit/types";
 
 /**
  * Schema for the authentication form inputs
@@ -53,13 +53,13 @@ export const reviewFormSchema = z.discriminatedUnion("type", [
     [ReviewableEnum.COURSE]: courseReviewFormSchema,
     [ReviewableEnum.PROFESSOR]: professorReviewFormSchema,
     type: z.literal(ReviewableEnum.PROFESSOR),
-    submitAs: z.nativeEnum(SubmitAsEnum),
+    submitAs: z.nativeEnum(ReviewerEnum),
   }),
   z.object({
     [ReviewableEnum.COURSE]: courseReviewFormSchema,
     [ReviewableEnum.PROFESSOR]: professorReviewFormSchema.partial(),
     type: z.literal(ReviewableEnum.COURSE),
-    submitAs: z.nativeEnum(SubmitAsEnum),
+    submitAs: z.nativeEnum(ReviewerEnum),
   }),
 ]);
 export type ReviewFormInputsSchema = z.infer<typeof reviewFormSchema>;

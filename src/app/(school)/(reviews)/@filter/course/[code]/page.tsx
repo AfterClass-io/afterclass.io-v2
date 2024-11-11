@@ -1,5 +1,5 @@
 import { getServerAuthSession } from "@/server/auth";
-import { FilterToggleSection } from "@/modules/reviews/FilterToggleSection";
+import { FilterToggleSection } from "@/modules/reviews/components/FilterToggleSection";
 import { api } from "@/common/tools/trpc/server";
 import { BooksIcon, PencilIcon } from "@/common/components/CustomIcon";
 

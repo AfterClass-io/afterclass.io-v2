@@ -1,4 +1,4 @@
-import { ReviewableEnum } from "./types";
+import { ReviewableEnum } from "../types";
 
 export const texts = {
   COMBOBOX: {

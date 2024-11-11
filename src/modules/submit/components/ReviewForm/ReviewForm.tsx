@@ -11,8 +11,8 @@ import {
   reviewFormSchema,
 } from "@/common/tools/zod/schemas";
 import { api } from "@/common/tools/trpc/react";
+import { ReviewableEnum } from "@/modules/submit/types";
 import { reviewFormTheme } from "./ReviewForm.theme";
-import { ReviewableEnum } from "../types";
 import { SubmitButtonGroup } from "../SubmitButtonGroup";
 
 export const ReviewForm = ({ children }: { children: ReactNode }) => {

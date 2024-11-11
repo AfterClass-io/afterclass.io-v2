@@ -4,8 +4,8 @@ import { Button } from "@/common/components/Button";
 import { ThemeToggle } from "@/common/components/ThemeToggle";
 import { cn } from "@/common/functions";
 import { getServerAuthSession } from "@/server/auth";
-import { Breadcrumb } from "@/modules/home/Breadcrumb";
-import { AnnouncementsBanner } from "@/modules/home/AnnouncementBanner";
+import { Breadcrumb } from "@/modules/home/components/Breadcrumb";
+import { AnnouncementsBanner } from "@/modules/home/components/AnnouncementBanner";
 
 export default async function SchoolLayout({ children }: PropsWithChildren) {
   const session = await getServerAuthSession();

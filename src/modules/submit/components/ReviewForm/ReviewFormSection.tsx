@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
-import { Combobox } from "@/modules/submit/Combobox";
+import { Combobox } from "@/modules/submit/components/Combobox";
 import { Button } from "@/common/components/Button";
 import { Field } from "@/common/components/Field";
 import { RatingGroup } from "@/common/components/RatingGroup";
