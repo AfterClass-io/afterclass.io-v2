@@ -4,7 +4,10 @@ import { SchoolTag } from "@/common/components/SchoolTag";
 import { PageTitle } from "@/common/components/PageTitle";
 import { api } from "@/common/tools/trpc/server";
 import { toTitleCase } from "@/common/functions/toTitleCase";
-import { ReviewForm, ReviewFormSection } from "@/modules/submit/ReviewForm";
+import {
+  ReviewForm,
+  ReviewFormSection,
+} from "@/modules/submit/components/ReviewForm";
 
 export default async function SubmitReviewPage() {
   // TODO: get school from user field, to be populated automatically on successful signup based on user's email domain

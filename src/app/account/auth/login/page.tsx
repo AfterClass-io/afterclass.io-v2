@@ -1,4 +1,4 @@
-import { AuthCard, LoginForm } from "@/common/components/Auth";
+import { AuthCard, LoginForm } from "@/modules/auth/components";
 import { Suspense } from "react";
 
 export default function Login() {

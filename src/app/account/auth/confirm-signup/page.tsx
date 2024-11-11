@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { AuthCard, ConfirmSignUpNote } from "@/common/components/Auth";
+import { AuthCard, ConfirmSignUpNote } from "@/modules/auth/components";
 import { notFound } from "next/navigation";
 
 export default function ConfirmSignUp({

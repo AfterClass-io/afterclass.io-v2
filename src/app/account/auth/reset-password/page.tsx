@@ -1,4 +1,4 @@
-import { AuthCard, ResetPasswordForm } from "@/common/components/Auth";
+import { AuthCard, ResetPasswordForm } from "@/modules/auth/components";
 
 export default function ResetPassword() {
   return (

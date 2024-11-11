@@ -1,5 +1,5 @@
 import { api } from "@/common/tools/trpc/server";
-import { RatingSection } from "@/common/components/RatingSection";
+import { RatingSection } from "@/modules/reviews/components/RatingSection";
 import { ReviewLabelType } from "@prisma/client";
 import calculateAverage from "@/common/functions/calculateAverage";
 import calculateRatingItems from "@/modules/reviews/functions/calculateRatingItems";

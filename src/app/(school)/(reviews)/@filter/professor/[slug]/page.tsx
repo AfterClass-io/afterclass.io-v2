@@ -1,5 +1,5 @@
 import { GraduationCapIcon, PencilIcon } from "@/common/components/CustomIcon";
-import { FilterToggleSection } from "@/modules/reviews/FilterToggleSection";
+import { FilterToggleSection } from "@/modules/reviews/components/FilterToggleSection";
 import { api } from "@/common/tools/trpc/server";
 import { getServerAuthSession } from "@/server/auth";
 

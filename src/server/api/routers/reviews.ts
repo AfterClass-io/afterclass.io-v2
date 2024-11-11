@@ -6,7 +6,7 @@ import {
 } from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
 import { Prisma } from "@prisma/client";
-import { type Review } from "@/common/types";
+import { type Review } from "@/modules/reviews/types";
 import { reviewFormSchema } from "@/common/tools/zod/schemas";
 import { ReviewableEnum } from "@/modules/submit/types";
 

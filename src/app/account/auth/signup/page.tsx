@@ -1,4 +1,4 @@
-import { AuthCard, SignupForm } from "@/common/components/Auth";
+import { AuthCard, SignupForm } from "@/modules/auth/components";
 
 export default function SignUp() {
   return (

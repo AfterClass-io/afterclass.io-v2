@@ -1,4 +1,4 @@
-import { AuthCard } from "@/common/components/Auth";
+import { AuthCard } from "@/modules/auth/components";
 import { Button } from "@/common/components/Button";
 import Heading from "@/common/components/Heading";
 import { notFound } from "next/navigation";
