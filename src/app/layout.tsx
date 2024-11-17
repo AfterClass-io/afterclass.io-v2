@@ -1,6 +1,7 @@
 import "@/common/styles/globals.scss";
 
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 
 import { TRPCReactProvider } from "@/common/tools/trpc/react";
 import { CoreLayout } from "@/common/components/CoreLayout";
@@ -88,6 +89,12 @@ export default function RootLayout({
           </ThemeProvider>
         </body>
       </CSPostHogProvider>
+      <Script
+        defer
+        src="/stats/script.js"
+        data-website-id="b4f3137b-00dd-489c-9c68-8586950ab450"
+        data-domains="afterclass.io,new.afterclass.io"
+      />
     </html>
   );
 }
