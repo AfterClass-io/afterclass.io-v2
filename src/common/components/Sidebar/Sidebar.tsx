@@ -138,7 +138,12 @@ export const Sidebar = ({
         <div className="px-3 py-2 text-xs text-text-em-low">Telegram</div>
         <ul className="space-y-2">
           {SIDEBAR_CHANNELS_ITEMS.map((item) => (
-            <SidebarItem key={item.href} {...item} external={true} />
+            <SidebarItem
+              key={item.href}
+              {...item}
+              external
+              data-umami-event={`sidebar-${item.label.replace(/\s/g, "-").toLowerCase()}`}
+            />
           ))}
         </ul>
       </div>
