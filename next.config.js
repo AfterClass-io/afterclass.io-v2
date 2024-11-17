@@ -43,6 +43,11 @@ const config = {
   async rewrites() {
     return [
       {
+        source: "/stats",
+        destination:
+          "https://afterclass-stats.vercel.app/share/AglFdHLOFGYe2qNJ/new.afterclass.io",
+      },
+      {
         source: "/stats/:match*",
         destination: "https://stats.afterclass.io/:match*",
       },
