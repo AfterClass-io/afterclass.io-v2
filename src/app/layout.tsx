@@ -12,6 +12,7 @@ import { inter, poppins } from "@/common/fonts";
 import { env } from "@/env";
 import { CSPostHogProvider } from "@/common/providers/analytics/providers";
 import dynamic from "next/dynamic";
+import { Analytics } from "@vercel/analytics/react";
 
 const PostHogPageView = dynamic(
   () => import("@/common/providers/analytics/PostHogPageView"),
@@ -95,6 +96,7 @@ export default function RootLayout({
         data-website-id="b4f3137b-00dd-489c-9c68-8586950ab450"
         data-domains="afterclass.io,new.afterclass.io"
       />
+      <Analytics />
     </html>
   );
 }
