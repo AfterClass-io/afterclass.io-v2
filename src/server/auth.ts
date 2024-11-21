@@ -8,12 +8,14 @@ import {
 import { z } from "zod";
 import { randomBytes, randomUUID } from "crypto";
 import bcrypt from "bcrypt";
-import { env } from "@/env";
-import { signInWithEmail } from "./supabase";
-import { emailValidationSchema } from "@/common/tools/zod/schemas";
-import { db } from "@/server/db";
-import randomId from "@/common/functions/randomId";
 import { type Users } from "@prisma/client";
+import * as Sentry from "@sentry/nextjs";
+
+import { signInWithEmail } from "./supabase";
+import randomId from "@/common/functions/randomId";
+import { emailValidationSchema } from "@/common/tools/zod/schemas";
+import { env } from "@/env";
+import { db } from "@/server/db";
 import { identifyUser } from "@/server/posthog";
 
 type SessionUser = Omit<Users, "deprecatedPasswordDigest">;
@@ -68,7 +70,11 @@ export const authOptions: NextAuthOptions = {
           user.deprecatedPasswordDigest &&
           bcrypt.compareSync(c.data.password, user.deprecatedPasswordDigest)
         ) {
-          console.log(`User ${user.id} logged in with v1 credentials.`);
+          Sentry.addBreadcrumb({
+            category: "auth",
+            message: `User ${user.id} logged in with v1 credentials.`,
+            level: "info",
+          });
           return await identifyUser(user);
         }
 
@@ -77,7 +83,11 @@ export const authOptions: NextAuthOptions = {
           c.data.password,
         );
         if (error) {
-          console.error(`Authorize Error: ${error.name}: ${error.message}`);
+          Sentry.addBreadcrumb({
+            category: "auth",
+            message: `Authentication Error: ${error.name}: ${error.message}`,
+            level: "error",
+          });
           return null;
         }
 
@@ -92,11 +102,15 @@ export const authOptions: NextAuthOptions = {
             );
 
             if (!uniOfThisEmail) {
-              console.error(
-                `Unexpected email domain '${emailDomain}'.\n` +
+              Sentry.addBreadcrumb({
+                type: "error",
+                category: "auth",
+                message:
+                  `Unexpected email domain '${emailDomain}'.\n` +
                   "\tUser has signed up with this email but the domain is not associated with any university. " +
                   "\tPlease check the database for the domain and add it to the universities table if necessary",
-              );
+                level: "error",
+              });
               return null;
             }
 
@@ -183,6 +197,14 @@ export const authOptions: NextAuthOptions = {
         session.user = token.user as SessionUser;
       }
       return session;
+    },
+  },
+  events: {
+    signIn({ user }) {
+      Sentry.setUser({ id: user.id });
+    },
+    signOut() {
+      Sentry.setUser(null);
     },
   },
 };

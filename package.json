@@ -29,6 +29,7 @@
     "@radix-ui/react-separator": "1.1.0",
     "@radix-ui/react-toggle-group": "1.1.0",
     "@radix-ui/react-tooltip": "1.1.2",
+    "@sentry/nextjs": "^8",
     "@supabase/supabase-js": "2.45.4",
     "@t3-oss/env-nextjs": "0.11.1",
     "@trpc/client": "next",
