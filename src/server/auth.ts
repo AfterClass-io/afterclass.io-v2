@@ -201,10 +201,13 @@ export const authOptions: NextAuthOptions = {
   },
   events: {
     signIn({ user }) {
-      Sentry.setUser({ id: user.id });
+      // strip user object of unwanted sensitive fields before populating to Sentry
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { deprecatedPasswordDigest, ...unsensoredUser } = user as Users;
+      Sentry.getGlobalScope().setUser(unsensoredUser);
     },
     signOut() {
-      Sentry.setUser(null);
+      Sentry.getGlobalScope().setUser(null);
     },
   },
 };
