@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import * as Sentry from "@sentry/nextjs";
 
 import {
   type ReviewFormInputsSchema,
@@ -60,8 +61,15 @@ export const ReviewForm = ({ children }: { children: ReactNode }) => {
   // }, [formMethods.watch]);
 
   const onSubmit: SubmitHandler<ReviewFormInputsSchema> = (data) => {
-    console.log(data);
-    console.log(session);
+    Sentry.addBreadcrumb({
+      category: "review.submit",
+      message:
+        "Review Submitted." +
+        `\n\tSession:\n${JSON.stringify(session)}\n` +
+        `\n\tData:\n${JSON.stringify(data)}`,
+      level: "info",
+    });
+
     let userId;
     // TODO: populate user values from supabase when user is authenticated
     if (!session?.user?.id) {
