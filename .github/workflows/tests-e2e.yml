@@ -4,8 +4,22 @@ on:
   push:
     branches:
       - "main"
+    paths:
+      - "**.js"
+      - "**.ts"
+      - "**.jsx"
+      - "**.tsx"
+      - "**/prisma/data/**.json"
+      - "cypress/**"
   pull_request:
     types: [opened, reopened, synchronize]
+    paths:
+      - "**.js"
+      - "**.ts"
+      - "**.jsx"
+      - "**.tsx"
+      - "**/prisma/data/**.json"
+      - "cypress/**"
 
 jobs:
   cypress-run:
