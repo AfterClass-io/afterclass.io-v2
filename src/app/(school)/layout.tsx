@@ -3,12 +3,12 @@ import { type PropsWithChildren } from "react";
 import { Button } from "@/common/components/Button";
 import { ThemeToggle } from "@/common/components/ThemeToggle";
 import { cn } from "@/common/functions";
-import { getServerAuthSession } from "@/server/auth";
+import { auth } from "@/server/auth";
 import { Breadcrumb } from "@/modules/home/components/Breadcrumb";
 import { AnnouncementsBanner } from "@/modules/home/components/AnnouncementBanner";
 
 export default async function SchoolLayout({ children }: PropsWithChildren) {
-  const session = await getServerAuthSession();
+  const session = await auth();
   return (
     <>
       <header

@@ -1,7 +1,7 @@
 import { RatingSection } from "@/modules/reviews/components/RatingSection";
 import formatPercentage from "@/common/functions/formatPercentage";
 import { api } from "@/common/tools/trpc/server";
-import { getServerAuthSession } from "@/server/auth";
+import { auth } from "@/server/auth";
 
 export default async function ProfessorRating({
   params,
@@ -12,7 +12,7 @@ export default async function ProfessorRating({
     course?: string | string[];
   };
 }) {
-  const session = await getServerAuthSession();
+  const session = await auth();
 
   const validProfessorReviewLabels = await api.labels.getAllByType({
     typeOf: "PROFESSOR",

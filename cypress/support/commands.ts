@@ -12,9 +12,14 @@
 //
 // -- This is a parent command --
 Cypress.Commands.add("loginWith", ({ email, password }) => {
-  cy.clearCookies();
+  cy.clearAllCookies();
+  cy.clearAllLocalStorage();
+  cy.clearAllSessionStorage();
   cy.request("/api/auth/csrf").then((response) => {
+    cy.log(`csrf response: ${JSON.stringify(response)}`);
     const csrfToken = response.body.csrfToken;
+    cy.log(`csrfToken: ${csrfToken}`);
+
     // Perform login with credentials
     cy.request({
       method: "POST",
@@ -28,7 +33,7 @@ Cypress.Commands.add("loginWith", ({ email, password }) => {
       },
       followRedirect: false,
     }).then((res) => {
-      expect(res.status).to.eq(200);
+      expect(res.status).to.eq(302);
 
       const cookies = res.headers["set-cookie"];
       if (!cookies) {
@@ -39,7 +44,7 @@ Cypress.Commands.add("loginWith", ({ email, password }) => {
       }
 
       const sessionCookie = cookies.find((cookie) =>
-        cookie.trim().startsWith("next-auth.session-token="),
+        cookie.trim().startsWith("authjs.session-token="),
       );
       if (!sessionCookie) {
         throw new Error("No session cookie found in the response");
@@ -47,7 +52,7 @@ Cypress.Commands.add("loginWith", ({ email, password }) => {
 
       const sessionTokenValue = sessionCookie.split(";")[0]!.split("=")[1];
 
-      cy.setCookie("next-auth.session-token", sessionTokenValue!);
+      cy.setCookie("authjs.session-token", sessionTokenValue!);
       cy.reload();
     });
   });

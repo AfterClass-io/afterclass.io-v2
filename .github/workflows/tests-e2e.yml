@@ -44,7 +44,7 @@ jobs:
           sed -i "s|NEXT_PUBLIC_SUPABASE_ANON_KEY=.*|NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}|" .env
 
       - name: Start Docker Compose
-        run: docker compose up -d
+        run: docker compose up -d --quiet-pull
 
       - name: Wait for database to be ready
         run: |
@@ -73,11 +73,14 @@ jobs:
           CYPRESS_TEST_EMAIL_V1_VALID: ${{ secrets.CYPRESS_TEST_EMAIL_V1_VALID }}
           CYPRESS_TEST_EMAIL_V2_VALID: ${{ secrets.CYPRESS_TEST_EMAIL_V2_VALID }}
           CYPRESS_TEST_PWD_VALID: ${{ secrets.CYPRESS_TEST_PWD_VALID }}
+          # required for authjs to trust localhost
+          # See https://authjs.dev/getting-started/deployment#auth_trust_host
+          AUTH_TRUST_HOST: true
 
       # after the test run completes store videos and any screenshots
       - uses: actions/upload-artifact@v4
         # add the line below to store screenshots only on failures
-        # if: failure()
+        if: failure()
         with:
           name: cypress-screenshots
           path: cypress/screenshots
@@ -87,6 +90,3 @@ jobs:
           name: cypress-videos
           path: cypress/videos
           if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
-
-      - name: Stop Docker Compose
-        run: docker compose down

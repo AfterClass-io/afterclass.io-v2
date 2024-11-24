@@ -2,14 +2,14 @@ import { api } from "@/common/tools/trpc/server";
 import { notFound } from "next/navigation";
 import { InformationCard } from "@/modules/reviews/components/InformationSection/InformationCard";
 import { DetailCard } from "@/modules/reviews/components/InformationSection/DetailCard";
-import { getServerAuthSession } from "@/server/auth";
+import { auth } from "@/server/auth";
 
 export default async function CourseInfo({
   params,
 }: {
   params: { code: string };
 }) {
-  const session = await getServerAuthSession();
+  const session = await auth();
   const course = await api.courses.getByCourseCode({
     code: params.code.toUpperCase(),
   });

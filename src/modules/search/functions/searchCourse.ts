@@ -1,7 +1,7 @@
 import type { Universities, Courses } from "@prisma/client";
 import { db } from "@/server/db";
 import { api } from "@/common/tools/trpc/server";
-import { getServerAuthSession } from "@/server/auth";
+import { auth } from "@/server/auth";
 
 type QueryCourseResult = {
   uniAbbrv: Universities["abbrv"];
@@ -43,7 +43,7 @@ export async function searchCourse(
     LIMIT ${limit};
   `;
 
-  const session = await getServerAuthSession();
+  const session = await auth();
   if (!session) {
     return queryResult.map((r) => ({ ...r, profCount: 0, reviewCount: 0 }));
   }

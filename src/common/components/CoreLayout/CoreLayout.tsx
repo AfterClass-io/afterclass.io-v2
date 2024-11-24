@@ -1,12 +1,12 @@
 import { type PropsWithChildren } from "react";
 import { Sidebar } from "../Sidebar";
 import { MobileHeader } from "@/common/components/MobileHeader";
-import { getServerAuthSession } from "@/server/auth";
+import { auth } from "@/server/auth";
 
 interface CoreLayoutProps extends PropsWithChildren {}
 
 export async function CoreLayout({ children }: CoreLayoutProps) {
-  const session = await getServerAuthSession();
+  const session = await auth();
   return (
     <div className="flex h-dvh flex-col">
       <MobileHeader
