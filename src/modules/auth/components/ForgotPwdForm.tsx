@@ -1,51 +1,38 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { startTransition } from "react";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-
-import { supabase } from "@/server/supabase";
 
 import { Input } from "@/common/components/Input";
 import { Button } from "@/common/components/Button";
-import { emailValidationSchema } from "@/common/tools/zod/schemas";
-import { env } from "@/env";
 import { EnvelopeIcon } from "@/common/components/CustomIcon";
 
-const forgotPwdFormInputsSchema = z.object({
-  email: emailValidationSchema,
-});
-type forgotPwdFormInputs = z.infer<typeof forgotPwdFormInputsSchema>;
+import { forgotPasswordFormAction } from "../functions";
+import { ForgotPwdFormInputs, forgotPwdFormInputsSchema } from "../types";
 
-export const ForgotPasswordForm = () => {
-  const router = useRouter();
-
+export const ForgotPwdForm = () => {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<forgotPwdFormInputs>({
+  } = useForm<ForgotPwdFormInputs>({
     resolver: zodResolver(forgotPwdFormInputsSchema),
     mode: "onTouched",
   });
 
-  const onSubmit: SubmitHandler<forgotPwdFormInputs> = async ({ email }) => {
-    if (isSubmitting) return;
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${env.NEXT_PUBLIC_SITE_URL}/account/auth/reset-password`,
-    });
-    if (error) {
-      alert(error.message);
-      reset();
-    }
-    router.push(`/account/auth/verify?email=${email}`);
-  };
-
   return (
     <form
       className="flex w-full flex-col gap-6"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit((data) => {
+        startTransition(async () => {
+          const err = await forgotPasswordFormAction(data);
+          if (err) {
+            alert(err.message);
+            reset();
+          }
+        });
+      })}
     >
       <Input
         {...register("email")}
