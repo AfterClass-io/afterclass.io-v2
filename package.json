@@ -19,7 +19,6 @@
   "dependencies": {
     "@ctrl/tinycolor": "4.1.0",
     "@hookform/resolvers": "3.9.0",
-    "@next-auth/supabase-adapter": "0.2.1",
     "@prisma/client": "5.20.0",
     "@radix-ui/react-checkbox": "1.1.1",
     "@radix-ui/react-dialog": "1.1.1",
