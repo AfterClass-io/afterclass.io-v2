@@ -44,7 +44,7 @@ jobs:
           sed -i "s|NEXT_PUBLIC_SUPABASE_ANON_KEY=.*|NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}|" .env
 
       - name: Start Docker Compose
-        run: docker compose up -d
+        run: docker compose up -d --quiet-pull
 
       - name: Wait for database to be ready
         run: |
