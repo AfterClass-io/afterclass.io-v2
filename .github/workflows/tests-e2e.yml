@@ -22,35 +22,24 @@ on:
       - "cypress/**"
 
 jobs:
-  setup:
+  cypress-run:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Cache Bun dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.bun
-          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockb') }}
-          restore-keys: |
-            ${{ runner.os }}-bun-
 
       - name: Set up Bun
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: "latest"
 
-      - name: Install dependencies
-        run: bun install
+      - run: bun install
 
-  start-services:
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
       - name: Setup Env
         run: |
           cp .env.example .env
+
           sed -i "s|NEXT_PUBLIC_SUPABASE_URL=.*|NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}|" .env
           sed -i "s|NEXT_PUBLIC_SUPABASE_ANON_KEY=.*|NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}|" .env
 
@@ -65,17 +54,14 @@ jobs:
           done
           echo "Database is ready"
 
-  prepare-db:
-    runs-on: ubuntu-latest
-    needs: start-services
-    steps:
       - name: Load database
         run: bun run db:reset -f
 
-  test:
-    runs-on: ubuntu-latest
-    needs: prepare-db
-    steps:
+      # required for cypress to generate a hashkey for caching
+      # cypress github action naively terminates if lockfile
+      # for either of yarn/npm/pnpm is missing
+      - run: touch yarn.lock
+
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
@@ -89,27 +75,20 @@ jobs:
           CYPRESS_TEST_EMAIL_V1_VALID: ${{ secrets.CYPRESS_TEST_EMAIL_V1_VALID }}
           CYPRESS_TEST_EMAIL_V2_VALID: ${{ secrets.CYPRESS_TEST_EMAIL_V2_VALID }}
           CYPRESS_TEST_PWD_VALID: ${{ secrets.CYPRESS_TEST_PWD_VALID }}
+          # required for authjs to trust localhost
+          # See https://authjs.dev/getting-started/deployment#auth_trust_host
           AUTH_TRUST_HOST: true
 
-      - name: Upload Cypress screenshots
+      # after the test run completes store videos and any screenshots
+      - uses: actions/upload-artifact@v4
+        # add the line below to store screenshots only on failures
         if: failure()
-        uses: actions/upload-artifact@v4
         with:
           name: cypress-screenshots
           path: cypress/screenshots
-          if-no-files-found: ignore
-
-      - name: Upload Cypress videos
-        uses: actions/upload-artifact@v4
+          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
+      - uses: actions/upload-artifact@v4
         with:
           name: cypress-videos
           path: cypress/videos
-          if-no-files-found: ignore
-
-  cleanup:
-    runs-on: ubuntu-latest
-    needs: [test]
-    if: always()
-    steps:
-      - name: Stop Docker Compose
-        run: docker compose down
+          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
