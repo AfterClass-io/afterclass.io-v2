@@ -13,8 +13,15 @@
 // -- This is a parent command --
 Cypress.Commands.add("loginWith", ({ email, password }) => {
   cy.clearCookies();
+  let csrfToken: string;
   cy.request("/api/auth/csrf").then((response) => {
-    const csrfToken = response.body.csrfToken;
+    console.log(response);
+    const csrfTokenFromEndpoint = response.body.csrfToken;
+    if (!!csrfTokenFromEndpoint) {
+      csrfToken = csrfTokenFromEndpoint;
+    }
+    console.log("csrfToken", csrfToken);
+
     // Perform login with credentials
     cy.request({
       method: "POST",
