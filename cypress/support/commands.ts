@@ -28,7 +28,7 @@ Cypress.Commands.add("loginWith", ({ email, password }) => {
       },
       followRedirect: false,
     }).then((res) => {
-      expect(res.status).to.eq(200);
+      expect(res.status).to.eq(302);
 
       const cookies = res.headers["set-cookie"];
       if (!cookies) {
