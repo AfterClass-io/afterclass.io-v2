@@ -12,6 +12,9 @@
 //
 // -- This is a parent command --
 Cypress.Commands.add("loginWith", ({ email, password }) => {
+  cy.clearAllCookies();
+  cy.clearAllLocalStorage();
+  cy.clearAllSessionStorage();
   cy.request("/api/auth/csrf").then((response) => {
     cy.log(`csrf response: ${JSON.stringify(response)}`);
     const csrfToken = response.body.csrfToken;
