@@ -70,8 +70,6 @@ jobs:
           start: bun run start
           browser: chrome
         env:
-          # see: https://github.com/cypress-io/github-action/tree/v6/?tab=readme-ov-file#debugging
-          DEBUG: "cypress:*"
           CYPRESS_TEST_EMAIL_V1_VALID: ${{ secrets.CYPRESS_TEST_EMAIL_V1_VALID }}
           CYPRESS_TEST_EMAIL_V2_VALID: ${{ secrets.CYPRESS_TEST_EMAIL_V2_VALID }}
           CYPRESS_TEST_PWD_VALID: ${{ secrets.CYPRESS_TEST_PWD_VALID }}

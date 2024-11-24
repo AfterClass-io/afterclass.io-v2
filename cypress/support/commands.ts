@@ -12,48 +12,67 @@
 //
 // -- This is a parent command --
 Cypress.Commands.add("loginWith", ({ email, password }) => {
-  cy.clearCookies();
-  cy.request("/api/auth/csrf").then((response) => {
-    cy.log(`csrf response: ${JSON.stringify(response)}`);
-    const csrfToken = response.body.csrfToken;
-    cy.log(`csrfToken: ${csrfToken}`);
+  cy.session(
+    [email, password],
+    () => {
+      cy.request("/api/auth/csrf").then((response) => {
+        cy.log(`csrf response: ${JSON.stringify(response)}`);
+        const csrfToken = response.body.csrfToken;
+        cy.log(`csrfToken: ${csrfToken}`);
 
-    // Perform login with credentials
-    cy.request({
-      method: "POST",
-      url: "/api/auth/callback/credentials",
-      form: true,
-      body: {
-        csrfToken,
-        email,
-        password,
-        json: true,
+        // Perform login with credentials
+        cy.request({
+          method: "POST",
+          url: "/api/auth/callback/credentials",
+          form: true,
+          body: {
+            csrfToken,
+            email,
+            password,
+            json: true,
+          },
+          followRedirect: false,
+        }).then((res) => {
+          expect(res.status).to.eq(302);
+
+          const cookies = res.headers["set-cookie"];
+          if (!cookies) {
+            throw new Error("No cookies found in the response");
+          }
+          if (!Array.isArray(cookies)) {
+            throw new Error("Cookies must be an array");
+          }
+
+          const sessionCookie = cookies.find((cookie) =>
+            cookie.trim().startsWith("authjs.session-token="),
+          );
+          if (!sessionCookie) {
+            throw new Error("No session cookie found in the response");
+          }
+
+          const sessionTokenValue = sessionCookie.split(";")[0]!.split("=")[1];
+
+          cy.setCookie("authjs.session-token", sessionTokenValue!);
+          cy.reload();
+        });
+      });
+    },
+    {
+      validate: () => {
+        let found = false;
+        cy.getCookies().then((cookies) => {
+          cookies.map((c) => {
+            if (c.name.startsWith("authjs.session-token")) {
+              expect(c.value).to.be.not.empty;
+              found = true;
+            }
+          });
+          expect(found).to.be.true;
+        });
       },
-      followRedirect: false,
-    }).then((res) => {
-      expect(res.status).to.eq(302);
-
-      const cookies = res.headers["set-cookie"];
-      if (!cookies) {
-        throw new Error("No cookies found in the response");
-      }
-      if (!Array.isArray(cookies)) {
-        throw new Error("Cookies must be an array");
-      }
-
-      const sessionCookie = cookies.find((cookie) =>
-        cookie.trim().startsWith("authjs.session-token="),
-      );
-      if (!sessionCookie) {
-        throw new Error("No session cookie found in the response");
-      }
-
-      const sessionTokenValue = sessionCookie.split(";")[0]!.split("=")[1];
-
-      cy.setCookie("authjs.session-token", sessionTokenValue!);
-      cy.reload();
-    });
-  });
+      // cacheAcrossSpecs: true,
+    },
+  );
 });
 
 Cypress.Commands.add("login", () => {
