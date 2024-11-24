@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { env } from "@/env";
 import { PostHogClient } from "./client";
-import { getServerAuthSession } from "@/server/auth";
+import { auth } from "@/server/auth";
 
 /**
  * Wrapper around PostHogClient.isFeatureEnabled for node.js (server-side)
@@ -10,7 +10,7 @@ import { getServerAuthSession } from "@/server/auth";
  * @returns boolean indicating if the feature is enabled
  */
 export async function getFeatureFlag(name: string) {
-  const session = await getServerAuthSession();
+  const session = await auth();
   const cookieStore = cookies();
 
   // posthog stores the distinct_id in a cookie with the key `ph_${POSTHOG_KEY}_posthog`

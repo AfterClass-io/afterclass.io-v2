@@ -3,7 +3,7 @@ import { RatingSection } from "@/modules/reviews/components/RatingSection";
 import { ReviewLabelType } from "@prisma/client";
 import calculateAverage from "@/common/functions/calculateAverage";
 import calculateRatingItems from "@/modules/reviews/functions/calculateRatingItems";
-import { getServerAuthSession } from "@/server/auth";
+import { auth } from "@/server/auth";
 
 export default async function CourseRating({
   params,
@@ -12,7 +12,7 @@ export default async function CourseRating({
   params: { code: string };
   searchParams?: { professor?: string | string[] };
 }) {
-  const session = await getServerAuthSession();
+  const session = await auth();
   const validCourseReviewLabels = await api.labels.getAllByType({
     typeOf: ReviewLabelType.COURSE,
   });

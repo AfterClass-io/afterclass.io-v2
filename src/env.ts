@@ -30,7 +30,6 @@ export const env = createEnv({
     // as system environment variable. doesn't include `https`
     // https://vercel.com/docs/projects/environment-variables/system-environment-variables
     NEXTAUTH_URL: siteUrlValidator(process.env.VERCEL_URL),
-    SUPABASE_SERVICE_ROLE_KEY: z.string(),
   },
 
   /**
@@ -86,7 +85,6 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL ?? process.env.VERCEL_URL,
-    SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
     NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY,
     NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,

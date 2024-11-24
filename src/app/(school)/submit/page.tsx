@@ -8,8 +8,14 @@ import {
   ReviewForm,
   ReviewFormSection,
 } from "@/modules/submit/components/ReviewForm";
+import { auth, signIn } from "@/server/auth";
 
 export default async function SubmitReviewPage() {
+  const session = await auth();
+  if (!session) {
+    return signIn();
+  }
+
   // TODO: get school from user field, to be populated automatically on successful signup based on user's email domain
   const school = "SMU" satisfies UniversityAbbreviation;
 

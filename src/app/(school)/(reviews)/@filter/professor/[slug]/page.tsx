@@ -1,14 +1,14 @@
 import { GraduationCapIcon, PencilIcon } from "@/common/components/CustomIcon";
 import { FilterToggleSection } from "@/modules/reviews/components/FilterToggleSection";
 import { api } from "@/common/tools/trpc/server";
-import { getServerAuthSession } from "@/server/auth";
+import { auth } from "@/server/auth";
 
 export default async function ProfessorFilter({
   params,
 }: {
   params: { slug: string };
 }) {
-  const session = await getServerAuthSession();
+  const session = await auth();
   if (!session) {
     return <FilterToggleSection filterType="course" isLocked />;
   }
