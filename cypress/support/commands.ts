@@ -39,7 +39,7 @@ Cypress.Commands.add("loginWith", ({ email, password }) => {
       }
 
       const sessionCookie = cookies.find((cookie) =>
-        cookie.trim().startsWith("next-auth.session-token="),
+        cookie.trim().startsWith("authjs.session-token="),
       );
       if (!sessionCookie) {
         throw new Error("No session cookie found in the response");
@@ -47,7 +47,7 @@ Cypress.Commands.add("loginWith", ({ email, password }) => {
 
       const sessionTokenValue = sessionCookie.split(";")[0]!.split("=")[1];
 
-      cy.setCookie("next-auth.session-token", sessionTokenValue!);
+      cy.setCookie("authjs.session-token", sessionTokenValue!);
       cy.reload();
     });
   });
