@@ -1,5 +1,4 @@
 "use client";
-import { startTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -24,14 +23,10 @@ export const ForgotPwdForm = () => {
   return (
     <form
       className="flex w-full flex-col gap-6"
-      onSubmit={handleSubmit((data) => {
-        startTransition(async () => {
-          const err = await forgotPasswordFormAction(data);
-          if (err) {
-            alert(err.message);
-            reset();
-          }
-        });
+      onSubmit={handleSubmit(async (data) => {
+        const errMsg = await forgotPasswordFormAction(data);
+        if (errMsg) alert(errMsg);
+        reset();
       })}
     >
       <Input
