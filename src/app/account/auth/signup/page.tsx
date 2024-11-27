@@ -1,3 +1,4 @@
+import { emailValidationSchema } from "@/common/tools/zod/schemas";
 import {
   AuthCard,
   SignupForm,
@@ -9,11 +10,13 @@ export default function SignUp({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const existingV1UserEmail = searchParams.email;
+  const { success: isValidEmail } = emailValidationSchema.safeParse(
+    searchParams.email,
+  );
 
   return (
     <>
-      {existingV1UserEmail && <SignupModalV1User />}
+      {isValidEmail && <SignupModalV1User />}
       <AuthCard title="Create an account">
         <SignupForm />
       </AuthCard>
