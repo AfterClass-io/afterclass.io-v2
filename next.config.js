@@ -44,16 +44,17 @@ const config = withSentryConfig(
     skipTrailingSlashRedirect: true,
     async rewrites() {
       return [
+        // for multizonal deployments
         {
           source: "/statistics",
           destination:
-            "https://stats.afterclass.io/share/AglFdHLOFGYe2qNJ/new.afterclass.io",
+            "https://stats.afterclass.io/statistics/share/AglFdHLOFGYe2qNJ/new.afterclass.io",
         },
         {
-          source: "/statistics/:path",
-          destination:
-            "https://stats.afterclass.io/share/AglFdHLOFGYe2qNJ/new.afterclass.io/:path",
+          source: "/statistics/:match*",
+          destination: "https://stats.afterclass.io/statistics/:match*",
         },
+        // for proxying
         {
           source: "/stats/:match*",
           destination: "https://stats.afterclass.io/:match*",
