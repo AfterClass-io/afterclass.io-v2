@@ -2,22 +2,18 @@
 import { useRouter } from "next/navigation";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 
 import { supabase } from "@/server/supabase";
 
 import { Input } from "@/common/components/Input";
 import { Button } from "@/common/components/Button";
-import { emailValidationSchema } from "@/common/tools/zod/schemas";
 import { env } from "@/env";
 import { EnvelopeIcon } from "@/common/components/CustomIcon";
 
-const forgotPwdFormInputsSchema = z.object({
-  email: emailValidationSchema,
-});
-type forgotPwdFormInputs = z.infer<typeof forgotPwdFormInputsSchema>;
+import { isUserExistsAndNotV1ElseRedirectToSignup } from "../functions";
+import { type ForgotPwdFormInputs, forgotPwdFormInputsSchema } from "../types";
 
-export const ForgotPasswordForm = () => {
+export const ForgotPwdForm = () => {
   const router = useRouter();
 
   const {
@@ -25,20 +21,30 @@ export const ForgotPasswordForm = () => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<forgotPwdFormInputs>({
+  } = useForm<ForgotPwdFormInputs>({
     resolver: zodResolver(forgotPwdFormInputsSchema),
     mode: "onTouched",
   });
 
-  const onSubmit: SubmitHandler<forgotPwdFormInputs> = async ({ email }) => {
+  const onSubmit: SubmitHandler<ForgotPwdFormInputs> = async ({ email }) => {
     if (isSubmitting) return;
+
+    const errMsg = await isUserExistsAndNotV1ElseRedirectToSignup({ email });
+    if (errMsg) {
+      alert(errMsg);
+      reset();
+      return;
+    }
+
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${env.NEXT_PUBLIC_SITE_URL}/account/auth/reset-password`,
     });
     if (error) {
       alert(error.message);
       reset();
+      return;
     }
+
     router.push(`/account/auth/verify?email=${email}`);
   };
 

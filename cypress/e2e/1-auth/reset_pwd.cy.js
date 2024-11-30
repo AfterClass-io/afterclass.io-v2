@@ -1,7 +1,8 @@
 /// <reference types="cypress" />
 
 const TEST_EMAIL_INVALID = "test@test.com";
-const TEST_EMAIL_VALID = Cypress.env("TEST_EMAIL_V1_VALID");
+const TEST_EMAIL_V1_VALID = Cypress.env("TEST_EMAIL_V1_VALID");
+const TEST_EMAIL_V2_VALID = Cypress.env("TEST_EMAIL_V2_VALID");
 
 context("ResetPwd", function () {
   beforeEach(function () {
@@ -9,22 +10,34 @@ context("ResetPwd", function () {
     cy.intercept("POST", "**/auth/v1/recover*", {
       delay: 1000,
       statusCode: 200,
+      body: {},
     }).as("mockPasswordReset");
   });
 
   describe("Successful Password Reset", function () {
-    it("should be able to submit password reset request", function () {
-      cy.get("input[data-test=email]").type(TEST_EMAIL_VALID);
-      cy.get("button[data-test=submit]").click();
-
-      cy.get("button[data-test=submit]").should(
-        "have.text",
-        "Confirming your email...",
-      );
-
+    it("should be able to submit password reset request for v1 email", function () {
+      cy.get("input[data-test=email]").type(TEST_EMAIL_V1_VALID);
+      cy.get("button[data-test=submit]")
+        .click()
+        .should("have.text", "Confirming your email...");
       cy.url().should(
         "eq",
-        `${Cypress.config("baseUrl")}/account/auth/verify?email=${TEST_EMAIL_VALID}`,
+        `${Cypress.config("baseUrl")}/account/auth/signup?email=${TEST_EMAIL_V1_VALID}`,
+      );
+      cy.get("div[data-test=v1-signup-modal]").should("be.visible");
+    });
+
+    it("should be able to submit password reset request for v2 email", function () {
+      cy.get("input[data-test=email]").type(TEST_EMAIL_V2_VALID);
+      cy.get("button[data-test=submit]")
+        .click()
+        .should("have.text", "Confirming your email...");
+      // by this time this should have requsted once
+      cy.get("@mockPasswordReset.all").should("have.length", 1);
+      cy.wait(10_000);
+      cy.url().should(
+        "eq",
+        `${Cypress.config("baseUrl")}/account/auth/verify?email=${TEST_EMAIL_V2_VALID}`,
       );
     });
 
@@ -35,19 +48,6 @@ context("ResetPwd", function () {
       cy.get("a[data-test=forget]").click();
 
       cy.url().should("eq", `${Cypress.config("baseUrl")}/account/auth/forgot`);
-
-      cy.get("input[data-test=email]").type(TEST_EMAIL_VALID);
-      cy.get("button[data-test=submit]").click();
-
-      cy.get("button[data-test=submit]").should(
-        "have.text",
-        "Confirming your email...",
-      );
-
-      cy.url().should(
-        "eq",
-        `${Cypress.config("baseUrl")}/account/auth/verify?email=${TEST_EMAIL_VALID}`,
-      );
     });
   });
 

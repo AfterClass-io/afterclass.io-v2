@@ -34,10 +34,11 @@ const signupFormInputsSchema = z
   });
 type SignupFormInputs = z.infer<typeof signupFormInputsSchema>;
 
-export const SignupForm = () => {
+export const SignupForm = ({ defaultEmail }: { defaultEmail?: string }) => {
   const router = useRouter();
   const [isPwdVisible, setIsPwdVisible] = useState(false);
   const [isCfmPwdVisible, setIsCfmPwdVisible] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -46,7 +47,9 @@ export const SignupForm = () => {
   } = useForm<SignupFormInputs>({
     resolver: zodResolver(signupFormInputsSchema),
     mode: "onTouched",
+    defaultValues: { email: defaultEmail },
   });
+
   const onSubmit: SubmitHandler<SignupFormInputs> = async (data) => {
     if (isSubmitting) return;
     try {
