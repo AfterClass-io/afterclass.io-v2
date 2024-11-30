@@ -10,15 +10,14 @@ export default function SignUp({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const { success: isValidEmail } = emailValidationSchema.safeParse(
-    searchParams.email,
-  );
+  const { success: isValidEmail, data: v1Email } =
+    emailValidationSchema.safeParse(searchParams.email);
 
   return (
     <>
       {isValidEmail && <SignupModalV1User />}
       <AuthCard title="Create an account">
-        <SignupForm />
+        <SignupForm defaultEmail={v1Email} />
       </AuthCard>
     </>
   );
