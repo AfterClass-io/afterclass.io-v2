@@ -2,14 +2,19 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { env } from "@/env";
+import { supabase } from "@/server/supabase";
 import { Input } from "@/common/components/Input";
 import { Button } from "@/common/components/Button";
 import { EnvelopeIcon } from "@/common/components/CustomIcon";
 
-import { forgotPasswordFormAction } from "../functions";
-import { ForgotPwdFormInputs, forgotPwdFormInputsSchema } from "../types";
+import { isUserExistsAndNotV1ElseRedirectToSignup } from "../functions";
+import { type ForgotPwdFormInputs, forgotPwdFormInputsSchema } from "../types";
+import { useRouter } from "next/navigation";
 
 export const ForgotPwdForm = () => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -20,14 +25,32 @@ export const ForgotPwdForm = () => {
     mode: "onTouched",
   });
 
+  const onSubmit = async ({ email }: ForgotPwdFormInputs) => {
+    if (isSubmitting) return;
+
+    const errMsg = await isUserExistsAndNotV1ElseRedirectToSignup({ email });
+    if (errMsg) {
+      alert(errMsg);
+      reset();
+      return;
+    }
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${env.NEXT_PUBLIC_SITE_URL}/account/auth/reset-password`,
+    });
+    if (error) {
+      alert(error.message);
+      reset();
+      return;
+    }
+
+    router.push(`/account/auth/verify?email=${email}`);
+  };
+
   return (
     <form
       className="flex w-full flex-col gap-6"
-      onSubmit={handleSubmit(async (data) => {
-        const errMsg = await forgotPasswordFormAction(data);
-        if (errMsg) alert(errMsg);
-        reset();
-      })}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <Input
         {...register("email")}

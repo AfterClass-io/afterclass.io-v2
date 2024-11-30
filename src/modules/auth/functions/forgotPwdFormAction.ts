@@ -1,12 +1,12 @@
 "use server";
 import { redirect } from "next/navigation";
 
-import { env } from "@/env";
-import { supabase } from "@/server/supabase";
 import { db } from "@/server/db";
-import { ForgotPwdFormInputs } from "../types";
+import { type ForgotPwdFormInputs } from "../types";
 
-export async function forgotPasswordFormAction({ email }: ForgotPwdFormInputs) {
+export async function isUserExistsAndNotV1ElseRedirectToSignup({
+  email,
+}: ForgotPwdFormInputs) {
   const user = await db.users.findUnique({
     where: { email },
   });
@@ -16,13 +16,7 @@ export async function forgotPasswordFormAction({ email }: ForgotPwdFormInputs) {
   }
 
   if (user.deprecatedPasswordDigest) {
+    // only v1 users have deprecatedPasswordDigest
     redirect(`/account/auth/signup?email=${email}`);
   }
-
-  const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${env.NEXT_PUBLIC_SITE_URL}/account/auth/reset-password`,
-  });
-  if (error) return error.message;
-
-  redirect(`/account/auth/verify?email=${email}`);
 }
