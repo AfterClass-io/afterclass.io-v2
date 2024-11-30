@@ -45,9 +45,14 @@ const config = withSentryConfig(
     async rewrites() {
       return [
         {
-          source: "/stats",
+          source: "/statistics",
           destination:
-            "https://afterclass-stats.vercel.app/share/AglFdHLOFGYe2qNJ/new.afterclass.io",
+            "https://stats.afterclass.io/share/AglFdHLOFGYe2qNJ/new.afterclass.io",
+        },
+        {
+          source: "/statistics/:path",
+          destination:
+            "https://stats.afterclass.io/share/AglFdHLOFGYe2qNJ/new.afterclass.io/:path",
         },
         {
           source: "/stats/:match*",
