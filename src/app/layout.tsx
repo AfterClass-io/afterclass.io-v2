@@ -92,7 +92,7 @@ export default function RootLayout({
       </CSPostHogProvider>
       <Script
         defer
-        src="/stats/script.js"
+        src="/statistics/script.js"
         data-website-id="b4f3137b-00dd-489c-9c68-8586950ab450"
         data-domains="afterclass.io,new.afterclass.io"
       />

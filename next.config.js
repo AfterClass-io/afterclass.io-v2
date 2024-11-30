@@ -56,10 +56,6 @@ const config = withSentryConfig(
         },
         // for proxying
         {
-          source: "/stats/:match*",
-          destination: "https://stats.afterclass.io/:match*",
-        },
-        {
           source: "/ingest/static/:path*",
           destination: "https://us-assets.i.posthog.com/static/:path*",
         },
