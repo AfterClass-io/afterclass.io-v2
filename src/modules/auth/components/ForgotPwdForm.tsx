@@ -1,16 +1,17 @@
 "use client";
-import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { env } from "@/env";
 import { supabase } from "@/server/supabase";
+
 import { Input } from "@/common/components/Input";
 import { Button } from "@/common/components/Button";
+import { env } from "@/env";
 import { EnvelopeIcon } from "@/common/components/CustomIcon";
 
 import { isUserExistsAndNotV1ElseRedirectToSignup } from "../functions";
 import { type ForgotPwdFormInputs, forgotPwdFormInputsSchema } from "../types";
-import { useRouter } from "next/navigation";
 
 export const ForgotPwdForm = () => {
   const router = useRouter();
@@ -25,7 +26,7 @@ export const ForgotPwdForm = () => {
     mode: "onTouched",
   });
 
-  const onSubmit = async ({ email }: ForgotPwdFormInputs) => {
+  const onSubmit: SubmitHandler<ForgotPwdFormInputs> = async ({ email }) => {
     if (isSubmitting) return;
 
     const errMsg = await isUserExistsAndNotV1ElseRedirectToSignup({ email });
