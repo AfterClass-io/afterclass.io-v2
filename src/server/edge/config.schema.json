@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/product.schema.json",
+  "title": "Edge Config",
+  "description": "Schema of json stored in the edge config",
+  "type": "object",
+  "properties": {
+    "test": {
+      "type": "boolean",
+      "description": "Test property",
+      "default": false
+    }
+  },
+  "required": ["test"],
+  "additionalProperties": false
+}
