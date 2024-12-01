@@ -1,24 +1,27 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useAtom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 
 import { XCloseIcon } from "@/common/components/CustomIcon";
 import { Button } from "@/common/components/Button";
 import { env } from "@/env";
+import { useEdgeConfigs } from "@/common/providers/EdgeConfigProvider";
+
+const hasCloseRevertOldUiAtom = atomWithStorage("hasCloseRevertOldUi", false);
 
 export const AnnouncementsBanner = () => {
   const [isShown, setIsShown] = useState(false);
+  const [hasClosed, setHasClosed] = useAtom(hasCloseRevertOldUiAtom);
+  const edgeConfig = useEdgeConfigs();
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setIsShown(!localStorage.getItem("show_revert_old_ui"));
-    }
-  }, []);
+    setIsShown(!hasClosed && edgeConfig.test);
+  }, [edgeConfig, hasClosed]);
 
   const handleClose = () => {
     setIsShown(false);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("show_revert_old_ui", "true");
-    }
+    setHasClosed(true);
   };
 
   return (

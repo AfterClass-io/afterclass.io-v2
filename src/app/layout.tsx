@@ -13,6 +13,8 @@ import { env } from "@/env";
 import { CSPostHogProvider } from "@/common/providers/analytics/providers";
 import dynamic from "next/dynamic";
 import { Analytics } from "@vercel/analytics/react";
+import EdgeConfigProvider from "@/common/providers/EdgeConfigProvider";
+import { getAll } from "@vercel/edge-config";
 
 const PostHogPageView = dynamic(
   () => import("@/common/providers/analytics/PostHogPageView"),
@@ -69,11 +71,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const edgeConfig = await getAll();
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <CSPostHogProvider>
@@ -83,7 +86,9 @@ export default function RootLayout({
             <AuthProvider>
               <TRPCReactProvider>
                 <TooltipProvider>
-                  <CoreLayout>{children}</CoreLayout>
+                  <EdgeConfigProvider edgeConfig={edgeConfig}>
+                    <CoreLayout>{children}</CoreLayout>
+                  </EdgeConfigProvider>
                 </TooltipProvider>
               </TRPCReactProvider>
             </AuthProvider>
