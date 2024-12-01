@@ -42,6 +42,7 @@ jobs:
 
           sed -i "s|NEXT_PUBLIC_SUPABASE_URL=.*|NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}|" .env
           sed -i "s|NEXT_PUBLIC_SUPABASE_ANON_KEY=.*|NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}|" .env
+          sed -i "s|EDGE_CONFIG=.*|EDGE_CONFIG=${{ secrets.EDGE_CONFIG }}|" .env
 
       - name: Start Docker Compose
         run: docker compose up -d --quiet-pull
