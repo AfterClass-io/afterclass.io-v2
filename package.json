@@ -12,7 +12,10 @@
     "storybook": "storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build",
     "db:reset": "prisma migrate reset",
-    "ec:gen": "bun run scripts/gen-edge-config.ts"
+    "ecfg:gentypes": "bun run scripts/ecfg/gen-types.ts src/server/edge/config.schema.json src/server/edge/config.d.ts",
+    "ecfg:fetch": "bun run scripts/ecfg/fetch-all.ts",
+    "ecfg:update": "bun run scripts/ecfg/update-remote.ts",
+    "ecfg:test": "bun run scripts/validate-json.ts src/server/edge/config.schema.json src/server/edge/config.json"
   },
   "prisma": {
     "seed": "bun run prisma/seed.ts"
@@ -37,6 +40,7 @@
     "@trpc/react-query": "next",
     "@trpc/server": "next",
     "@vercel/analytics": "^1.4.1",
+    "ajv": "^8.17.1",
     "bcrypt": "^5.1.1",
     "clsx": "2.1.1",
     "cmdk": "1.0.0",
@@ -47,6 +51,7 @@
     "next": "14.2.13",
     "next-auth": "^5.0.0-beta.25",
     "next-themes": "0.3.0",
+    "node-fetch": "^3.3.2",
     "posthog-js": "1.165.0",
     "posthog-node": "4.2.0",
     "react": "18.3.1",
