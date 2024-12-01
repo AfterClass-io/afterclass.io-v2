@@ -38,7 +38,7 @@ jobs:
         run: bun run ecfg:fetch -- ${{ secrets.VERCEL_TOKEN }} ${{ secrets.VERCEL_EDGE_CONFIG_ID }} src/server/edge/config.json
 
       - name: Commit changes
-        run: git commit -am "chore(ecfg): sync local config with remote"
+        run: "git commit -am 'chore(ecfg): sync local config with remote'"
 
       - name: Create Pull Request
         run: >
