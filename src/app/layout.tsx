@@ -2,6 +2,9 @@ import "@/common/styles/globals.scss";
 
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
+import { getAll } from "@vercel/edge-config";
+import dynamic from "next/dynamic";
 
 import { TRPCReactProvider } from "@/common/tools/trpc/react";
 import { CoreLayout } from "@/common/components/CoreLayout";
@@ -11,10 +14,8 @@ import TooltipProvider from "@/common/providers/TooltipProvider";
 import { inter, poppins } from "@/common/fonts";
 import { env } from "@/env";
 import { CSPostHogProvider } from "@/common/providers/analytics/providers";
-import dynamic from "next/dynamic";
-import { Analytics } from "@vercel/analytics/react";
 import EdgeConfigProvider from "@/common/providers/EdgeConfigProvider";
-import { getAll } from "@vercel/edge-config";
+import { edgeConfigSchema } from "@/server/ecfg/config";
 
 const PostHogPageView = dynamic(
   () => import("@/common/providers/analytics/PostHogPageView"),
@@ -76,7 +77,27 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const edgeConfig = await getAll();
+  // * FUTURE NOTE *
+  // if edge requests count nears the threshold,
+  // we should consider caching the edge config & revalidate every 24h
+  const edgeConfigRaw = await getAll();
+  const validateEcfg = edgeConfigSchema.safeParse(edgeConfigRaw);
+  let edgeConfig;
+  if (validateEcfg.success) {
+    edgeConfig = validateEcfg.data;
+  } else {
+    console.warn(
+      "Failed to parse edge config:\n",
+      validateEcfg.error.message,
+      "\n\n",
+      "Received config:\n",
+      edgeConfigRaw,
+    );
+    // used strictly as a fallback if edge config
+    // somehow returns an unexpected format
+    edgeConfig = (await import("@/server/ecfg/config.json")).default;
+  }
+
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <CSPostHogProvider>

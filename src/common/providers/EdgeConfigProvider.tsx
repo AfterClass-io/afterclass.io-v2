@@ -1,6 +1,6 @@
 "use client";
 
-import { EdgeConfig } from "@/server/edge/config";
+import { type EdgeConfig } from "@/server/ecfg/config";
 import { createContext, type ReactNode, useContext } from "react";
 
 const EdgeConfigContext = createContext<EdgeConfig>({} as EdgeConfig);

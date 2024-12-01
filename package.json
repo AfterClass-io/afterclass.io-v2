@@ -12,10 +12,9 @@
     "storybook": "storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build",
     "db:reset": "prisma migrate reset",
-    "ecfg:gentypes": "bun run scripts/ecfg/gen-types.ts src/server/edge/config.schema.json src/server/edge/config.d.ts",
     "ecfg:fetch": "bun run scripts/ecfg/fetch-all.ts",
     "ecfg:update": "bun run scripts/ecfg/update-remote.ts",
-    "ecfg:test": "bun run scripts/validate-json.ts src/server/edge/config.schema.json src/server/edge/config.json"
+    "ecfg:test": "bun run scripts/ecfg/validate-json.ts src/server/ecfg/config.json"
   },
   "prisma": {
     "seed": "bun run prisma/seed.ts"
@@ -48,7 +47,6 @@
     "deepmerge": "4.3.1",
     "jotai": "^2.10.3",
     "js-cookie": "^3.0.5",
-    "json-schema-to-typescript": "^15.0.3",
     "nanoid": "5.0.7",
     "next": "14.2.13",
     "next-auth": "^5.0.0-beta.25",

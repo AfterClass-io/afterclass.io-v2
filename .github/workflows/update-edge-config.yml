@@ -28,10 +28,10 @@ jobs:
         run: bun run ecfg:gentypes
 
       - name: Update Edge Config
-        run: bun run ecfg:update -- ${{ secrets.VERCEL_TOKEN }} ${{ secrets.VERCEL_EDGE_CONFIG_ID }} src/server/edge/config.json
+        run: bun run ecfg:update -- ${{ secrets.VERCEL_TOKEN }} ${{ secrets.VERCEL_EDGE_CONFIG_ID }} src/server/ecfg/config.json
 
       # - name: Update Local copy of Edge Config
-      #   run: bun run ecfg:fetch -- ${{ secrets.VERCEL_TOKEN }} ${{ secrets.VERCEL_EDGE_CONFIG_ID }} src/server/edge/config.json
+      #   run: bun run ecfg:fetch -- ${{ secrets.VERCEL_TOKEN }} ${{ secrets.VERCEL_EDGE_CONFIG_ID }} src/server/ecfg/config.json
 
       # - name: Set Git Username and Email
       #   id: git_config
