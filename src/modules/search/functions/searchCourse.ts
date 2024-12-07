@@ -2,6 +2,7 @@ import type { Universities, Courses } from "@prisma/client";
 import { db } from "@/server/db";
 import { api } from "@/common/tools/trpc/server";
 import { auth } from "@/server/auth";
+import { processSearchQuery } from "./processSearchQuery";
 
 type QueryCourseResult = {
   uniAbbrv: Universities["abbrv"];
@@ -22,9 +23,7 @@ export async function searchCourse(
 ): Promise<SearchCourseResult[]> {
   // safety of query is ensured by the Prisma client using prepared statements
   // https://github.com/prisma/prisma-client-js/issues/727#issuecomment-650096790
-  const processedQuery = query.includes(" ")
-    ? query.split(" ").join(" & ")
-    : query;
+  const processedQuery = processSearchQuery(query);
 
   const queryResult: QueryCourseResult[] = await db.$queryRaw`
     SELECT
