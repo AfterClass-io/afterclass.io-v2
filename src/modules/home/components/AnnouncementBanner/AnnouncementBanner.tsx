@@ -10,7 +10,7 @@ import { useEdgeConfigs } from "@/common/providers/EdgeConfigProvider";
 
 const hasCloseRevertOldUiAtom = atomWithStorage("hasCloseRevertOldUi", false);
 
-export const AnnouncementsBanner = () => {
+export const AnnouncementBanner = () => {
   const [isShown, setIsShown] = useState(false);
   const [hasClosed, setHasClosed] = useAtom(hasCloseRevertOldUiAtom);
   const edgeConfig = useEdgeConfigs();

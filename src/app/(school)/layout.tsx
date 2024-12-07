@@ -7,10 +7,10 @@ import { cn } from "@/common/functions";
 import { auth } from "@/server/auth";
 import { Breadcrumb } from "@/modules/home/components/Breadcrumb";
 
-const AnnouncementsBanner = dynamic(
+const AnnouncementBanner = dynamic(
   () =>
     import("@/modules/home/components/AnnouncementBanner").then(
-      (mod) => mod.AnnouncementsBanner,
+      (mod) => mod.AnnouncementBanner,
     ),
   {
     ssr: false,
@@ -54,7 +54,7 @@ export default async function SchoolLayout({ children }: PropsWithChildren) {
         </div>
       </header>
 
-      <AnnouncementsBanner />
+      <AnnouncementBanner />
 
       <div
         className="h-full overflow-y-scroll p-6 md:p-12"
