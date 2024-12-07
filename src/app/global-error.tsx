@@ -1,6 +1,6 @@
 "use client"; // Error boundaries must be Client Components
 import * as Sentry from "@sentry/nextjs";
-import Error from "next/error";
+import type Error from "next/error";
 import { useEffect } from "react";
 
 import { inter, poppins } from "@/common/fonts";

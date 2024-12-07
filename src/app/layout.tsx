@@ -2,6 +2,8 @@ import "@/common/styles/globals.scss";
 
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
+import dynamic from "next/dynamic";
 
 import { TRPCReactProvider } from "@/common/tools/trpc/react";
 import { CoreLayout } from "@/common/components/CoreLayout";
@@ -11,8 +13,7 @@ import TooltipProvider from "@/common/providers/TooltipProvider";
 import { inter, poppins } from "@/common/fonts";
 import { env } from "@/env";
 import { CSPostHogProvider } from "@/common/providers/analytics/providers";
-import dynamic from "next/dynamic";
-import { Analytics } from "@vercel/analytics/react";
+import { EdgeConfigProvider } from "@/common/providers/EdgeConfig";
 
 const PostHogPageView = dynamic(
   () => import("@/common/providers/analytics/PostHogPageView"),
@@ -83,7 +84,9 @@ export default function RootLayout({
             <AuthProvider>
               <TRPCReactProvider>
                 <TooltipProvider>
-                  <CoreLayout>{children}</CoreLayout>
+                  <EdgeConfigProvider>
+                    <CoreLayout>{children}</CoreLayout>
+                  </EdgeConfigProvider>
                 </TooltipProvider>
               </TRPCReactProvider>
             </AuthProvider>

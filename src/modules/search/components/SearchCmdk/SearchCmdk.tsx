@@ -1,37 +1,43 @@
 "use client";
 
 import { type FormEvent, useEffect, useState } from "react";
-import { usePostHog } from "posthog-js/react";
+import { useAtom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 import { useRouter } from "next/navigation";
 
 import { Modal } from "@/common/components/Modal";
 import { Button } from "@/common/components/Button";
 import { SearchIcon } from "@/common/components/CustomIcon";
 import { Input } from "@/common/components/Input";
+import { useEdgeConfigs } from "@/common/providers/EdgeConfig/EdgeConfigContextProvider";
 
 import { searchCmdkTheme } from "./SearchCmdk.theme";
 import { SearchCmdkModalTrigger } from "./SearchCmdkModalTrigger";
+
+const hasShownCmdkTooltipAtom = atomWithStorage("hasShownCmdkTooltip", false);
 
 export const SearchCmdk = () => {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
-  const router = useRouter();
-
-  const posthog = usePostHog();
-
-  const isFirstTimeToolTip = posthog.isFeatureEnabled(
-    "onboarding_search_tooltip",
+  const [hasShownTooltip, setHasShownTooltip] = useAtom(
+    hasShownCmdkTooltipAtom,
   );
+  const router = useRouter();
+  const edgeConfig = useEdgeConfigs();
 
   useEffect(() => {
-    if (isFirstTimeToolTip) {
-      const timeoutId = setTimeout(() => {
-        setIsTooltipOpen(true);
-      }, 10_000);
+    const timeoutId = setTimeout(() => {
+      setIsTooltipOpen(true);
+      setHasShownTooltip(true);
+    }, 10_000);
+
+    if (!edgeConfig.enableCmdkTooltip || hasShownTooltip) {
+      clearTimeout(timeoutId);
+    } else {
       return () => clearTimeout(timeoutId);
     }
-  }, []);
+  }, [edgeConfig, hasShownTooltip]);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -58,13 +64,6 @@ export const SearchCmdk = () => {
     }
   };
 
-  const handleTooltipOpenChange = () => {
-    posthog.capture("onboarding_search_tooltip", {
-      $set: { onboarding_search_tooltip_visited: true },
-    });
-    setIsTooltipOpen((prev) => !prev);
-  };
-
   const { modal, searchIcon, content, contentForm, contentInput, closeBtn } =
     searchCmdkTheme();
 
@@ -79,7 +78,7 @@ export const SearchCmdk = () => {
       <Modal.Trigger>
         <SearchCmdkModalTrigger
           open={isTooltipOpen}
-          onOpenChange={handleTooltipOpenChange}
+          onOpenChange={() => setIsTooltipOpen((prev) => !prev)}
         />
       </Modal.Trigger>
       <Modal.Content className={content()} data-test="search-cmdk-modal">
