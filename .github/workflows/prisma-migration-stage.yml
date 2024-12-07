@@ -1,0 +1,26 @@
+name: Prism Migrate Deploy to Stage DB
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches:
+      - "main"
+    paths:
+      - prisma/migrations/** # Only run this workflow when migrations are updated
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "latest"
+
+      - run: bun install
+
+      - name: Apply all pending migrations to the database
+        run: bunx prisma migrate deploy
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL_STG }}
