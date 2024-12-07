@@ -11,7 +11,7 @@ type Props = {
   readonly children: ReactNode;
 };
 
-export default function EdgeConfigProvider({ edgeConfig, children }: Props) {
+export function EdgeConfigContextProvider({ edgeConfig, children }: Props) {
   return (
     <EdgeConfigContext.Provider value={edgeConfig}>
       {children}

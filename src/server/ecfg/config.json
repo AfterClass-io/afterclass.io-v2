@@ -1,3 +1,4 @@
 {
-  "test": true
+  "enableAnnouncementBanner": true,
+  "enableCmdkTooltip": true
 }

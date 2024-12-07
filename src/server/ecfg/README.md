@@ -16,5 +16,6 @@ why use EdgeConfig?
 
 1. update zod schema in `src/server/ecfg/config.ts`
 2. update the config json in `src/server/ecfg/config.json` to match the desired values on EdgeConfig
-3. import the zod schema and use it as required
-4. commit & push the changes
+3. to validate the json against the zod schema, run `bun run ecfg:test`
+4. import the zod schema and use it as required
+5. commit & push the changes

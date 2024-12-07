@@ -6,7 +6,7 @@ import { atomWithStorage } from "jotai/utils";
 import { XCloseIcon } from "@/common/components/CustomIcon";
 import { Button } from "@/common/components/Button";
 import { env } from "@/env";
-import { useEdgeConfigs } from "@/common/providers/EdgeConfigProvider";
+import { useEdgeConfigs } from "@/common/providers/EdgeConfig/EdgeConfigContextProvider";
 
 const hasCloseRevertOldUiAtom = atomWithStorage("hasCloseRevertOldUi", false);
 
@@ -16,7 +16,7 @@ export const AnnouncementBanner = () => {
   const edgeConfig = useEdgeConfigs();
 
   useEffect(() => {
-    setIsShown(!hasClosed && edgeConfig.test);
+    setIsShown(!hasClosed && edgeConfig.enableAnnouncementBanner);
   }, [edgeConfig, hasClosed]);
 
   const handleClose = () => {
