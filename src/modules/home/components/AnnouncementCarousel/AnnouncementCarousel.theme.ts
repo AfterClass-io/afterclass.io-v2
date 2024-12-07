@@ -1,6 +1,6 @@
 import { tv, type VariantProps } from "tailwind-variants";
 
-export const announcementsBannerTheme = tv({
+export const announcementsCarouselTheme = tv({
   slots: {
     wrapper: ["flex", "flex-col", "items-start", "gap-4"],
     announcements: [
@@ -41,6 +41,6 @@ export const announcementsBannerTheme = tv({
   },
 });
 
-export type AnnouncementsBannerVariants = VariantProps<
-  typeof announcementsBannerTheme
+export type AnnouncementCarouselVariants = VariantProps<
+  typeof announcementsCarouselTheme
 >;

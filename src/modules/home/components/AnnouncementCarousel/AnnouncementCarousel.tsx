@@ -1,10 +1,10 @@
 import Heading from "@/common/components/Heading";
 import { AnnouncementCard } from "./AnnouncementCard";
-import { announcementsBannerTheme } from "./AnnouncementCarousel.theme";
+import { announcementsCarouselTheme } from "./AnnouncementCarousel.theme";
 
 export const AnnouncementCarousel = () => {
   const { wrapper, announcements, heading, divider } =
-    announcementsBannerTheme();
+    announcementsCarouselTheme();
   return (
     <div className={wrapper()}>
       <Heading as="h1" className={heading()}>

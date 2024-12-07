@@ -1,11 +1,21 @@
 import { type PropsWithChildren } from "react";
+import dynamic from "next/dynamic";
 
 import { Button } from "@/common/components/Button";
 import { ThemeToggle } from "@/common/components/ThemeToggle";
 import { cn } from "@/common/functions";
 import { auth } from "@/server/auth";
 import { Breadcrumb } from "@/modules/home/components/Breadcrumb";
-import { AnnouncementsBanner } from "@/modules/home/components/AnnouncementBanner";
+
+const AnnouncementBanner = dynamic(
+  () =>
+    import("@/modules/home/components/AnnouncementBanner").then(
+      (mod) => mod.AnnouncementBanner,
+    ),
+  {
+    ssr: false,
+  },
+);
 
 export default async function SchoolLayout({ children }: PropsWithChildren) {
   const session = await auth();
@@ -44,7 +54,7 @@ export default async function SchoolLayout({ children }: PropsWithChildren) {
         </div>
       </header>
 
-      <AnnouncementsBanner />
+      <AnnouncementBanner />
 
       <div
         className="h-full overflow-y-scroll p-6 md:p-12"
