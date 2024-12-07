@@ -9,7 +9,7 @@ import { Modal } from "@/common/components/Modal";
 import { Button } from "@/common/components/Button";
 import { SearchIcon } from "@/common/components/CustomIcon";
 import { Input } from "@/common/components/Input";
-import { useEdgeConfigs } from "@/common/providers/EdgeConfig/EdgeConfigContextProvider";
+import { useEdgeConfigs } from "@/common/hooks";
 
 import { searchCmdkTheme } from "./SearchCmdk.theme";
 import { SearchCmdkModalTrigger } from "./SearchCmdkModalTrigger";

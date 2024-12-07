@@ -1,10 +1,9 @@
 "use client";
 
 import { type EdgeConfig } from "@/server/ecfg/config";
-import { createContext, type ReactNode, useContext } from "react";
+import { createContext, type ReactNode } from "react";
 
-const EdgeConfigContext = createContext<EdgeConfig>({} as EdgeConfig);
-export const useEdgeConfigs = () => useContext(EdgeConfigContext);
+export const EdgeConfigContext = createContext<EdgeConfig>({} as EdgeConfig);
 
 type Props = {
   readonly edgeConfig: EdgeConfig;
