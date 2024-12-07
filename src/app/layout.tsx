@@ -1,8 +1,6 @@
 import "@/common/styles/globals.scss";
 
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
-import { Analytics } from "@vercel/analytics/react";
 import dynamic from "next/dynamic";
 
 import { TRPCReactProvider } from "@/common/tools/trpc/react";
@@ -14,6 +12,7 @@ import { inter, poppins } from "@/common/fonts";
 import { env } from "@/env";
 import { CSPostHogProvider } from "@/common/providers/analytics/providers";
 import { EdgeConfigProvider } from "@/common/providers/EdgeConfig";
+import { UmamiProvider } from "@/common/providers/Umami";
 
 const PostHogPageView = dynamic(
   () => import("@/common/providers/analytics/PostHogPageView"),
@@ -77,8 +76,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
-      <CSPostHogProvider>
-        <body>
+      <head>
+        <UmamiProvider
+          websiteId="b4f3137b-00dd-489c-9c68-8586950ab450"
+          domains={["afterclass.io", "new.afterclass.io"]}
+        />
+      </head>
+      <body>
+        <CSPostHogProvider>
           <PostHogPageView />
           <ThemeProvider>
             <AuthProvider>
@@ -91,15 +96,8 @@ export default function RootLayout({
               </TRPCReactProvider>
             </AuthProvider>
           </ThemeProvider>
-        </body>
-      </CSPostHogProvider>
-      <Script
-        defer
-        src="/statistics/script.js"
-        data-website-id="b4f3137b-00dd-489c-9c68-8586950ab450"
-        data-domains="afterclass.io,new.afterclass.io"
-      />
-      <Analytics />
+        </CSPostHogProvider>
+      </body>
     </html>
   );
 }
