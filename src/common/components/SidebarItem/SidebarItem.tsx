@@ -1,4 +1,7 @@
-import { Button, ButtonLinkOrAnchorProps } from "@/common/components/Button";
+import {
+  Button,
+  type ButtonLinkOrAnchorProps,
+} from "@/common/components/Button";
 import { type SidebarItemType } from "@/common/components/Sidebar/Sidebar";
 import { cn } from "@/common/functions";
 
