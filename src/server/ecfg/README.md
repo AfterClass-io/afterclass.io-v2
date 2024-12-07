@@ -2,7 +2,7 @@
 
 This directory contains files used for Vercel's Edge Config store.
 
-why use EdgeConfig?
+why use Vercel Edge Config?
 
 - no need for new prod deployment when making changes to configs
   - to change a config, we would need to push to the `main` branch, which would still trigger a rebuild & prod:staged deployment due to automation, but live prod wont need to be changed

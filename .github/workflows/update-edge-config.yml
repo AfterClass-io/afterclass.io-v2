@@ -5,7 +5,7 @@ on:
     branches:
       - "main"
     paths:
-      - "src/server/edge/**"
+      - "src/server/ecfg/**"
 
 jobs:
   update-edge-config:
@@ -23,9 +23,6 @@ jobs:
 
       - name: Validate Edge Config
         run: bun run ecfg:test
-
-      - name: Generate new types
-        run: bun run ecfg:gentypes
 
       - name: Update Edge Config
         run: bun run ecfg:update -- ${{ secrets.VERCEL_TOKEN }} ${{ secrets.VERCEL_EDGE_CONFIG_ID }} src/server/ecfg/config.json
