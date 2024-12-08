@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { z } from "zod";
 
@@ -14,6 +14,7 @@ import { EyeSlashIcon } from "@/common/components/CustomIcon/EyeSlashIcon";
 import { EyeIcon } from "@/common/components/CustomIcon/EyeIcon";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { emailValidationSchema } from "@/common/tools/zod/schemas";
+import useUmami from "@/common/hooks/useUmami";
 
 const loginFormInputsSchema = z.object({
   email: emailValidationSchema,
@@ -26,6 +27,8 @@ type LoginFormInputs = z.infer<typeof loginFormInputsSchema>;
 export const LoginForm = () => {
   const searchParams = useSearchParams();
   const [isPwdVisible, setIsPwdVisible] = useState(false);
+  const router = useRouter();
+  const umami = useUmami();
 
   const {
     register,
@@ -42,12 +45,33 @@ export const LoginForm = () => {
     password,
   }) => {
     if (isSubmitting) return;
-    await signIn("credentials", {
+    const callbackUrl = searchParams.get("callbackUrl") || "/";
+    const signinResp = await signIn("credentials", {
       email,
       password,
-      callbackUrl: searchParams.get("callbackUrl") || "/",
+      redirectTo: callbackUrl,
+      redirect: false,
     });
+
+    if (!signinResp) {
+      console.warn("Sign in returned null");
+      return;
+    }
+
+    console.log("signinResp", signinResp);
+
+    if (signinResp.error) {
+      setError("password", {
+        type: "custom",
+        message: "Invalid email or password. Please try again.",
+      });
+      return;
+    }
+
+    umami.identify({ email });
+    router.push(signinResp.url || callbackUrl);
     reset();
+    router.refresh();
   };
 
   useEffect(() => {

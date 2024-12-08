@@ -78,6 +78,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <head>
         <UmamiProvider
+          src="/statistics/script.js"
           websiteId="b4f3137b-00dd-489c-9c68-8586950ab450"
           domains={["afterclass.io", "new.afterclass.io"]}
         />
