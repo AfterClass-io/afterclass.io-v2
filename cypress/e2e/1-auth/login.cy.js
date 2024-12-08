@@ -92,11 +92,7 @@ context("Login", function () {
 
       cy.get("button[data-test=submit]").should("have.text", "Signing in...");
 
-      cy.url().should(
-        "contain",
-        `${Cypress.config("baseUrl")}/account/auth/login?`,
-      );
-      cy.url().should("contain", "error=CredentialsSignin");
+      cy.url().should("eq", `${Cypress.config("baseUrl")}/account/auth/login`);
       cy.get("button[data-test=submit]").should("have.text", "Login");
 
       cy.get("div[data-test=password-helper-text]").should(
