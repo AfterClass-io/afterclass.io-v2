@@ -1,5 +1,5 @@
-import Script, { ScriptProps } from "next/script";
-import React, { ReactNode } from "react";
+import Script, { type ScriptProps } from "next/script";
+import React, { type ReactNode } from "react";
 
 // https://umami.is/docs/tracker-configuration
 interface Props extends Pick<ScriptProps, "onLoad" | "onReady" | "onError"> {
