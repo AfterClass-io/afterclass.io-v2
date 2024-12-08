@@ -6,7 +6,7 @@ import { atomWithStorage } from "jotai/utils";
 import { XCloseIcon } from "@/common/components/CustomIcon";
 import { Button } from "@/common/components/Button";
 import { env } from "@/env";
-import { useEdgeConfigs } from "@/common/providers/EdgeConfig/EdgeConfigContextProvider";
+import { useEdgeConfigs } from "@/common/hooks";
 
 const hasCloseRevertOldUiAtom = atomWithStorage("hasCloseRevertOldUi", false);
 
