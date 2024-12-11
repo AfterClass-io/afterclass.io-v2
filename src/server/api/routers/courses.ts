@@ -205,7 +205,7 @@ export const coursesRouter = createTRPCRouter({
       return courses;
     }),
 
-  countByProfSlug: protectedProcedure
+  countByProfSlug: publicProcedure
     .input(
       z.object({
         slug: z.string(),

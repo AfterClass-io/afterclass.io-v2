@@ -9,6 +9,7 @@ import { Prisma } from "@prisma/client";
 import { type Review } from "@/modules/reviews/types";
 import { reviewFormSchema } from "@/common/tools/zod/schemas";
 import { ReviewableEnum } from "@/modules/submit/types";
+import { toTitleCase } from "@/common/functions";
 
 const DEFAULT_PAGE_SIZE = 10;
 
@@ -490,4 +491,132 @@ export const reviewsRouter = createTRPCRouter({
           },
         }),
     ),
+
+  getMetadataByProfSlug: publicProcedure
+    .input(
+      z.object({
+        slug: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const reviewsMetadataForThisProf = await ctx.db.reviews.aggregate({
+        where: {
+          reviewedProfessor: { slug: input.slug },
+        },
+        _avg: {
+          rating: true,
+        },
+        _count: {
+          _all: true,
+        },
+      });
+
+      // alternative to prisma query, we can use:
+      /*
+          SELECT l.name, count(l.id) FROM review_labels rl
+            JOIN labels l ON rl.label_id = l.id
+            WHERE rl.review_id IN (
+              SELECT id FROM reviews
+              WHERE reviewed_professor_id = (
+                SELECT id FROM professors
+                WHERE slug = ${input.slug}
+              )
+            )
+            GROUP BY l.name
+      */
+      const reviewLabelsMetadataForThisProf = await ctx.db.reviewLabels.groupBy(
+        {
+          by: ["labelId"],
+          _count: {
+            labelId: true,
+          },
+          where: {
+            review: {
+              reviewedProfessor: { slug: input.slug },
+            },
+          },
+        },
+      );
+      const professorReviewLabels = await ctx.db.labels.findMany({
+        where: {
+          typeOf: "PROFESSOR",
+        },
+      });
+
+      return {
+        averageRating: reviewsMetadataForThisProf._avg.rating ?? 0,
+        reviewCount: reviewsMetadataForThisProf._count._all,
+        reviewLabels: professorReviewLabels.sort().map((label) => ({
+          name: toTitleCase(label.name.replaceAll("_", " ")),
+          count:
+            reviewLabelsMetadataForThisProf.find(
+              (rl) => rl.labelId === label.id,
+            )?._count.labelId ?? 0,
+        })),
+      };
+    }),
+
+  getMetadataByCourseCode: publicProcedure
+    .input(
+      z.object({
+        code: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const reviewsMetadataForThisCourse = await ctx.db.reviews.aggregate({
+        where: {
+          reviewedCourse: { code: input.code },
+        },
+        _avg: {
+          rating: true,
+        },
+        _count: {
+          _all: true,
+        },
+      });
+
+      // alternative to prisma query, we can use:
+      /*
+          SELECT l.name, count(l.id) FROM labels l
+            JOIN review_labels rl ON rl.label_id = l.id
+            WHERE rl.review_id IN (
+              SELECT id FROM reviews
+              WHERE reviewed_course_id  = (
+                SELECT id FROM courses
+                WHERE code = ${input.code}
+              )
+            )
+            GROUP BY l.name
+      */
+      const reviewLabelsMetadataForThisCourse =
+        await ctx.db.reviewLabels.groupBy({
+          by: ["labelId"],
+          _count: {
+            labelId: true,
+          },
+          where: {
+            review: {
+              reviewedCourse: { code: input.code },
+            },
+          },
+        });
+
+      const courseReviewLabels = await ctx.db.labels.findMany({
+        where: {
+          typeOf: "COURSE",
+        },
+      });
+
+      return {
+        averageRating: reviewsMetadataForThisCourse._avg.rating ?? 0,
+        reviewCount: reviewsMetadataForThisCourse._count._all,
+        reviewLabels: courseReviewLabels.sort().map((label) => ({
+          name: toTitleCase(label.name.replaceAll("_", " ")),
+          count:
+            reviewLabelsMetadataForThisCourse.find(
+              (rl) => rl.labelId === label.id,
+            )?._count.labelId ?? 0,
+        })),
+      };
+    }),
 });
