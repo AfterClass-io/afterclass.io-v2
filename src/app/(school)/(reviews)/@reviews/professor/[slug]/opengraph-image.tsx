@@ -23,9 +23,10 @@ export default async function Image({ params }: { params: { slug: string } }) {
   const prof = await api.professors.getBySlug({ slug });
   if (!prof) return null;
 
-  const professorReviewStats = await api.reviews.getMetadataByProfSlug({
-    slug,
-  });
+  const { averageRating, reviewCount, reviewLabels } =
+    await api.reviews.getMetadataByProfSlug({
+      slug,
+    });
   const courseCount = await api.courses.countByProfSlug({ slug });
 
   return new ImageResponse(
@@ -45,14 +46,12 @@ export default async function Image({ params }: { params: { slug: string } }) {
           {prof.name}
         </OgImage.Title>
         <OgImage.Content
-          rating={professorReviewStats.averageRating.toFixed(2)}
-          reviewCount={professorReviewStats.reviewCount}
+          rating={averageRating.toFixed(2)}
+          reviewCount={reviewCount}
           courseCount={courseCount}
-          statItems={professorReviewStats.reviewLabels.map((label) => ({
+          statItems={reviewLabels.map((label) => ({
             label: toTitleCase(label.name),
-            value: formatPercentage(
-              label.count / professorReviewStats.reviewCount,
-            ),
+            value: formatPercentage(label.count && label.count / reviewCount),
           }))}
         />
       </OgImage>

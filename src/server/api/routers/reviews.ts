@@ -9,6 +9,7 @@ import { Prisma } from "@prisma/client";
 import { type Review } from "@/modules/reviews/types";
 import { reviewFormSchema } from "@/common/tools/zod/schemas";
 import { ReviewableEnum } from "@/modules/submit/types";
+import { toTitleCase } from "@/common/functions";
 
 const DEFAULT_PAGE_SIZE = 10;
 
@@ -510,9 +511,20 @@ export const reviewsRouter = createTRPCRouter({
         },
       });
 
-      // alternative to rawQuery, we can use:
+      // alternative to prisma query, we can use:
       /*
-      db.reviewLabels.groupBy(
+          SELECT l.name, count(l.id) FROM review_labels rl
+            JOIN labels l ON rl.label_id = l.id
+            WHERE rl.review_id IN (
+              SELECT id FROM reviews
+              WHERE reviewed_professor_id = (
+                SELECT id FROM professors
+                WHERE slug = ${input.slug}
+              )
+            )
+            GROUP BY l.name
+      */
+      const reviewLabelsMetadataForThisProf = await ctx.db.reviewLabels.groupBy(
         {
           by: ["labelId"],
           _count: {
@@ -525,31 +537,21 @@ export const reviewsRouter = createTRPCRouter({
           },
         },
       );
-      */
-      type ReviewLabelsMetadata = {
-        name: string;
-        count: bigint; // db aggregate query returns BigInt
-      };
-      const reviewLabelsMetadataForThisProf: ReviewLabelsMetadata[] = await ctx
-        .db.$queryRaw`
-          SELECT l.name, count(l.id) FROM review_labels rl
-            JOIN labels l ON rl.label_id = l.id
-            WHERE rl.review_id IN (
-              SELECT id FROM reviews
-              WHERE reviewed_professor_id = (
-                SELECT id FROM professors
-                WHERE slug = ${input.slug}
-              )
-            )
-            GROUP BY l.name
-        `;
+      const professorReviewLabels = await ctx.db.labels.findMany({
+        where: {
+          typeOf: "PROFESSOR",
+        },
+      });
 
       return {
         averageRating: reviewsMetadataForThisProf._avg.rating ?? 0,
         reviewCount: reviewsMetadataForThisProf._count._all,
-        reviewLabels: reviewLabelsMetadataForThisProf.map((label) => ({
-          name: label.name,
-          count: Number(label.count),
+        reviewLabels: professorReviewLabels.sort().map((label) => ({
+          name: toTitleCase(label.name.replaceAll("_", " ")),
+          count:
+            reviewLabelsMetadataForThisProf.find(
+              (rl) => rl.labelId === label.id,
+            )?._count.labelId ?? 0,
         })),
       };
     }),
@@ -573,10 +575,21 @@ export const reviewsRouter = createTRPCRouter({
         },
       });
 
-      // alternative to rawQuery, we can use:
+      // alternative to prisma query, we can use:
       /*
-      db.reviewLabels.groupBy(
-        {
+          SELECT l.name, count(l.id) FROM labels l
+            JOIN review_labels rl ON rl.label_id = l.id
+            WHERE rl.review_id IN (
+              SELECT id FROM reviews
+              WHERE reviewed_course_id  = (
+                SELECT id FROM courses
+                WHERE code = ${input.code}
+              )
+            )
+            GROUP BY l.name
+      */
+      const reviewLabelsMetadataForThisCourse =
+        await ctx.db.reviewLabels.groupBy({
           by: ["labelId"],
           _count: {
             labelId: true,
@@ -586,33 +599,23 @@ export const reviewsRouter = createTRPCRouter({
               reviewedCourse: { code: input.code },
             },
           },
+        });
+
+      const courseReviewLabels = await ctx.db.labels.findMany({
+        where: {
+          typeOf: "COURSE",
         },
-      );
-      */
-      type ReviewLabelsMetadata = {
-        name: string;
-        count: bigint; // db aggregate query returns BigInt
-      };
-      const reviewLabelsMetadataForThisCourse: ReviewLabelsMetadata[] =
-        await ctx.db.$queryRaw`
-          SELECT l.name, count(l.id) FROM review_labels rl
-            JOIN labels l ON rl.label_id = l.id
-            WHERE rl.review_id IN (
-              SELECT id FROM reviews
-              WHERE reviewed_course_id  = (
-                SELECT id FROM courses
-                WHERE code = ${input.code}
-              )
-            )
-            GROUP BY l.name
-        `;
+      });
 
       return {
         averageRating: reviewsMetadataForThisCourse._avg.rating ?? 0,
         reviewCount: reviewsMetadataForThisCourse._count._all,
-        reviewLabels: reviewLabelsMetadataForThisCourse.map((label) => ({
-          name: label.name,
-          count: Number(label.count),
+        reviewLabels: courseReviewLabels.sort().map((label) => ({
+          name: toTitleCase(label.name.replaceAll("_", " ")),
+          count:
+            reviewLabelsMetadataForThisCourse.find(
+              (rl) => rl.labelId === label.id,
+            )?._count.labelId ?? 0,
         })),
       };
     }),
