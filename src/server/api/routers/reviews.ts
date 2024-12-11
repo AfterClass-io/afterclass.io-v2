@@ -490,4 +490,128 @@ export const reviewsRouter = createTRPCRouter({
           },
         }),
     ),
+
+  getMetadataByProfSlug: publicProcedure
+    .input(
+      z.object({
+        slug: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const reviewsMetadataForThisProf = await ctx.db.reviews.aggregate({
+        where: {
+          reviewedProfessor: { slug: input.slug },
+        },
+        _avg: {
+          rating: true,
+        },
+        _count: {
+          _all: true,
+        },
+      });
+
+      // alternative to rawQuery, we can use:
+      /*
+      db.reviewLabels.groupBy(
+        {
+          by: ["labelId"],
+          _count: {
+            labelId: true,
+          },
+          where: {
+            review: {
+              reviewedProfessor: { slug: input.slug },
+            },
+          },
+        },
+      );
+      */
+      type ReviewLabelsMetadata = {
+        name: string;
+        count: BigInt; // db aggregate query returns BigInt
+      };
+      const reviewLabelsMetadataForThisProf = (await ctx.db.$queryRaw`
+        SELECT l.name, count(l.id) FROM review_labels rl
+          JOIN labels l ON rl.label_id = l.id
+          WHERE rl.review_id IN (
+            SELECT id FROM reviews
+            WHERE reviewed_professor_id = (
+              SELECT id FROM professors
+              WHERE slug = ${input.slug}
+            )
+          )
+          GROUP BY l.name
+      `) as ReviewLabelsMetadata[];
+
+      return {
+        averageRating: reviewsMetadataForThisProf._avg.rating ?? 0,
+        reviewCount: reviewsMetadataForThisProf._count._all,
+        reviewLabels: reviewLabelsMetadataForThisProf.map((label) => ({
+          name: label.name,
+          count: Number(label.count),
+        })),
+      };
+    }),
+
+  getMetadataByCourseCode: publicProcedure
+    .input(
+      z.object({
+        code: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const reviewsMetadataForThisCourse = await ctx.db.reviews.aggregate({
+        where: {
+          reviewedCourse: { code: input.code },
+        },
+        _avg: {
+          rating: true,
+        },
+        _count: {
+          _all: true,
+        },
+      });
+
+      // alternative to rawQuery, we can use:
+      /*
+      db.reviewLabels.groupBy(
+        {
+          by: ["labelId"],
+          _count: {
+            labelId: true,
+          },
+          where: {
+            review: {
+              reviewedCourse: { code: input.code },
+            },
+          },
+        },
+      );
+      */
+      type ReviewLabelsMetadata = {
+        name: string;
+        count: BigInt; // db aggregate query returns BigInt
+      };
+      const reviewLabelsMetadataForThisCourse = (await ctx.db.$queryRaw`
+        SELECT l.name, count(l.id) FROM review_labels rl
+          JOIN labels l ON rl.label_id = l.id
+          WHERE rl.review_id IN (
+            SELECT id FROM reviews
+            WHERE reviewed_course_id  = (
+              SELECT id FROM courses
+              WHERE code = ${input.code}
+            )
+          )
+          GROUP BY l.name
+      `) as ReviewLabelsMetadata[];
+
+      return {
+        averageRating: reviewsMetadataForThisCourse._avg.rating ?? 0,
+        reviewCount: reviewsMetadataForThisCourse._count._all,
+        reviewLabels: reviewLabelsMetadataForThisCourse.map((label) => ({
+          name: label.name,
+          count: Number(label.count),
+        })),
+      };
+    }),
 });
