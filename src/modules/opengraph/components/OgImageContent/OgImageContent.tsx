@@ -180,13 +180,13 @@ export const OgImageContent = ({
         }}
       >
         <FilterItemStats icon={<PencilIcon size="2rem" />} stat={reviewCount} />
-        {profCount && (
+        {profCount != null && (
           <FilterItemStats
             icon={<GraduationCapIcon size="2rem" />}
             stat={profCount}
           />
         )}
-        {courseCount && (
+        {courseCount != null && (
           <FilterItemStats
             icon={<BooksIcon size="2rem" />}
             stat={courseCount}
