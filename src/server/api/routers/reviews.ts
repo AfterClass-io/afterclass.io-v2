@@ -528,20 +528,21 @@ export const reviewsRouter = createTRPCRouter({
       */
       type ReviewLabelsMetadata = {
         name: string;
-        count: BigInt; // db aggregate query returns BigInt
+        count: bigint; // db aggregate query returns BigInt
       };
-      const reviewLabelsMetadataForThisProf = (await ctx.db.$queryRaw`
-        SELECT l.name, count(l.id) FROM review_labels rl
-          JOIN labels l ON rl.label_id = l.id
-          WHERE rl.review_id IN (
-            SELECT id FROM reviews
-            WHERE reviewed_professor_id = (
-              SELECT id FROM professors
-              WHERE slug = ${input.slug}
+      const reviewLabelsMetadataForThisProf: ReviewLabelsMetadata[] = await ctx
+        .db.$queryRaw`
+          SELECT l.name, count(l.id) FROM review_labels rl
+            JOIN labels l ON rl.label_id = l.id
+            WHERE rl.review_id IN (
+              SELECT id FROM reviews
+              WHERE reviewed_professor_id = (
+                SELECT id FROM professors
+                WHERE slug = ${input.slug}
+              )
             )
-          )
-          GROUP BY l.name
-      `) as ReviewLabelsMetadata[];
+            GROUP BY l.name
+        `;
 
       return {
         averageRating: reviewsMetadataForThisProf._avg.rating ?? 0,
@@ -590,20 +591,21 @@ export const reviewsRouter = createTRPCRouter({
       */
       type ReviewLabelsMetadata = {
         name: string;
-        count: BigInt; // db aggregate query returns BigInt
+        count: bigint; // db aggregate query returns BigInt
       };
-      const reviewLabelsMetadataForThisCourse = (await ctx.db.$queryRaw`
-        SELECT l.name, count(l.id) FROM review_labels rl
-          JOIN labels l ON rl.label_id = l.id
-          WHERE rl.review_id IN (
-            SELECT id FROM reviews
-            WHERE reviewed_course_id  = (
-              SELECT id FROM courses
-              WHERE code = ${input.code}
+      const reviewLabelsMetadataForThisCourse: ReviewLabelsMetadata[] =
+        await ctx.db.$queryRaw`
+          SELECT l.name, count(l.id) FROM review_labels rl
+            JOIN labels l ON rl.label_id = l.id
+            WHERE rl.review_id IN (
+              SELECT id FROM reviews
+              WHERE reviewed_course_id  = (
+                SELECT id FROM courses
+                WHERE code = ${input.code}
+              )
             )
-          )
-          GROUP BY l.name
-      `) as ReviewLabelsMetadata[];
+            GROUP BY l.name
+        `;
 
       return {
         averageRating: reviewsMetadataForThisCourse._avg.rating ?? 0,
