@@ -67,6 +67,7 @@ const FilterItemStats = ({
     {icon}
     <div
       style={{
+        display: "flex",
         fontSize: "1.25rem",
         fontStyle: "normal",
         fontWeight: "500",
@@ -74,7 +75,7 @@ const FilterItemStats = ({
         letterSpacing: "-0.02125rem",
       }}
     >
-      {stat}
+      {typeof stat === "string" ? stat : stat.toLocaleString()}
     </div>
   </div>
 );

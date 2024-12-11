@@ -1,20 +1,15 @@
-import {
-  AfterclassIcon,
-  BooksIcon,
-  CustomIcon,
-  GraduationCapIcon,
-  HeartIcon,
-  PencilIcon,
-} from "@/common/components/CustomIcon";
-import { SMUIcon } from "@/common/components/CustomIcon/SchoolIcon/SMUIcon";
-import { OgImage } from "@/modules/opengraph/components/OgImage";
 import { ImageResponse } from "next/og";
 import React from "react";
 
-export const runtime = "edge";
+import { BooksIcon } from "@/common/components/CustomIcon";
+import { OgImage } from "@/modules/opengraph/components/OgImage";
+import { api } from "@/common/tools/trpc/server";
+import { toTitleCase } from "@/common/functions";
+import formatPercentage from "@/common/functions/formatPercentage";
 
-export const alt = "";
+export const runtime = "nodejs";
 
+export const alt = "AfterClass";
 export const size = {
   width: 720,
   height: 400,
@@ -23,6 +18,17 @@ export const size = {
 export const contentType = "image/png";
 
 export default async function Image({ params }: { params: { code: string } }) {
+  const courseCode = params.code;
+
+  const course = await api.courses.getByCourseCode({ code: courseCode });
+  if (!course) return null;
+
+  const courseReviewStats = await api.reviews.getMetadataByCourseCode({
+    code: courseCode,
+  });
+
+  const profCount = await api.professors.countByCourseCode({ courseCode });
+
   return new ImageResponse(
     (
       <OgImage>
@@ -37,18 +43,18 @@ export default async function Image({ params }: { params: { code: string } }) {
             />
           }
         >
-          Introduction to Business Research: Philosophy of Science and
-          Behavioural Approaches to Organizing
+          {course?.name}
         </OgImage.Title>
         <OgImage.Content
-          rating="4.50"
-          reviewCount="1,435"
-          profCount="15"
-          statItems={[
-            { label: "Interesting", value: "64%" },
-            { label: "Practical", value: "64%" },
-            { label: "Gained New Skills", value: "64%" },
-          ]}
+          rating={courseReviewStats.averageRating.toFixed(2)}
+          reviewCount={courseReviewStats.reviewCount}
+          profCount={profCount}
+          statItems={courseReviewStats.reviewLabels.map((label) => ({
+            label: toTitleCase(label.name),
+            value: formatPercentage(
+              label.count / courseReviewStats.reviewCount,
+            ),
+          }))}
         />
       </OgImage>
     ),

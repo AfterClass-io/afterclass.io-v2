@@ -1,13 +1,15 @@
-import { GraduationCapIcon } from "@/common/components/CustomIcon";
-import { api } from "@/common/tools/trpc/server";
-import { OgImage } from "@/modules/opengraph/components/OgImage";
 import { ImageResponse } from "next/og";
 import React from "react";
 
+import { GraduationCapIcon } from "@/common/components/CustomIcon";
+import { api } from "@/common/tools/trpc/server";
+import { OgImage } from "@/modules/opengraph/components/OgImage";
+import formatPercentage from "@/common/functions/formatPercentage";
+import { toTitleCase } from "@/common/functions";
+
 export const runtime = "nodejs";
 
-export const alt = "";
-
+export const alt = "AfterClass";
 export const size = {
   width: 720,
   height: 400,
@@ -21,15 +23,10 @@ export default async function Image({ params }: { params: { slug: string } }) {
   const prof = await api.professors.getBySlug({ slug });
   if (!prof) return null;
 
-  const validProfessorReviewLabels = await api.labels.getAllByType({
-    typeOf: "PROFESSOR",
+  const professorReviewStats = await api.reviews.getMetadataByProfSlug({
+    slug,
   });
-
-  const { items: reviewsOfThisProf } = await api.reviews.getByProfSlugProtected(
-    {
-      slug,
-    },
-  );
+  const courseCount = await api.courses.countByProfSlug({ slug });
 
   return new ImageResponse(
     (
@@ -48,14 +45,15 @@ export default async function Image({ params }: { params: { slug: string } }) {
           {prof.name}
         </OgImage.Title>
         <OgImage.Content
-          rating="4.50"
-          reviewCount="1,435"
-          courseCount="15"
-          statItems={[
-            { label: "Interesting", value: "64%" },
-            { label: "Practical", value: "64%" },
-            { label: "Gained New Skills", value: "64%" },
-          ]}
+          rating={professorReviewStats.averageRating.toFixed(2)}
+          reviewCount={professorReviewStats.reviewCount}
+          courseCount={courseCount}
+          statItems={professorReviewStats.reviewLabels.map((label) => ({
+            label: toTitleCase(label.name),
+            value: formatPercentage(
+              label.count / professorReviewStats.reviewCount,
+            ),
+          }))}
         />
       </OgImage>
     ),
