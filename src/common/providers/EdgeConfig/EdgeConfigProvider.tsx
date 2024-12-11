@@ -4,6 +4,9 @@ import { EdgeConfigContextProvider } from "./EdgeConfigContextProvider";
 
 async function fetchAndValidateEdgeConfig() {
   try {
+    // * FUTURE NOTE *
+    // if edge requests count nears the threshold,
+    // we should consider caching the edge config & revalidate every 24h
     const rawConfig = await getAll();
     const result = edgeConfigSchema.safeParse(rawConfig);
 
