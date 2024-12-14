@@ -80,7 +80,7 @@ export default function RootLayout({
         <UmamiProvider
           src="/statistics/script.js"
           websiteId="b4f3137b-00dd-489c-9c68-8586950ab450"
-          domains={["afterclass.io", "new.afterclass.io"]}
+          domains={["afterclass.io", "www.afterclass.io", "new.afterclass.io"]}
         />
       </head>
       <body>
