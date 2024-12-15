@@ -1,4 +1,4 @@
-export default function formatPercentage(
+export function formatPercentage(
   amount: number,
   options: Intl.NumberFormatOptions | undefined = undefined,
 ) {

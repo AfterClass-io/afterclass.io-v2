@@ -1,9 +1,8 @@
 import { api } from "@/common/tools/trpc/server";
 import { RatingSection } from "@/modules/reviews/components/RatingSection";
 import { ReviewLabelType } from "@prisma/client";
-import calculateAverage from "@/common/functions/calculateAverage";
-import calculateRatingItems from "@/modules/reviews/functions/calculateRatingItems";
 import { auth } from "@/server/auth";
+import { toTitleCase, formatPercentage } from "@/common/functions";
 
 export default async function CourseRating({
   params,
@@ -19,6 +18,7 @@ export default async function CourseRating({
   if (!session) {
     return (
       <RatingSection
+        isLocked
         headingRatingItem={{
           label: "Average Rating",
           rating: "-",
@@ -27,22 +27,23 @@ export default async function CourseRating({
           label: label.name.replaceAll("_", " ").toLowerCase(),
           rating: "-",
         }))}
-        isLocked={!session}
       />
     );
   }
+
   const professorSlugs = searchParams?.professor
     ? Array.isArray(searchParams.professor)
       ? searchParams.professor
       : [searchParams.professor]
     : [];
-  const apiParams = {
-    code: params.code,
-    ...(professorSlugs.length > 0 && { slugs: professorSlugs }),
-  };
-  const { items: reviewsOfCourse } =
-    await api.reviews.getByCourseCodeProtected(apiParams);
-  if (reviewsOfCourse.length === 0) {
+
+  const { averageRating, reviewCount, reviewLabels } =
+    await api.reviews.getMetadataForCourse({
+      code: params.code,
+      withProfSlugs: professorSlugs.length > 0 ? professorSlugs : undefined,
+    });
+
+  if (reviewCount === 0) {
     return (
       <RatingSection
         headingRatingItem={{
@@ -53,18 +54,17 @@ export default async function CourseRating({
       />
     );
   }
+
   return (
     <RatingSection
       headingRatingItem={{
         label: "Average Rating",
-        rating: calculateAverage(
-          reviewsOfCourse.map((review) => review.rating),
-        ).toFixed(2),
+        rating: averageRating.toFixed(2),
       }}
-      ratingItems={calculateRatingItems(
-        reviewsOfCourse,
-        validCourseReviewLabels,
-      )}
+      ratingItems={reviewLabels.map((label) => ({
+        label: toTitleCase(label.name),
+        rating: formatPercentage(label.count && label.count / reviewCount),
+      }))}
     />
   );
 }

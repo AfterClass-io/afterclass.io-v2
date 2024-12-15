@@ -8,6 +8,7 @@ import {
   ReviewItemSkeleton,
 } from "@/modules/reviews/components/ReviewItem";
 import { AfterclassIcon } from "@/common/components/CustomIcon";
+import { Button } from "@/common/components/Button";
 
 export type ReviewItemLoaderHomeProps = {
   variant: "home";
@@ -90,14 +91,33 @@ export const ReviewItemLoader = (props: ReviewItemLoaderProps) => {
 
   return (
     <>
-      {toShow.map((review) => (
-        <ReviewItem
-          key={review.id}
-          variant={props.variant}
-          review={review}
-          isLocked={!session}
-        />
-      ))}
+      {toShow.length > 0 ? (
+        toShow.map((review) => (
+          <ReviewItem
+            key={review.id}
+            variant={props.variant}
+            review={review}
+            isLocked={!session}
+          />
+        ))
+      ) : (
+        <div className="w-full py-6 text-center text-xs text-text-em-mid md:text-sm">
+          <span>Oh no!</span> Looks like no one has reviewed yet.
+          <br />
+          Help us out by
+          <Button
+            as="a"
+            variant="link"
+            href="/submit"
+            className="mx-1 inline-flex h-fit pb-[1px] text-xs md:h-fit md:p-0 md:text-sm"
+            isResponsive
+            data-umami-event="no-review-cta"
+          >
+            writing one
+          </Button>
+          today ️🙈
+        </div>
+      )}
       {status === "authenticated" && hasNextPage && (
         <InView
           as="div"

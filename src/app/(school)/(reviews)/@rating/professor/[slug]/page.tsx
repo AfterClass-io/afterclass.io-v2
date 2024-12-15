@@ -1,7 +1,7 @@
 import { RatingSection } from "@/modules/reviews/components/RatingSection";
-import formatPercentage from "@/common/functions/formatPercentage";
 import { api } from "@/common/tools/trpc/server";
 import { auth } from "@/server/auth";
+import { toTitleCase, formatPercentage } from "@/common/functions";
 
 export default async function ProfessorRating({
   params,
@@ -34,21 +34,19 @@ export default async function ProfessorRating({
     );
   }
 
-  let courseCodes: string[] = [];
-  if (searchParams?.course) {
-    courseCodes = Array.isArray(searchParams.course)
+  const courseCodes = searchParams?.course
+    ? Array.isArray(searchParams.course)
       ? searchParams.course
-      : [searchParams.course];
-  }
+      : [searchParams.course]
+    : [];
 
-  const { items: reviewsOfThisProf } = await api.reviews.getByProfSlugProtected(
-    {
+  const { averageRating, reviewCount, reviewLabels } =
+    await api.reviews.getMetadataForProf({
       slug: params.slug,
-      courseCodes: courseCodes.length > 0 ? courseCodes : undefined,
-    },
-  );
+      withCourseCodes: courseCodes.length > 0 ? courseCodes : undefined,
+    });
 
-  if (reviewsOfThisProf.length === 0) {
+  if (reviewCount === 0) {
     return (
       <RatingSection
         headingRatingItem={{
@@ -60,30 +58,16 @@ export default async function ProfessorRating({
     );
   }
 
-  const averageRating =
-    reviewsOfThisProf.reduce((total, next) => total + next.rating, 0) /
-    reviewsOfThisProf.length;
-
-  const ratingItems = validProfessorReviewLabels.map((label) => {
-    const reviewsWithThisLabel = reviewsOfThisProf.filter((r) =>
-      r.reviewLabels.map((rl) => rl.name).includes(label.name),
-    );
-
-    return {
-      label: label.name.replaceAll("_", " ").toLowerCase(),
-      rating: formatPercentage(
-        reviewsWithThisLabel.length / reviewsOfThisProf.length,
-      ),
-    };
-  });
-
   return (
     <RatingSection
       headingRatingItem={{
         label: "Average Rating",
         rating: averageRating.toFixed(2),
       }}
-      ratingItems={ratingItems}
+      ratingItems={reviewLabels.map((label) => ({
+        label: toTitleCase(label.name),
+        rating: formatPercentage(label.count && label.count / reviewCount),
+      }))}
     />
   );
 }

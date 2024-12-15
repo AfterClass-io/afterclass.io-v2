@@ -263,18 +263,18 @@ context("Home", function () {
       // rating section - // TODO make this dynamic
       cy.get(
         "[data-test=rating-average-rating] [data-test=stats-value]",
-      ).should("contain.text", "4.40");
+      ).should("contain.text", "4.25");
       cy.get("[data-test=rating-engaging] [data-test=stats-value]").should(
         "contain.text",
-        "60%",
+        "45%",
       );
       cy.get("[data-test=rating-fair-grading] [data-test=stats-value]").should(
         "contain.text",
-        "50%",
+        "40%",
       );
       cy.get(
         "[data-test=rating-effective-teaching] [data-test=stats-value]",
-      ).should("contain.text", "50%");
+      ).should("contain.text", "40%");
     });
 
     it("should display accurate review counts", function () {

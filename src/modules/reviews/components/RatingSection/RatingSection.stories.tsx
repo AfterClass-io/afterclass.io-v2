@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { RatingSection } from "./RatingSection";
-import formatPercentage from "@/common/functions/formatPercentage";
+import { formatPercentage } from "@/common/functions";
 
 const headingRatingItem = { label: "Average Rating", rating: 4.85 };
 const ratingItems = [

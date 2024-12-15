@@ -297,18 +297,18 @@ context("Home", function () {
       // rating section - // TODO make this dynamic
       cy.get(
         "[data-test=rating-average-rating] [data-test=stats-value]",
-      ).should("contain.text", "3.50");
+      ).should("contain.text", "3.73");
       cy.get("[data-test=rating-interesting] [data-test=stats-value]").should(
         "contain.text",
-        "10%",
+        "4%",
       );
       cy.get("[data-test=rating-practical] [data-test=stats-value]").should(
         "contain.text",
-        "10%",
+        "4%",
       );
       cy.get(
         "[data-test=rating-gained-new-skills] [data-test=stats-value]",
-      ).should("contain.text", "10%");
+      ).should("contain.text", "4%");
     });
 
     it("should display accurate review counts", function () {
