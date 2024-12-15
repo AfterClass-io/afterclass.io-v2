@@ -1,6 +1,6 @@
 import { type Review } from "@/modules/reviews/types";
 import { type Labels } from "@prisma/client";
-import formatPercentage from "@/common/functions/formatPercentage";
+import { formatPercentage } from "@/common/functions";
 
 export default function calculateRatingItems(
   reviews: Review[],
