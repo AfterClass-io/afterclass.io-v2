@@ -492,17 +492,23 @@ export const reviewsRouter = createTRPCRouter({
         }),
     ),
 
-  getMetadataByProfSlug: publicProcedure
+  getMetadataForProf: publicProcedure
     .input(
       z.object({
         slug: z.string(),
+        withCourseCodes: z.string().array().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
+      const reviewWhereInput = {
+        reviewedProfessor: { slug: input.slug },
+        ...(input.withCourseCodes && {
+          reviewedCourse: { code: { in: input.withCourseCodes } },
+        }),
+      } satisfies Prisma.ReviewsWhereInput;
+
       const reviewsMetadataForThisProf = await ctx.db.reviews.aggregate({
-        where: {
-          reviewedProfessor: { slug: input.slug },
-        },
+        where: reviewWhereInput,
         _avg: {
           rating: true,
         },
@@ -531,9 +537,7 @@ export const reviewsRouter = createTRPCRouter({
             labelId: true,
           },
           where: {
-            review: {
-              reviewedProfessor: { slug: input.slug },
-            },
+            review: reviewWhereInput,
           },
         },
       );
@@ -556,17 +560,23 @@ export const reviewsRouter = createTRPCRouter({
       };
     }),
 
-  getMetadataByCourseCode: publicProcedure
+  getMetadataForCourse: publicProcedure
     .input(
       z.object({
         code: z.string(),
+        withProfSlugs: z.string().array().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
+      const reviewWhereInput = {
+        reviewedCourse: { code: input.code },
+        ...(input.withProfSlugs && {
+          reviewedProfessor: { slug: { in: input.withProfSlugs } },
+        }),
+      } satisfies Prisma.ReviewsWhereInput;
+
       const reviewsMetadataForThisCourse = await ctx.db.reviews.aggregate({
-        where: {
-          reviewedCourse: { code: input.code },
-        },
+        where: reviewWhereInput,
         _avg: {
           rating: true,
         },
@@ -595,9 +605,7 @@ export const reviewsRouter = createTRPCRouter({
             labelId: true,
           },
           where: {
-            review: {
-              reviewedCourse: { code: input.code },
-            },
+            review: reviewWhereInput,
           },
         });
 

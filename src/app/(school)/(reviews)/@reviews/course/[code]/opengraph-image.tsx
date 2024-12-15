@@ -4,8 +4,7 @@ import React from "react";
 import { BooksIcon } from "@/common/components/CustomIcon";
 import { OgImage } from "@/modules/opengraph/components/OgImage";
 import { api } from "@/common/tools/trpc/server";
-import { toTitleCase } from "@/common/functions";
-import formatPercentage from "@/common/functions/formatPercentage";
+import { toTitleCase, formatPercentage } from "@/common/functions";
 
 export const runtime = "nodejs";
 
@@ -24,7 +23,7 @@ export default async function Image({ params }: { params: { code: string } }) {
   if (!course) return null;
 
   const { averageRating, reviewCount, reviewLabels } =
-    await api.reviews.getMetadataByCourseCode({
+    await api.reviews.getMetadataForCourse({
       code: courseCode,
     });
 

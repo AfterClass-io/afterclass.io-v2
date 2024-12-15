@@ -4,8 +4,7 @@ import React from "react";
 import { GraduationCapIcon } from "@/common/components/CustomIcon";
 import { api } from "@/common/tools/trpc/server";
 import { OgImage } from "@/modules/opengraph/components/OgImage";
-import formatPercentage from "@/common/functions/formatPercentage";
-import { toTitleCase } from "@/common/functions";
+import { toTitleCase, formatPercentage } from "@/common/functions";
 
 export const runtime = "nodejs";
 
@@ -24,7 +23,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
   if (!prof) return null;
 
   const { averageRating, reviewCount, reviewLabels } =
-    await api.reviews.getMetadataByProfSlug({
+    await api.reviews.getMetadataForProf({
       slug,
     });
   const courseCount = await api.courses.countByProfSlug({ slug });
