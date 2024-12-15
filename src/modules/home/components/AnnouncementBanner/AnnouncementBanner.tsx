@@ -38,6 +38,7 @@ export const AnnouncementBanner = () => {
           href={env.NEXT_PUBLIC_OLD_SITE_URL}
           external
           isResponsive
+          data-umami-event="announcement-banner-revert-old-ui"
         >
           Bring me back
         </Button>
@@ -47,6 +48,7 @@ export const AnnouncementBanner = () => {
           iconLeft={<XCloseIcon className="h-4 w-4" />}
           aria-label="close"
           onClick={handleClose}
+          data-umami-event="announcement-banner-revert-old-ui-close"
         />
       </div>
     )
