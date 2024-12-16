@@ -60,9 +60,8 @@ export const authConfig = {
         });
 
         if (
-          user &&
-          user.deprecatedPasswordDigest &&
-          bcrypt.compareSync(c.data.password, user.deprecatedPasswordDigest)
+          user?.deprecatedPasswordDigest &&
+          bcrypt.compareSync(c.data.password, user?.deprecatedPasswordDigest)
         ) {
           Sentry.addBreadcrumb({
             category: "auth",
