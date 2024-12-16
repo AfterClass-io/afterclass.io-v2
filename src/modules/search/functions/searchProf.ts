@@ -19,7 +19,7 @@ export type SearchProfResult = QueryProfResult & {
 // TODO: replace with better search algorithm
 export async function searchProf(
   query: string,
-  limit: number = 5,
+  limit = 5,
 ): Promise<SearchProfResult[]> {
   // safety of query is ensured by the Prisma client using prepared statements
   // https://github.com/prisma/prisma-client-js/issues/727#issuecomment-650096790
