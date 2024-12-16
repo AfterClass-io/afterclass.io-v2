@@ -76,11 +76,12 @@ export const LoginForm = () => {
 
   useEffect(() => {
     const e = searchParams.get("error");
-    e &&
+    if (e) {
       setError("password", {
         type: "custom",
         message: "Invalid email or password. Please try again.",
       });
+    }
   }, [searchParams, setError]);
 
   return (

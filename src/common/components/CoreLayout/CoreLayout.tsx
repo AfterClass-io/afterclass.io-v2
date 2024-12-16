@@ -3,7 +3,8 @@ import { Sidebar } from "../Sidebar";
 import { MobileHeader } from "@/common/components/MobileHeader";
 import { auth } from "@/server/auth";
 
-interface CoreLayoutProps extends PropsWithChildren {}
+// interface CoreLayoutProps extends PropsWithChildren {}
+type CoreLayoutProps = PropsWithChildren;
 
 export async function CoreLayout({ children }: CoreLayoutProps) {
   const session = await auth();

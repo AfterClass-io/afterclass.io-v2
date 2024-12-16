@@ -61,11 +61,13 @@ export const Default: Story = {
               key={index}
               {...item}
               onClick={() => {
-                selectedItems.includes(item.value)
-                  ? setSelectedItems(
-                      selectedItems.filter((v) => v !== item.value),
-                    )
-                  : setSelectedItems([...selectedItems, item.value]);
+                if (selectedItems.includes(item.value)) {
+                  setSelectedItems(
+                    selectedItems.filter((v) => v !== item.value),
+                  );
+                } else {
+                  setSelectedItems([...selectedItems, item.value]);
+                }
               }}
               selected={selectedItems.includes(item.value)}
             />
@@ -118,11 +120,13 @@ export const WithSubHeader: Story = {
               key={index}
               {...item}
               onClick={() => {
-                selectedItems.includes(item.value)
-                  ? setSelectedItems(
-                      selectedItems.filter((v) => v !== item.value),
-                    )
-                  : setSelectedItems([...selectedItems, item.value]);
+                if (selectedItems.includes(item.value)) {
+                  setSelectedItems(
+                    selectedItems.filter((v) => v !== item.value),
+                  );
+                } else {
+                  setSelectedItems([...selectedItems, item.value]);
+                }
               }}
               selected={selectedItems.includes(item.value)}
             />

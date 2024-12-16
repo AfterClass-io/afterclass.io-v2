@@ -16,6 +16,7 @@ import { SearchResultEmpty } from "../SearchResultEmpty";
 import { searchResultTheme } from "../SearchResult.theme";
 import { type UniversityAbbreviation } from "@prisma/client";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const filterOptions = z.object({
   school: z.enum(["all", "SMU", "NUS", "NTU"]),
   type: z.enum(["all", "professor", "course"]),

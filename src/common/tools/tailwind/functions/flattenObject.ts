@@ -35,7 +35,7 @@ export const flattenObject = (
         acc[subKey] = subKey.endsWith("-DEFAULT") ? color : flattened[subKey];
       });
     } else {
-      const color = convertHexToRgb ? hexToRGB(value!) : value;
+      const color = convertHexToRgb ? hexToRGB(value) : value;
       acc[fullKey] = color!;
     }
 
