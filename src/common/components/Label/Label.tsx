@@ -29,7 +29,7 @@ export const Label = ({
 }: LabelProps) => {
   const { label, wrapper, icon } = labelTheme({
     className,
-    size: size || { initial: "sm", md: "md" },
+    size: size ?? { initial: "sm", md: "md" },
   });
 
   const StyledIcon = useCallback(

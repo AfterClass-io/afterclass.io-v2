@@ -45,7 +45,7 @@ export const LoginForm = () => {
     password,
   }) => {
     if (isSubmitting) return;
-    const callbackUrl = searchParams.get("callbackUrl") || "/";
+    const callbackUrl = searchParams.get("callbackUrl") ?? "/";
     const signinResp = await signIn("credentials", {
       email,
       password,
@@ -69,7 +69,7 @@ export const LoginForm = () => {
     }
 
     umami.identify({ email });
-    router.push(signinResp.url || callbackUrl);
+    router.push(signinResp.url ?? callbackUrl);
     reset();
     router.refresh();
   };
