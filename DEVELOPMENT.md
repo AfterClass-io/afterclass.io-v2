@@ -56,17 +56,6 @@ To ensure a consistent development experience, we recommend installing the
 recommended settings and extensions for VSCode. You can find the settings in the
 [.vscode](.vscode) folder.
 
-### Running the project
-
-Start the development server
-
-```sh
-bunx dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the
-result.
-
 ### Running the database
 
 Start the database
@@ -101,12 +90,25 @@ docker-compose down -v
 See the [docker compose documentation](https://docs.docker.com/compose/) for
 more information on how to use docker compose.
 
+### Running the project
+
+Start the development server
+
+```sh
+bun run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the
+result.
+
 ### Running the Storybook
+
+[Storybook](https://github.com/storybookjs/storybook) is a frontend playground we use to test components in isolation.
 
 Start the Storybook server
 
 ```sh
-bunx storybook
+bun run storybook
 ```
 
 Open [http://localhost:6006](http://localhost:6006) with your browser to see the
