@@ -2,13 +2,13 @@
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
  * for Docker builds.
  */
-import { withSentryConfig } from "@sentry/nextjs";
 import { fileURLToPath } from "node:url";
 import createJiti from "jiti";
 const jiti = createJiti(fileURLToPath(import.meta.url));
-
 // Import env here to validate during build. Using jiti we can import .ts files :)
 jiti("./src/env");
+
+import { withSentryConfig } from "@sentry/nextjs";
 
 /** @type {import("next").NextConfig} */
 const config = withSentryConfig(
@@ -47,8 +47,7 @@ const config = withSentryConfig(
         // for multizonal deployments
         {
           source: "/statistics",
-          destination:
-            "https://stats.afterclass.io/statistics/share/AglFdHLOFGYe2qNJ/new.afterclass.io",
+          destination: "/statistics/share/AglFdHLOFGYe2qNJ/afterclass.io",
         },
         {
           source: "/statistics/:match*",
