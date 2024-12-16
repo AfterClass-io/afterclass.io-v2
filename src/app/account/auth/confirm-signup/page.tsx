@@ -5,9 +5,9 @@ import { notFound } from "next/navigation";
 export default function ConfirmSignUp({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: { confirmation_url: string | string[] | undefined };
 }) {
-  const confirmationUrl = searchParams["confirmation_url"];
+  const confirmationUrl = searchParams.confirmation_url;
   if (!confirmationUrl || typeof confirmationUrl !== "string") {
     notFound();
   }

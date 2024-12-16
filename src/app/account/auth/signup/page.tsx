@@ -8,7 +8,7 @@ import {
 export default function SignUp({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: { email: string | string[] | undefined };
 }) {
   const { success: isValidEmail, data: v1Email } =
     emailValidationSchema.safeParse(searchParams.email);
