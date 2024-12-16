@@ -45,7 +45,7 @@ export const LoginForm = () => {
     password,
   }) => {
     if (isSubmitting) return;
-    const callbackUrl = searchParams.get("callbackUrl") || "/";
+    const callbackUrl = searchParams.get("callbackUrl") ?? "/";
     const signinResp = await signIn("credentials", {
       email,
       password,
@@ -69,18 +69,19 @@ export const LoginForm = () => {
     }
 
     umami.identify({ email });
-    router.push(signinResp.url || callbackUrl);
+    router.push(signinResp.url ?? callbackUrl);
     reset();
     router.refresh();
   };
 
   useEffect(() => {
     const e = searchParams.get("error");
-    e &&
+    if (e) {
       setError("password", {
         type: "custom",
         message: "Invalid email or password. Please try again.",
       });
+    }
   }, [searchParams, setError]);
 
   return (

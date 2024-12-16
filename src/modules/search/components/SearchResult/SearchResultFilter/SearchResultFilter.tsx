@@ -11,9 +11,8 @@ export type FilterOption = {
   isDefault?: boolean;
 };
 
-export type Filter = {
-  [key: string]: FilterOption[];
-};
+export type Filter = Record<string, FilterOption[]>;
+
 export const SearchResultFilter = ({
   filters,
   onValueChange,

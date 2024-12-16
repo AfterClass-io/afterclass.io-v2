@@ -17,7 +17,7 @@ export const AuthCard = <T extends ElementType = typeof defaultElement>({
   as,
   ...rest
 }: TitleProps<T>) => {
-  const Title = as || defaultElement;
+  const Title = as ?? defaultElement;
   return (
     <div className="flex max-w-screen-sm flex-[1_0_0] flex-col items-start gap-6 rounded-2xl bg-surface-base p-5 md:p-12">
       <Title

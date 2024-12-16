@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import { type NextAuthConfig } from "next-auth";
 import bcrypt from "bcrypt";
 import { z } from "zod";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -6,7 +6,7 @@ import * as Sentry from "@sentry/nextjs";
 import { type Users } from "@prisma/client";
 
 import { env } from "@/env";
-import { signInWithEmail } from "./supabase";
+import { signInWithEmail } from "../supabase";
 import { db } from "@/server/db";
 import { identifyUser } from "@/server/posthog";
 import randomId from "@/common/functions/randomId";
@@ -14,6 +14,12 @@ import { emailValidationSchema } from "@/common/tools/zod/schemas";
 
 type SessionUser = Omit<Users, "deprecatedPasswordDigest">;
 
+/**
+ * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
+ * object and keep type safety.
+ *
+ * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
+ */
 declare module "next-auth" {
   /**
    * Returned by `auth`, `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
@@ -26,9 +32,9 @@ declare module "next-auth" {
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
  *
- * @see https://authjs.dev/reference/nextjs#nextauthconfig
+ * @see https://next-auth.js.org/configuration/options
  */
-export const { auth, handlers, signIn, signOut } = NextAuth({
+export const authConfig = {
   secret: env.NEXTAUTH_SECRET,
   debug: env.NODE_ENV === "development",
   providers: [
@@ -54,9 +60,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         });
 
         if (
-          user &&
-          user.deprecatedPasswordDigest &&
-          bcrypt.compareSync(c.data.password, user.deprecatedPasswordDigest)
+          user?.deprecatedPasswordDigest &&
+          bcrypt.compareSync(c.data.password, user?.deprecatedPasswordDigest)
         ) {
           Sentry.addBreadcrumb({
             category: "auth",
@@ -179,4 +184,4 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       Sentry.getGlobalScope().setUser(null);
     },
   },
-});
+} satisfies NextAuthConfig;

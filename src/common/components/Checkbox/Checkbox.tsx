@@ -23,7 +23,7 @@ export const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
       label: labelContainer,
     } = checkboxTheme({
       className,
-      size: size || { initial: "sm", md: "md" },
+      size: size ?? { initial: "sm", md: "md" },
       disabled,
     });
 

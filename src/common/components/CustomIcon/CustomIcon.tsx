@@ -17,10 +17,10 @@ export const CustomIcon = ({
   return (
     <svg
       aria-labelledby={name}
-      height={size || height}
+      height={size ?? height}
       role="presentation"
       viewBox={viewBox}
-      width={size || width}
+      width={size ?? width}
       xmlns="http://www.w3.org/2000/svg"
       {...rest}
     >

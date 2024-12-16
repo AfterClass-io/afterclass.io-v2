@@ -106,13 +106,14 @@ export const reviewsRouter = createTRPCRouter({
               reviewerId: user.id,
             },
           });
-          r.labels &&
-            (await ctx.db.reviewLabels.createMany({
+          if (r.labels) {
+            await ctx.db.reviewLabels.createMany({
               data: r.labels.map((label) => ({
                 reviewId: review.id,
                 labelId: parseInt(label),
               })),
-            }));
+            });
+          }
         }
         return;
       } catch (error) {
