@@ -5,14 +5,17 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button } from "@/common/components/Button";
-import { EnvelopeIcon } from "@/common/components/CustomIcon/EnvelopeIcon";
-import { LockIcon } from "@/common/components/CustomIcon/LockIcon";
 import { Input } from "@/common/components/Input";
-import { EyeSlashIcon } from "@/common/components/CustomIcon/EyeSlashIcon";
-import { EyeIcon } from "@/common/components/CustomIcon/EyeIcon";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Form } from "@/common/components/Form";
+import {
+  LockIcon,
+  EyeIcon,
+  EyeSlashIcon,
+  EnvelopeIcon,
+} from "@/common/components/CustomIcon";
 import { emailValidationSchema } from "@/common/tools/zod/schemas";
 import useUmami from "@/common/hooks/useUmami";
 
@@ -30,13 +33,22 @@ export const LoginForm = () => {
   const router = useRouter();
   const umami = useUmami();
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setError,
-    formState: { errors, isSubmitting },
-  } = useForm<LoginFormInputs>({
+  useEffect(() => {
+    console.log(window.location.hash);
+    if (!window.location.hash.startsWith("#")) return;
+
+    const params = new URLSearchParams(window.location.hash.substring(1));
+    const supabaseErrorDescription = params.get("error_description");
+    if (!supabaseErrorDescription) return;
+
+    // TODO: use a better way to display error messages
+    form.setError("password", {
+      type: "custom",
+      message: supabaseErrorDescription,
+    });
+  }, [searchParams]);
+
+  const form = useForm<LoginFormInputs>({
     resolver: zodResolver(loginFormInputsSchema),
     mode: "onTouched",
   });
@@ -44,7 +56,6 @@ export const LoginForm = () => {
     email,
     password,
   }) => {
-    if (isSubmitting) return;
     const callbackUrl = searchParams.get("callbackUrl") ?? "/";
     const signinResp = await signIn("credentials", {
       email,
@@ -58,10 +69,8 @@ export const LoginForm = () => {
       return;
     }
 
-    console.log("signinResp", signinResp);
-
     if (signinResp.error) {
-      setError("password", {
+      form.setError("password", {
         type: "custom",
         message: "Invalid email or password. Please try again.",
       });
@@ -70,90 +79,107 @@ export const LoginForm = () => {
 
     umami.identify({ email });
     router.push(signinResp.url ?? callbackUrl);
-    reset();
     router.refresh();
   };
 
-  useEffect(() => {
-    const e = searchParams.get("error");
-    if (e) {
-      setError("password", {
-        type: "custom",
-        message: "Invalid email or password. Please try again.",
-      });
-    }
-  }, [searchParams, setError]);
-
   return (
-    <form
-      className="flex w-full flex-col gap-4 md:gap-6"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <Input
-        {...register("email")}
-        label="School Email Address"
-        contentLeft={<EnvelopeIcon size={24} />}
-        placeholder="john.doe.2023@smu.edu.sg"
-        isError={!!errors.email}
-        helperText={errors.email?.message}
-        autoComplete="on"
-        data-test="email"
-        fieldProps={{ helperTextDataTestId: "email-helper-text" }}
-      />
-      <Input
-        {...register("password")}
-        label="Password"
-        labelRight={
+    <Form {...form}>
+      <form
+        className="flex w-full flex-col gap-4 md:gap-6"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
+        <Form.Field
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <Form.Item>
+              <Form.Label>School Email Address</Form.Label>
+              <Form.Control>
+                <Input
+                  {...field}
+                  disabled={form.formState.isSubmitting}
+                  contentLeft={<EnvelopeIcon size={24} />}
+                  placeholder="john.doe.2023@smu.edu.sg"
+                  autoComplete="on"
+                  data-test="email"
+                />
+              </Form.Control>
+              <Form.Message data-test="email-helper-text" />
+            </Form.Item>
+          )}
+        />
+        <Form.Field
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <Form.Item>
+              <Form.Label className="flex items-center justify-between">
+                <span>Password</span>
+                <Button
+                  variant="link"
+                  as="a"
+                  href="/account/auth/forgot"
+                  isResponsive
+                  className="md:text-sm"
+                  data-test="forget"
+                >
+                  Forgot password?
+                </Button>
+              </Form.Label>
+              <Form.Control>
+                <Input
+                  {...field}
+                  disabled={form.formState.isSubmitting}
+                  contentLeft={<LockIcon size={24} />}
+                  contentRight={
+                    <button
+                      type="button"
+                      onClick={() => setIsPwdVisible(!isPwdVisible)}
+                    >
+                      {isPwdVisible ? (
+                        <EyeSlashIcon size={24} />
+                      ) : (
+                        <EyeIcon size={24} />
+                      )}
+                    </button>
+                  }
+                  placeholder="Enter password"
+                  type={isPwdVisible ? "text" : "password"}
+                  autoComplete="on"
+                  data-test="password"
+                />
+              </Form.Control>
+              <Form.Message data-test="password-helper-text" />
+            </Form.Item>
+          )}
+        />
+        <div className="flex w-full flex-col items-start gap-2 self-stretch pt-3">
           <Button
-            variant="link"
-            as="a"
-            href="/account/auth/forgot"
+            fullWidth
+            type="submit"
+            disabled={form.formState.isSubmitting}
             isResponsive
-            className="md:text-sm"
-            data-test="forget"
+            data-test="submit"
           >
-            Forgot password?
+            {form.formState.isSubmitting ? "Signing in..." : "Login"}
           </Button>
-        }
-        contentLeft={<LockIcon size={24} />}
-        contentRight={
-          <button type="button" onClick={() => setIsPwdVisible(!isPwdVisible)}>
-            {isPwdVisible ? <EyeSlashIcon size={24} /> : <EyeIcon size={24} />}
-          </button>
-        }
-        placeholder="Enter password"
-        type={isPwdVisible ? "text" : "password"}
-        isError={!!errors.password}
-        helperText={errors.password?.message}
-        autoComplete="on"
-        data-test="password"
-        fieldProps={{ helperTextDataTestId: "password-helper-text" }}
-      />
-      <div className="flex w-full flex-col items-start gap-2 self-stretch pt-3">
-        <Button
-          fullWidth
-          type="submit"
-          disabled={isSubmitting}
-          isResponsive
-          data-test="submit"
-        >
-          {isSubmitting ? "Signing in..." : "Login"}
-        </Button>
-        <div className="flex items-center gap-1 self-stretch text-xs md:text-base">
-          <span className="text-center font-semibold text-text-em-mid">
-            {"Don't have an account?"}
-          </span>
-          <Button
-            variant="link"
-            as="a"
-            href="/account/auth/signup"
-            isResponsive
-            data-test="register"
-          >
-            Create an account
-          </Button>
+          <div className="flex items-center gap-1 self-stretch text-xs md:text-base">
+            <span className="text-center font-semibold text-text-em-mid">
+              {"Don't have an account?"}
+            </span>
+            <Button
+              type="button"
+              variant="link"
+              as="a"
+              href="/account/auth/signup"
+              isResponsive
+              data-test="register"
+            >
+              Create an account
+            </Button>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </Form>
   );
 };
