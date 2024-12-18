@@ -33,7 +33,14 @@ const courseReviewFormSchema = z.object({
     .min(1, "Please select your rating for this course")
     .max(5, "Rating must be between 1 and 5"),
   labels: z.string().array().optional(),
-  body: z.string().min(200, "Help other students by writing a longer review. "),
+  body: z.string().superRefine((val, ctx) => {
+    if (val.length < 200) {
+      ctx.addIssue({
+        code: "custom",
+        message: `Help other students by writing a longer review. ${200 - val.length} more characters to go.`,
+      });
+    }
+  }),
   tips: z.string(),
 });
 
@@ -44,7 +51,14 @@ const professorReviewFormSchema = z.object({
     .min(1, "Please select your rating for this professor")
     .max(5, "Rating must be between 1 and 5"),
   labels: z.string().array().optional(),
-  body: z.string().min(200, "Help other students by writing a longer review. "),
+  body: z.string().superRefine((val, ctx) => {
+    if (val.length < 200) {
+      ctx.addIssue({
+        code: "custom",
+        message: `Help other students by writing a longer review. ${200 - val.length} more characters to go.`,
+      });
+    }
+  }),
   tips: z.string(),
 });
 
