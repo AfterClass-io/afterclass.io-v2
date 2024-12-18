@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { TagGroup } from "./TagGroup";
-import { Field } from "@/common/components/Field";
+import { Form } from "@/common/components/Form";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -60,18 +60,27 @@ export const AsFormInput: Story = {
     },
   },
   render: (args) => {
-    const { register, watch } = useForm<FormInputsSchema>({
+    const form = useForm<FormInputsSchema>({
       resolver: zodResolver(formSchema),
     });
     return (
       <div>
         <form>
-          <Field label="Tags *" isError={false}>
-            <TagGroup {...args} {...register("tags")} />
-          </Field>
+          <Form.Field
+            control={form.control}
+            name="tags"
+            render={({ field }) => (
+              <Form.Item>
+                <Form.Label>Tags *</Form.Label>
+                <Form.Control>
+                  <TagGroup {...args} {...field} />
+                </Form.Control>
+              </Form.Item>
+            )}
+          />
         </form>
         <hr className="my-4" />
-        <pre>{JSON.stringify(watch())}</pre>
+        <pre>{JSON.stringify(form.watch())}</pre>
       </div>
     );
   },

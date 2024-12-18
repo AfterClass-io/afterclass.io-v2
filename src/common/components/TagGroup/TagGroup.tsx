@@ -1,38 +1,49 @@
-import { Fragment, forwardRef, type ComponentPropsWithoutRef } from "react";
+import { forwardRef, type ComponentPropsWithoutRef } from "react";
+import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
+import type { FieldValues, ControllerRenderProps } from "react-hook-form";
 
 import { Tag } from "@/common/components/Tag";
 import { tagGroupTheme } from "./TagGroup.theme";
 
-const randomHash = (Math.random() + 1).toString(36).substring(7);
-
-export type TagGroupProps = ComponentPropsWithoutRef<"input"> & {
-  items: { label: string; value: string }[];
+type OptionalControllerProps = {
+  [K in keyof ControllerRenderProps<
+    FieldValues,
+    string
+  >]?: ControllerRenderProps<FieldValues, string>[K];
 };
 
-export const TagGroup = forwardRef<HTMLInputElement, TagGroupProps>(
-  ({ items, ...props }, ref) => {
+export type TagGroupProps = ComponentPropsWithoutRef<"button"> &
+  OptionalControllerProps & {
+    items: { label: string; value: string }[];
+  };
+
+export const TagGroup = forwardRef<HTMLButtonElement, TagGroupProps>(
+  ({ items, value: propValue, ...props }, ref) => {
+    const fieldValue = propValue as string[];
     const { wrapper, input, tag } = tagGroupTheme();
     return (
       <div className={wrapper()}>
-        {items.map(({ label, value }, i) => {
-          const key = `${randomHash}_tag-${i}`;
-          return (
-            <Fragment key={key}>
-              <label>
-                <input
-                  className={input()}
-                  type="checkbox"
-                  value={value}
-                  ref={ref}
-                  {...props}
-                />
-                <Tag clickable={true} className={tag()}>
-                  {label}
-                </Tag>
-              </label>
-            </Fragment>
-          );
-        })}
+        {items.map(({ label, value }, i) => (
+          <label key={i}>
+            <CheckboxPrimitive.Root
+              className={input()}
+              value={value}
+              checked={fieldValue?.includes(value)}
+              onCheckedChange={(checked) => {
+                if (checked) {
+                  props.onChange?.([...fieldValue, value]);
+                } else {
+                  props.onChange?.(fieldValue.filter((v) => v !== value));
+                }
+              }}
+              {...props}
+              ref={ref}
+            />
+            <Tag clickable={true} className={tag()}>
+              {label}
+            </Tag>
+          </label>
+        ))}
       </div>
     );
   },
