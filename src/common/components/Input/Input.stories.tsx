@@ -11,12 +11,9 @@ const meta = {
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {},
   args: {
-    label: "default",
-    helperText: "helper text",
     contentLeft: <StarLineAltIcon />,
     contentRight: <StarLineAltIcon />,
     placeholder: "placeholder",
-    isError: false,
   },
 } satisfies Meta<typeof Input>;
 
@@ -25,18 +22,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: "default",
-    helperText: "helper text",
     contentLeft: <StarLineAltIcon />,
     contentRight: <StarLineAltIcon />,
     placeholder: "placeholder",
-  },
-};
-export const DefaultWithError: Story = {
-  ...Default,
-  args: {
-    ...Default.args,
-    helperText: "error helper text",
-    isError: true,
   },
 };

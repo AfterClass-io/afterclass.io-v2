@@ -1,66 +1,21 @@
-import {
-  type ReactNode,
-  type ComponentPropsWithoutRef,
-  useCallback,
-  Children,
-  cloneElement,
-  type ReactElement,
-  isValidElement,
-  type HTMLProps,
-} from "react";
+"use client";
+import * as React from "react";
+import * as LabelPrimitive from "@radix-ui/react-label";
 import { type LabelVariants, labelTheme } from "./Label.theme";
 
-export type LabelProps = ComponentPropsWithoutRef<"div"> &
-  LabelVariants & {
-    text: string;
-    isError?: boolean;
-    leftContent?: ReactNode;
-    wrapperProps?: ComponentPropsWithoutRef<"div">;
-  };
+export type LabelProps = React.ComponentPropsWithoutRef<
+  typeof LabelPrimitive.Root
+> &
+  LabelVariants;
 
-export const Label = ({
-  className,
-  size,
-  isError = false,
-  text,
-  leftContent,
-  wrapperProps,
-  ...props
-}: LabelProps) => {
-  const { label, wrapper, icon } = labelTheme({
-    className,
-    size: size ?? { initial: "sm", md: "md" },
-  });
-
-  const StyledIcon = useCallback(
-    () =>
-      Children.map(leftContent, (child) => {
-        if (isValidElement(child)) {
-          // Casting type as HTMLDiv to prevent typing error
-          const originalClassName = (child.props as HTMLProps<HTMLDivElement>)
-            ?.className;
-          return cloneElement(child as ReactElement, {
-            className: icon({
-              className: originalClassName, // overriding icon classNames
-            }),
-          });
-        }
-      }),
-    [leftContent, icon],
-  );
-
-  return (
-    <div
-      {...wrapperProps}
-      className={wrapper({
-        className: wrapperProps?.className,
-        error: isError,
-      })}
-    >
-      <StyledIcon />
-      <div {...props} className={label({ className })}>
-        {text}
-      </div>
-    </div>
-  );
-};
+export const Label = React.forwardRef<
+  React.ElementRef<typeof LabelPrimitive.Root>,
+  LabelProps
+>(({ className, ...props }, ref) => (
+  <LabelPrimitive.Root
+    ref={ref}
+    className={labelTheme({ className })}
+    {...props}
+  />
+));
+Label.displayName = LabelPrimitive.Root.displayName;
