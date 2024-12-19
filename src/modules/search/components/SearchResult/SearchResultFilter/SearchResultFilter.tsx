@@ -1,9 +1,9 @@
 "use client";
 
-import { Field } from "@/common/components/Field";
 import { ToggleGroup } from "@/common/components/ToggleGroup";
 import { toTitleCase } from "@/common/functions/toTitleCase";
 import { searchResultTheme } from "../SearchResult.theme";
+import { Label } from "@/common/components/Label";
 
 export type FilterOption = {
   label: string;
@@ -20,13 +20,20 @@ export const SearchResultFilter = ({
   filters: Filter;
   onValueChange: (key: string, value: FilterOption["value"]) => void;
 }) => {
-  const { filter, filterField, filterToggleGroup } = searchResultTheme({
+  const {
+    filter: filterClasses,
+    filterField,
+    filterToggleGroup,
+  } = searchResultTheme({
     size: { initial: "sm", md: "md" },
   });
   return (
-    <div className={filter()}>
+    <div className={filterClasses()}>
       {Object.entries(filters).map(([filterFor, filterOptions], i) => (
-        <Field key={i} label={toTitleCase(filterFor)} className={filterField()}>
+        <div key={i} className="flex flex-col gap-4">
+          <Label key={i} className={filterField()}>
+            {toTitleCase(filterFor)}
+          </Label>
           <ToggleGroup
             type="single"
             defaultValue={filterOptions.find((item) => item.isDefault)?.value}
@@ -43,7 +50,7 @@ export const SearchResultFilter = ({
               </ToggleGroup.Item>
             ))}
           </ToggleGroup>
-        </Field>
+        </div>
       ))}
     </div>
   );

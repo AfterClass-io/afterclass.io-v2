@@ -3,7 +3,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Field } from "@/common/components/Field";
+import { Form } from "@/common/components/Form";
 import { Select } from "./Select";
 import { ChevronDownIcon } from "@/common/components/CustomIcon";
 
@@ -51,35 +51,46 @@ type FormInputsSchema = z.infer<typeof formSchema>;
 
 export const AsFormInput: Story = {
   render: () => {
-    const { setValue, watch } = useForm<FormInputsSchema>({
+    const form = useForm<FormInputsSchema>({
       resolver: zodResolver(formSchema),
     });
     return (
       <div>
-        <form>
-          <Field label="Fruit *" isError={false}>
-            <Select onValueChange={(v) => setValue("fruit", v)}>
-              <Select.Trigger className="w-[180px]">
-                <Select.Value placeholder="Select a fruit" />
-                <Select.Icon asChild>
-                  <ChevronDownIcon className="h-4 w-4 opacity-50" />
-                </Select.Icon>
-              </Select.Trigger>
-              <Select.Content>
-                <Select.Group>
-                  <Select.Label>Fruits</Select.Label>
-                  <Select.Item value="apple">Apple</Select.Item>
-                  <Select.Item value="banana">Banana</Select.Item>
-                  <Select.Item value="blueberry">Blueberry</Select.Item>
-                  <Select.Item value="grapes">Grapes</Select.Item>
-                  <Select.Item value="pineapple">Pineapple</Select.Item>
-                </Select.Group>
-              </Select.Content>
-            </Select>
-          </Field>
-        </form>
+        <Form {...form}>
+          <form>
+            <Form.Field
+              control={form.control}
+              name="fruit"
+              render={({ field }) => (
+                <Form.Item>
+                  <Form.Label>Fruit</Form.Label>
+                  <Form.Control>
+                    <Select onValueChange={field.onChange}>
+                      <Select.Trigger className="w-[180px]">
+                        <Select.Value placeholder="Select a fruit" />
+                        <Select.Icon asChild>
+                          <ChevronDownIcon className="h-4 w-4 opacity-50" />
+                        </Select.Icon>
+                      </Select.Trigger>
+                      <Select.Content>
+                        <Select.Group>
+                          <Select.Label>Fruits</Select.Label>
+                          <Select.Item value="apple">Apple</Select.Item>
+                          <Select.Item value="banana">Banana</Select.Item>
+                          <Select.Item value="blueberry">Blueberry</Select.Item>
+                          <Select.Item value="grapes">Grapes</Select.Item>
+                          <Select.Item value="pineapple">Pineapple</Select.Item>
+                        </Select.Group>
+                      </Select.Content>
+                    </Select>
+                  </Form.Control>
+                </Form.Item>
+              )}
+            />
+          </form>
+        </Form>
         <hr className="my-4" />
-        <pre>{JSON.stringify(watch())}</pre>
+        <pre>{JSON.stringify(form.watch())}</pre>
       </div>
     );
   },

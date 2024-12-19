@@ -19,6 +19,7 @@ export const inputTheme = tv(
         "outline-none",
         "placeholder:text-text-em-low",
         "flex-1",
+        "disabled:cursor-not-allowed",
       ],
     },
     variants: {

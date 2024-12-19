@@ -13,6 +13,7 @@ import { env } from "@/env";
 import { CSPostHogProvider } from "@/common/providers/analytics/providers";
 import { EdgeConfigProvider } from "@/common/providers/EdgeConfig";
 import { UmamiProvider } from "@/common/providers/Umami";
+import JotaiProvider from "@/common/providers/JotaiProvider";
 
 const PostHogPageView = dynamic(
   () => import("@/common/providers/analytics/PostHogPageView"),
@@ -73,17 +74,19 @@ export default function RootLayout({
       <body>
         <CSPostHogProvider>
           <PostHogPageView />
-          <ThemeProvider>
-            <AuthProvider>
-              <TRPCReactProvider>
-                <TooltipProvider>
-                  <EdgeConfigProvider>
-                    <CoreLayout>{children}</CoreLayout>
-                  </EdgeConfigProvider>
-                </TooltipProvider>
-              </TRPCReactProvider>
-            </AuthProvider>
-          </ThemeProvider>
+          <AuthProvider>
+            <TRPCReactProvider>
+              <TooltipProvider>
+                <EdgeConfigProvider>
+                  <JotaiProvider>
+                    <ThemeProvider>
+                      <CoreLayout>{children}</CoreLayout>
+                    </ThemeProvider>
+                  </JotaiProvider>
+                </EdgeConfigProvider>
+              </TooltipProvider>
+            </TRPCReactProvider>
+          </AuthProvider>
         </CSPostHogProvider>
       </body>
     </html>

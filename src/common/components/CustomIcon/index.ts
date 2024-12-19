@@ -14,6 +14,8 @@ export * from "./DotFilledIcon";
 export * from "./DotsHorizontalIcon";
 export * from "./EditIcon";
 export * from "./EnvelopeIcon";
+export * from "./EyeIcon";
+export * from "./EyeSlashIcon";
 export * from "./GraduationCapIcon";
 export * from "./GraduationCapColoredIcon";
 export * from "./HeartIcon";

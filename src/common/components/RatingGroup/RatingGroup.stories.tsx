@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { RatingGroup } from "./RatingGroup";
-import { Field } from "@/common/components/Field";
+import { Form } from "@/common/components/Form";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -35,19 +35,30 @@ type FormInputsSchema = z.infer<typeof formSchema>;
 
 export const AsFormInput: Story = {
   render: () => {
-    const { register, watch } = useForm<FormInputsSchema>({
+    const form = useForm<FormInputsSchema>({
       resolver: zodResolver(formSchema),
     });
 
     return (
       <div>
-        <form>
-          <Field label="Rating *" isError={false}>
-            <RatingGroup {...register("rating")} />
-          </Field>
-        </form>
+        <Form {...form}>
+          <form>
+            <Form.Field
+              control={form.control}
+              name="rating"
+              render={({ field }) => (
+                <Form.Item>
+                  <Form.Label>Rating *</Form.Label>
+                  <Form.Control>
+                    <RatingGroup {...field} />
+                  </Form.Control>
+                </Form.Item>
+              )}
+            />
+          </form>
+        </Form>
         <hr className="my-4" />
-        <pre>{JSON.stringify(watch())}</pre>
+        <pre>{JSON.stringify(form.watch())}</pre>
       </div>
     );
   },

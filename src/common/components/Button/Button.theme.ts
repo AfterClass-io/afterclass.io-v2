@@ -48,6 +48,7 @@ export const buttonTheme = tv(
       "disabled:border-transparent",
       "disabled:after:bg-transparent",
       "disabled:text-text-placeholder",
+      "disabled:cursor-not-allowed",
     ],
     variants: {
       variant: {
@@ -123,9 +124,6 @@ export const buttonTheme = tv(
       },
       fullWidth: {
         true: "w-full",
-      },
-      disabled: {
-        true: ["cursor-not-allowed"],
       },
       loading: {
         true: [

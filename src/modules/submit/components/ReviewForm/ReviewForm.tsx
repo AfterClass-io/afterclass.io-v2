@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import * as Sentry from "@sentry/nextjs";
@@ -12,6 +12,7 @@ import {
   reviewFormSchema,
 } from "@/common/tools/zod/schemas";
 import { api } from "@/common/tools/trpc/react";
+import { Form } from "@/common/components/Form";
 import { ReviewableEnum } from "@/modules/submit/types";
 import { reviewFormTheme } from "./ReviewForm.theme";
 import { SubmitButtonGroup } from "../SubmitButtonGroup";
@@ -23,10 +24,18 @@ export const ReviewForm = ({ children }: { children: ReactNode }) => {
     defaultValues: {
       type: ReviewableEnum.PROFESSOR,
       course: {
+        value: "",
+        rating: 0,
         labels: [],
+        body: "",
+        tips: "",
       },
       professor: {
+        value: "",
+        rating: 0,
         labels: [],
+        body: "",
+        tips: "",
       },
     },
   });
@@ -38,19 +47,15 @@ export const ReviewForm = ({ children }: { children: ReactNode }) => {
   const reviewsMutation = api.reviews.create.useMutation();
 
   useEffect(() => {
-    setIsLoading(status === "loading");
-  }, [status]);
-
-  useEffect(() => {
-    setIsLoading(reviewsMutation.isPending);
-  }, [reviewsMutation.isPending]);
+    setIsLoading(status === "loading" || reviewsMutation.isPending);
+  }, [status, reviewsMutation.isPending]);
 
   useEffect(() => {
     if (reviewsMutation.isSuccess) {
       // TODO: create and highlight reviews after navigating to the review page
       router.push("/");
     }
-  }, [reviewsMutation.isSuccess]);
+  }, [reviewsMutation.isSuccess, router]);
 
   // uncomment this useEffect to see the form values in the console on change
   // useEffect(() => {
@@ -70,13 +75,8 @@ export const ReviewForm = ({ children }: { children: ReactNode }) => {
       level: "info",
     });
 
-    let userId;
     // TODO: populate user values from supabase when user is authenticated
-    if (!session?.user?.id) {
-      userId = "85498973-b416-45d4-a3d1-fe8d7d2d5821";
-    } else {
-      userId = session.user.id;
-    }
+    const userId = session?.user?.id ?? "85498973-b416-45d4-a3d1-fe8d7d2d5821";
 
     reviewsMutation.mutate({
       ...data,
@@ -89,7 +89,7 @@ export const ReviewForm = ({ children }: { children: ReactNode }) => {
   });
 
   return (
-    <FormProvider {...formMethods}>
+    <Form {...formMethods}>
       <form
         className={formTheme()}
         onSubmit={formMethods.handleSubmit(onSubmit)}
@@ -97,6 +97,6 @@ export const ReviewForm = ({ children }: { children: ReactNode }) => {
         {children}
         <SubmitButtonGroup isLoading={isLoading} />
       </form>
-    </FormProvider>
+    </Form>
   );
 };

@@ -19,6 +19,7 @@ import {
 import { Spinner } from "@/common/components/CustomIcon";
 
 export interface ButtonBaseProps {
+  disabled?: boolean;
   iconLeft?: ReactNode;
   iconRight?: ReactNode;
   isResponsive?: boolean;
@@ -56,7 +57,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
       isResponsive = false,
       rounded,
       fullWidth,
-      disabled,
       loading,
       asChild = false,
       ...props
@@ -123,7 +123,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
       as,
       rounded,
       fullWidth,
-      disabled,
       loading,
     }))({
       ...props,
@@ -173,7 +172,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
     }, [StyledIcon, iconLeft, iconRight, children, asChild]);
 
     const disableOnClickProp = {
-      ...((loading ?? disabled) && { onClick: undefined }),
+      ...(loading && { onClick: undefined }),
     };
 
     return (
@@ -187,7 +186,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonOrLinkProps>(
           }),
           className: props.className,
         })}
-        data-disabled={disabled ? "" : undefined}
+        data-disabled={props.disabled ? "" : undefined}
       >
         <Child />
         {loading && (
