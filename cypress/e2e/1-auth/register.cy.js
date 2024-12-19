@@ -103,17 +103,17 @@ context("Register", function () {
 
       cy.get("button[data-test=submit]").should("have.text", "Sign up");
 
-      cy.get("div[data-test=email-helper-text]").should(
+      cy.get("p[data-test=email-helper-text]").should(
         "have.text",
         "Email is required",
       );
 
-      cy.get("div[data-test=password-helper-text]").should(
+      cy.get("p[data-test=password-helper-text]").should(
         "have.text",
         "Passwords must be at least 8 characters long",
       );
 
-      cy.get("div[data-test=confirm-password-helper-text]").should(
+      cy.get("p[data-test=confirm-password-helper-text]").should(
         "have.text",
         "Passwords must be at least 8 characters long",
       );
@@ -127,7 +127,7 @@ context("Register", function () {
 
       cy.get("button[data-test=submit]").should("have.text", "Sign up");
 
-      cy.get("div[data-test=email-helper-text]").should(
+      cy.get("p[data-test=email-helper-text]").should(
         "contain.text",
         "Unsupported email domain, please choose from: ",
       );

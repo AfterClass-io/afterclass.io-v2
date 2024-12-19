@@ -60,7 +60,7 @@ context("ResetPwd", function () {
         "Reset my password",
       );
 
-      cy.get("div[data-test=email-helper-text]").should(
+      cy.get("p[data-test=email-helper-text]").should(
         "have.text",
         "Email is required",
       );
@@ -75,7 +75,7 @@ context("ResetPwd", function () {
         "Reset my password",
       );
 
-      cy.get("div[data-test=email-helper-text]").should(
+      cy.get("p[data-test=email-helper-text]").should(
         "contain.text",
         "Unsupported email domain, please choose from: ",
       );
