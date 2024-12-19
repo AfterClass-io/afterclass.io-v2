@@ -41,7 +41,9 @@ export interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
   as?: "button";
 }
 
-export type ButtonLinkOrAnchorProps = ButtonLinkProps | ButtonAnchorProps;
+export type ButtonLinkOrAnchorProps = (ButtonLinkProps | ButtonAnchorProps) &
+  ButtonBaseProps &
+  Omit<ButtonVariants, "hasIcon" | "iconOnly">;
 
 // Discriminated union based on "as" prop
 export type ButtonOrLinkProps = (ButtonLinkOrAnchorProps | ButtonProps) &

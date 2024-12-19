@@ -7,24 +7,20 @@ import {
 
 import {
   Button,
-  type ButtonVariants,
   type ButtonLinkOrAnchorProps,
 } from "@/common/components/Button";
 
 import { type CtaCardVariants, ctaCardTheme } from "./CtaCard.theme";
 
 export type CtaCardProps = CtaCardVariants &
-  ButtonVariants &
   ButtonLinkOrAnchorProps & {
     ctaText: string;
-    leftIcon?: ReactNode;
-    rightIcon?: ReactNode;
   };
 
 export const CtaCard = ({
   ctaText,
-  leftIcon,
-  rightIcon,
+  iconLeft,
+  iconRight,
   ...props
 }: CtaCardProps) => {
   const { button, ctaWrapper, cta, icon } = ctaCardTheme();
@@ -38,10 +34,10 @@ export const CtaCard = ({
   return (
     <Button as="a" className={button()} asChild {...props}>
       <div className={ctaWrapper()}>
-        {renderIcon(leftIcon)}
+        {renderIcon(iconLeft)}
         <span className={cta()}>{ctaText}</span>
       </div>
-      {renderIcon(rightIcon)}
+      {renderIcon(iconRight)}
     </Button>
   );
 };
