@@ -10,7 +10,9 @@ export const formTheme = tv({
   variants: {
     error: {
       true: {
-        label: ["text-text-error"],
+        label: [
+          // "text-text-error"
+        ],
       },
     },
   },
