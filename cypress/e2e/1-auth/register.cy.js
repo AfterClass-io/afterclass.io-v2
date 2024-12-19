@@ -103,16 +103,19 @@ context("Register", function () {
 
       cy.get("button[data-test=submit]").should("have.text", "Sign up");
 
-      cy.get("p[data-test=email-helper-text]").should("have.text", "Required");
+      cy.get("p[data-test=email-helper-text]").should(
+        "have.text",
+        "Email is required",
+      );
 
       cy.get("p[data-test=password-helper-text]").should(
         "have.text",
-        "Required",
+        "Passwords must be at least 8 characters long",
       );
 
       cy.get("p[data-test=confirm-password-helper-text]").should(
         "have.text",
-        "Required",
+        "Passwords must be at least 8 characters long",
       );
     });
 

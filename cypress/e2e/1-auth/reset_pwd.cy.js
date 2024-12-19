@@ -60,7 +60,10 @@ context("ResetPwd", function () {
         "Reset my password",
       );
 
-      cy.get("p[data-test=email-helper-text]").should("have.text", "Required");
+      cy.get("p[data-test=email-helper-text]").should(
+        "have.text",
+        "Email is required",
+      );
     });
 
     it("should warn user to fill in schoool email", function () {
