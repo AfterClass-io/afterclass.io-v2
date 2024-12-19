@@ -46,6 +46,14 @@ export const LoginForm = () => {
       type: "custom",
       message: supabaseErrorDescription,
     });
+
+    // why does this effect depend on searchParams?
+    // this is a quick hack to watch for changes in the url fragment as
+    // next does not provide a way to watch for changes in the url fragment.
+    // the searchParams is somehow conveniently updated when url fragment is updated,
+    // which triggers this effect
+    // see https://github.com/orgs/supabase/discussions/12939
+    // see https://github.com/vercel/next.js/discussions/49465
   }, [searchParams]);
 
   const form = useForm<LoginFormInputs>({
