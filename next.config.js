@@ -38,6 +38,11 @@ const config = withSentryConfig(
           destination: "/not-found",
           permanent: false,
         },
+        {
+          source: "/reviews",
+          destination: "/",
+          permanent: false,
+        },
       ];
     },
     // This is required to support PostHog trailing slash API requests
