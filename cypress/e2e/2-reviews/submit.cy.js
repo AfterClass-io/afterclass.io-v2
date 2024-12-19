@@ -59,11 +59,11 @@ context("Home", function () {
   });
 
   describe("Review Submission", function () {
-    before(function () {
-      if (Cypress.env("TEST_REVIEW_SUBMISSION") !== "true") {
-        this.skip();
-      }
-    });
+    // before(function () {
+    //   if (Cypress.env("TEST_REVIEW_SUBMISSION") !== "true") {
+    //     this.skip();
+    //   }
+    // });
 
     it("should be able to submit a course review", function () {
       cy.fillReviewSectionFor({
