@@ -51,6 +51,10 @@ export const LoginForm = () => {
   const form = useForm<LoginFormInputs>({
     resolver: zodResolver(loginFormInputsSchema),
     mode: "onTouched",
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
   const onSubmit: SubmitHandler<LoginFormInputs> = async ({
     email,
@@ -101,6 +105,7 @@ export const LoginForm = () => {
                   contentLeft={<EnvelopeIcon size={24} />}
                   placeholder="john.doe.2023@smu.edu.sg"
                   autoComplete="on"
+                  tabIndex={1}
                   data-test="email"
                 />
               </Form.Control>
@@ -121,6 +126,7 @@ export const LoginForm = () => {
                   href="/account/auth/forgot"
                   isResponsive
                   className="md:text-sm"
+                  tabIndex={5}
                   data-test="forget"
                 >
                   Forgot password?
@@ -135,6 +141,7 @@ export const LoginForm = () => {
                     <button
                       type="button"
                       onClick={() => setIsPwdVisible(!isPwdVisible)}
+                      tabIndex={4}
                     >
                       {isPwdVisible ? (
                         <EyeSlashIcon size={24} />
@@ -146,6 +153,7 @@ export const LoginForm = () => {
                   placeholder="Enter password"
                   type={isPwdVisible ? "text" : "password"}
                   autoComplete="on"
+                  tabIndex={2}
                   data-test="password"
                 />
               </Form.Control>
@@ -159,6 +167,7 @@ export const LoginForm = () => {
             type="submit"
             disabled={form.formState.isSubmitting}
             isResponsive
+            tabIndex={3}
             data-test="submit"
           >
             {form.formState.isSubmitting ? "Signing in..." : "Login"}
@@ -173,6 +182,7 @@ export const LoginForm = () => {
               as="a"
               href="/account/auth/signup"
               isResponsive
+              tabIndex={6}
               data-test="register"
             >
               Create an account

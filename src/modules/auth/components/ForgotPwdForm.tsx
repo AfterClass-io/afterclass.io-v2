@@ -20,6 +20,9 @@ export const ForgotPwdForm = () => {
   const form = useForm<ForgotPwdFormInputs>({
     resolver: zodResolver(forgotPwdFormInputsSchema),
     mode: "onTouched",
+    defaultValues: {
+      email: "",
+    },
   });
 
   const onSubmit: SubmitHandler<ForgotPwdFormInputs> = async ({ email }) => {
@@ -61,6 +64,7 @@ export const ForgotPwdForm = () => {
                   contentLeft={<EnvelopeIcon size={24} />}
                   placeholder="john.doe.2023@smu.edu.sg"
                   autoComplete="on"
+                  tabIndex={1}
                   data-test="email"
                 />
               </Form.Control>
@@ -73,6 +77,7 @@ export const ForgotPwdForm = () => {
             fullWidth
             type="submit"
             disabled={form.formState.isSubmitting}
+            tabIndex={2}
             data-test="submit"
           >
             {form.formState.isSubmitting
@@ -89,6 +94,7 @@ export const ForgotPwdForm = () => {
               as="a"
               href="/account/auth/signup"
               isResponsive
+              tabIndex={3}
               data-test="register"
             >
               Create an account

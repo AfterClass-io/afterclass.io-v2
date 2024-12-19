@@ -24,10 +24,18 @@ export const ReviewForm = ({ children }: { children: ReactNode }) => {
     defaultValues: {
       type: ReviewableEnum.PROFESSOR,
       course: {
+        value: "",
+        rating: 0,
         labels: [],
+        body: "",
+        tips: "",
       },
       professor: {
+        value: "",
+        rating: 0,
         labels: [],
+        body: "",
+        tips: "",
       },
     },
   });

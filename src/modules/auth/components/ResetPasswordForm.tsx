@@ -31,16 +31,17 @@ export const ResetPasswordForm = () => {
   const form = useForm<ResetPwdFormInputs>({
     resolver: zodResolver(resetPwdFormInputsSchema),
     mode: "onTouched",
+    defaultValues: {
+      password: "",
+    },
   });
   const onSubmit: SubmitHandler<ResetPwdFormInputs> = async ({ password }) => {
-    console.log("submitting");
-    if (form.formState.isSubmitting) return;
-    // const { error } = await supabase.auth.updateUser({ password });
-    // if (error) {
-    //   alert(error.message);
-    //   form.reset();
-    //   return;
-    // }
+    const { error } = await supabase.auth.updateUser({ password });
+    if (error) {
+      alert(error.message);
+      form.reset();
+      return;
+    }
     setIsSubmitSuccessful(true);
     router.push("/account/auth/login");
   };
@@ -66,6 +67,7 @@ export const ResetPasswordForm = () => {
                     <button
                       type="button"
                       onClick={() => setIsPwdVisible(!isPwdVisible)}
+                      tabIndex={3}
                     >
                       {isPwdVisible ? (
                         <EyeSlashIcon size={24} />
@@ -77,6 +79,7 @@ export const ResetPasswordForm = () => {
                   placeholder="Enter password"
                   type={isPwdVisible ? "text" : "password"}
                   autoComplete="on"
+                  tabIndex={1}
                 />
               </Form.Control>
               <Form.Message />
@@ -88,6 +91,7 @@ export const ResetPasswordForm = () => {
             fullWidth
             type="submit"
             disabled={form.formState.isSubmitting}
+            tabIndex={2}
           >
             {form.formState.isSubmitting ? "Signing in..." : "Reset Password"}
           </Button>

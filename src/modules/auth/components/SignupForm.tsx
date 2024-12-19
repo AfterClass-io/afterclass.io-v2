@@ -46,7 +46,11 @@ export const SignupForm = ({ defaultEmail }: { defaultEmail?: string }) => {
   const form = useForm<SignupFormInputs>({
     resolver: zodResolver(signupFormInputsSchema),
     mode: "onTouched",
-    defaultValues: { email: defaultEmail },
+    defaultValues: {
+      email: defaultEmail ?? "",
+      password: "",
+      confirmPassword: "",
+    },
   });
 
   const onSubmit: SubmitHandler<SignupFormInputs> = async (data) => {
@@ -85,6 +89,7 @@ export const SignupForm = ({ defaultEmail }: { defaultEmail?: string }) => {
                   contentLeft={<EnvelopeIcon size={24} />}
                   placeholder="john.doe.2023@smu.edu.sg"
                   autoComplete="on"
+                  tabIndex={1}
                   data-test="email"
                 />
               </Form.Control>
@@ -107,6 +112,7 @@ export const SignupForm = ({ defaultEmail }: { defaultEmail?: string }) => {
                     <button
                       type="button"
                       onClick={() => setIsPwdVisible(!isPwdVisible)}
+                      tabIndex={5}
                     >
                       {isPwdVisible ? (
                         <EyeSlashIcon size={24} />
@@ -118,6 +124,7 @@ export const SignupForm = ({ defaultEmail }: { defaultEmail?: string }) => {
                   placeholder="Enter password"
                   type={isPwdVisible ? "text" : "password"}
                   autoComplete="on"
+                  tabIndex={2}
                   data-test="password"
                 />
               </Form.Control>
@@ -140,6 +147,7 @@ export const SignupForm = ({ defaultEmail }: { defaultEmail?: string }) => {
                     <button
                       type="button"
                       onClick={() => setIsCfmPwdVisible(!isCfmPwdVisible)}
+                      tabIndex={6}
                     >
                       {isCfmPwdVisible ? (
                         <EyeSlashIcon size={24} />
@@ -151,6 +159,7 @@ export const SignupForm = ({ defaultEmail }: { defaultEmail?: string }) => {
                   placeholder="Confirm password"
                   type={isCfmPwdVisible ? "text" : "password"}
                   autoComplete="on"
+                  tabIndex={3}
                   data-test="confirm-password"
                 />
               </Form.Control>
@@ -164,6 +173,7 @@ export const SignupForm = ({ defaultEmail }: { defaultEmail?: string }) => {
             type="submit"
             disabled={form.formState.isSubmitting}
             isResponsive
+            tabIndex={4}
             data-test="submit"
           >
             {form.formState.isSubmitting ? "Creating an account..." : "Sign up"}
@@ -178,6 +188,7 @@ export const SignupForm = ({ defaultEmail }: { defaultEmail?: string }) => {
               as="a"
               href="/account/auth/login"
               isResponsive
+              tabIndex={7}
             >
               Login
             </Button>
