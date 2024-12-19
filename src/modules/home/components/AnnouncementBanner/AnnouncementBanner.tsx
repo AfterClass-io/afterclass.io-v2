@@ -8,7 +8,12 @@ import { Button } from "@/common/components/Button";
 import { env } from "@/env";
 import { useEdgeConfigs } from "@/common/hooks";
 
-const hasCloseRevertOldUiAtom = atomWithStorage("hasCloseRevertOldUi", false);
+const hasCloseRevertOldUiAtom = atomWithStorage(
+  "hasCloseRevertOldUi",
+  false,
+  undefined,
+  { getOnInit: true },
+);
 
 export const AnnouncementBanner = () => {
   const [isShown, setIsShown] = useState(false);

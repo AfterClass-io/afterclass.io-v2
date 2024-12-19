@@ -14,7 +14,12 @@ import { useEdgeConfigs } from "@/common/hooks";
 import { searchCmdkTheme } from "./SearchCmdk.theme";
 import { SearchCmdkModalTrigger } from "./SearchCmdkModalTrigger";
 
-const hasShownCmdkTooltipAtom = atomWithStorage("hasShownCmdkTooltip", false);
+const hasShownCmdkTooltipAtom = atomWithStorage(
+  "hasShownCmdkTooltip",
+  false,
+  undefined,
+  { getOnInit: true },
+);
 
 export const SearchCmdk = () => {
   const [open, setOpen] = useState(false);
