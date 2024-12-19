@@ -56,37 +56,39 @@ export const AsFormInput: Story = {
     });
     return (
       <div>
-        <form>
-          <Form.Field
-            control={form.control}
-            name="fruit"
-            render={({ field }) => (
-              <Form.Item>
-                <Form.Label>Fruit</Form.Label>
-                <Form.Control>
-                  <Select onValueChange={field.onChange}>
-                    <Select.Trigger className="w-[180px]">
-                      <Select.Value placeholder="Select a fruit" />
-                      <Select.Icon asChild>
-                        <ChevronDownIcon className="h-4 w-4 opacity-50" />
-                      </Select.Icon>
-                    </Select.Trigger>
-                    <Select.Content>
-                      <Select.Group>
-                        <Select.Label>Fruits</Select.Label>
-                        <Select.Item value="apple">Apple</Select.Item>
-                        <Select.Item value="banana">Banana</Select.Item>
-                        <Select.Item value="blueberry">Blueberry</Select.Item>
-                        <Select.Item value="grapes">Grapes</Select.Item>
-                        <Select.Item value="pineapple">Pineapple</Select.Item>
-                      </Select.Group>
-                    </Select.Content>
-                  </Select>
-                </Form.Control>
-              </Form.Item>
-            )}
-          />
-        </form>
+        <Form {...form}>
+          <form>
+            <Form.Field
+              control={form.control}
+              name="fruit"
+              render={({ field }) => (
+                <Form.Item>
+                  <Form.Label>Fruit</Form.Label>
+                  <Form.Control>
+                    <Select onValueChange={field.onChange}>
+                      <Select.Trigger className="w-[180px]">
+                        <Select.Value placeholder="Select a fruit" />
+                        <Select.Icon asChild>
+                          <ChevronDownIcon className="h-4 w-4 opacity-50" />
+                        </Select.Icon>
+                      </Select.Trigger>
+                      <Select.Content>
+                        <Select.Group>
+                          <Select.Label>Fruits</Select.Label>
+                          <Select.Item value="apple">Apple</Select.Item>
+                          <Select.Item value="banana">Banana</Select.Item>
+                          <Select.Item value="blueberry">Blueberry</Select.Item>
+                          <Select.Item value="grapes">Grapes</Select.Item>
+                          <Select.Item value="pineapple">Pineapple</Select.Item>
+                        </Select.Group>
+                      </Select.Content>
+                    </Select>
+                  </Form.Control>
+                </Form.Item>
+              )}
+            />
+          </form>
+        </Form>
         <hr className="my-4" />
         <pre>{JSON.stringify(form.watch())}</pre>
       </div>

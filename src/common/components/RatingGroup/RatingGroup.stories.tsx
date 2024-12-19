@@ -41,20 +41,22 @@ export const AsFormInput: Story = {
 
     return (
       <div>
-        <form>
-          <Form.Field
-            control={form.control}
-            name="rating"
-            render={({ field }) => (
-              <Form.Item>
-                <Form.Label>Rating *</Form.Label>
-                <Form.Control>
-                  <RatingGroup {...field} />
-                </Form.Control>
-              </Form.Item>
-            )}
-          />
-        </form>
+        <Form {...form}>
+          <form>
+            <Form.Field
+              control={form.control}
+              name="rating"
+              render={({ field }) => (
+                <Form.Item>
+                  <Form.Label>Rating *</Form.Label>
+                  <Form.Control>
+                    <RatingGroup {...field} />
+                  </Form.Control>
+                </Form.Item>
+              )}
+            />
+          </form>
+        </Form>
         <hr className="my-4" />
         <pre>{JSON.stringify(form.watch())}</pre>
       </div>
