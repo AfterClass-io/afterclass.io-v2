@@ -70,7 +70,7 @@ export const ReviewModal = ({
               variant="tertiary"
               iconLeft={<ShareIcon />}
               aria-label="Share"
-              isResponsive
+              size="sm"
             >
               0
             </Button>
