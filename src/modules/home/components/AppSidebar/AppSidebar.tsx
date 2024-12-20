@@ -27,6 +27,7 @@ import { Button } from "@/common/components/Button";
 import { toTitleCase } from "@/common/functions";
 import Link from "next/link";
 import { SearchCmdk } from "@/modules/search/components/SearchCmdk";
+import { usePathname } from "next/navigation";
 
 type SidebarItemType = {
   label: string;
@@ -34,7 +35,7 @@ type SidebarItemType = {
   href: string;
   exact?: boolean;
   external?: boolean;
-  showOnMobile?: boolean;
+  showMobileOnly?: boolean;
 };
 
 type SidebarCategoryType = {
@@ -63,13 +64,13 @@ const SIDEBAR_CATEGORY_ITEMS: SidebarCategoryType = {
       label: "Write a Review",
       icon: <PlusIcon size={16} />,
       href: "/submit",
-      showOnMobile: false,
+      showMobileOnly: true,
     },
     {
       label: "AfterClass OSS",
       icon: <GithubIcon size={16} />,
       href: env.NEXT_PUBLIC_AC_GITHUB_LINK,
-      showOnMobile: false,
+      showMobileOnly: true,
     },
   ],
   telegram: [
@@ -98,29 +99,51 @@ const { main: SIDEBAR_MAIN_ITEMS, ...SIDEBAR_OTHER_ITEMS } =
   SIDEBAR_CATEGORY_ITEMS;
 
 export const AppSidebar = () => {
+  const pathname = usePathname();
   return (
-    <Sidebar variant="inset">
+    <Sidebar>
       <SidebarHeader>
-        <Link href="/" className="flex items-center px-3 text-primary-default">
-          <Logo />
-        </Link>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" asChild>
+              <Link
+                href="/"
+                className="flex items-center px-3 text-primary-default"
+              >
+                <Logo />
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
 
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
+            <SearchCmdk />
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupContent>
             <SidebarMenu>
-              <SearchCmdk />
               {SIDEBAR_MAIN_ITEMS.map((item) => (
                 <SidebarMenuItem key={item.label}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={
+                      item.exact
+                        ? pathname === item.href
+                        : pathname?.startsWith(item.href) // pathname is null in storybook context
+                    }
+                  >
                     <Button
                       as="a"
                       variant="ghost"
                       href={item.href}
                       iconLeft={item.icon}
                       fullWidth
-                      className="flex items-center justify-start gap-x-3 border border-transparent px-3 py-2 text-sm font-semibold text-text-em-mid hover:bg-border-elevated hover:text-text-em-high"
+                      className="flex items-center justify-start gap-x-3 border border-transparent px-3 py-2 text-sm font-semibold text-text-em-mid after:!content-none hover:bg-border-elevated hover:text-text-em-high"
                     >
                       {item.label}
                     </Button>
@@ -131,31 +154,40 @@ export const AppSidebar = () => {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {Object.entries(SIDEBAR_OTHER_ITEMS).map(([key, items]) => (
-          <SidebarGroup key={key}>
-            <SidebarGroupLabel>{toTitleCase(key)}</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {items.map((item) => (
-                  <SidebarMenuItem key={item.label}>
-                    <SidebarMenuButton asChild>
-                      <Button
-                        as="a"
-                        variant="ghost"
-                        href={item.href}
-                        iconLeft={item.icon}
-                        fullWidth
-                        className="flex items-center justify-start gap-x-3 border border-transparent px-3 py-2 text-sm font-semibold text-text-em-mid hover:bg-border-elevated hover:text-text-em-high"
+        {Object.entries(SIDEBAR_OTHER_ITEMS).map(([key, items]) =>
+          items.every((item) => item.showMobileOnly) ? null : (
+            <SidebarGroup key={key}>
+              <SidebarGroupLabel>{toTitleCase(key)}</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {items.map((item) => (
+                    <SidebarMenuItem key={item.label}>
+                      <SidebarMenuButton
+                        asChild
+                        isActive={
+                          item.exact
+                            ? pathname === item.href
+                            : pathname?.startsWith(item.href) // pathname is null in storybook context
+                        }
                       >
-                        {item.label}
-                      </Button>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        ))}
+                        <Button
+                          as="a"
+                          variant="ghost"
+                          href={item.href}
+                          iconLeft={item.icon}
+                          fullWidth
+                          className="flex items-center justify-start gap-x-3 border border-transparent px-3 py-2 text-sm font-semibold text-text-em-mid after:!content-none hover:bg-border-elevated hover:text-text-em-high"
+                        >
+                          {item.label}
+                        </Button>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          ),
+        )}
       </SidebarContent>
 
       <SidebarFooter />
