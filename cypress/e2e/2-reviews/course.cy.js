@@ -83,7 +83,7 @@ context("Home", function () {
       ).as("getReviews");
       cy.wait("@getReviews");
 
-      cy.get("[data-test=review-scrollable]").scrollTo("bottom");
+      cy.get("[data-test=scrollable]").scrollTo("bottom");
       cy.wait(2000);
 
       cy.get("[data-test=review]").should("have.length", 10);
@@ -202,7 +202,7 @@ context("Home", function () {
     });
 
     it("should be able to load more reviews", function () {
-      cy.get("[data-test=review-scrollable]").scrollTo("bottom");
+      cy.get("[data-test=scrollable]").scrollTo("bottom");
       cy.wait(1000);
 
       cy.get("[data-test=review]").should("have.length", 20);
@@ -282,7 +282,7 @@ context("Home", function () {
             .invoke("text")
             .then((thisFilteredProfReviewCount) => {
               cy.wait(1_000);
-              cy.get("[data-test=review-scrollable]").scrollTo("bottom");
+              cy.get("[data-test=scrollable]").scrollTo("bottom");
               cy.get("[data-test=review-professor-label]").should(
                 "have.length",
                 thisFilteredProfReviewCount,
@@ -313,8 +313,8 @@ context("Home", function () {
 
     it("should display accurate review counts", function () {
       // reviews - // TODO make this dynamic
-      cy.get("[data-test=review-scrollable]").scrollTo("bottom");
-      cy.get("[data-test=review-scrollable]").scrollTo("bottom");
+      cy.get("[data-test=scrollable]").scrollTo("bottom");
+      cy.get("[data-test=scrollable]").scrollTo("bottom");
       cy.get("[data-test=review]").should("have.length", 20);
     });
   });

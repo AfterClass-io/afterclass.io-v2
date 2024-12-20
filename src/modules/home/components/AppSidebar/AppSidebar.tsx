@@ -174,9 +174,11 @@ export const AppSidebar = () => {
                           as="a"
                           variant="ghost"
                           href={item.href}
+                          target={item.external ? "_blank" : undefined}
                           iconLeft={item.icon}
                           fullWidth
                           className="flex items-center justify-start gap-x-3 border border-transparent px-3 py-2 text-sm font-semibold text-text-em-mid after:!content-none hover:bg-border-elevated hover:text-text-em-high"
+                          data-umami-event={`sidebar-${item.label.replace(/\s/g, "-").toLowerCase()}`}
                         >
                           {item.label}
                         </Button>

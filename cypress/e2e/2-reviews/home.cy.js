@@ -49,7 +49,7 @@ context("Home", function () {
       cy.intercept("GET", "/api/trpc/reviews.getAll*").as("getReviews");
       cy.wait("@getReviews");
 
-      cy.get("[data-test=review-scrollable]").scrollTo("bottom");
+      cy.get("[data-test=scrollable]").scrollTo("bottom");
       cy.wait(2000);
 
       cy.get("[data-test=review]").should("have.length", 10);
@@ -137,7 +137,7 @@ context("Home", function () {
     });
 
     it("should be able to load more reviews", function () {
-      cy.get("[data-test=review-scrollable]").scrollTo("bottom");
+      cy.get("[data-test=scrollable]").scrollTo("bottom");
       cy.wait(1000);
 
       cy.get("[data-test=review]").should("have.length", 20);
