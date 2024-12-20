@@ -14,10 +14,8 @@ const AnnouncementBanner = dynamic(
 export default async function SchoolLayout({ children }: PropsWithChildren) {
   return (
     <>
-      <div className="sticky top-0 z-50">
-        <AnnouncementBanner />
-      </div>
-      <div className="mx-auto max-w-[1200px]">{children}</div>
+      <AnnouncementBanner />
+      <div className="mx-auto max-w-7xl">{children}</div>
     </>
   );
 }

@@ -31,30 +31,32 @@ export const AnnouncementBanner = () => {
 
   return (
     isShown && (
-      <div className="relative flex w-full items-center justify-center gap-6 bg-primary-dark p-2 text-xs md:gap-2 md:p-1 md:text-sm">
-        <span className="flex flex-col gap-1 text-text-on-primary md:flex-row">
-          <span>We have a new look!</span>
-          <span>Missed the old AfterClass?</span>
-        </span>
-        <Button
-          as="a"
-          variant="link"
-          className="inline-flex h-fit p-0 pb-[1px] font-bold text-text-on-primary underline hover:text-secondary-default md:h-fit md:p-0 md:text-sm"
-          href={env.NEXT_PUBLIC_OLD_SITE_URL}
-          external
-          isResponsive
-          data-umami-event="announcement-banner-revert-old-ui"
-        >
-          Bring me back
-        </Button>
-        <Button
-          variant="ghost"
-          className="absolute right-0 inline font-bold text-text-on-primary hover:bg-transparent hover:after:bg-transparent"
-          iconLeft={<XCloseIcon className="h-4 w-4" />}
-          aria-label="close"
-          onClick={handleClose}
-          data-umami-event="announcement-banner-revert-old-ui-close"
-        />
+      <div className="sticky top-0 z-50">
+        <div className="relative flex w-full items-center justify-center gap-6 bg-primary-dark p-2 text-xs md:gap-2 md:p-1 md:text-sm">
+          <span className="flex flex-col gap-1 text-text-on-primary md:flex-row">
+            <span>We have a new look!</span>
+            <span>Missed the old AfterClass?</span>
+          </span>
+          <Button
+            as="a"
+            variant="link"
+            className="inline-flex h-fit p-0 pb-[1px] font-bold text-text-on-primary underline hover:text-secondary-default md:h-fit md:p-0 md:text-sm"
+            href={env.NEXT_PUBLIC_OLD_SITE_URL}
+            external
+            isResponsive
+            data-umami-event="announcement-banner-revert-old-ui"
+          >
+            Bring me back
+          </Button>
+          <Button
+            variant="ghost"
+            className="absolute right-0 inline font-bold text-text-on-primary hover:bg-transparent hover:after:bg-transparent"
+            iconLeft={<XCloseIcon className="h-4 w-4" />}
+            aria-label="close"
+            onClick={handleClose}
+            data-umami-event="announcement-banner-revert-old-ui-close"
+          />
+        </div>
       </div>
     )
   );
