@@ -31,7 +31,7 @@ export const AnnouncementBanner = () => {
 
   return (
     isShown && (
-      <div className="sticky top-0 z-50">
+      <div className="sticky top-0">
         <div className="relative flex w-full items-center justify-center gap-6 bg-primary-dark p-2 text-xs md:gap-2 md:p-1 md:text-sm">
           <span className="flex flex-col gap-1 text-text-on-primary md:flex-row">
             <span>We have a new look!</span>
