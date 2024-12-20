@@ -98,6 +98,9 @@ const SIDEBAR_CATEGORY_ITEMS: SidebarCategoryType = {
 const { main: SIDEBAR_MAIN_ITEMS, ...SIDEBAR_OTHER_ITEMS } =
   SIDEBAR_CATEGORY_ITEMS;
 
+const sidebarItemName = (label: string) =>
+  label.replace(/\s/g, "-").toLowerCase();
+
 export const AppSidebar = () => {
   const pathname = usePathname();
   return (
@@ -144,6 +147,7 @@ export const AppSidebar = () => {
                       iconLeft={item.icon}
                       fullWidth
                       className="flex items-center justify-start gap-x-3 border border-transparent px-3 py-2 text-sm font-semibold text-text-em-mid after:!content-none hover:bg-border-elevated hover:text-text-em-high"
+                      data-test={`sidebar-${sidebarItemName(item.label)}`}
                     >
                       {item.label}
                     </Button>
@@ -178,7 +182,8 @@ export const AppSidebar = () => {
                           iconLeft={item.icon}
                           fullWidth
                           className="flex items-center justify-start gap-x-3 border border-transparent px-3 py-2 text-sm font-semibold text-text-em-mid after:!content-none hover:bg-border-elevated hover:text-text-em-high"
-                          data-umami-event={`sidebar-${item.label.replace(/\s/g, "-").toLowerCase()}`}
+                          data-umami-event={`sidebar-${sidebarItemName(item.label)}`}
+                          data-test={`sidebar-${sidebarItemName(item.label)}`}
                         >
                           {item.label}
                         </Button>
