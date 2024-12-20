@@ -23,7 +23,7 @@ export default function ReviewLayout({
       {rating}
       {information}
       {filter}
-      <div className="relative flex w-fit gap-10">
+      <div className="relative flex w-full justify-center gap-10">
         {reviews}
         <div className="sticky top-0 hidden h-fit max-w-min flex-col items-start gap-6 text-nowrap lg:flex">
           <CtaCard

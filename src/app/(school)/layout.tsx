@@ -15,7 +15,7 @@ export default async function SchoolLayout({ children }: PropsWithChildren) {
   return (
     <>
       <AnnouncementBanner />
-      <div className="mx-auto max-w-7xl">{children}</div>
+      <div className="mx-auto max-w-screen-lg">{children}</div>
     </>
   );
 }
