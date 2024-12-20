@@ -93,7 +93,7 @@ export const SearchCmdk = () => {
             className={contentInput()}
             type="text"
             contentLeft={<SearchIcon className={searchIcon()} />}
-            wrapperProps={{ className: "border-0 h-full" }}
+            wrapperProps={{ className: "border-0 h-full w-full" }}
             onChange={(e) => setSearchTerm(e.target.value)}
             data-test="search-cmdk-input"
           />
