@@ -33,6 +33,15 @@ export const LoginForm = () => {
   const router = useRouter();
   const umami = useUmami();
 
+  const form = useForm<LoginFormInputs>({
+    resolver: zodResolver(loginFormInputsSchema),
+    mode: "onTouched",
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
   useEffect(() => {
     console.log(window.location.hash);
     if (!window.location.hash.startsWith("#")) return;
@@ -56,14 +65,6 @@ export const LoginForm = () => {
     // see https://github.com/vercel/next.js/discussions/49465
   }, [searchParams]);
 
-  const form = useForm<LoginFormInputs>({
-    resolver: zodResolver(loginFormInputsSchema),
-    mode: "onTouched",
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
   const onSubmit: SubmitHandler<LoginFormInputs> = async ({
     email,
     password,

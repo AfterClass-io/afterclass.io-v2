@@ -33,8 +33,10 @@ export const ForgotPwdForm = () => {
     const result = await getUserPlatform({ email });
 
     if (result === ForgotPwdFormActionReturnType.USER_NOT_FOUND) {
-      form.setError("email", { message: "Invalid user or email" });
-      form.reset();
+      form.setError("email", {
+        type: "custom",
+        message: "Invalid user or email. Please try again.",
+      });
       return;
     }
 
