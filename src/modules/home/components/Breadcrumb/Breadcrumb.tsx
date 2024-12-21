@@ -2,7 +2,10 @@
 import * as React from "react";
 import { usePathname } from "next/navigation";
 import { api } from "@/common/tools/trpc/react";
-import { Breadcrumb as BC } from "@/common/components/Breadcrumb";
+import {
+  Breadcrumb as BC,
+  type BreadcrumbRootProps,
+} from "@/common/components/Breadcrumb";
 
 type BreadcrumbElement = {
   label: string;
@@ -14,7 +17,7 @@ const defaultBreadcrumbElement: BreadcrumbElement = {
   href: "/",
 };
 
-export const Breadcrumb = () => {
+export const Breadcrumb = (props: BreadcrumbRootProps) => {
   const path = usePathname();
 
   const breadcrumbElements: BreadcrumbElement[] = [defaultBreadcrumbElement];
@@ -70,15 +73,20 @@ export const Breadcrumb = () => {
 
   if (!isSuccess) {
     return (
-      <BC>
+      <BC {...props}>
         <BC.List>
           <BC.Item>
             {defaultBreadcrumbElement.href ? (
-              <BC.Link href={defaultBreadcrumbElement.href}>
+              <BC.Link
+                href={defaultBreadcrumbElement.href}
+                className="max-w-80 truncate"
+              >
                 {defaultBreadcrumbElement.label}
               </BC.Link>
             ) : (
-              <BC.Page>{defaultBreadcrumbElement.label}</BC.Page>
+              <BC.Page className="max-w-80 truncate">
+                {defaultBreadcrumbElement.label}
+              </BC.Page>
             )}
           </BC.Item>
         </BC.List>
@@ -87,15 +95,17 @@ export const Breadcrumb = () => {
   }
 
   return (
-    <BC>
+    <BC {...props}>
       <BC.List>
         {breadcrumbElements.map((element, index) => (
           <React.Fragment key={index}>
             <BC.Item>
               {element.href ? (
-                <BC.Link href={element.href}>{element.label}</BC.Link>
+                <BC.Link href={element.href} className="max-w-80 truncate">
+                  {element.label}
+                </BC.Link>
               ) : (
-                <BC.Page>{element.label}</BC.Page>
+                <BC.Page className="max-w-80 truncate">{element.label}</BC.Page>
               )}
             </BC.Item>
             {index < breadcrumbElements.length - 1 && <BC.Separator />}

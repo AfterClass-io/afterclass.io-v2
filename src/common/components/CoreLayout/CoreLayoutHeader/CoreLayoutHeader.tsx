@@ -5,6 +5,7 @@ import { Separator } from "@/common/components/Separator";
 import { Breadcrumb } from "@/modules/home/components/Breadcrumb";
 import { Button } from "@/common/components/Button";
 import { ThemeToggle } from "@/common/components/ThemeToggle";
+import { AfterclassIcon } from "@/common/components/CustomIcon";
 
 export const CoreLayoutHeader = async () => {
   const session = await auth();
@@ -13,10 +14,11 @@ export const CoreLayoutHeader = async () => {
       <SidebarTrigger className="-ml-1" />
       <Separator
         orientation="vertical"
-        className="mr-2 h-4 bg-border-elevated"
+        className="mr-2 hidden h-4 bg-border-elevated md:block"
       />
       <div className="flex w-full items-center justify-between">
-        <Breadcrumb />
+        <Breadcrumb className="hidden md:block" />
+        <AfterclassIcon className="block text-primary-default md:hidden" />
         <div className="flex items-center gap-4">
           {session ? (
             <div className="flex items-center gap-2">

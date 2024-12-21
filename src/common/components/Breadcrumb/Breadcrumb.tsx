@@ -8,12 +8,13 @@ import { BreadcrumbPage } from "./BreadcrumbPage";
 import { BreadcrumbSeparator } from "./BreadcrumbSeparator";
 import { BreadcrumbEllipsis } from "./BreadcrumbEllipsis";
 
-const BreadcrumbRoot = React.forwardRef<
-  HTMLElement,
-  React.ComponentPropsWithoutRef<"nav"> & {
-    separator?: React.ReactNode;
-  }
->(({ ...props }, ref) => <nav ref={ref} aria-label="breadcrumb" {...props} />);
+export type BreadcrumbRootProps = React.ComponentPropsWithoutRef<"nav"> & {
+  separator?: React.ReactNode;
+};
+
+const BreadcrumbRoot = React.forwardRef<HTMLElement, BreadcrumbRootProps>(
+  ({ ...props }, ref) => <nav ref={ref} aria-label="breadcrumb" {...props} />,
+);
 BreadcrumbRoot.displayName = "Breadcrumb";
 
 export const Breadcrumb = Object.assign({}, BreadcrumbRoot, {
