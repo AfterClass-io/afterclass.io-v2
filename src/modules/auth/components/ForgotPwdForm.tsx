@@ -11,8 +11,12 @@ import { Form } from "@/common/components/Form";
 import { env } from "@/env";
 import { EnvelopeIcon } from "@/common/components/CustomIcon";
 
-import { isUserExistsAndNotV1ElseRedirectToSignup } from "../functions";
-import { type ForgotPwdFormInputs, forgotPwdFormInputsSchema } from "../types";
+import { getUserPlatform } from "../functions";
+import {
+  ForgotPwdFormActionReturnType,
+  type ForgotPwdFormInputs,
+  forgotPwdFormInputsSchema,
+} from "../types";
 
 export const ForgotPwdForm = () => {
   const router = useRouter();
@@ -26,10 +30,16 @@ export const ForgotPwdForm = () => {
   });
 
   const onSubmit: SubmitHandler<ForgotPwdFormInputs> = async ({ email }) => {
-    const errMsg = await isUserExistsAndNotV1ElseRedirectToSignup({ email });
-    if (errMsg) {
-      alert(errMsg);
+    const result = await getUserPlatform({ email });
+
+    if (result === ForgotPwdFormActionReturnType.USER_NOT_FOUND) {
+      form.setError("email", { message: "Invalid user or email" });
       form.reset();
+      return;
+    }
+
+    if (result === ForgotPwdFormActionReturnType.USER_ON_V1) {
+      router.push(`/account/auth/signup?email=${email}`);
       return;
     }
 
