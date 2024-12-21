@@ -1,22 +1,22 @@
 "use server";
-import { redirect } from "next/navigation";
-
 import { db } from "@/server/db";
-import { type ForgotPwdFormInputs } from "../types";
+import {
+  ForgotPwdFormActionReturnType,
+  type ForgotPwdFormInputs,
+} from "../types";
 
-export async function isUserExistsAndNotV1ElseRedirectToSignup({
-  email,
-}: ForgotPwdFormInputs) {
+export async function getUserPlatform({ email }: ForgotPwdFormInputs) {
   const user = await db.users.findUnique({
     where: { email },
   });
 
   if (!user) {
-    return "User not found";
+    return ForgotPwdFormActionReturnType.USER_NOT_FOUND;
   }
 
   if (user.deprecatedPasswordDigest) {
-    // only v1 users have deprecatedPasswordDigest
-    redirect(`/account/auth/signup?email=${email}`);
+    return ForgotPwdFormActionReturnType.USER_ON_V1;
   }
+
+  return ForgotPwdFormActionReturnType.USER_ON_V2;
 }
