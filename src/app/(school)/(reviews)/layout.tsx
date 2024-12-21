@@ -23,15 +23,15 @@ export default function ReviewLayout({
       {rating}
       {information}
       {filter}
-      <div className="relative flex w-full gap-10">
+      <div className="relative flex w-full justify-center gap-10">
         {reviews}
-        <div className="sticky top-0 hidden h-fit w-96 flex-col items-start gap-6 text-nowrap min-[1200px]:flex">
+        <div className="sticky top-0 hidden h-fit max-w-min flex-col items-start gap-6 text-nowrap lg:flex">
           <CtaCard
             variant="secondary"
             ctaText="Write a review"
             href="/submit"
-            leftIcon={<PlusIcon />}
-            rightIcon={<EditIcon opacity={0.1} />}
+            iconLeft={<PlusIcon />}
+            iconRight={<EditIcon opacity={0.1} />}
             data-test="cta-write-review"
             data-umami-event="write-review-cta-btn"
           />
@@ -40,7 +40,7 @@ export default function ReviewLayout({
             ctaText="Contribute to AfterClass OSS"
             href={env.NEXT_PUBLIC_AC_GITHUB_LINK}
             external
-            leftIcon={<GithubIcon />}
+            iconLeft={<GithubIcon />}
             data-test="cta-contribute-oss"
             data-umami-event="contribute-oss-cta-btn"
           />

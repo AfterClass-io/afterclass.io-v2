@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import * as React from "react";
 import { usePathname } from "next/navigation";
 import { api } from "@/common/tools/trpc/react";
 import { Breadcrumb as BC } from "@/common/components/Breadcrumb";

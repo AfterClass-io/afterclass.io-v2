@@ -78,7 +78,7 @@ export const ReviewLikeButton = ({
       aria-label="Like"
       data-test="like-button"
       data-liked={isLiked}
-      isResponsive
+      size="sm"
       {...props}
     >
       {reviewVotesCountQuery.data}

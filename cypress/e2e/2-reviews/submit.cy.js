@@ -45,14 +45,14 @@ context("Home", function () {
   describe("Basic Navigations", function () {
     it("should be able to navigate to bid analytics page", function () {
       cy.intercept("GET", "/bidding*").as("navigateToBiddingPage");
-      cy.get("aside a[data-test=sidebar-bid-analytics]").click();
+      cy.get("a[data-test=sidebar-bid-analytics]").click();
       cy.wait("@navigateToBiddingPage");
       cy.url().should("eq", `${Cypress.config("baseUrl")}/bidding`);
     });
 
     it("should be able to navigate to reviews page", function () {
       cy.intercept("GET", "/bidding*").as("navigateToBiddingPage");
-      cy.get("aside a[data-test=sidebar-bid-analytics]").click();
+      cy.get("a[data-test=sidebar-bid-analytics]").click();
       cy.wait("@navigateToBiddingPage");
       cy.url().should("eq", `${Cypress.config("baseUrl")}/bidding`);
     });

@@ -1,27 +1,36 @@
 import { type PropsWithChildren } from "react";
-import { Sidebar } from "../Sidebar";
-import { MobileHeader } from "@/common/components/MobileHeader";
-import { auth } from "@/server/auth";
+import { AppSidebar } from "@/modules/home/components/AppSidebar";
+import { SidebarProvider, SidebarInset } from "@/common/components/Sidebar";
+import dynamic from "next/dynamic";
+import { CoreLayoutHeader } from "@/common/components/CoreLayout/CoreLayoutHeader";
+
+const AnnouncementBanner = dynamic(
+  () =>
+    import("@/modules/home/components/AnnouncementBanner").then(
+      (mod) => mod.AnnouncementBanner,
+    ),
+  {
+    ssr: false,
+  },
+);
 
 // interface CoreLayoutProps extends PropsWithChildren {}
 type CoreLayoutProps = PropsWithChildren;
 
 export async function CoreLayout({ children }: CoreLayoutProps) {
-  const session = await auth();
   return (
-    <div className="flex h-dvh flex-col">
-      <MobileHeader
-        className="flex-shrink-0 sm:hidden"
-        isLoggedIn={!!session}
-      />
-      <div className="flex flex-1 overflow-hidden">
-        <aside className="relative hidden shrink-0 overflow-y-auto border-r border-border-default bg-surface-base sm:block">
-          <Sidebar />
-        </aside>
-        <main className="relative flex flex-1 flex-col bg-bg-base">
+    <SidebarProvider className="h-dvh">
+      <AppSidebar />
+      <SidebarInset>
+        <CoreLayoutHeader />
+        <AnnouncementBanner />
+        <section
+          className="h-full overflow-y-scroll p-6 md:p-12"
+          data-test="scrollable"
+        >
           {children}
-        </main>
-      </div>
-    </div>
+        </section>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }

@@ -18,14 +18,14 @@ context("Home", function () {
 
     it("should be able to navigate to bid analytics page", function () {
       cy.intercept("GET", "/bidding*").as("navigateToBiddingPage");
-      cy.get("aside a[data-test=sidebar-bid-analytics]").click();
+      cy.get("a[data-test=sidebar-bid-analytics]").click();
       cy.wait("@navigateToBiddingPage");
       cy.url().should("eq", `${Cypress.config("baseUrl")}/bidding`);
     });
 
     it("should be able to navigate to reviews page", function () {
       cy.intercept("GET", "/?*").as("navigateToReviewsPage");
-      cy.get("aside a[data-test=sidebar-reviews]").click();
+      cy.get("a[data-test=sidebar-reviews]").click();
       cy.wait("@navigateToReviewsPage");
       cy.url().should("eq", `${Cypress.config("baseUrl")}/`);
     });
@@ -77,7 +77,7 @@ context("Home", function () {
       ).as("getReviews");
       cy.wait("@getReviews");
 
-      cy.get("[data-test=review-scrollable]").scrollTo("bottom");
+      cy.get("[data-test=scrollable]").scrollTo("bottom");
       cy.wait(2000);
 
       cy.get("[data-test=review]").should("have.length", 10);
@@ -189,7 +189,7 @@ context("Home", function () {
     });
 
     it("should be able to load more reviews", function () {
-      cy.get("[data-test=review-scrollable]").scrollTo("bottom");
+      cy.get("[data-test=scrollable]").scrollTo("bottom");
       cy.wait(1000);
 
       cy.get("[data-test=review]").should("have.length", 20);
@@ -248,7 +248,7 @@ context("Home", function () {
             .invoke("text")
             .then((thisFilteredCourseReviewCount) => {
               cy.wait(1_000);
-              cy.get("[data-test=review-scrollable]").scrollTo("bottom");
+              cy.get("[data-test=scrollable]").scrollTo("bottom");
               cy.get("[data-test=review-course-label]").should(
                 "have.length",
                 thisFilteredCourseReviewCount,
@@ -279,8 +279,8 @@ context("Home", function () {
 
     it("should display accurate review counts", function () {
       // reviews - // TODO make this dynamic
-      cy.get("[data-test=review-scrollable]").scrollTo("bottom");
-      cy.get("[data-test=review-scrollable]").scrollTo("bottom");
+      cy.get("[data-test=scrollable]").scrollTo("bottom");
+      cy.get("[data-test=scrollable]").scrollTo("bottom");
       cy.get("[data-test=review]").should("have.length", 20);
     });
   });

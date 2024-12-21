@@ -10,6 +10,13 @@ import { withTV } from "tailwind-variants/transformer";
 export default withTV({
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    screens: {
+      sm: "640px",
+      md: "768px",
+      lg: "1040px",
+      xl: "1270px",
+      "2xl": "1536px",
+    },
     extend: {
       zIndex: {
         elevated: "1",
