@@ -71,7 +71,7 @@ export default function RootLayout({
           domains={["afterclass.io", "www.afterclass.io", "new.afterclass.io"]}
         />
       </head>
-      <body>
+      <body className="h-dvh overflow-hidden">
         <CSPostHogProvider>
           <PostHogPageView />
           <AuthProvider>
